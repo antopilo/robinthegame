@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 var height = 23
 var width = 40
 
@@ -8,7 +8,7 @@ var min_height = 23
 var color = Color(1,0,0)
 
 func _draw():
-
+    
     draw_set_transform(Vector2(), 0, Vector2(8 , 8))
 	
     for y in range(0, height + 1):
@@ -24,3 +24,11 @@ func _draw():
         else:
             color = Color(1,0,0)
         draw_line(Vector2(x, 0), Vector2(x, height), color)
+
+
+
+
+
+
+
+

@@ -2,9 +2,13 @@ extends Control
 
 const tile_size = 16
 onready var container = get_node("Container")
-onready var viewport = container.get_node("ViewportContainer")
-onready var camera = viewport.get_node("Viewport/Camera2D")
-onready var grid = viewport.get_node("Viewport/grid")
+onready var viewportContainer = container.get_node("ViewportContainer")
+onready var viewport = viewportContainer.get_node("Viewport")
+onready var camera = viewport.get_node("Camera2D")
+onready var grid_container = viewport.get_node("grid_viewer_root/grid")
+onready var grid = viewport.get_node("grid_viewer_root/grid/grid")
+
+# Drag Camera
 var offset
 var offsetX
 var offsetY
@@ -19,6 +23,8 @@ func _ready():
 
 func _process(delta):
 	drag_camera()
+	shortcut()
+
 func drag_camera():
 	offsetX = get_node("Container").rect_position.x
 	offsetY = get_node("Container").rect_position.y
@@ -28,40 +34,89 @@ func drag_camera():
 		camDrag = true
 	if Input.is_action_just_released("mouse3") or Input.is_action_just_released("jump") or Input.is_action_just_released("fire"):
 		camDrag = false
-
+	
 	if camDrag == true:
-		cam_movement = (initialPos - get_global_mouse_position())
+		cam_movement = (initialPos - get_viewport().get_mouse_position()) * camera.zoom.x
+	#if(camera.global_position.x >= 0 and camera.global_position.y <= 0):
 	camera.global_position = camera.global_position + cam_movement 
+
 	cam_movement = Vector2()
 
+	initialPos = get_viewport().get_mouse_position()
 
-	initialPos = get_global_mouse_position()
+
+func shortcut():
+	if Input.is_action_just_pressed("zoomin"):
+		camera.zoom.x -= 0.1
+		camera.zoom.y -= 0.1
+	if Input.is_action_just_pressed("zoomout"):
+		camera.zoom.x += 0.1
+		camera.zoom.y += 0.1
+	if Input.is_action_just_pressed("ui_right"):
+		expandW()
+	if Input.is_action_just_pressed("ui_left"):
+		reduceW()
+	if Input.is_action_just_pressed("ui_down"):
+		expandH()
+	if Input.is_action_just_pressed("ui_up"):
+		reduceH()
+
 func expand(button):
 	if button.name == "xpd_right":
-		container.rect_size.x += tile_size
-		grid.width += 1
-		grid.update()
-		container.rect_position.x -= tile_size / 2
-	if button.name == "xpd_left":
-		container.rect_size.x += tile_size
-		grid.width -= 1
-		grid.update()
-		container.rect_position.x -= tile_size / 2
-	if button.name == "xpd_top":
-		container.rect_size.y += tile_size
-		container.rect_position.y -= tile_size / 2
-		grid.height -= 1
-		grid.update()
+		expandW()
+	if button.name == "xpd_left" and grid.width > 0:
+		reduceW()
+	if button.name == "xpd_top" and grid.height > 0:
+		reduceH()
 	if button.name == "xpd_bot":
-		grid.height += 1
-		grid.update()
-		container.rect_size.y += tile_size
-		container.rect_position.y -= tile_size / 2
-	if button.name == "zoom_plus":
-		viewport.stretch_shrink += 1
-		container.rect_size *= 2
-		container.rect_position /= 2
-	if button.name == "zoom_min":
-		viewport.stretch_shrink -= 1
-		container.rect_size /= 2
-		container.rect_position *= 2
+		expandH()
+
+	if button.name == "zoom_in":
+		camera.zoom.x += 0.1
+		camera.zoom.y += 0.1
+
+	if button.name == "zoom_out":
+		camera.zoom.x -= 0.1
+		camera.zoom.y -= 0.1
+
+func can_expand():
+	if grid.height > 0 and grid.width > 0:
+		return true
+	return false
+
+func expandW():
+	grid_container.rect_size.x += tile_size / 2
+	grid.width += 1
+	grid.update()
+func expandH():
+	grid_container.rect_size.y += tile_size / 2
+	grid.height += 1
+	grid.update()
+func reduceW():
+	grid.width -= 1
+	grid.update()
+	grid_container.rect_size.x -= tile_size / 2
+	#grid_container.rect_position.y -= tile_size / 2
+func reduceH():
+	grid_container.rect_size.y -= tile_size / 2
+	#container.rect_position.y += tile_size / 2
+	grid.height -= 1
+	grid.update()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
