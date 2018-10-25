@@ -2,18 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/woodTileset.png-1a0f5dac0541a477584f7a152675d4dd.stex"
+path="res://.import/woodTileset.png-586d07bdef73f5532a90d5f72ee11b4a.stex"
 
 [deps]
 
-source_file="res://Assets/TileSets/woodTileset.png"
-dest_files=[ "res://.import/woodTileset.png-1a0f5dac0541a477584f7a152675d4dd.stex" ]
+source_file="res://worlds/world1/woodTileset.png"
+dest_files=[ "res://.import/woodTileset.png-586d07bdef73f5532a90d5f72ee11b4a.stex" ]
 
 [params]
 
 compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
+compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
@@ -23,6 +24,7 @@ flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
+process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true

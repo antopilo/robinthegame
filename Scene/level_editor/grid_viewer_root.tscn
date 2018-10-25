@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Scene/level_editor/grid.gd" type="Script" id=1]
-[ext_resource path="res://Scene/level_editor/CONSOLA.TTF" type="DynamicFontData" id=2]
-[ext_resource path="res://Scene/Grid.gd" type="Script" id=3]
-[ext_resource path="res://Scene/level_editor/tiles/tileset_color.png" type="Texture" id=4]
+[ext_resource path="res://Scene/level_editor/grid_viewer_root.gd" type="Script" id=1]
+[ext_resource path="res://Scene/level_editor/grid.gd" type="Script" id=2]
+[ext_resource path="res://Scene/level_editor/CONSOLA.TTF" type="DynamicFontData" id=3]
+[ext_resource path="res://Scene/Grid.gd" type="Script" id=4]
+[ext_resource path="res://Scene/level_editor/tiles/tileset_color.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -12,13 +13,13 @@ outline_size = 0
 outline_color = Color( 1, 1, 1, 1 )
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 2 )
+font_data = ExtResource( 3 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 
 [sub_resource type="TileSet" id=2]
 
 0/name = "tileset_color.png 0"
-0/texture = ExtResource( 4 )
+0/texture = ExtResource( 5 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 8, 8 )
@@ -28,7 +29,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 0/shapes = [  ]
 0/z_index = 0
 1/name = "tileset_color.png 1"
-1/texture = ExtResource( 4 )
+1/texture = ExtResource( 5 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 8, 0, 8, 8 )
@@ -38,7 +39,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 1/shapes = [  ]
 1/z_index = 0
 2/name = "tileset_color.png 2"
-2/texture = ExtResource( 4 )
+2/texture = ExtResource( 5 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 16, 0, 8, 8 )
@@ -48,7 +49,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 2/shapes = [  ]
 2/z_index = 0
 3/name = "tileset_color.png 3"
-3/texture = ExtResource( 4 )
+3/texture = ExtResource( 5 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 24, 0, 8, 8 )
@@ -58,7 +59,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 3/shapes = [  ]
 3/z_index = 0
 4/name = "tileset_color.png 4"
-4/texture = ExtResource( 4 )
+4/texture = ExtResource( 5 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 32, 0, 8, 8 )
@@ -68,7 +69,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 4/shapes = [  ]
 4/z_index = 0
 5/name = "tileset_color.png 5"
-5/texture = ExtResource( 4 )
+5/texture = ExtResource( 5 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 40, 0, 8, 8 )
@@ -78,7 +79,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 5/shapes = [  ]
 5/z_index = 0
 6/name = "tileset_color.png 6"
-6/texture = ExtResource( 4 )
+6/texture = ExtResource( 5 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 48, 0, 8, 8 )
@@ -88,7 +89,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 6/shapes = [  ]
 6/z_index = 0
 7/name = "tileset_color.png 7"
-7/texture = ExtResource( 4 )
+7/texture = ExtResource( 5 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 56, 0, 8, 8 )
@@ -98,7 +99,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 7/shapes = [  ]
 7/z_index = 0
 8/name = "tileset_color.png 8"
-8/texture = ExtResource( 4 )
+8/texture = ExtResource( 5 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 0, 8, 8, 8 )
@@ -108,7 +109,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 8/shapes = [  ]
 8/z_index = 0
 9/name = "tileset_color.png 9"
-9/texture = ExtResource( 4 )
+9/texture = ExtResource( 5 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 8, 8, 8, 8 )
@@ -118,7 +119,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 9/shapes = [  ]
 9/z_index = 0
 10/name = "tileset_color.png 10"
-10/texture = ExtResource( 4 )
+10/texture = ExtResource( 5 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 16, 8, 8, 8 )
@@ -128,7 +129,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 10/shapes = [  ]
 10/z_index = 0
 11/name = "tileset_color.png 11"
-11/texture = ExtResource( 4 )
+11/texture = ExtResource( 5 )
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
 11/region = Rect2( 24, 8, 8, 8 )
@@ -138,7 +139,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 11/shapes = [  ]
 11/z_index = 0
 12/name = "tileset_color.png 12"
-12/texture = ExtResource( 4 )
+12/texture = ExtResource( 5 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
 12/region = Rect2( 32, 8, 8, 8 )
@@ -148,7 +149,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 12/shapes = [  ]
 12/z_index = 0
 13/name = "tileset_color.png 13"
-13/texture = ExtResource( 4 )
+13/texture = ExtResource( 5 )
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
 13/region = Rect2( 40, 8, 8, 8 )
@@ -158,7 +159,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 13/shapes = [  ]
 13/z_index = 0
 14/name = "tileset_color.png 14"
-14/texture = ExtResource( 4 )
+14/texture = ExtResource( 5 )
 14/tex_offset = Vector2( 0, 0 )
 14/modulate = Color( 1, 1, 1, 1 )
 14/region = Rect2( 48, 8, 8, 8 )
@@ -168,7 +169,7 @@ _sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
 14/shapes = [  ]
 14/z_index = 0
 15/name = "tileset_color.png 15"
-15/texture = ExtResource( 4 )
+15/texture = ExtResource( 5 )
 15/tex_offset = Vector2( 0, 0 )
 15/modulate = Color( 1, 1, 1, 1 )
 15/region = Rect2( 56, 8, 8, 8 )
@@ -183,25 +184,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 420.0
-margin_bottom = 240.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
-
-[node name="grid" type="Control" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -160.0
-margin_top = -92.0
-margin_right = 160.0
-margin_bottom = 92.0
+margin_right = 640.0
+margin_bottom = 360.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -209,6 +193,48 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
+_sections_unfolded = [ "Rect" ]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit_left = -10000000
+limit_top = -10000000
+limit_right = 10000000
+limit_bottom = 10000000
+limit_smoothed = false
+drag_margin_h_enabled = false
+drag_margin_v_enabled = false
+smoothing_enabled = false
+smoothing_speed = 5.0
+offset_v = 0.0
+offset_h = 0.0
+drag_margin_left = 0.2
+drag_margin_top = 0.2
+drag_margin_right = 0.2
+drag_margin_bottom = 0.2
+editor_draw_screen = true
+editor_draw_limits = false
+editor_draw_drag_margin = false
+_sections_unfolded = [ "Editor", "Transform" ]
+
+[node name="grid" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -320.0
+margin_top = -180.0
+margin_bottom = 4.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 2 )
 _sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="shadow" type="Panel" parent="grid"]
@@ -346,7 +372,8 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 10000.0
+margin_left = 1.0
+margin_right = 10001.0
 margin_bottom = 10000.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -354,10 +381,11 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 3 )
-_sections_unfolded = [ "Margin", "Material", "Mouse", "Pause", "Rect", "Visibility", "Z Index" ]
+script = ExtResource( 4 )
+_sections_unfolded = [ "Z Index" ]
 
 [node name="tilemaps" type="Node2D" parent="grid"]
+editor/display_folded = true
 
 [node name="solid_tiles" type="TileMap" parent="grid/tilemaps"]
 mode = 0

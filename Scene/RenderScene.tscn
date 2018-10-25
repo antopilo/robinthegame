@@ -57,7 +57,7 @@ _sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="Viewport" type="Viewport" parent="Control/game"]
 arvr = false
-size = Vector2( 320, 179 )
+size = Vector2( 320, 180 )
 own_world = true
 world = SubResource( 1 )
 transparent_bg = true

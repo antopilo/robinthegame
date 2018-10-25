@@ -2,8 +2,9 @@
 
 [ext_resource path="res://Assets/Images/Images/Snow_01.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Images/Images/metal01.png" type="Texture" id=2]
-[ext_resource path="res://Assets/TileSets/woodTileset.png" type="Texture" id=3]
+[ext_resource path="res://worlds/world1/woodTileset.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Images/tileset/grass01.png" type="Texture" id=4]
+
 
 [node name="Node2D" type="Node2D" index="0"]
 

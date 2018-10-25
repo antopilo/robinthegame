@@ -11,7 +11,7 @@ func _ready():
 	spawn()
 	tween_camera_to_area(currentLevel)
 	_physics_process(true)
-
+	load_level("res://worlds/world1/testmap.json")
 func _physics_process(delta):
 	updateRoom()
 
@@ -97,4 +97,16 @@ func _on_Tween_tween_completed(object, key):
 	player_node.can_control = true
 	player_node.collision.disabled = false
 	
+func load_level(path):
+	var file = File.new()
+	file.open(path, file.READ)
+	var text = file.get_as_text()
+	var data_parse = JSON.parse(text).result
 	
+	var height = data_parse["height"]
+	var width = data_parse["width"]
+	
+	var tilemap_layer = TileMap.new()
+	tilemap_layer.tile_set = preload("res://worlds/world1/tileset.tres")
+	for tiles in data_parse [
+	file.close()

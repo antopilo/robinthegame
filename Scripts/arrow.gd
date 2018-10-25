@@ -46,7 +46,7 @@ func _input(event):
 		move_back_to_player()
 		
 func _physics_process(delta):
-	print(fuel)
+	
 	if is_moving_back:
 		look_at(player_node.global_position)
 		return
@@ -61,7 +61,8 @@ func _physics_process(delta):
 			global_rotation = angle
 		else: 
 			mouseControl()
-	fuel -= fuel_consum
+	if is_controller and !is_frozen:
+		fuel -= fuel_consum
 	
 	apply_gravity()
 	check_collision()

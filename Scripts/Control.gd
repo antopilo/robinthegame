@@ -66,7 +66,7 @@ func _on_LineEdit_text_entered(new_text):
 
 		"borderless 0": OS.window_borderless = false
 		"borderless 1": OS.window_borderless = true
-		"ledit": get_tree().change_scene("res://Scene/level_editor_main.tscn")
+		"ledit": get_tree().change_scene("res://Scene/level_editor/level_editor_main.tscn")
 	if new_text.begins_with("say"):
 		get_node("../Dialog").show_message(new_text.right(3))
 			
