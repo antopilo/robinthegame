@@ -5,7 +5,7 @@ onready var camera_node = get_node("Player/Camera2D")
 onready var currentLevel = get_node("level1")
 onready var spawn_tween_node = get_node("Tween")
 
-var showgrid = false
+var toggle = false
 
 func _ready():
 	spawn()
@@ -73,7 +73,7 @@ func tween_camera_to_area(new_area):
 		get_node("arrow").move_back_to_player()
 
 func _draw():
-	if showgrid:
+	if toggle:
 		draw_set_transform(Vector2(), 0, Vector2(8 , 8))
 		
 		for y in range(0, 500):
