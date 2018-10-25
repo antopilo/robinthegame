@@ -27,6 +27,8 @@ var angle
 var last_direction
 var freeze_position
 
+var stretch_factor = OS.window_size.x / 320
+
 func _ready():
 	last_direction = Vector2(player_node.last_direction_x, 0)
 	weapon_node.can_shoot = false
@@ -65,7 +67,7 @@ func _physics_process(delta):
 	check_collision()
 
 func mouseControl():
-	look_at(get_global_mouse_position() / 4 + (player_node.camera_node.get_camera_screen_center() - (get_viewport_rect().size / 2)) / 1.33)
+	look_at(get_global_mouse_position() / stretch_factor + (player_node.camera_node.get_camera_screen_center() - (get_viewport_rect().size / 2)) / 1.33)
 
 func joyStickControl():
 	# Gets the joystick Vector2 and get the angle(rad) of the joystick.
