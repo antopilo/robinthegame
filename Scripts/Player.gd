@@ -63,21 +63,21 @@ func _input(event):
 
 func _physics_process(delta):
 	#Main Loop :
-	#1 - Update the Input then the direction with updateInput().
-	updateInput()
-	#2 - Update the velocity with the updated direction from updateInput().
-	updateVelocity()
-	#3 - Execute some checks to decide the state of the Player.
-	updateState()
-	#4 - Checks to see if the player can do certain actions.
-	checks()
-	#5 -Ajust the speed of the player to stay in the desired limits.
-	speedLimits()
-	#6 - move the player.
-	move_and_slide(velocity)
-	#7 - Apply GRAVITY in relation with the player_state.
-	applyGravity()
-	get_arrow()
+	updateInput() #1 - Update the Input then the direction with updateInput().
+	
+	updateVelocity() #2 - Update the velocity with the updated direction from updateInput().
+	
+	updateState() #3 - Execute some checks to decide the state of the Player.
+	
+	checks() #4 - Checks to see if the player can do certain actions.
+	
+	speedLimits() #5 -Ajust the speed of the player to stay in the desired limits.
+	
+	move_and_slide(velocity) #6 - move the player.
+	
+	applyGravity() #7 - Apply GRAVITY in relation with the player_state.
+
+	get_arrow() #8 Get the arrow
 	
 func updateInput():
 	# If inputs are enabled, update the direction of the player with the Input. 
@@ -126,7 +126,7 @@ func updateVelocity():
 	velocity.x += input_direction_x * ACCELERATION
 	# Slow down.
 	if abs(velocity.x) < 10 and input_direction_x == 0: velocity.x = 0
-	
+# States
 func updateState():
 	# Change the state of the player
 	
@@ -187,7 +187,7 @@ func enterAirState():
 		sprite_node.play("Jump")
 		
 	player_state = "Air"
-	
+# Physics
 func applyGravity():
 	# If the player is on the ground, gravity is 0.
 	if player_state == "Ground": 
@@ -280,7 +280,7 @@ func get_arrow():
 		arrow_node = get_node("../new_arrow")
 	else:
 		arrow_node = null
-
+# Signals
 func _on_DisableInput_timeout():
 	can_control = true
 	is_wall_jumping = false
