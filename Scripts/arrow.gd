@@ -43,7 +43,7 @@ func _ready():
 	weapon_node.can_shoot = false
 	player.arrow_exist = true
 	player.arrow_node = self
-	self.name = "arrow"
+	name = "arrow"
 	
 func _input(event):
 	if event.is_action_pressed("fire") and can_speed:
@@ -55,12 +55,10 @@ func _input(event):
 		move_back_to_player()
 		
 func _physics_process(delta):
-	
 	if is_moving_back:
 		look_at(player.global_position)
 		return
 	
-	#if Arrow is Controlled.
 	if is_controlled and !frozen:
 		if fuel <= 0:
 			 is_controlled = false
@@ -79,7 +77,8 @@ func _physics_process(delta):
 
 func mouseControl():
 	var mouse = get_global_mouse_position()
-	var position = mouse / stretch_factor + (player.camera_node.get_camera_screen_center() - (get_viewport_rect().size / 2)) / 1.33
+	var center = player.camera.get_camera_screen_center()
+	var position = mouse / stretch_factor + (center - (get_viewport_rect().size / 2)) / 1.33
 	look_at(position)
 
 func joyStickControl():
@@ -90,7 +89,6 @@ func joyStickControl():
 	# Checks if the joystick is inside the deadzone.
 	if abs(direction.x) < deadzone and abs(direction.y) < deadzone: 
 		angle = last_direction.angle()
-		
 	else: 
 		last_direction = direction
 	
@@ -101,18 +99,16 @@ func check_collision():
 		if collision.normal == floor_normal or collision.normal == ceilling_normal:
 			if global_rotation > deg2rad(-180) and global_rotation < deg2rad(0): 
 				global_rotation = deg2rad(-90)
-				
 			else: 
 				global_rotation = deg2rad(90)
 
 		elif collision.normal == wall_normal or collision.normal == -wall_normal:
 			if global_rotation > deg2rad(-90) and global_rotation < deg2rad(90): 
 				global_rotation = deg2rad(0)
-				
 			else: 
 				global_rotation= deg2rad(180)
-
 		freezeArrow()
+
 	elif position.x <= world_node.current_room.levelPosition.x or position.y <= world_node.current_room.levelPosition.y or position.x >= (world_node.current_room.levelPosition.x + world_node.current_room.levelSize.x) or position.y >= (world_node.current_room.levelPosition.y + world_node.current_room.levelSize.y):
 		move_back_to_player()
 	elif frozen:
@@ -146,7 +142,5 @@ func _on_Tween_tween_completed(object, key):
 	weapon_node.can_shoot = true
 	
 func apply_gravity():
-
 	if fuel <= 0:
 		position.y += gravity
-		look_at(player.position)

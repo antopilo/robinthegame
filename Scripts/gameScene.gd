@@ -30,11 +30,11 @@ func updateRoom():
 # Moves the camera to a given area
 func tween_camera_to_area(new_area):
 	var tween
+	
 	if !has_node("CameraAreaTween"):
 		tween = Tween.new()
 		tween.name = "CameraAreaTween"
 		add_child(tween)
-		
 	else:
 		tween = get_node("CameraAreaTween")
 
@@ -48,19 +48,19 @@ func tween_camera_to_area(new_area):
 	var new_limit_bottom = new_area.position.y + new_area.levelSize.y
 	var new_camera_zoom = Vector2(new_area.camera_zoom, new_area.camera_zoom)
 	
-	var camera = get_node("Player/Camera2D")
-
+	var camera = player.camera
+	var center = camera.get_camera_screen_center()
 	# Set limits to current position to make transition smooth
 	# Otherwise if left limit is really far away and we transition to the right, it barely pushes 
 	# the screen right until the last milliseconds and janks it into position 
-	camera.limit_right = camera.get_camera_screen_center().x + get_viewport().size.x / 2 * camera.zoom.x
-	camera.limit_left = camera.get_camera_screen_center().x - get_viewport().size.x / 2 * camera.zoom.x
-	camera.limit_top = camera.get_camera_screen_center().y - get_viewport().size.y / 2 * camera.zoom.y
-	camera.limit_bottom = camera.get_camera_screen_center().y + get_viewport().size.y / 2 * camera.zoom.y
+	camera.limit_right = center.x + get_viewport().size.x / 2 * camera.zoom.x
+	camera.limit_left = center.x - get_viewport().size.x / 2 * camera.zoom.x
+	camera.limit_top = center.y - get_viewport().size.y / 2 * camera.zoom.y
+	camera.limit_bottom = center.y + get_viewport().size.y / 2 * camera.zoom.y
 
 	# Tween variables
-	var time = 0.5
-	var trans = Tween.TRANS_EXPO
+	var time = 0.4
+	var trans = Tween.TRANS_LINEAR
 	var tease = Tween.EASE_IN_OUT
 
 	tween.interpolate_property(camera, "limit_left", camera.limit_left, new_limit_left , time, trans, tease)
@@ -68,7 +68,6 @@ func tween_camera_to_area(new_area):
 	tween.interpolate_property(camera, "limit_top", camera.limit_top, new_limit_top, time, trans, tease)
 	tween.interpolate_property(camera, "limit_bottom", camera.limit_bottom, new_limit_bottom, time, trans, tease)
 	tween.interpolate_property(camera, "zoom", camera.zoom, new_camera_zoom, 0.6, trans, Tween.EASE_OUT)	
-
 	tween.start()
 	
 	if player.arrow_exist == true:
@@ -98,6 +97,7 @@ func spawn():
 		spawn_tween.connect("tween_completed", self, "_on_Tween_tween_completed")
 	else:
 		spawn_tween = get_node("spawnTween")
+
 	spawn_tween.remove_all()
 	
 	# Set up the animation.
@@ -109,6 +109,7 @@ func spawn():
 	player.collision.disabled = true
 	player.can_control = false
 	player.sprite_node.play("idle")
+
 	# Start the tween!
 	spawn_tween.start()
 	tween_camera_to_area(current_room)
@@ -116,5 +117,5 @@ func spawn():
 func _on_Tween_tween_completed(object, key):
 	player.can_control = true
 	player.collision.disabled = false
-	print("can control!")
+
 	

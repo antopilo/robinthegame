@@ -4,7 +4,7 @@ extends KinematicBody2D
 onready var collision = get_node("collisionBox")
 onready var death_particle = get_node("death_particle")
 onready var sprite_node = get_node("AnimatedSprite")
-onready var camera_node = get_node("Camera2D")
+onready var camera = get_node("Camera2D")
 var arrow_node 
 
 # Constants

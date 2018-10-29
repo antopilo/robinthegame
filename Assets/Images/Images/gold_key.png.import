@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/jumpPad2.png-7693b48da7bc8df95b849f0a01cc7867.stex"
+path="res://.import/gold_key.png-863426af490248d46f1aa07ae8914c0f.stex"
 
 [deps]
 
-source_file="res://Assets/Images/Images/JumpPad/jumpPad2.png"
-dest_files=[ "res://.import/jumpPad2.png-7693b48da7bc8df95b849f0a01cc7867.stex" ]
+source_file="res://Assets/Images/Images/gold_key.png"
+dest_files=[ "res://.import/gold_key.png-863426af490248d46f1aa07ae8914c0f.stex" ]
 
 [params]
 
