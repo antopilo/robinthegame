@@ -1,21 +1,21 @@
 [gd_scene load_steps=29 format=2]
 
-[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Scene/Mechanics/frames/idle.png" type="Texture" id=2]
 [ext_resource path="res://Scene/Mechanics/frames/idle/idle1.png" type="Texture" id=3]
 [ext_resource path="res://Scene/Mechanics/frames/idle/idle2.png" type="Texture" id=4]
 [ext_resource path="res://Scene/Mechanics/frames/idle/idle3.png" type="Texture" id=5]
 [ext_resource path="res://Scene/Mechanics/frames/jump/falling1.png" type="Texture" id=6]
-[ext_resource path="res://Scene/Mechanics/frames/crouch.png" type="Texture" id=7]
-[ext_resource path="res://Scene/Mechanics/frames/wall.png" type="Texture" id=8]
-[ext_resource path="res://Scene/Mechanics/frames/Running/Running 4F2.png" type="Texture" id=9]
-[ext_resource path="res://Scene/Mechanics/frames/Running/Running 4F3.png" type="Texture" id=10]
-[ext_resource path="res://Scene/Mechanics/frames/Running/Running 4F4.png" type="Texture" id=11]
-[ext_resource path="res://Scene/Mechanics/frames/Running/Running 4F1.png" type="Texture" id=12]
-[ext_resource path="res://Scene/Mechanics/frames/jump/falling2.png" type="Texture" id=13]
-[ext_resource path="res://Scene/Mechanics/frames/jump/falling3.png" type="Texture" id=14]
-[ext_resource path="res://Scene/Mechanics/frames/jump/falling4.png" type="Texture" id=15]
-[ext_resource path="res://Scene/Mechanics/frames/lookup.png" type="Texture" id=16]
+[ext_resource path="res://Scene/Mechanics/frames/Running/Running 4F2.png" type="Texture" id=7]
+[ext_resource path="res://Scene/Mechanics/frames/Running/Running 4F3.png" type="Texture" id=8]
+[ext_resource path="res://Scene/Mechanics/frames/Running/Running 4F4.png" type="Texture" id=9]
+[ext_resource path="res://Scene/Mechanics/frames/Running/Running 4F1.png" type="Texture" id=10]
+[ext_resource path="res://Scene/Mechanics/frames/lookup.png" type="Texture" id=11]
+[ext_resource path="res://Scene/Mechanics/frames/crouch.png" type="Texture" id=12]
+[ext_resource path="res://Scene/Mechanics/frames/wall.png" type="Texture" id=13]
+[ext_resource path="res://Scene/Mechanics/frames/jump/falling2.png" type="Texture" id=14]
+[ext_resource path="res://Scene/Mechanics/frames/jump/falling3.png" type="Texture" id=15]
+[ext_resource path="res://Scene/Mechanics/frames/jump/falling4.png" type="Texture" id=16]
 [ext_resource path="res://Scripts/Weapon.gd" type="Script" id=17]
 [ext_resource path="res://Assets/Images/Images/note.png" type="Texture" id=18]
 
@@ -38,29 +38,29 @@ animations = [ {
 "name": "Jump",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "crouch",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "Wall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "Running",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": false,
-"name": "falling",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 16 ) ],
+"frames": [ ExtResource( 11 ) ],
 "loop": true,
 "name": "lookup",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "Wall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": false,
+"name": "falling",
 "speed": 5.0
 } ]
 
@@ -195,7 +195,7 @@ _sections_unfolded = [ "Collision", "Transform", "collision" ]
 material = SubResource( 1 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 3
+frame = 2
 playing = true
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
@@ -290,8 +290,16 @@ v_frames = 1
 _sections_unfolded = [ "Drawing", "Material", "Process Material", "Time", "Transform" ]
 
 [node name="collisionBox" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, 2 )
 shape = SubResource( 10 )
+_sections_unfolded = [ "shape" ]
+
+[node name="ceilling_cast" type="RayCast2D" parent="."]
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, -5 )
+collision_mask = 1
+collide_with_areas = false
+collide_with_bodies = true
 
 [connection signal="timeout" from="DisableInput" to="." method="_on_DisableInput_timeout"]

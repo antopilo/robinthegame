@@ -5,7 +5,6 @@ onready var collision = get_node("collisionBox")
 onready var death_particle = get_node("death_particle")
 onready var sprite_node = get_node("AnimatedSprite")
 onready var camera_node = get_node("Camera2D")
-
 var arrow_node 
 
 # Constants
@@ -39,6 +38,7 @@ var is_wall_jumping = false
 var was_on_ground = false
 var can_wall_jump = false
 var arrow_exist = false
+var is_ceilling = false
 
 func _input(event):
 	# Here is where Jump inputs are handled. 
@@ -89,7 +89,6 @@ func updateInput():
 			sprite_node.flip_h = true
 			input_direction_x = -1
 			last_direction_x = -1
-			
 		# Right
 		elif Input.is_action_pressed("ui_right"):
 			sprite_node.flip_h = false
@@ -100,12 +99,9 @@ func updateInput():
 		else: 
 			input_direction_x = 0
 			if player_state == "Ground": sprite_node.play("idle")
-		# Look up
-		if Input.is_action_pressed("ui_up"): 
-			input_direction_y = -1	
-			sprite_node.play("lookup")
+
 		# Crouching
-		elif Input.is_action_pressed("ui_down") and player_state == "Ground": 
+		if Input.is_action_pressed("ui_down") and player_state == "Ground": 
 			isCrouching = true
 			input_direction_y = 1 
 			if input_direction_x == 0: sprite_node.play("crouch")
@@ -126,16 +122,17 @@ func updateVelocity():
 	velocity.x += input_direction_x * ACCELERATION
 	# Slow down.
 	if abs(velocity.x) < 10 and input_direction_x == 0: velocity.x = 0
+
 # States
 func updateState():
 	# Change the state of the player
 	
 	# Normals for collision detection.
-	var groundNormal = Vector2(0,-1)
-	var WallLNormal = Vector2(1,0)
-	var WallRNormal = Vector2(-1,0)
-	var ceillingNormal = Vector2(0,1)
-	
+	var ground = Vector2(0,-1)
+	var l_wall = Vector2(1,0)
+	var r_wall = Vector2(-1,0)
+	var ceilling = Vector2(1,0)
+
 	# Get collisions
 	var collision
 	var collisionCounter = get_slide_count() - 1
@@ -143,20 +140,22 @@ func updateState():
 	if collisionCounter > -1:
 		collision = get_slide_collision(collisionCounter)
 		
-		# If the player hits his head on the ceiling. Zero out his velocity.y
-		if collision.normal == ceillingNormal and player_state == "Air" : 
-			velocity.y /= 5
 		# If is on Ground
-		if collision.normal == groundNormal and player_state != "Ground": 
+		if collision.normal == ground and player_state != "Ground": 
 			enterGroundState()	
 		# If is on Walls
-		if collision.normal == WallRNormal: 
+		if collision.normal == r_wall: 
 			enterWallState()
-		if collision.normal == WallLNormal: 
+		if collision.normal == l_wall: 
 			enterWallState()
-
 	# If the player is not on ground or wall. then the player is in the Air.
 	else: 
+		if $ceilling_cast.is_colliding(): 
+			if is_ceilling == false:
+				velocity.y /= 10
+				print("Boom!")
+				is_ceilling = true
+		
 		enterAirState()
 	
 func enterGroundState():
@@ -168,6 +167,7 @@ func enterGroundState():
 	gravity_multiplier = 1
 	current_max_speed = MAX_SPEED
 	can_control = true
+	is_ceilling = false
 
 func enterWallState():
 	# When the player is on a wall.
@@ -178,8 +178,10 @@ func enterWallState():
 	# If the player is going down, slow his fall by 1.25
 	if velocity.y > 0: 
 		velocity.y /= 1.25
+	is_ceilling = false
 	
 func enterAirState():
+	
 	# The air state.
 	if velocity.y > 0: 
 		sprite_node.play("falling")
@@ -253,16 +255,19 @@ func wallJump():
 		
 		if collision.normal == Vector2(1,0): 
 			jumpDirection = 1
+			sprite_node.flip_h = false
 		if collision.normal == Vector2(-1,0): 
 			jumpDirection = -1
+			sprite_node.flip_h = true
 			
 	#If the player is NOT colliding. checks the closest wall.
 	else:
 		if $WallCheck_Left.is_colliding(): 
-			jumpDirection = 1	
-			
+			jumpDirection = 1
+			sprite_node.flip_h = false	
 		elif $WallCheck_right.is_colliding(): 
-			jumpDirection = -1	
+			jumpDirection = -1
+			sprite_node.flip_h = true	
 	
 	#Add the velocity of the walljump.
 	velocity.x = WALL_JUMP_FORCE * jumpDirection

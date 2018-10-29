@@ -5,7 +5,7 @@ const tile_size = 16
 onready var container = get_node("Container")
 onready var viewportContainer = container.get_node("ViewportContainer")
 onready var viewport = viewportContainer.get_node("Viewport")
-onready var camera = viewport.get_node("Camera")
+onready var camera = viewport.get_node("grid_viewer_root/Camera2D")
 onready var tilemap = viewport.get_node("layers/TileMap")
 
 onready var currentZoom = camera.zoom
@@ -32,8 +32,8 @@ func _ready():
 func _process(delta):
 	drag_camera()
 	shortcut()
-	tilemap.set_cell(5, 5, 0)
-	print(tilemap.world_to_map(viewport.get_mouse_position()))
+	#tilemap.set_cell(5, 5, 0)
+	#print(tilemap.world_to_map(viewport.get_mouse_position()))
 func drag_camera():
 	offsetX = get_node("Container").rect_position.x
 	offsetY = get_node("Container").rect_position.y

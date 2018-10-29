@@ -5,18 +5,29 @@ var oSpike = preload("res://Scene/Mechanics/oSpike.tscn")
 var ojumpPad = preload("res://Scene/Mechanics/oJumpPad.tscn")
 
 # Get each layers
-onready var tilemapSolid = get_node("tile_solid")
+onready var tilemapSolid = get_node("fg_tile")
 onready var tilemapSpike = get_node("entities")
+onready var tilemapBackground = get_node("bg_tile")
+onready var tilemapEntities = get_node("entities")
+onready var tilemapFgDecals = get_node("fg_decals")
+onready var tilemapBgDecals = get_node("bg_decals")
 
-onready var levelSize = Vector2(tilemapSolid.get_used_rect().size.x * 16, (tilemapSolid.get_used_rect().size.y - 0.5) * 16)
+onready var levelSize = Vector2(tilemapSolid.get_used_rect().size.x * 8, (tilemapSolid.get_used_rect().size.y - 0.5) * 8)
 onready var levelPosition = self.position
 onready var spawnPosition = get_node("spawn").global_position
 
-export(float,0.5,2) var camera_zoom = 1
+const camera_zoom = 1
+
+const MIN_WIDTH = 320
+const MIN_HEIGHT = 180
 
 func _ready():
 	spawnEntities()
 	spawnSpikes()
+
+	if levelSize.x < MIN_WIDTH: levelSize.x = MIN_WIDTH
+	if levelSize.y < MIN_HEIGHT: levelSize.y = MIN_HEIGHT
+
 	
 func spawnSpikes():
 	#Place spikes on each Spike cells 

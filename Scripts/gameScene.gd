@@ -1,32 +1,35 @@
 extends Node2D
-# This script is on the World itself.
-onready var player_node = get_node("Player")
-onready var camera_node = get_node("Player/Camera2D")
-onready var currentLevel = get_node("level1")
-onready var spawn_tween_node = get_node("Tween")
 
-var showgrid = false
+# This script is on the World itself.
+onready var player = get_node("Player") 
+onready var current_room = get_node("level1")
+var showgrid = false # Toggle the debug grid.
 
 func _ready():
 	spawn()
-	tween_camera_to_area(currentLevel)
-	_physics_process(true)
-	load_level("res://worlds/world1/testmap.json")
+	tween_camera_to_area(current_room)
+
 func _physics_process(delta):
 	updateRoom()
 
+# Update the current room.
 func updateRoom():
 	for room in get_children():
 		if room.is_in_group("level"):
-			if (player_node.position.x > room.levelPosition.x) and (player_node.position.y > room.levelPosition.y) and (player_node.position.x < (room.levelPosition.x + room.levelSize.x)) and (player_node.position.y < (room.levelPosition.y + room.levelSize.y)):
-				if currentLevel != room:
-					currentLevel = room
-					tween_camera_to_area(room)
-				
+			var x = player.position.x # Current position of the player.
+			var y = player.position.y
+			var x_min = room.levelPosition.x # Current Room position(globally)
+			var y_min = room.levelPosition.y
+			var x_max = room.levelPosition.x + room.levelSize.x # Current Room limits(globally)
+			var y_max = room.levelPosition.y + room.levelSize.y
+
+			if (x > x_min) and (y > y_min) and (x < x_max) and (y < y_max) and current_room != room: # If the player is inside the level.
+				current_room = room
+				tween_camera_to_area(room)
+
 # Moves the camera to a given area
 func tween_camera_to_area(new_area):
 	var tween
-	
 	if !has_node("CameraAreaTween"):
 		tween = Tween.new()
 		tween.name = "CameraAreaTween"
@@ -45,7 +48,7 @@ func tween_camera_to_area(new_area):
 	var new_limit_bottom = new_area.position.y + new_area.levelSize.y
 	var new_camera_zoom = Vector2(new_area.camera_zoom, new_area.camera_zoom)
 	
-	var camera = camera_node
+	var camera = get_node("Player/Camera2D")
 
 	# Set limits to current position to make transition smooth
 	# Otherwise if left limit is really far away and we transition to the right, it barely pushes 
@@ -68,8 +71,7 @@ func tween_camera_to_area(new_area):
 
 	tween.start()
 	
-	if player_node.arrow_exist == true:
-		#pass
+	if player.arrow_exist == true:
 		get_node("arrow").move_back_to_player()
 
 func _draw():
@@ -82,31 +84,37 @@ func _draw():
 		for x in range(0, 500):
 			draw_line(Vector2(x, 0), Vector2(x, 500),Color(1,0,0), 1.0)
 
-func spawn():
-	spawn_tween_node.interpolate_property(player_node,"position",player_node.position, currentLevel.spawnPosition,0.5,Tween.TRANS_EXPO,Tween.EASE_OUT)
-	player_node.collision.disabled = true
-	#player_node.death_particle.emitting = true
-	player_node.can_control = false
-	player_node.sprite_node.play("idle")
-	spawn_tween_node.start()
+	for ent in get_children():
+		if ent is CollisionShape2D:
+			print(ent.shape.extents)
 
-	tween_camera_to_area(currentLevel)
+func spawn():
+	# Create tween is none exists
+	var spawn_tween
+	if !has_node("Tween"):
+		spawn_tween = Tween.new()
+		spawn_tween.name = "spawnTween"
+		add_child(spawn_tween)
+		spawn_tween.connect("tween_completed", self, "_on_Tween_tween_completed")
+	else:
+		spawn_tween = get_node("spawnTween")
+	spawn_tween.remove_all()
+	
+	# Set up the animation.
+	var start_pos = player.position
+	var end_pos = current_room.spawnPosition
+	spawn_tween.interpolate_property(player,"position", start_pos, end_pos, 0.5, Tween.TRANS_EXPO, Tween.EASE_OUT)
+
+	# Disable input of the player.
+	player.collision.disabled = true
+	player.can_control = false
+	player.sprite_node.play("idle")
+	# Start the tween!
+	spawn_tween.start()
+	tween_camera_to_area(current_room)
  
 func _on_Tween_tween_completed(object, key):
-	player_node.death_particle.emitting = false
-	player_node.can_control = true
-	player_node.collision.disabled = false
+	player.can_control = true
+	player.collision.disabled = false
+	print("can control!")
 	
-func load_level(path):
-	var file = File.new()
-	file.open(path, file.READ)
-	var text = file.get_as_text()
-	var data_parse = JSON.parse(text).result
-	
-	var height = data_parse["height"]
-	var width = data_parse["width"]
-	
-	var tilemap_layer = TileMap.new()
-	tilemap_layer.tile_set = preload("res://worlds/world1/tileset.tres")
-	for tiles in data_parse [
-	file.close()

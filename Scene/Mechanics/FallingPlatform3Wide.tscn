@@ -1,47 +1,53 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/FallingPlatform.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/Platforms/fallingblock3Outline.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Images/Platforms/fallingblock3.png" type="Texture" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="PhysicsMaterial" id=1]
 
-custom_solver_bias = 0.0
-extents = Vector2( 10, 3.33334 )
+friction = 1.0
+rough = false
+bounce = 0.0
+absorbent = false
 
 [sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
+extents = Vector2( 10, 3.33334 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
 extents = Vector2( 12, 1 )
 
-[node name="FallingPlatform3" type="Node2D" index="0"]
-
-position = Vector2( 208, 158 )
+[node name="FallingPlatform3" type="Node2D"]
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Outline" type="Sprite" parent="." index="0"]
+[node name="Node2D" type="Node2D" parent="."]
 
+[node name="Outline" type="Sprite" parent="."]
+position = Vector2( 12, 4 )
 texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
 
-[node name="RespawnPoint" type="Position2D" parent="." index="1"]
+[node name="RespawnPoint" type="Position2D" parent="."]
+position = Vector2( 12, 4 )
 
-[node name="RespawnCooldown" type="Timer" parent="." index="2"]
-
+[node name="RespawnCooldown" type="Timer" parent="."]
 process_mode = 1
 wait_time = 4.0
 one_shot = true
 autostart = false
 
-[node name="ShakeTimer" type="Timer" parent="." index="3"]
-
+[node name="ShakeTimer" type="Timer" parent="."]
 process_mode = 1
 wait_time = 2.0
 one_shot = true
 autostart = false
 
-[node name="TweenElevator" type="Tween" parent="." index="4"]
-
+[node name="TweenElevator" type="Tween" parent="."]
 repeat = false
 playback_process_mode = 1
 playback_speed = 1.0
@@ -50,31 +56,27 @@ playback/repeat = false
 playback/speed = 1.0
 _sections_unfolded = [ "playback" ]
 
-[node name="Platform" type="StaticBody2D" parent="." index="5"]
-
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2( 12, 4 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
+physics_material_override = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Collision" type="CollisionShape2D" parent="Platform" index="0"]
-
+[node name="Collision" type="CollisionShape2D" parent="Platform"]
 scale = Vector2( 1.2, 1.2 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Sprite" type="Sprite" parent="Platform" index="1"]
-
+[node name="Sprite" type="Sprite" parent="Platform"]
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Area2D" type="Area2D" parent="." index="6"]
-
-position = Vector2( 0, 8 )
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 12, 12 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -85,19 +87,13 @@ audio_bus_override = false
 audio_bus_name = "Master"
 _sections_unfolded = [ "Collision" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0, -12 )
 scale = Vector2( 1, 0.1 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
 [connection signal="timeout" from="RespawnCooldown" to="." method="_on_RespawnCooldown_timeout"]
-
 [connection signal="timeout" from="ShakeTimer" to="." method="_on_ShakeTimer_timeout"]
-
 [connection signal="tween_completed" from="TweenElevator" to="." method="_on_Tween_tween_completed"]
-
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
-
-

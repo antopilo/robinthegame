@@ -9,9 +9,3 @@ var offsetY
 func _ready():
 	pass # Replace with function body.
 
-func _process(delta):
-	if Input.is_action_pressed("fire"):
-		draw()
-		
-func draw():
-	print(get_global_mouse_position())

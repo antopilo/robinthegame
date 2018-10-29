@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var nodePlatform = get_node("Platform")
+onready var nodePlatform = get_node("/Platform")
 onready var nodeTween = get_node("TweenElevator")
 onready var nodeTimer = get_node("RespawnCooldown")
 onready var nodeShakeTween = get_node("TweenShake")

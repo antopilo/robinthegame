@@ -1,26 +1,35 @@
 extends KinematicBody2D
 
+# References
 onready var weapon_node = get_node("../Player/Weapon")
-onready var player_node = get_node("../Player")
+onready var player = get_node("../Player")
 onready var world_node = get_node("..")
 onready var tween_node = get_node("Tween")
 onready var tween2_node = get_node("Tween2")
 
-var is_controller
+# state
+var controller_mode
 var is_controlled = true
-var is_frozen = false
+var frozen = false
 var is_moving_back = false
 var can_speed = true
+
+# Fuel
+const max_fuel = 100
 var fuel = 100
 var fuel_consum = 0.1
 
+#Controller
 var is_deadzone = false
 const deadzone = 0.25
-const max_fuel = 100
+
+# Constants
 const floor_normal = Vector2(0,1)
 const ceilling_normal = Vector2(0,-1)
 const wall_normal = Vector2(1,0)
 const gravity = 2
+
+# Movement
 var speed = 0.5
 var direction
 var angle
@@ -30,10 +39,10 @@ var freeze_position
 var stretch_factor = OS.window_size.x / 320
 
 func _ready():
-	last_direction = Vector2(player_node.last_direction_x, 0)
+	last_direction = Vector2(player.last_direction_x, 0)
 	weapon_node.can_shoot = false
-	player_node.arrow_exist = true
-	player_node.arrow_node = self
+	player.arrow_exist = true
+	player.arrow_node = self
 	self.name = "arrow"
 	
 func _input(event):
@@ -42,33 +51,36 @@ func _input(event):
 		is_controlled = false
 		can_speed = false
 		
-	elif event.is_action_pressed("fire") and is_frozen:
+	elif event.is_action_pressed("fire") and frozen:
 		move_back_to_player()
 		
 func _physics_process(delta):
 	
 	if is_moving_back:
-		look_at(player_node.global_position)
+		look_at(player.global_position)
 		return
 	
 	#if Arrow is Controlled.
-	if is_controlled and !is_frozen:
+	if is_controlled and !frozen:
 		if fuel <= 0:
 			 is_controlled = false
 			 
-		if is_controller: 
+		if controller_mode: 
 			joyStickControl()
 			global_rotation = angle
 		else: 
 			mouseControl()
-	if is_controller and !is_frozen:
+			
+	if controller_mode and !frozen:
 		fuel -= fuel_consum
 	
 	apply_gravity()
 	check_collision()
 
 func mouseControl():
-	look_at(get_global_mouse_position() / stretch_factor + (player_node.camera_node.get_camera_screen_center() - (get_viewport_rect().size / 2)) / 1.33)
+	var mouse = get_global_mouse_position()
+	var position = mouse / stretch_factor + (player.camera_node.get_camera_screen_center() - (get_viewport_rect().size / 2)) / 1.33
+	look_at(position)
 
 func joyStickControl():
 	# Gets the joystick Vector2 and get the angle(rad) of the joystick.
@@ -85,7 +97,7 @@ func joyStickControl():
 func check_collision():
 	var collision = move_and_collide(global_transform.x * speed)
 	
-	if !is_frozen and collision:	
+	if !frozen and collision:	
 		if collision.normal == floor_normal or collision.normal == ceilling_normal:
 			if global_rotation > deg2rad(-180) and global_rotation < deg2rad(0): 
 				global_rotation = deg2rad(-90)
@@ -101,9 +113,9 @@ func check_collision():
 				global_rotation= deg2rad(180)
 
 		freezeArrow()
-	elif position.x <= world_node.currentLevel.levelPosition.x or position.y <= world_node.currentLevel.levelPosition.y or position.x >= (world_node.currentLevel.levelPosition.x + world_node.currentLevel.levelSize.x) or position.y >= (world_node.currentLevel.levelPosition.y + world_node.currentLevel.levelSize.y):
+	elif position.x <= world_node.current_room.levelPosition.x or position.y <= world_node.current_room.levelPosition.y or position.x >= (world_node.current_room.levelPosition.x + world_node.current_room.levelSize.x) or position.y >= (world_node.current_room.levelPosition.y + world_node.current_room.levelSize.y):
 		move_back_to_player()
-	elif is_frozen:
+	elif frozen:
 		position = freeze_position
 	
 func freezeArrow():
@@ -111,30 +123,30 @@ func freezeArrow():
 	set_collision_layer_bit(0,true)
 
 	speed = 0
-	is_frozen = true
+	frozen = true
 	can_speed = false
 	
 	$Particles2D.emitting = false
 	
 func move_back_to_player():
-	var time = (self.position - player_node.position).length() / 300
+	var time = (position - player.position).length() / 300
 
-	tween_node.follow_property(self, "global_position", global_position, player_node, "global_position", time, Tween.TRANS_QUINT, Tween.EASE_IN)
+	tween_node.follow_property(self, "global_position", global_position, player, "global_position", time, Tween.TRANS_QUINT, Tween.EASE_IN)
 	tween2_node.interpolate_property(self, "scale", scale, Vector2(0,0), time ,Tween.TRANS_EXPO, Tween.EASE_IN)
 	
 	tween2_node.start()
 	tween_node.start()
 	
-	player_node.arrow_exist = false
+	player.arrow_exist = false
 	is_moving_back = true 
 	set_collision_layer_bit(0,false)
 
 func _on_Tween_tween_completed(object, key):
-	self.queue_free()
+	queue_free()
 	weapon_node.can_shoot = true
 	
 func apply_gravity():
 
 	if fuel <= 0:
-		self.position.y += gravity
-		look_at(player_node.position)
+		position.y += gravity
+		look_at(player.position)

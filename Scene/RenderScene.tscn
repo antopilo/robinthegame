@@ -80,12 +80,12 @@ shadow_atlas_quad_0 = 2
 shadow_atlas_quad_1 = 2
 shadow_atlas_quad_2 = 3
 shadow_atlas_quad_3 = 4
-_sections_unfolded = [ "GUI", "Physics", "Rendering" ]
 
 [node name="game_root" parent="Control/game/Viewport" instance=ExtResource( 2 )]
 
 [node name="Dialog" type="Control" parent="Control"]
 editor/display_folded = true
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -169,6 +169,7 @@ playback/speed = 1.0
 _sections_unfolded = [ "playback" ]
 
 [node name="Console" type="Control" parent="Control"]
+visible = false
 anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 0.0
