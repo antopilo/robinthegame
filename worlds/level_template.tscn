@@ -195,7 +195,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="fallingblock" type="Position2D" parent="objects" groups=[
 "fallingPlatform",
 ]]
-position = Vector2( 280, 112 )
+position = Vector2( 160, 96 )
 scale = Vector2( 0.8, 0.8 )
 _sections_unfolded = [ "Transform" ]
 

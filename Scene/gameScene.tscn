@@ -88,7 +88,6 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 [node name="level2" type="Node2D" parent="." groups=[
 "level",
 ]]
-editor/display_folded = true
 show_behind_parent = true
 position = Vector2( 320, 0 )
 script = ExtResource( 3 )

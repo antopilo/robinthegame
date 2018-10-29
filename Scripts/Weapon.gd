@@ -20,7 +20,7 @@ func shoot_arrow():
 		
 		#player_node.arrow_node = new_arrow
 		current_arrow.global_position = final_position
-		current_arrow.is_controller = is_controller
+		current_arrow.controller_mode = is_controller
 		current_arrow.name = "arrow"
 
 		get_node("../..").add_child(current_arrow)
