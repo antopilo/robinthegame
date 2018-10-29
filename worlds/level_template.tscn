@@ -188,7 +188,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="jpad" type="Position2D" parent="objects" groups=[
 "jumpPad",
 ]]
-position = Vector2( 168, 160 )
+position = Vector2( 16, 128 )
 scale = Vector2( 0.8, 0.8 )
 _sections_unfolded = [ "Transform" ]
 
