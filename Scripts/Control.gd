@@ -8,7 +8,7 @@ var toggle = false
 var lastInput = ""
 
 func _input(event):
-	if event.is_action_pressed("console"):
+	if event.is_action_released("console"):
 		self.visible = !self.visible
 		
 		if self.visible == true: 
@@ -16,11 +16,12 @@ func _input(event):
 			$LineEdit.clear()
 		else: 
 			$LineEdit.FOCUS_NONE
-			
-		$LineEdit.clear()
+			$LineEdit.clear()
+		
 
 	if event.is_action_pressed("ui_up"):
 		consoleLine.text = lastInput
+		
 		
 func _on_LineEdit_text_entered(new_text):
 	consoleLine.clear()

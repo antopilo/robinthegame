@@ -50,7 +50,7 @@ func _input(event):
 	if event.is_action_pressed("fire") and can_speed:
 		dash()
 		
-	elif event.is_action_pressed("fire") and frozen:
+	elif (event.is_action_pressed("fire") or event.is_action_pressed("right_click")) and frozen:
 		move_back_to_player()
 		
 func _physics_process(delta):
