@@ -28,7 +28,6 @@ func _ready():
 	if levelSize.x < MIN_WIDTH: levelSize.x = MIN_WIDTH
 	if levelSize.y < MIN_HEIGHT: levelSize.y = MIN_HEIGHT
 
-	
 func spawnSpikes():
 	#Place spikes on each Spike cells 
 	for tile in tilemapSpike.get_used_cells_by_id(3):
