@@ -169,7 +169,6 @@ playback/speed = 1.0
 _sections_unfolded = [ "playback" ]
 
 [node name="Console" type="Control" parent="Control"]
-visible = false
 anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 0.0
@@ -183,6 +182,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 6 )
+_sections_unfolded = [ "Anchor", "Margin", "Rect" ]
 
 [node name="LineEdit" type="LineEdit" parent="Control/Console"]
 anchor_left = 0.5
@@ -210,7 +210,7 @@ placeholder_alpha = 1.0
 caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
-_sections_unfolded = [ "Caret", "Placeholder" ]
+_sections_unfolded = [ "Caret", "Placeholder", "custom_fonts" ]
 
 [connection signal="timeout" from="Control/Dialog/Timer" to="Control/Dialog" method="_on_Timer_timeout"]
 [connection signal="text_entered" from="Control/Console/LineEdit" to="Control/Console" method="_on_LineEdit_text_entered"]
