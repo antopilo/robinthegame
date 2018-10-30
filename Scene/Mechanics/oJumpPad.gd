@@ -1,27 +1,25 @@
 extends Node2D
-
+onready var hitBox = get_node("StaticBody2D/CollisionShape2D")
 onready var collision = get_node("Area2D")
-var activated = false
+var arrowPresent = false
+
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("Player") and activated == false: 
-			body.jumpPad()
-			$AnimatedSprite.stop()
-			$AnimatedSprite.frame = 0
-			$AnimatedSprite.play("bounce")
-
-		
-		
 	if body.is_in_group("arrow"):
-		if activated == false:
-			
-			$AnimatedSprite.stop()
-			$AnimatedSprite.frame = 4
-			collision.position.y -= 12
-			activated = true
+		$AnimatedSprite.frame = 4
+		$AnimatedSprite.stop()
+		hitBox.disabled = false
+		arrowPresent = true
 		
-	
-
+	if body.is_in_group("Player") and not arrowPresent: 
+		body.jumpPad()
+		$AnimatedSprite.stop()
+		$AnimatedSprite.frame = 0
+		$AnimatedSprite.play("bounce")
+		#$AnimatedSprite.stop()
 
 func _on_Area2D_body_exited(body):
-	pass # Replace with function body.
+	if body.is_in_group("arrow"):
+		arrowPresent = false
+		$AnimatedSprite.play("bounce")
+		hitBox.disabled = true
