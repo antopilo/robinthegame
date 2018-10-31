@@ -70,7 +70,7 @@ func _physics_process(delta):
 		else: 
 			mouseControl()
 			
-	if controller_mode and !frozen:
+	if is_controlled and !frozen:
 		fuel -= fuel_consum
 	
 	apply_gravity()
@@ -78,7 +78,7 @@ func _physics_process(delta):
 
 
 func mouseControl():
-	look_at(get_global_mouse_position() / stretch_factor + (player.camera.get_camera_screen_center() - (get_viewport_rect().size / 2)) / 1.33)
+	look_at(get_global_mouse_position() / stretch_factor + (player.camera.get_camera_screen_center()  - (get_viewport_rect().size / 2)) / 1.33)
 
 func joyStickControl():
 	# Gets the joystick Vector2 and get the angle(rad) of the joystick.
@@ -144,7 +144,6 @@ func _on_Tween_tween_completed(object, key):
 	weapon_node.can_shoot = true
 	
 func apply_gravity():
-
 	if fuel <= 0:
 		position.y += gravity
 		look_at(player.position)

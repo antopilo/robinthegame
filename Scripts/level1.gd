@@ -16,7 +16,7 @@ onready var levelSize = Vector2(tilemapSolid.get_used_rect().size.x * 8, (tilema
 onready var levelPosition = self.position
 onready var spawnPosition = get_node("spawn").global_position
 
-const camera_zoom = 1
+export var camera_zoom = 1
 
 const MIN_WIDTH = 320
 const MIN_HEIGHT = 180
