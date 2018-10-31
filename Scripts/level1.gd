@@ -3,6 +3,19 @@ extends Node2D
 var ofallingPlatform = preload("res://Scene/Mechanics/FallingPlatform3Wide.tscn")
 var oSpike = preload("res://Scene/Mechanics/oSpike.tscn")
 var ojumpPad = preload("res://Scene/Mechanics/oJumpPad.tscn")
+var oDoor = preload("res://Scene/Mechanics/oDoor.tscn")
+var oKey = preload("res://Scene/Mechanics/oKey.tscn")
+var oExtender = preload("res://Scene/Mechanics/oExtender.tscn")
+var oSpawn = preload("res://Scene/Mechanics/oSpawn.tscn")
+var oFallBlockSingle1 = preload("res://Scene/Mechanics/FallingPlatform1.tscn")
+
+var iDoor = 0
+var iKey = 1
+var iFallBlockSingle1 = 2
+var iFallBlockSingle2 = 3
+var iExtender = 4
+var iSpawn = 5
+var iJumpPad = 6
 
 # Get each layers
 onready var tilemapSolid = get_node("fg_tile")
@@ -11,10 +24,11 @@ onready var tilemapBackground = get_node("bg_tile")
 onready var tilemapEntities = get_node("entities")
 onready var tilemapFgDecals = get_node("fg_decals")
 onready var tilemapBgDecals = get_node("bg_decals")
+onready var objects = get_node("objects")
 
 onready var levelSize = Vector2(tilemapSolid.get_used_rect().size.x * 8, (tilemapSolid.get_used_rect().size.y - 0.5) * 8)
 onready var levelPosition = self.position
-onready var spawnPosition = get_node("spawn").global_position
+onready var spawnPosition
 
 export var camera_zoom = 1
 
@@ -52,14 +66,56 @@ func spawnSpikes():
 	tilemapSpike.clear()
 	
 func spawnEntities():
-	for child in get_node("objects").get_children():
-		if child.is_in_group("fallingPlatform"):
-			var new_platform = ofallingPlatform.instance()
-			self.add_child(new_platform)
-			new_platform.global_position = child.global_position
+	
+	for ent in tilemapEntities.get_used_cells():
+		
+		# Door
+		if tilemapEntities.get_cell(ent.x,ent.y) == iDoor:
+			var new_door = oDoor.instance()
+			new_door.name = "door"
+			objects.add_child(new_door)
+			new_door.global_position = tilemapEntities.map_to_world(ent)
+			tilemapEntities.set_cell(ent.x, ent.y, -1)
 			
-		if child.is_in_group("jumpPad"):
-			var new_jumpPad = ojumpPad.instance()
-			self.add_child(new_jumpPad)
+		# Key
+		elif tilemapEntities.get_cell(ent.x,ent.y) == iKey:
+			var new_key = oKey.instance()
+			new_key.name = "oKey"
+			objects.add_child(new_key)
+			new_key.global_position = tilemapEntities.map_to_world(ent)
+			tilemapEntities.set_cell(ent.x,ent.y, -1)
 			
-			new_jumpPad.global_position = child.global_position
+		# FallBlockSingle1
+		elif tilemapEntities.get_cell(ent.x,ent.y) == iFallBlockSingle1:
+			var new_key = oFallBlockSingle1.instance()
+			new_key.name = "oFallBlockSingle1"
+			objects.add_child(new_key)
+			new_key.global_position = tilemapEntities.map_to_world(ent)
+			tilemapEntities.set_cell(ent.x,ent.y, -1)
+			
+		# Spawn
+		elif tilemapEntities.get_cell(ent.x,ent.y) == iSpawn:
+			var new_key = oSpawn.instance()
+			new_key.name = "spawn"
+			objects.add_child(new_key)
+			new_key.global_position = tilemapEntities.map_to_world(ent)
+			tilemapEntities.set_cell(ent.x,ent.y, -1)
+			spawnPosition = new_key.position
+			
+		#iJumpPad
+		elif tilemapEntities.get_cell(ent.x,ent.y) == iJumpPad:
+			var new_key = ojumpPad.instance()
+			new_key.name = "oJumpPad"
+			objects.add_child(new_key)
+			new_key.global_position = tilemapEntities.map_to_world(ent)
+			tilemapEntities.set_cell(ent.x,ent.y, -1)
+		#iExtender
+		elif tilemapEntities.get_cell(ent.x,ent.y) == iExtender:
+			var new_key = oExtender.instance()
+			new_key.name = "oExtender"
+			objects.add_child(new_key)
+			new_key.global_position = tilemapEntities.map_to_world(ent)
+			tilemapEntities.set_cell(ent.x,ent.y, -1)
+	
+	
+	

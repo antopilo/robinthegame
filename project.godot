@@ -19,7 +19,7 @@ config/name="RobinDev"
 run/main_scene="res://Scene/RenderScene.tscn"
 boot_splash/image="res://Assets/Images/wallpaperUpscaled.png"
 boot_splash/fullsize=false
-config/icon="res://icon.png"
+config/icon="res://discord logo.png"
 
 [debug]
 

@@ -152,7 +152,7 @@ func updateState():
 	else: 
 		if $ceilling_cast.is_colliding(): 
 			if is_ceilling == false:
-				velocity.y /= 10
+				velocity.y = 0
 				print("Boom!")
 				is_ceilling = true
 		
