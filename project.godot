@@ -24,6 +24,8 @@ config/icon="res://discord logo.png"
 [debug]
 
 settings/fps/force_fps=144
+gdscript/warnings/unused_class_variable=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

@@ -33,7 +33,7 @@ var input_direction_y = 0
 
 # Player state
 var player_state
-var isCrouching = false
+var is_crouching = false
 var is_wall_jumping = false
 var was_on_ground = false
 var can_wall_jump = false
@@ -61,25 +61,18 @@ func _input(event):
 	if event.is_action_released("jump") and velocity.y < 0 and was_on_ground == true: 
 		velocity.y /= 1.75
 
-func _physics_process(delta):
-	#Main Loop :
-	updateInput() #1 - Update the Input then the direction with updateInput().
+func _physics_process(_delta):
+	# TODO: less weird way to organize the main loop.
+	update_input()
+	update_velocity()
+	update_state()
+	validate_actions()
+	speed_limits()
+	move_and_slide(velocity)
+	apply_gravity()
+	get_arrow()
 	
-	updateVelocity() #2 - Update the velocity with the updated direction from updateInput().
-	
-	updateState() #3 - Execute some checks to decide the state of the Player.
-	
-	checks() #4 - Checks to see if the player can do certain actions.
-	
-	speedLimits() #5 -Ajust the speed of the player to stay in the desired limits.
-	
-	move_and_slide(velocity) #6 - move the player.
-	
-	applyGravity() #7 - Apply GRAVITY in relation with the player_state.
-
-	get_arrow() #8 Get the arrow
-	
-func updateInput():
+func update_input():
 	# If inputs are enabled, update the direction of the player with the Input. 
 	
 	if can_control:
@@ -102,7 +95,7 @@ func updateInput():
 
 		# Crouching
 		if Input.is_action_pressed("ui_down") and player_state == "Ground": 
-			isCrouching = true
+			is_crouching = true
 			input_direction_y = 1 
 			if input_direction_x == 0: sprite_node.play("crouch")
 		else: 
@@ -117,21 +110,20 @@ func updateInput():
 		input_direction_x = 0
 		input_direction_y = 0
 
-func updateVelocity():
+func update_velocity():
 	# Updates the Vector2(velocity) responsible for moving the player. (passing velocity in move_and_slide)
 	velocity.x += input_direction_x * ACCELERATION
 	# Slow down.
 	if abs(velocity.x) < 10 and input_direction_x == 0: velocity.x = 0
 
 # States
-func updateState():
+func update_state():
 	# Change the state of the player
 	
 	# Normals for collision detection.
 	var ground = Vector2(0,-1)
 	var l_wall = Vector2(1,0)
 	var r_wall = Vector2(-1,0)
-	var ceilling = Vector2(1,0)
 
 	# Get collisions
 	var collision
@@ -153,7 +145,6 @@ func updateState():
 		if $ceilling_cast.is_colliding(): 
 			if is_ceilling == false:
 				velocity.y = 0
-				print("Boom!")
 				is_ceilling = true
 		
 		enterAirState()
@@ -190,7 +181,7 @@ func enterAirState():
 		
 	player_state = "Air"
 # Physics
-func applyGravity():
+func apply_gravity():
 	# If the player is on the ground, gravity is 0.
 	if player_state == "Ground": 
 		gravity_multiplier = 0
@@ -199,7 +190,7 @@ func applyGravity():
 
 	velocity.y += GRAVITY * gravity_multiplier
 	
-func speedLimits():
+func speed_limits():
 	# Increase max Speed limit when doing a walljump.
 	if is_wall_jumping == true and abs(velocity.x) > MAX_AIR_SPEED: 
 		velocity.x = MAX_AIR_SPEED * sign(velocity.x)
@@ -216,7 +207,7 @@ func speedLimits():
 	if input_direction_x == 0 and can_control:  
 		velocity.x -= DECELERATION * sign(velocity.x)
 		
-func checks():
+func validate_actions():
 	# Condition if player can walljump.
 	if $WallCheck_Left.is_colliding() and player_state != "Ground" or $WallCheck_right.is_colliding() and player_state != "Ground" or player_state == "Wall": 
 		can_wall_jump = true

@@ -85,7 +85,6 @@ shadow_atlas_quad_3 = 4
 [node name="game_root" parent="Control/game/Viewport" instance=ExtResource( 2 )]
 
 [node name="Dialog" type="Control" parent="Control"]
-editor/display_folded = true
 visible = false
 anchor_left = 0.5
 anchor_top = 1.0

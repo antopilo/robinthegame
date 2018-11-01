@@ -15,12 +15,10 @@ var is_moving_back = false
 var can_speed = true
 
 # Fuel
-const max_fuel = 100
 var fuel = 100
 var fuel_consum = 0.1
 
-#Controller
-var is_deadzone = false
+# Controller
 const deadzone = 0.25
 
 # Constants
@@ -35,7 +33,6 @@ var direction
 var angle
 var last_direction
 var freeze_position
-var aimPosition
 
 var stretch_factor = OS.window_size.x / 320
 
@@ -53,7 +50,7 @@ func _input(event):
 	elif (event.is_action_pressed("fire") or event.is_action_pressed("right_click")) and frozen:
 		move_back_to_player()
 		
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	if is_moving_back:
 		look_at(player.global_position)
@@ -139,7 +136,7 @@ func move_back_to_player():
 	is_moving_back = true 
 	set_collision_layer_bit(0,false)
 
-func _on_Tween_tween_completed(object, key):
+func _on_Tween_tween_completed(_object, _key):
 	queue_free()
 	weapon_node.can_shoot = true
 	

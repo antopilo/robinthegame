@@ -2,26 +2,21 @@ extends Control
 
 onready var consoleLine = get_node("LineEdit")
 onready var game_node = get_node("../game/Viewport/game_root")
-onready var player_node = get_node("../game/Viewport/game_root/Player")
 onready var weapon_node = get_node("../game/Viewport/game_root/Player/Weapon")
-var toggle = false
+
 var lastInput = ""
 
 func _input(event):
 	if event.is_action_released("console"):
 		self.visible = !self.visible
 		
-		if self.visible == true: 
-			$LineEdit.grab_focus()
-			$LineEdit.clear()
-		else: 
-			$LineEdit.FOCUS_NONE
-			$LineEdit.clear()
+		$LineEdit.clear()
 		
+		if self.visible: 
+			$LineEdit.grab_focus()
 
 	if event.is_action_pressed("ui_up"):
 		consoleLine.text = lastInput
-		
 		
 func _on_LineEdit_text_entered(new_text):
 	consoleLine.clear()
@@ -68,6 +63,7 @@ func _on_LineEdit_text_entered(new_text):
 		"borderless 0": OS.window_borderless = false
 		"borderless 1": OS.window_borderless = true
 		"ledit": get_tree().change_scene("res://Scene/level_editor/level_editor_main.tscn")
+		
 	if new_text.begins_with("say"):
 		get_node("../Dialog").show_message(new_text.right(3))
 			

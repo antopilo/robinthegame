@@ -1,14 +1,11 @@
 extends Node2D
 
 onready var player_node = get_node("../../../Player")
-onready var sprite_node_left = get_node("sLeft")
-onready var sprite_node_right = get_node("sRight")
 onready var tween = get_node("Tween")
 
 var detection_distance = 10
 var distance 
 var side = 0
-var angle = deg2rad(60)
 var is_down = false
 var state = "down"
 var t = 0

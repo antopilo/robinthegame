@@ -9,7 +9,7 @@ func _ready():
 	spawn()
 	tween_camera_to_area(current_room)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	updateRoom()
 
 # Update the current room.
@@ -83,10 +83,6 @@ func _draw():
 		for x in range(0, 500):
 			draw_line(Vector2(x, 0), Vector2(x, 500),Color(1,0,0), 1.0)
 
-	for ent in get_children():
-		if ent is CollisionShape2D:
-			print(ent.shape.extents)
-
 func spawn():
 	# Create tween is none exists
 	var spawn_tween
@@ -114,7 +110,7 @@ func spawn():
 	spawn_tween.start()
 	tween_camera_to_area(current_room)
  
-func _on_Tween_tween_completed(object, key):
+func _on_Tween_tween_completed(_object, _key):
 	player.can_control = true
 	player.collision.disabled = false
 

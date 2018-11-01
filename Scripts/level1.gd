@@ -1,6 +1,5 @@
 extends Node2D
 #Caching objects that could be in the level.
-var ofallingPlatform = preload("res://Scene/Mechanics/FallingPlatform3Wide.tscn")
 var oSpike = preload("res://Scene/Mechanics/oSpike.tscn")
 var ojumpPad = preload("res://Scene/Mechanics/oJumpPad.tscn")
 var oDoor = preload("res://Scene/Mechanics/oDoor.tscn")
@@ -20,10 +19,7 @@ var iJumpPad = 6
 # Get each layers
 onready var tilemapSolid = get_node("fg_tile")
 onready var tilemapSpike = get_node("entities")
-onready var tilemapBackground = get_node("bg_tile")
 onready var tilemapEntities = get_node("entities")
-onready var tilemapFgDecals = get_node("fg_decals")
-onready var tilemapBgDecals = get_node("bg_decals")
 onready var objects = get_node("objects")
 
 onready var levelSize = Vector2(tilemapSolid.get_used_rect().size.x * 8, (tilemapSolid.get_used_rect().size.y - 0.5) * 8)

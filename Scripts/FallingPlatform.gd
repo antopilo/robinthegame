@@ -38,7 +38,7 @@ func _on_RespawnCooldown_timeout():
                 Tween.TRANS_EXPO, Tween.EASE_IN_OUT)
 	nodeTween.start()
 
-func _on_Tween_tween_completed(object, key):
+func _on_Tween_tween_completed(_object, _key):
 	# If the platform is going down, then its not available yet.
 	if hasMovedUp:
 		isAvailable = true
