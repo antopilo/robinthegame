@@ -16,10 +16,10 @@ _global_script_class_icons={
 [application]
 
 config/name="RobinDev"
-run/main_scene="res://Scene/RenderScene.tscn"
-boot_splash/image="res://Assets/Images/wallpaperUpscaled.png"
+run/main_scene="res://scenes/RenderScene.tscn"
+boot_splash/image="res://images/loading_screen.png"
 boot_splash/fullsize=false
-config/icon="res://discord logo.png"
+config/icon="res://images/icon.png"
 
 [debug]
 
@@ -31,7 +31,6 @@ window/size/width=1920
 window/size/height=1080
 window/size/test_width=1280
 window/size/test_height=720
-mouse_cursor/custom_image="res://icon.png"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 window/stretch/shrink="1"
