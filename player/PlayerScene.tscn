@@ -1,22 +1,23 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://player/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://player/frames/idle.png" type="Texture" id=2]
 [ext_resource path="res://player/frames/idle/idle1.png" type="Texture" id=3]
 [ext_resource path="res://player/frames/idle/idle2.png" type="Texture" id=4]
 [ext_resource path="res://player/frames/idle/idle3.png" type="Texture" id=5]
-[ext_resource path="res://player/frames/wall.png" type="Texture" id=6]
-[ext_resource path="res://player/frames/crouch.png" type="Texture" id=7]
-[ext_resource path="res://player/frames/Running/Running 4F2.png" type="Texture" id=8]
-[ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=9]
-[ext_resource path="res://player/frames/Running/Running 4F4.png" type="Texture" id=10]
-[ext_resource path="res://player/frames/Running/Running 4F1.png" type="Texture" id=11]
-[ext_resource path="res://player/frames/lookup.png" type="Texture" id=12]
-[ext_resource path="res://player/frames/jump/falling1.png" type="Texture" id=13]
-[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=14]
-[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=15]
-[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=16]
+[ext_resource path="res://player/frames/jump/falling1.png" type="Texture" id=6]
+[ext_resource path="res://player/frames/lookup.png" type="Texture" id=7]
+[ext_resource path="res://player/frames/crouch.png" type="Texture" id=8]
+[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=9]
+[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=10]
+[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=11]
+[ext_resource path="res://player/frames/wall.png" type="Texture" id=12]
+[ext_resource path="res://player/frames/Running/Running 4F2.png" type="Texture" id=13]
+[ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=14]
+[ext_resource path="res://player/frames/Running/Running 4F4.png" type="Texture" id=15]
+[ext_resource path="res://player/frames/Running/Running 4F1.png" type="Texture" id=16]
 [ext_resource path="res://player/bow.gd" type="Script" id=17]
+[ext_resource path="res://player/aura.png" type="Texture" id=18]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -34,33 +35,33 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
-"name": "Wall",
-"speed": 5.0
+"name": "Jump",
+"speed": 0.0
 }, {
 "frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "crouch",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
-"loop": true,
-"name": "Running",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 12 ) ],
 "loop": true,
 "name": "lookup",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "Jump",
-"speed": 0.0
+"name": "crouch",
+"speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": false,
 "name": "falling",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "Wall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "Running",
+"speed": 15.0
 } ]
 
 [sub_resource type="ParticlesMaterial" id=3]
@@ -201,5 +202,29 @@ cast_to = Vector2( 0, -5 )
 collision_mask = 1
 collide_with_areas = false
 collide_with_bodies = true
+
+[node name="Light2D" type="Light2D" parent="."]
+enabled = true
+editor_only = false
+texture = ExtResource( 18 )
+offset = Vector2( 0, 0 )
+texture_scale = 2.0
+color = Color( 1, 1, 1, 0.607843 )
+energy = 1.0
+mode = 0
+range_height = 0.0
+range_z_min = -1024
+range_z_max = 1024
+range_layer_min = 0
+range_layer_max = 0
+range_item_cull_mask = 1
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 0 )
+shadow_buffer_size = 2048
+shadow_gradient_length = 0.0
+shadow_filter = 0
+shadow_filter_smooth = 0.0
+shadow_item_cull_mask = 1
+_sections_unfolded = [ "Range", "Shadow" ]
 
 [connection signal="timeout" from="DisableInput" to="." method="_on_DisableInput_timeout"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Levels/level_assets/entities/falling_platforms/FallingPlatform1.gd" type="Script" id=1]
+[ext_resource path="res://Levels/level_assets/entities/falling_platforms/falling_platform.gd" type="Script" id=1]
 [ext_resource path="res://Levels/level_assets/entities/ent_global.png" type="Texture" id=2]
 
 [sub_resource type="PhysicsMaterial" id=1]
