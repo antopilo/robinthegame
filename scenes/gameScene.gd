@@ -2,7 +2,7 @@ extends Node2D
 
 # This script is on the World itself.
 onready var player = get_node("Player") 
-onready var current_room = get_node("level1")
+onready var current_room = get_node("0")
 var showgrid = false # Toggle the debug grid.
 
 func _ready():
@@ -31,11 +31,13 @@ func updateRoom():
 # Moves the camera to a given area
 func tween_camera_to_area(new_area):
 	var tween
-	
+	get_tree().paused = true
+	player.position.x += player.last_direction_x
 	if !has_node("CameraAreaTween"):
 		tween = Tween.new()
 		tween.name = "CameraAreaTween"
 		add_child(tween)
+		tween.connect("tween_completed", self, "_on_Tween_tween_completed")
 	else:
 		tween = get_node("CameraAreaTween")
 
@@ -87,10 +89,12 @@ func _draw():
 func spawn():
 	# Create tween is none exists
 	var spawn_tween
+	
 	if !has_node("Tween"):
 		spawn_tween = Tween.new()
 		spawn_tween.name = "spawnTween"
 		add_child(spawn_tween)
+		spawn_tween.pause_mode = Node.PAUSE_MODE_PROCESS
 		spawn_tween.connect("tween_completed", self, "_on_Tween_tween_completed")
 	else:
 		spawn_tween = get_node("spawnTween")
@@ -112,6 +116,7 @@ func spawn():
 	tween_camera_to_area(current_room)
  
 func _on_Tween_tween_completed(_object, _key):
+	get_tree().paused = false
 	player.can_control = true
 	player.collision.disabled = false
 

@@ -13,13 +13,15 @@ var delete_door = false
 
 func _physics_process(_delta):
 	if grabbed == false:
-		distance = abs((player.position - position).length())
+		distance = abs((player.global_position - global_position).length())
 		
 		if distance <= detection_range:
+			player.following.append(self)
 			grabbed = true
 			
 	elif used == false and grabbed == true:
-		tween.follow_property(self, 'position', position, player, 'position', 0.75, tween.TRANS_LINEAR, tween.EASE_OUT)
+		
+		tween.follow_property(self, 'global_position', global_position, player, 'position', 0.75, tween.TRANS_LINEAR, tween.EASE_OUT)
 		tween.start()
 		
 func kill():

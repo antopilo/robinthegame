@@ -40,6 +40,9 @@ var can_wall_jump = false
 var arrow_exist = false
 var is_ceilling = false
 
+# Inventory
+var following = []
+
 func _input(event):
 	# Here is where Jump inputs are handled. 
 	if event.is_action_pressed("jump"):

@@ -18,7 +18,7 @@ monitorable = false
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision", "Transform" ]
+_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 4, 4 )
@@ -28,7 +28,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 4, 6 )
 shape = SubResource( 1 )
-one_way_collision = true
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [connection signal="body_entered" from="." to="." method="_on_oSpike_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_oSpike_body_exited"]

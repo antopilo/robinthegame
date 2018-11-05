@@ -188,5 +188,5 @@ common/enable_object_picking=false
 
 quality/intended_usage/framebuffer_allocation=0
 quality/filters/anisotropic_filter_level=2
-environment/default_clear_color=Color( 0.45098, 0.45098, 0.45098, 1 )
+environment/default_clear_color=Color( 0.0980392, 0.623529, 0.905882, 1 )
 environment/default_environment="res://default_env.tres"
