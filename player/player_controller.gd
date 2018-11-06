@@ -54,6 +54,8 @@ func _input(event):
 			else:
 				Jump()
 				
+				
+				
 		elif can_wall_jump:
 			was_on_ground = false
 			wallJump()
@@ -72,7 +74,7 @@ func _physics_process(delta):
 	move_and_slide(velocity) 
 	apply_gravity() 
 	get_arrow() 
-	
+
 func get_input():
 	if can_control:
 		# Left 
@@ -168,7 +170,7 @@ func enterWallState():
 
 	# If the player is going down, slow his fall by 1.25
 	if velocity.y > 0: 
-		velocity.y /= 1.25
+		velocity.y /= 1.1
 	is_ceilling = false
 	
 func enterAirState():
@@ -264,6 +266,7 @@ func jumpPad():
 	
 func spawn():
 	get_parent().spawn()
+	velocity = Vector2()
 
 func get_arrow():
 	if arrow_exist and has_node("new_arrow"):

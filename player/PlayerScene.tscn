@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://player/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://player/frames/idle.png" type="Texture" id=2]
@@ -7,10 +7,10 @@
 [ext_resource path="res://player/frames/idle/idle3.png" type="Texture" id=5]
 [ext_resource path="res://player/frames/jump/falling1.png" type="Texture" id=6]
 [ext_resource path="res://player/frames/lookup.png" type="Texture" id=7]
-[ext_resource path="res://player/frames/crouch.png" type="Texture" id=8]
-[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=9]
-[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=10]
-[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=11]
+[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=8]
+[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=9]
+[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=10]
+[ext_resource path="res://player/frames/crouch.png" type="Texture" id=11]
 [ext_resource path="res://player/frames/wall.png" type="Texture" id=12]
 [ext_resource path="res://player/frames/Running/Running 4F2.png" type="Texture" id=13]
 [ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=14]
@@ -43,14 +43,14 @@ animations = [ {
 "name": "lookup",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "crouch",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": false,
 "name": "falling",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "crouch",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 12 ) ],
@@ -107,7 +107,12 @@ _sections_unfolded = [ "Angular Velocity", "Color", "Emission Shape", "Flags", "
 [sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
-extents = Vector2( 4, 6 )
+extents = Vector2( 4, 4 )
+
+[sub_resource type="CircleShape2D" id=5]
+
+custom_solver_bias = 0.0
+radius = 4.0
 
 [node name="Player" type="KinematicBody2D"]
 input_pickable = false
@@ -126,14 +131,7 @@ playing = true
 _sections_unfolded = [ "Material", "Transform", "Visibility", "frames" ]
 
 [node name="Weapon" type="Node2D" parent="."]
-editor/display_folded = true
 script = ExtResource( 17 )
-
-[node name="KillTimer" type="Timer" parent="Weapon"]
-process_mode = 1
-wait_time = 2.0
-one_shot = false
-autostart = false
 
 [node name="Timer" type="Timer" parent="Weapon"]
 process_mode = 1
@@ -142,7 +140,6 @@ one_shot = false
 autostart = false
 
 [node name="Arrow_origin" type="Position2D" parent="Weapon"]
-visible = false
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="WallCheck_right" type="RayCast2D" parent="."]
@@ -162,6 +159,15 @@ collision_mask = 1
 collide_with_areas = false
 collide_with_bodies = true
 _sections_unfolded = [ "Transform" ]
+
+[node name="ceilling_cast" type="RayCast2D" parent="."]
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, -5 )
+collision_mask = 1
+collide_with_areas = false
+collide_with_bodies = true
+_sections_unfolded = [ "Collide With" ]
 
 [node name="DisableInput" type="Timer" parent="."]
 process_mode = 1
@@ -191,17 +197,13 @@ v_frames = 1
 _sections_unfolded = [ "Drawing", "Material", "Process Material", "Time", "Transform" ]
 
 [node name="collisionBox" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 2 )
+position = Vector2( 0, 4 )
 shape = SubResource( 4 )
 _sections_unfolded = [ "shape" ]
 
-[node name="ceilling_cast" type="RayCast2D" parent="."]
-enabled = true
-exclude_parent = true
-cast_to = Vector2( 0, -5 )
-collision_mask = 1
-collide_with_areas = false
-collide_with_bodies = true
+[node name="Head" type="CollisionShape2D" parent="."]
+shape = SubResource( 5 )
+_sections_unfolded = [ "Material" ]
 
 [node name="Light2D" type="Light2D" parent="."]
 enabled = true

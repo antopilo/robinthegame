@@ -4,8 +4,9 @@
 [ext_resource path="res://Levels/level_assets/entities/ent_global.png" type="Texture" id=2]
 
 [node name="key" type="Node2D"]
+z_index = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Tween" type="Tween" parent="."]
 repeat = false

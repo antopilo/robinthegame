@@ -24,8 +24,12 @@ func updateRoom():
 			var y_max = room.levelPosition.y + room.levelSize.y
 
 			if (x > x_min) and (y > y_min) and (x < x_max) and (y < y_max) and current_room != room:
+				current_room.reset_spawns()
 				current_room = room
+				current_room.choose_spawn()
+				#player.spawn()
 				tween_camera_to_area(room)
+				
 
 
 # Moves the camera to a given area
@@ -120,4 +124,8 @@ func _on_Tween_tween_completed(_object, _key):
 	player.can_control = true
 	player.collision.disabled = false
 
-	
+func change_room(room):
+	current_room = room
+	current_room.choose_spawn()
+	tween_camera_to_area(current_room)
+	player.spawn()

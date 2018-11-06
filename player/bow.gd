@@ -30,6 +30,4 @@ func shoot_arrow():
 
 	get_node("../..").add_child(current_arrow)
 		
-func can_shoot(pCan_shoot):
-	can_shoot = pCan_shoot
 	

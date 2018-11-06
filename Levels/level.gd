@@ -18,19 +18,22 @@ onready var tilemapEntities = get_node("entities")
 onready var tilemapFgDecals = get_node("fg_decals")
 onready var tilemapBgDecals = get_node("bg_decals")
 onready var objects = get_node("objects")
+onready var player = get_node("../Player")
 
 onready var level_rect = tilemapSolid.get_used_rect().size
 onready var levelSize = Vector2(level_rect.x * 8, (level_rect.y - 0.5) * 8)
 onready var levelPosition = self.global_position
-onready var spawnPosition
 export var camera_zoom = 1
+
+onready var spawnPosition = Vector2()
+onready var spawns = []
 
 const MIN_WIDTH = 320
 const MIN_HEIGHT = 180
 
 func _ready():
 	spawnEntities()
-	
+	choose_spawn()
 	if levelSize.x < MIN_WIDTH: levelSize.x = MIN_WIDTH
 	if levelSize.y < MIN_HEIGHT: levelSize.y = MIN_HEIGHT
 
@@ -77,3 +80,25 @@ func place_ent(tile, name, object):
 	
 	if object == oSpawn: 
 		spawnPosition = new_ent.position + levelPosition
+		spawns.append(spawnPosition)
+		choose_spawn()
+	
+func choose_spawn():
+	
+	var distance
+	var current
+	for spawns in objects.get_children():
+		if spawns.is_in_group("spawn"):
+			spawns.is_active = false
+			distance = abs((player.global_position - spawns.global_position).length())
+			current = abs((player.global_position - spawnPosition).length())
+			
+			if distance <= current:
+				
+				spawnPosition = spawns.global_position
+				spawns.is_active = true
+		
+func reset_spawns():
+	for spawns in objects.get_children():
+		if spawns.is_in_group("spawn"):
+			spawns.is_active = false
