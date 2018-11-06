@@ -37,7 +37,7 @@ autostart = false
 
 [node name="ShakeTimer" type="Timer" parent="."]
 process_mode = 1
-wait_time = 0.15
+wait_time = 0.5
 one_shot = true
 autostart = false
 
@@ -58,7 +58,7 @@ collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 physics_material_override = SubResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Sprite" type="Sprite" parent="Platform"]
 texture = ExtResource( 2 )

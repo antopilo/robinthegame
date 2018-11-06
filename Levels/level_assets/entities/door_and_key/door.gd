@@ -4,7 +4,7 @@ onready var player = get_node("../../../Player")
 onready var collision = get_node("collision/box")
 onready var sprite = get_node("sprDoor")
 
-const DETECT_RANGE = 15
+const DETECT_RANGE = 25
 
 var distance = Vector2()
 var is_opened = false

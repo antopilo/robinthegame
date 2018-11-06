@@ -61,16 +61,14 @@ func _physics_process(delta):
 	
 	#if Arrow is Controlled.
 	if is_controlled and !frozen:
-		if fuel <= 0:
-			 is_controlled = false
-			 
 		if controller_mode: 
 			joyStickControl()
 			global_rotation = angle
 		else: 
 			mouseControl()
 			
-	if is_controlled and !frozen:
+		if fuel <= 0:
+			 is_controlled = false
 		fuel -= fuel_consum
 	
 	apply_gravity()
@@ -149,7 +147,11 @@ func apply_gravity():
 		look_at(player.position)
 
 func dash():
-	mouseControl()
+	if controller_mode:
+		joyStickControl()
+		global_rotation = angle
+	else:
+		mouseControl()
 	is_controlled = false
 	speed = 3
 	can_speed = false

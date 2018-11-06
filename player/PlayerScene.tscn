@@ -145,8 +145,8 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 [node name="WallCheck_right" type="RayCast2D" parent="."]
 enabled = true
 exclude_parent = true
-cast_to = Vector2( 6, 0 )
-collision_mask = 1
+cast_to = Vector2( 5, 0 )
+collision_mask = 2
 collide_with_areas = false
 collide_with_bodies = true
 _sections_unfolded = [ "Transform" ]
@@ -154,8 +154,8 @@ _sections_unfolded = [ "Transform" ]
 [node name="WallCheck_Left" type="RayCast2D" parent="."]
 enabled = true
 exclude_parent = true
-cast_to = Vector2( -6, 0 )
-collision_mask = 1
+cast_to = Vector2( -5, 0 )
+collision_mask = 2
 collide_with_areas = false
 collide_with_bodies = true
 _sections_unfolded = [ "Transform" ]
@@ -164,14 +164,14 @@ _sections_unfolded = [ "Transform" ]
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, -5 )
-collision_mask = 1
+collision_mask = 2
 collide_with_areas = false
 collide_with_bodies = true
 _sections_unfolded = [ "Collide With" ]
 
 [node name="DisableInput" type="Timer" parent="."]
 process_mode = 1
-wait_time = 0.15
+wait_time = 0.2
 one_shot = false
 autostart = false
 
