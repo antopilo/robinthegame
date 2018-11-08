@@ -9,7 +9,7 @@ var oKey = preload("res://Levels/level_assets/entities/door_and_key/oKey.tscn")
 var oExtender = preload("res://Levels/level_assets/entities/extender/oExtender.tscn")
 var oSpawn = preload("res://Levels/level_assets/entities/spawn/oSpawn.tscn")
 var oFallBlockSingle1 = preload("res://Levels/level_assets/entities/falling_platforms/FallingPlatform1.tscn")
-
+var oFallThroughPlatorm = preload("res://Levels/level_assets/entities/jump_through_platform/fall_through_platform.tscn") 
 # Get each layers
 onready var tilemapSolid = get_node("fg_tile")
 onready var tilemapSpike = get_node("entities")
@@ -65,7 +65,8 @@ func spawnEntities():
 		match(cell):
 			0: place_ent(ent,"oDoor", oDoor)
 			1: place_ent(ent,"oKey", oKey)
-			2,3: place_ent(ent,"oFallBlockSingle1", oFallBlockSingle1)
+			2: place_ent(ent,"oFallBlockSingle1", oFallBlockSingle1)
+			3: place_ent(ent,"oJumpThrough", oFallThroughPlatorm)
 			4: place_ent(ent,"oExtender", oExtender)
 			5: place_ent(ent,"spawn", oSpawn)
 			6: place_ent(ent,"oJumpPad", ojumpPad)

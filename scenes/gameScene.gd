@@ -27,7 +27,7 @@ func updateRoom():
 				current_room.reset_spawns()
 				current_room = room
 				current_room.choose_spawn()
-				#player.spawn()
+				player.spawn()
 				tween_camera_to_area(room)
 				
 
@@ -108,10 +108,12 @@ func spawn():
 	# Set up the animation.
 	var start_pos = player.position
 	var end_pos = current_room.spawnPosition
-	spawn_tween.interpolate_property(player,"position", start_pos, end_pos, 0.5, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	spawn_tween.interpolate_property(player,"position", start_pos, \
+									end_pos, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 
 	# Disable input of the player.
 	player.collision.disabled = true
+	
 	player.can_control = false
 	player.sprite_node.play("idle")
 
@@ -123,6 +125,7 @@ func _on_Tween_tween_completed(_object, _key):
 	get_tree().paused = false
 	player.can_control = true
 	player.collision.disabled = false
+	
 
 func change_room(room):
 	current_room = room

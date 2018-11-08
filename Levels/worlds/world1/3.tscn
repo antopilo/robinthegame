@@ -7,7 +7,7 @@
 [ext_resource path="res://Levels/level_assets/entities/jump_pad/animation/jumpPad1.png" type="Texture" id=5]
 [ext_resource path="res://Levels/level_assets/entities/spikes/SpikeSingle.png" type="Texture" id=6]
 
-[sub_resource type="TileSet" id=3]
+[sub_resource type="TileSet" id=1]
 
 0/name = "grasstile.png 0"
 0/texture = ExtResource( 2 )
@@ -28,7 +28,7 @@
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="TileSet" id=5]
+[sub_resource type="TileSet" id=2]
 
 0/name = "Door"
 0/texture = ExtResource( 4 )
@@ -112,7 +112,6 @@
 7/z_index = 0
 
 [node name="3" type="Node2D"]
-editor/display_folded = true
 show_behind_parent = true
 position = Vector2( 816, -56 )
 script = ExtResource( 1 )
@@ -124,7 +123,7 @@ camera_zoom = 1
 
 [node name="bg_tile" type="TileMap" parent="."]
 mode = 0
-tile_set = SubResource( 3 )
+tile_set = SubResource( 1 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -184,7 +183,7 @@ _sections_unfolded = [ "Occluder", "Transform", "tile_set" ]
 
 [node name="entities" type="TileMap" parent="."]
 mode = 0
-tile_set = SubResource( 5 )
+tile_set = SubResource( 2 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -199,7 +198,7 @@ collision_layer = 1
 collision_mask = 1
 occluder_light_mask = 1
 format = 1
-tile_data = PoolIntArray( 655377, 5, 0, 720934, 0, 0, 851970, 5, 0, 1114118, 6, 0, 1114131, 7, 0, 1114132, 7, 0, 1114133, 7, 0, 1114134, 4, 0, 1114136, 7, 0, 1114137, 7, 0, 1114138, 7, 0, 1114139, 4, 0, 1114141, 7, 0, 1114142, 7, 0 )
+tile_data = PoolIntArray( 720934, 0, 0, 851970, 5, 0, 852004, 5, 0, 1114118, 6, 0, 1114131, 7, 0, 1114132, 7, 0, 1114133, 7, 0, 1114134, 4, 0, 1114136, 7, 0, 1114137, 7, 0, 1114138, 7, 0, 1114139, 4, 0, 1114141, 7, 0, 1114142, 7, 0 )
 _sections_unfolded = [ "Cell", "tile_set" ]
 
 [node name="fg_decals" type="TileMap" parent="."]

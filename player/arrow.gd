@@ -76,19 +76,25 @@ func _physics_process(delta):
 
 
 func mouseControl():
-	look_at(get_global_mouse_position() / stretch_factor + (player.camera.get_camera_screen_center()  - (get_viewport_rect().size / 2)) / 1.33)
+	var mouse = get_global_mouse_position()
+	var center = player.camera.get_camera_screen_center()
+	
+	look_at(mouse / stretch_factor + (center  - (get_viewport_rect().size / 2)) / 1.33)
 
 func joyStickControl():
 	# Gets the joystick Vector2 and get the angle(rad) of the joystick.
 	direction = Vector2(Input.get_joy_axis(0, JOY_AXIS_2), Input.get_joy_axis(0, JOY_AXIS_3))
 	angle = direction.angle()
-	
+	var init = false
 	# Checks if the joystick is inside the deadzone.
 	if abs(direction.x) < deadzone and abs(direction.y) < deadzone: 
 		angle = last_direction.angle()
-		
+		#if init == false:
+			#last_direction= Vector2(player.input_direction_x, player.input_direction_y)
+
 	else: 
 		last_direction = direction
+		init = true
 	
 func check_collision():
 	var collision = move_and_collide(global_transform.x * speed)

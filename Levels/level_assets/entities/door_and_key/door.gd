@@ -10,16 +10,13 @@ var distance = Vector2()
 var is_opened = false
 
 func _physics_process(_delta):
-	
 	distance = abs((self.global_position - player.position).length())
 	
-	
 	if distance <= DETECT_RANGE and player.following.size() >= 1 and !is_opened:
-		open()
+		is_opened = true
+		collision.disabled = true
+		sprite.visible = false
+		player.following.back().kill()
 
-func open():
-	is_opened = true
-	collision.disabled = true
-	sprite.visible = false
-	player.following.back().kill()
+	
 	

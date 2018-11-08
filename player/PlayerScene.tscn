@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://player/player_controller.gd" type="Script" id=1]
 [ext_resource path="res://player/frames/idle.png" type="Texture" id=2]
@@ -6,16 +6,16 @@
 [ext_resource path="res://player/frames/idle/idle2.png" type="Texture" id=4]
 [ext_resource path="res://player/frames/idle/idle3.png" type="Texture" id=5]
 [ext_resource path="res://player/frames/jump/falling1.png" type="Texture" id=6]
-[ext_resource path="res://player/frames/lookup.png" type="Texture" id=7]
-[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=8]
-[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=9]
-[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=10]
-[ext_resource path="res://player/frames/crouch.png" type="Texture" id=11]
-[ext_resource path="res://player/frames/wall.png" type="Texture" id=12]
-[ext_resource path="res://player/frames/Running/Running 4F2.png" type="Texture" id=13]
-[ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=14]
-[ext_resource path="res://player/frames/Running/Running 4F4.png" type="Texture" id=15]
-[ext_resource path="res://player/frames/Running/Running 4F1.png" type="Texture" id=16]
+[ext_resource path="res://player/frames/crouch.png" type="Texture" id=7]
+[ext_resource path="res://player/frames/lookup.png" type="Texture" id=8]
+[ext_resource path="res://player/frames/wall.png" type="Texture" id=9]
+[ext_resource path="res://player/frames/Running/Running 4F2.png" type="Texture" id=10]
+[ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=11]
+[ext_resource path="res://player/frames/Running/Running 4F4.png" type="Texture" id=12]
+[ext_resource path="res://player/frames/Running/Running 4F1.png" type="Texture" id=13]
+[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=14]
+[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=15]
+[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=16]
 [ext_resource path="res://player/bow.gd" type="Script" id=17]
 [ext_resource path="res://player/aura.png" type="Texture" id=18]
 
@@ -40,28 +40,28 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "lookup",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
-"loop": false,
-"name": "falling",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
 "name": "crouch",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 12 ) ],
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "lookup",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "Wall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "Running",
 "speed": 15.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": false,
+"name": "falling",
+"speed": 5.0
 } ]
 
 [sub_resource type="ParticlesMaterial" id=3]
@@ -104,16 +104,6 @@ anim_offset_random = 0.0
 anim_loop = false
 _sections_unfolded = [ "Angular Velocity", "Color", "Emission Shape", "Flags", "Gravity", "Initial Velocity", "Scale", "Spread", "Trail" ]
 
-[sub_resource type="RectangleShape2D" id=4]
-
-custom_solver_bias = 0.0
-extents = Vector2( 4, 4 )
-
-[sub_resource type="CircleShape2D" id=5]
-
-custom_solver_bias = 0.0
-radius = 4.0
-
 [node name="Player" type="KinematicBody2D"]
 input_pickable = false
 collision_layer = 1
@@ -122,6 +112,12 @@ collision/safe_margin = 0.01
 motion/sync_to_physics = false
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform", "collision" ]
+
+[node name="collisionBox" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, 4 )
+build_mode = 0
+polygon = PoolVector2Array( 4, -4, 4, 4, -4, 4, -4, -4, -4, -5, -3, -6, -2, -7, -1, -8, 0, -8, 1, -8, 2, -7, 3, -6, 4, -5, 4, -4 )
+_sections_unfolded = [ "polygon" ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
@@ -195,15 +191,6 @@ normal_map = null
 h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Drawing", "Material", "Process Material", "Time", "Transform" ]
-
-[node name="collisionBox" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 4 )
-shape = SubResource( 4 )
-_sections_unfolded = [ "shape" ]
-
-[node name="Head" type="CollisionShape2D" parent="."]
-shape = SubResource( 5 )
-_sections_unfolded = [ "Material" ]
 
 [node name="Light2D" type="Light2D" parent="."]
 enabled = true

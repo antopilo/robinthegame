@@ -21,16 +21,13 @@ boot_splash/image="res://images/loading_screen.png"
 boot_splash/fullsize=false
 config/icon="res://images/icon.png"
 
-[debug]
-
-settings/fps/force_fps=144
-
 [display]
 
 window/size/width=1920
 window/size/height=1080
 window/size/test_width=1280
 window/size/test_height=720
+window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 window/stretch/shrink="1"

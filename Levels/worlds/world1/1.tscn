@@ -112,7 +112,6 @@
 7/z_index = 0
 
 [node name="1" type="Node2D"]
-editor/display_folded = true
 show_behind_parent = true
 position = Vector2( 488, -56 )
 script = ExtResource( 1 )

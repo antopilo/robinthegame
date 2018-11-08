@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 # Nodes References
 onready var collision = get_node("collisionBox")
+onready var head = get_node("Head")
 onready var death_particle = get_node("death_particle")
 onready var sprite_node = get_node("AnimatedSprite")
 onready var camera = get_node("Camera2D")
@@ -31,6 +32,7 @@ var last_direction_x = 0
 var input_direction_x = 0
 var input_direction_y = 0
 
+
 # Player state
 var state
 var isCrouching = false
@@ -44,7 +46,6 @@ var is_ceilling = false
 var following = []
 
 func _input(event):
-	# Here is where Jump inputs are handled. 
 	if event.is_action_pressed("jump"):
 		if state == "Ground":
 			was_on_ground = true
@@ -53,8 +54,6 @@ func _input(event):
 				superJump()
 			else:
 				Jump()
-				
-				
 				
 		elif can_wall_jump:
 			was_on_ground = false
@@ -95,7 +94,10 @@ func get_input():
 			input_direction_x = 0
 			if state == "Ground": 
 				sprite_node.play("idle")
-
+		if Input.is_action_pressed("ui_up"):
+			input_direction_y = -1
+		else:
+			input_direction_y = 0
 		# Crouching
 		if Input.is_action_pressed("ui_down") and state == "Ground": 
 			isCrouching = true
@@ -139,7 +141,7 @@ func update_state():
 		
 	else: 
 		enterAirState()
-	print(state)
+	
 	
 func enterGroundState():
 	if state == "Air": 
