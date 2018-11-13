@@ -6,12 +6,12 @@ onready var current_room = get_node("0")
 var showgrid = false # Toggle the debug grid.
 
 func _ready():
-	spawn()
+	spawn(false)
 	tween_camera_to_area(current_room)
 
 func _physics_process(_delta):
 	updateRoom()
-
+	print(current_room.name)
 # Update the current room.
 func updateRoom():
 	for room in get_children():
@@ -27,7 +27,7 @@ func updateRoom():
 				current_room.reset_spawns()
 				current_room = room
 				current_room.choose_spawn()
-				player.spawn()
+				
 				tween_camera_to_area(room)
 				
 
@@ -35,8 +35,10 @@ func updateRoom():
 # Moves the camera to a given area
 func tween_camera_to_area(new_area):
 	var tween
-	get_tree().paused = true
+	
+	#get_tree().paused = false
 	player.position.x += player.last_direction_x
+	
 	if !has_node("CameraAreaTween"):
 		tween = Tween.new()
 		tween.name = "CameraAreaTween"
@@ -90,9 +92,13 @@ func _draw():
 		for x in range(0, 500):
 			draw_line(Vector2(x, 0), Vector2(x, 500),Color(1,0,0), 1.0)
 
-func spawn():
+func spawn(anim):
 	# Create tween is none exists
 	var spawn_tween
+	var transNode = get_node("../../../Overlay")
+	if anim:
+		transNode.fadeOut()
+	
 	
 	if !has_node("Tween"):
 		spawn_tween = Tween.new()
@@ -108,9 +114,10 @@ func spawn():
 	# Set up the animation.
 	var start_pos = player.position
 	var end_pos = current_room.spawnPosition
-	spawn_tween.interpolate_property(player,"position", start_pos, \
-									end_pos, 0.5, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-
+	spawn_tween.interpolate_property(player,"position", start_pos,
+									end_pos, 0.4, Tween.TRANS_EXPO, Tween.EASE_OUT)
+	
+	
 	# Disable input of the player.
 	player.collision.disabled = true
 	
@@ -120,6 +127,8 @@ func spawn():
 	# Start the tween!
 	spawn_tween.start()
 	tween_camera_to_area(current_room)
+	
+	
  
 func _on_Tween_tween_completed(_object, _key):
 	get_tree().paused = false
@@ -129,6 +138,6 @@ func _on_Tween_tween_completed(_object, _key):
 
 func change_room(room):
 	current_room = room
-	current_room.choose_spawn()
+	spawn(false)
 	tween_camera_to_area(current_room)
-	player.spawn()
+	

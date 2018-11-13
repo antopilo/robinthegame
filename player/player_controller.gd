@@ -149,7 +149,7 @@ func enterGroundState():
 	
 	state = "Ground"
 	current_max_speed = MAX_SPEED
-	can_control = true
+	#can_control = true
 	is_ceilling = false
 
 func enterWallState():
@@ -252,12 +252,27 @@ func wallJump():
 	velocity.x = WALL_JUMP_FORCE * jumpDirection
 	velocity.y = -WALL_JUMP_HEIGHT
 
-func jumpPad():
-	velocity.y = -JUMP_PAD_FORCE
+func jumpPad(direction):
+	if direction.x != 0:
+		velocity.x = sign(direction.x) * JUMP_PAD_FORCE * 5
+		
+		velocity.y =  -JUMP_PAD_FORCE / 1.5
+		is_wall_jumping = true
+		current_max_speed = MAX_AIR_SPEED 
+		can_control = false
+		$DisableInput.start()
+		
+	elif direction.y != 0 :
+		velocity.y = sign(direction.y) * JUMP_PAD_FORCE
+		
+	#velocity.y = -JUMP_PAD_FORCE
 	was_on_ground = false
 	
-func spawn():
-	get_parent().spawn()
+	
+	
+	
+func spawn(true):
+	get_parent().spawn(true)
 	velocity = Vector2()
 
 func get_arrow():
@@ -271,7 +286,3 @@ func _on_DisableInput_timeout():
 	can_control = true
 	is_wall_jumping = false
 
-func _on_Area2D_body_entered(body):
-	if body.is_in_group("Player"):
-		jumpPad()
-	

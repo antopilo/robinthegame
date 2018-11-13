@@ -58,6 +58,32 @@ func place_spike(tile):
 	objects.add_child(new_spike)
 	tilemapEntities.set_cell(tile.x, tile.y, -1)
 	
+func place_jumpPad(tile):
+	
+	
+	
+	var new_spike = ojumpPad.instance()
+	var transposed = tilemapEntities.is_cell_transposed(tile.x, tile.y)
+	
+	#Rotate the spike object to match the tile rotation.
+	if transposed and !tilemapEntities.is_cell_x_flipped(tile.x, tile.y):
+		new_spike.global_rotation = deg2rad(270)
+		new_spike.global_position = tilemapEntities.map_to_world(Vector2(tile.x, tile.y + 1))
+	elif transposed and !tilemapEntities.is_cell_x_flipped(tile.x, tile.y - 1):
+		new_spike.global_rotation = deg2rad(90)
+		new_spike.global_position = tilemapEntities.map_to_world(Vector2(tile.x + 1, tile.y))
+	elif !transposed and tilemapEntities.is_cell_y_flipped(tile.x, tile.y):
+		new_spike.global_rotation = deg2rad(180)
+		new_spike.global_position = tilemapEntities.map_to_world(Vector2(tile.x + 1, tile.y + 1 ))
+	else: 
+		new_spike.global_rotation = deg2rad(0)
+		new_spike.global_position = tilemapEntities.map_to_world(tile)
+		
+	objects.add_child(new_spike)
+	tilemapEntities.set_cell(tile.x, tile.y, -1)
+	
+	
+
 func spawnEntities():
 	for ent in tilemapEntities.get_used_cells():
 		var cell = tilemapEntities.get_cell(ent.x, ent.y)
@@ -69,7 +95,7 @@ func spawnEntities():
 			3: place_ent(ent,"oJumpThrough", oFallThroughPlatorm)
 			4: place_ent(ent,"oExtender", oExtender)
 			5: place_ent(ent,"spawn", oSpawn)
-			6: place_ent(ent,"oJumpPad", ojumpPad)
+			6: place_jumpPad(ent)
 			7: place_spike(ent)
 			
 func place_ent(tile, name, object):

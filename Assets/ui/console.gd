@@ -14,11 +14,12 @@ func _input(event):
 		if self.visible == true: 
 			$LineEdit.grab_focus()
 			$LineEdit.clear()
+			player_node.can_control = false
 		else: 
 			$LineEdit.FOCUS_NONE
 			$LineEdit.clear()
+			player_node.can_control = true
 		
-
 	if event.is_action_pressed("ui_up"):
 		consoleLine.text = lastInput
 		
@@ -36,7 +37,7 @@ func _on_LineEdit_text_entered(new_text):
 			game_node.update()
 		
 		"respawn": # Respawn the player.
-			game_node.spawn()
+			game_node.spawn(true)
 		
 		"controller": 
 			weapon_node.is_controller = !weapon_node.is_controller
@@ -74,8 +75,19 @@ func _on_LineEdit_text_entered(new_text):
 	if new_text.begins_with("tp"):
 		var level = new_text.right(3)
 		var node = game_node.get_node(level)
-		if node.is_in_group("level"):
-			game_node.change_room(node)
+		if node != null:
+			if node.is_in_group("level"):
+				game_node.current_room = node
+				player_node.spawn(true)
+	if new_text.begins_with("move"):
+		var command = new_text.rsplit(" ")
+		
+		if command.size() > 2:
+			var y = command[2]
+			player_node.position.y += float(y) * 8
+		
+		var x = command[1]
+		player_node.position.x += float(x) * 8
 		
 		
 		
