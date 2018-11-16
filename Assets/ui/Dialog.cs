@@ -11,21 +11,27 @@ public class Dialog : Control
     {
         base._Ready();
 
-        Text = (RichTextLabel)GetNode("label");
-        Delay = (Timer)GetNode("Timer");
-        T = (Tween)GetNode("Tween");
+        Text = GetNode("label") as RichTextLabel;
+        Delay = GetNode("Timer") as Timer;
+        T = GetNode("Tween") as Tween;
     }
 
+    /// <summary>
+    /// Slowly reveal pMessage letter by letter in the dialog box.
+    /// </summary>
+    /// <param name="pMessage"></param>
     public void ShowMessage(string pMessage)
     {
-        float Time = pMessage.Length / Speed;
-
-        T.StopAll();
         Text.VisibleCharacters = 0;
+        T.StopAll();
         Text.Clear();
+
         Text.Text = pMessage;
+
+        var AnimationLength = pMessage.Length / Speed; // Consistent speed per letter.
+
         T.InterpolateProperty(Text, "visible_characters", 0,
-            pMessage.Length, Time, Tween.TransitionType.Linear, Tween.EaseType.Out);
+            pMessage.Length, AnimationLength, Tween.TransitionType.Linear, Tween.EaseType.Out);
         T.Start();
     }
 }

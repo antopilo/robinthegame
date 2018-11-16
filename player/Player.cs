@@ -27,18 +27,18 @@ public class Player : KinematicBody2D
     public bool CanControl = true;
     public int LastDirectionX = 0;
     private int InputDirectionX = 0;
-    private int InputDirectionY = 0;
+    private int InputDirectionY = 0; // For later use maybe.
     
-    //public Vector2 InputDirection = new Vector2();
-
     public States State { get; private set; }
+
     public bool IsCrouching { get; private set; } = false;
     public bool IsWallJumping { get; private set; } = false;
     public bool WasOnGround { get; private set; } = false;
     public bool CanWallJump { get; private set; } = false;
     public bool ArrowExist { get; set; } = false;
     public bool IsCeilling { get; private set; } = false;
-    public List<Node2D> Following = new List<Node2D>();
+
+    public List<Node2D> Following = new List<Node2D>(); // List of following entities.
 
     public override void _Ready()
     {
@@ -69,7 +69,7 @@ public class Player : KinematicBody2D
                 WallJump();
             }
 
-        if (e.IsActionReleased("jump") && Velocity.y < 0 && WasOnGround)
+        if (e.IsActionReleased("jump") && Velocity.y < 0 && WasOnGround) // Tap jump
             Velocity.y /= 1.75f;
     }
 
@@ -87,6 +87,12 @@ public class Player : KinematicBody2D
         GetArrow();
     }
 
+
+    /// <summary>
+    /// Update the direction of the player with the input.
+    /// Must be called every frame.
+    /// Also plays the animation.
+    /// </summary>
     private void GetInput()
     {
         if (!CanControl)
@@ -137,9 +143,16 @@ public class Player : KinematicBody2D
         }
     }
 
+    /// <summary>
+    /// Pretty much just adds the acceleration. 
+    /// </summary>
     private void UpdateVelocity()
         => Velocity.x += InputDirectionX * ACCELERATION;
 
+
+    /// <summary>
+    /// Decide what state is the player in. See States.cs for all of the possible states.
+    /// </summary>
     private void UpdateState()
     {
         var CollisionCount = GetSlideCount() - 1;
@@ -168,7 +181,7 @@ public class Player : KinematicBody2D
             Velocity.y = 0;
     }
 
-    public void EnterGroundState()
+    public void EnterGroundState() // Ground state.
     {
         if (State == States.Air)
             Velocity.y = 3;
@@ -179,7 +192,7 @@ public class Player : KinematicBody2D
         IsCeilling = false;
     }
 
-    public void EnterWallState()
+    public void EnterWallState() // Wall State
     {
         State = States.Wall;
         GravityMult = 1;
@@ -200,7 +213,7 @@ public class Player : KinematicBody2D
         }
     }
 
-    public void EnterAirState()
+    public void EnterAirState() // Air State.
     {
         if (Velocity.y > 0)
             Sprite.Play("falling");
@@ -210,6 +223,10 @@ public class Player : KinematicBody2D
         State = States.Air;
     }
 
+
+    /// <summary>
+    /// Apply Constant force on the player. if the player is on the ground. Stop the gravity.
+    /// </summary>
     private void ApplyGravity()
     {
         if (State == States.Ground)
@@ -220,6 +237,10 @@ public class Player : KinematicBody2D
         Velocity.y += GRAVITY * GravityMult;
     }
 
+
+    /// <summary>
+    /// Define speed limits.
+    /// </summary>
     private void SpeedLimits()
     {
         if (IsWallJumping && Mathf.Abs(Velocity.x) > MAX_AIR_SPEED)
@@ -238,6 +259,10 @@ public class Player : KinematicBody2D
             Velocity.x = 0;
     }
 
+
+    /// <summary>
+    /// Decide if the player can Wall jump or not.
+    /// </summary>
     private void CanWalljump()
     {
         var Left = (RayCast2D)GetNode("WallCheck_Left");
@@ -246,6 +271,10 @@ public class Player : KinematicBody2D
         CanWallJump = (Left.IsColliding() || Right.IsColliding()) || State == States.Wall;
     }
 
+
+    /// <summary>
+    /// Normal jump
+    /// </summary>
     public void Jump()
     {
         if (State != States.Ground)
@@ -255,6 +284,10 @@ public class Player : KinematicBody2D
         Velocity.y = -JUMP_FORCE;
     }
 
+
+    /// <summary>
+    /// Crouch jump
+    /// </summary>
     public void SuperJump()
     {
         if (State == States.Ground)
@@ -264,6 +297,10 @@ public class Player : KinematicBody2D
         Velocity.y = -SUPER_JUMP_FORCE;
     }
 
+
+    /// <summary>
+    /// Wall jump
+    /// </summary>
     public void WallJump()
     {
         var JumpDirection = 0;
@@ -311,6 +348,12 @@ public class Player : KinematicBody2D
         Velocity.y = -WALL_JUMP_HEIGHT;
     }
 
+
+    /// <summary>
+    /// Boost the player in a specified direction.
+    /// TODO: Improve and define forces better.
+    /// </summary>
+    /// <param name="pDirection"></param>
     public void JumpPad(Vector2 pDirection)
     {
         if (pDirection.x != 0)
@@ -338,6 +381,10 @@ public class Player : KinematicBody2D
         Velocity = new Vector2();
     }
 
+
+    /// <summary>
+    /// Check every frame if there is an arrow and get it as a reference.
+    /// </summary>
     public void GetArrow()
     {
         if (HasNode("new_arrow"))

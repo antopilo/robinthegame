@@ -59,35 +59,42 @@ constant_angular_velocity = 0.0
 shape = SubResource( 2 )
 
 [node name="0" parent="." instance=ExtResource( 2 )]
+LevelZoom = 1.0
 
 [node name="1" parent="." groups=[
 "level",
 ] instance=ExtResource( 3 )]
+LevelZoom = 1.0
 
 [node name="2" parent="." groups=[
 "level",
 ] instance=ExtResource( 4 )]
+LevelZoom = 1.0
 
 [node name="3" parent="." groups=[
 "level",
 ] instance=ExtResource( 5 )]
 position = Vector2( 808, -56 )
+LevelZoom = 1.0
 
 [node name="4" parent="." groups=[
 "level",
 ] instance=ExtResource( 6 )]
 position = Vector2( 1136, -424 )
+LevelZoom = 1.0
 
 [node name="5" parent="." groups=[
 "level",
 ] instance=ExtResource( 7 )]
 editor/display_folded = true
 position = Vector2( 808, -424 )
+LevelZoom = 1.0
 
 [node name="6" parent="." groups=[
 "level",
 ] instance=ExtResource( 8 )]
 position = Vector2( 1464, -56 )
+LevelZoom = 1.0
 
 [node name="Player" parent="." groups=[
 "Player",

@@ -199,7 +199,7 @@ shadow_atlas_quad_2 = 3
 shadow_atlas_quad_3 = 4
 
 [node name="GameManager" parent="game/Viewport" instance=ExtResource( 3 )]
-StartLevel = 6
+StartLevel = 1
 
 [node name="ui" type="Control" parent="."]
 editor/display_folded = true

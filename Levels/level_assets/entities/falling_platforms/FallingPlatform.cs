@@ -2,21 +2,25 @@ using Godot;
 
 public class FallingPlatform : Node2D
 {
-    Sprite Sprite;
-    StaticBody2D Platform;
-    Tween Tween;
-    Timer Timer;
-    Timer ShakeTimer;
-    CollisionShape2D Collision;
+    const float FALL_DISTANCE = 300;
+    const int SHAKE_AMPLITUDE = 25;
+    const int SHAKE_LENGTH = 20;
 
-    Vector2 InitialPosition = new Vector2();
-    Color InitialColor;
-    float FallDistance = 300f;
-    float DeltaTime = 0;
-    bool Availaible = true;
-    bool Up = true;
-    bool Shaking = false;
+    private Sprite Sprite;
+    private StaticBody2D Platform;
+    private Tween Tween;
+    private Timer Timer;
+    private Timer ShakeTimer;
+    private CollisionShape2D Collision;
+    float DeltaTime = 0; // Total time of the engine;
 
+    private Vector2 InitialPosition = new Vector2();
+    private Color InitialColor;
+
+    private bool Available = true;
+    private bool Up = true;
+    private bool Shaking = false;
+    
     public override void _Ready()
     {
         Sprite = GetNode("Platform/Sprite") as Sprite;
@@ -25,6 +29,8 @@ public class FallingPlatform : Node2D
         Timer = GetNode("RespawnCooldown") as Timer;
         ShakeTimer = GetNode("ShakeTimer") as Timer;
         Collision = GetNode("Platform/Collision") as CollisionShape2D;
+
+        // Get initial position and color so the platform can reset to those values.
         InitialColor = (this as CanvasItem).Modulate;
         InitialPosition = Platform.Position;
     }
@@ -33,7 +39,7 @@ public class FallingPlatform : Node2D
     {
         base._PhysicsProcess(delta);
 
-        if (Shaking)
+        if (Shaking) // If shaking, do the shaking animation/effect.
         {
             Sprite.RotationDegrees = Mathf.Cos(DeltaTime * 20) * 25;
             DeltaTime += delta;
@@ -42,30 +48,33 @@ public class FallingPlatform : Node2D
 
     public void Fall()
     {
-        Tween.InterpolateProperty(Platform, "position", InitialPosition,
-                new Vector2(InitialPosition.x, FallDistance), 0.8f, Tween.TransitionType.Expo, Tween.EaseType.In);
-        Tween.InterpolateProperty(Platform, "modulate", InitialColor,
+        Collision.Disabled = true;
 
+        Tween.InterpolateProperty(Platform, "position", InitialPosition, new Vector2(InitialPosition.x, FALL_DISTANCE),
+                 0.8f, Tween.TransitionType.Expo, Tween.EaseType.In);
+
+        Tween.InterpolateProperty(Platform, "modulate", InitialColor,
            new Color(1, 1, 1, 0), 2, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
 
         Tween.Start();
         Timer.Start();
-        Collision.Disabled = true;
+        
     }
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
-        if(Availaible && Up)
+        if(Available && Up)
         {
             Shaking = true;
-            ShakeTimer.Start();
-            Availaible = false;
+            Available = false;
             Up = false;
+
+            ShakeTimer.Start();
         }
     }
 
     private void _on_RespawnCooldown_timeout()
     {
-        Tween.InterpolateProperty(Platform, "position", new Vector2(InitialPosition.x, FallDistance), 
+        Tween.InterpolateProperty(Platform, "position", new Vector2(InitialPosition.x, FALL_DISTANCE), 
             InitialPosition, 0.8f, Tween.TransitionType.Expo, Tween.EaseType.Out);
 
         Tween.InterpolateProperty(Platform, "modulate", new Color(1, 1, 1, 0),
@@ -78,7 +87,7 @@ public class FallingPlatform : Node2D
     {
         if (Up)
         {
-            Availaible = true;
+            Available = true;
             Collision.Disabled = false;
         }
         else
@@ -86,14 +95,10 @@ public class FallingPlatform : Node2D
             Up = true;
             Shaking = false;
         }
+
         Sprite.GlobalRotationDegrees = 0;
     }
 
     private void _on_ShakeTimer_timeout()
-    {
-        Fall();
-    }
+        =>  Fall();
 }
-
-
-

@@ -10,10 +10,12 @@ public class Level : Node2D
 
     public Vector2 LevelRect;
     public Vector2 LevelSize;
-    public Vector2 LevelPosition = new Vector2();
+    public Vector2 LevelPosition;
+
     private Node Entities;
     private Player Player;
-    public float LevelZoom;
+
+    [Export] public float LevelZoom = 1;
 
     public Vector2 SpawnPosition = new Vector2();
     List<Vector2> Spawns = new List<Vector2>();
@@ -65,7 +67,6 @@ public class Level : Node2D
         LevelSize = new Vector2(LevelRect.x * TileSize, (LevelRect.y - 0.5f) * TileSize);
         
         LevelPosition = GlobalPosition;
-		LevelZoom = 1;
 		
         LoadEntities();
         ChooseSpawn();
@@ -86,6 +87,10 @@ public class Level : Node2D
         Random rnd = new Random();
         foreach (Vector2 Tile in LayerSolid.GetUsedCells())
         {
+            // If the tile is not autotile. Which should always be.
+            if (LayerSolid.TileSet.TileGetTileMode(LayerSolid.GetCellv(Tile)) != TileSet.TileMode.AutoTile)
+                return;
+
             if (Tile.y == 0 || Tile.x == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y - 1)
             {
                 bool right = false;
@@ -123,10 +128,8 @@ public class Level : Node2D
                     autoTiling.y = 7;
                 else if (right && !left && bottom && !top)  // Bottom right
                     autoTiling.y = 8;
-
-                int variation = rnd.Next(4); // Random variation of the tile.
                 
-                autoTiling.x = variation;
+                autoTiling.x = rnd.Next(4);
 
                 LayerSolid.SetCell((int)Tile.x, (int)Tile.y, LayerSolid.GetCellv(Tile), 
                             false, false, false, autoTiling);

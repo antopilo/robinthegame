@@ -29,12 +29,14 @@ public class Weapon : Node2D
             if (@event.IsActionPressed("fire"))
             {
                 CanShoot = false;
+
                 Timer.Start();
                 ShootArrow();
             }
             if (@event.IsActionPressed("right_click"))
             {
                 CanShoot = false;
+
                 Timer.Start();
                 ShootArrow();
                 CurrentArrow.Dash();
@@ -45,11 +47,12 @@ public class Weapon : Node2D
     public void ShootArrow()
     {
         Vector2 FinalPosition = Origin.GlobalPosition;
+
         CurrentArrow = (Arrow)ArrowScene.Instance();
         CurrentArrow.GlobalPosition = FinalPosition;
         CurrentArrow.ControllerMode = ControllerMode;
         CurrentArrow.Name = "arrow";
-        GetNode("../..").AddChild(CurrentArrow);
 
+        GetNode("../..").AddChild(CurrentArrow);
     }
 }

@@ -2,35 +2,32 @@ using Godot;
 
 public class Arrow : KinematicBody2D
 {
-    public Weapon Weapon;
-    Player Player;
-    GameController World;
-    Tween T;
-
     const float MAX_FUEL = 100f;
+    const float DEADZONE = 0.25f;
+    const float GRAVITY = 2;
+    
+    // Nodes
+    public Weapon Weapon;
+    private Player Player;
+    private GameController World;
+    private Tween T;
+
+    // Fuel
     float Fuel = 100f;
     float FuelCost = 0.1f;
 
-    const float DeadZoneSize = 0.25f;
+    // Settings n States
     public bool ControllerMode = false;
-    bool IsControlled = true;
-    bool Frozen = false;
-    bool MovingBack = false;
-    bool CanDash = true;
-    bool DeadZone = false;
+    private bool IsControlled = true;
+    private bool Frozen = false;
+    private bool MovingBack = false;
+    private bool CanDash = true;
 
-    Vector2 NormalFloor = new Vector2(0, 1);
-    Vector2 NormalCeiling = new Vector2(0, -1);
-    Vector2 NormalWallR = new Vector2(1, 0);
-    Vector2 NormalWallL = new Vector2(-1, 0);
-
-    float Gravity = 2;
-    float Speed = 0.5f;
-    Vector2 Direction;
-    float Angle;
-    Vector2 LastDirection;
-    Vector2 FreezePosition;
-    Vector2 AimPosition;
+    private float Speed = 0.5f;
+    private Vector2 Direction;
+    private float Angle;
+    private Vector2 LastDirection;
+    private Vector2 FreezePosition;
    
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -45,7 +42,7 @@ public class Arrow : KinematicBody2D
         Player.ArrowExist = true;
         Player.Arrow = this;
 
-        this.Name = "Arrow";
+        Name = "Arrow";
     }
     public override void _Input(InputEvent @event)
     {
@@ -100,7 +97,7 @@ public class Arrow : KinematicBody2D
         Direction = new Vector2(Input.GetJoyAxis(0, (int)JoystickList.Axis2), Input.GetJoyAxis(0, (int)JoystickList.Axis3));
         Angle = Direction.Angle();
 
-        if (Mathf.Abs(Direction.x) < DeadZoneSize && Mathf.Abs(Direction.y) < DeadZoneSize)
+        if (Mathf.Abs(Direction.x) < DEADZONE && Mathf.Abs(Direction.y) < DEADZONE)
             Angle = LastDirection.Angle();
         else
             LastDirection = Direction;
@@ -112,6 +109,11 @@ public class Arrow : KinematicBody2D
 
         if (!Frozen && Collision != null)
         {
+            Vector2 NormalFloor = new Vector2(0, 1);
+            Vector2 NormalCeiling = new Vector2(0, -1);
+            Vector2 NormalWallR = new Vector2(1, 0);
+            Vector2 NormalWallL = new Vector2(-1, 0);
+
             if (Collision.Normal == NormalFloor || Collision.Normal == NormalCeiling)
             {
                 if (GlobalRotationDegrees > -180 && GlobalRotationDegrees < 0)
@@ -126,17 +128,21 @@ public class Arrow : KinematicBody2D
                 else
                     GlobalRotationDegrees = 180;
             }
+
             FreezeArrow();
         }
         else if (Position.x <= World.CurrentRoom.LevelPosition.x || 
-                Position.y <= World.CurrentRoom.LevelPosition.y ||
-                Position.x >= (World.CurrentRoom.LevelPosition.x + World.CurrentRoom.LevelSize.x) ||
-                Position.y >= (World.CurrentRoom.LevelPosition.y + World.CurrentRoom.LevelSize.y))
+            Position.y <= World.CurrentRoom.LevelPosition.y ||
+            Position.x >= (World.CurrentRoom.LevelPosition.x + World.CurrentRoom.LevelSize.x) ||
+            Position.y >= (World.CurrentRoom.LevelPosition.y + World.CurrentRoom.LevelSize.y))
         {
             ReturnToPlayer();
         }
         else if (Frozen)
+        {
             Position = FreezePosition;
+        }
+            
     }
 
     public void FreezeArrow()
@@ -152,10 +158,11 @@ public class Arrow : KinematicBody2D
 
     public void ReturnToPlayer()
     {
-        float Time = (Position - Player.Position).Length() / 300f;
+        float Time = (Position - Player.Position).Length() / 300;
 
         T.FollowProperty(this, "global_position", GlobalPosition, Player, "global_position", Time,
             Tween.TransitionType.Quint, Tween.EaseType.In);
+
         T.InterpolateProperty(this, "scale", Scale, new Vector2(), Time,
             Tween.TransitionType.Expo, Tween.EaseType.In);
 
@@ -183,8 +190,10 @@ public class Arrow : KinematicBody2D
             GlobalRotation = Angle;
         }
         else
+        {
             MouseControl();
-
+        }
+            
         IsControlled = false;
         Speed = 3;
         CanDash = false;
@@ -192,9 +201,8 @@ public class Arrow : KinematicBody2D
 
     private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
     {
-        
-        this.QueueFree();
         Weapon.CanShoot = true;
+        QueueFree();
     }
 }
 

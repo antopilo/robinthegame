@@ -11,7 +11,7 @@ public class GameController : Node2D
     public override void _Ready()
     {
         Player = GetNode("Player") as Player;
-        CurrentRoom = (Level)GetNode("0");
+        CurrentRoom = (Level)GetNode(StartLevel.ToString());
         Spawn(false);
         MoveCamToRoom(CurrentRoom);
     }
@@ -47,6 +47,7 @@ public class GameController : Node2D
                     CurrentRoom = (Level)node;
                     CurrentRoom.ChooseSpawn();
                     MoveCamToRoom(CurrentRoom);
+                    //Player.Spawn(false);
                 }
             }
         }
@@ -55,6 +56,8 @@ public class GameController : Node2D
     private void MoveCamToRoom(Level pRoom)
     {
         // This function smoothly moves the camera to a specified pRoom.
+        GetTree().Paused = true;
+
         Tween T;
 
         if (!HasNode("CameraAreaTween"))
@@ -96,16 +99,22 @@ public class GameController : Node2D
         T.InterpolateProperty(Camera, "zoom", Camera.Zoom, NewCameraZoom, 0.6f, Transition, Ease);
         T.Start();
 
-        if (Player.ArrowExist)
+        if (Player.ArrowExist) // If an arrow was in the old room. Return it to the player.
             Player.Arrow.ReturnToPlayer();
     }
 
+
+    /// <summary>
+    /// Draw the debug grid. not optimised at ALL.
+    /// TODO: Improve the debug grid, or change for a better Debug view.
+    /// </summary>
     public override void _Draw()
     {
         if(ShowGrid == true)
 		{
 			DrawSetTransform(new Vector2(), 0, new Vector2(8, 8)); // Tile size is 8.
-            for (int x = 0; x < 1000; x++)
+
+            for (int x = -500; x < 500; x++)
             {
                 DrawLine(new Vector2(x, 0), new Vector2(x, 1000), new Color(1, 0, 0), 1.0f);
                 DrawLine(new Vector2(0, x), new Vector2(1000, x), new Color(1, 0, 0), 1.0f);
@@ -115,12 +124,16 @@ public class GameController : Node2D
 
     public void Spawn(bool WithAnimation)
     {
-        Tween T;
-        SceneTransition TransitionPlayer = (SceneTransition)GetNode("../../../Overlay");
-
+        
         if (WithAnimation)
+        {
+            SceneTransition TransitionPlayer = (SceneTransition)GetNode("../../../Overlay");
             TransitionPlayer.Fade();
-
+        }
+            
+        Tween T;
+       
+        // If there is no Tween to use. Create one!
         if (!HasNode("TweenSpawn"))
         {
             T = new Tween();
@@ -129,7 +142,7 @@ public class GameController : Node2D
             T.PauseMode = Node.PauseModeEnum.Process;
             T.Connect("tween_completed", this, "_on_Tween_tween_completed");
         }
-        else
+        else // Get existing Tween Node 
         {
             T = (Tween)GetNode("TweenSpawn");
         }
@@ -138,12 +151,14 @@ public class GameController : Node2D
 
         Vector2 StartPosition = Player.Position;
         Vector2 EndPosition = CurrentRoom.SpawnPosition;
+
+        // Slowly move the player position to the Spawn position.
         T.InterpolateProperty(Player, "position", StartPosition, EndPosition, 0.4f, Tween.TransitionType.Expo, Tween.EaseType.Out);
         T.Start();
 
         Player.CollisionBox.Disabled = true;
         Player.CanControl = false;
-        Player.Sprite.Play("idle");
+        Player.Sprite.Play("jumping");
 
         MoveCamToRoom(CurrentRoom);
     }
