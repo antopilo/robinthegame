@@ -69,7 +69,7 @@ public class Level : Node2D
 		
         LoadEntities();
         ChooseSpawn();
-        //AutoTileBorders();
+        AutoTileBorders();
     }
 
     /// <summary>
