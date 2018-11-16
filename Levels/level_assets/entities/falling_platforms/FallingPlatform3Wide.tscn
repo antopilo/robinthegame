@@ -1,9 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Levels/level_assets/entities/falling_platforms/falling_platform.gd" type="Script" id=1]
+[ext_resource path="res://Levels/level_assets/entities/falling_platforms/FallingPlatform.cs" type="Script" id=1]
 [ext_resource path="res://Levels/level_assets/entities/falling_platforms/fallingblock3Outline.png" type="Texture" id=2]
 [ext_resource path="res://Levels/level_assets/entities/falling_platforms/fallingblock3.png" type="Texture" id=3]
-
 
 [sub_resource type="PhysicsMaterial" id=1]
 
@@ -24,14 +23,12 @@ extents = Vector2( 12, 1 )
 
 [node name="FallingPlatform3" type="Node2D"]
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Outline" type="Sprite" parent="."]
 position = Vector2( 12, 4 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="RespawnPoint" type="Position2D" parent="."]
 position = Vector2( 12, 4 )
@@ -55,7 +52,6 @@ playback_speed = 1.0
 playback/active = false
 playback/repeat = false
 playback/speed = 1.0
-_sections_unfolded = [ "playback" ]
 
 [node name="Platform" type="StaticBody2D" parent="."]
 position = Vector2( 12, 4 )
@@ -65,16 +61,13 @@ collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 physics_material_override = SubResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Collision" type="CollisionShape2D" parent="Platform"]
 scale = Vector2( 1.2, 1.2 )
 shape = SubResource( 2 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Platform"]
 texture = ExtResource( 3 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 12, 12 )
@@ -86,13 +79,11 @@ angular_damp = 1.0
 monitorable = false
 audio_bus_override = false
 audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 0, -12 )
 scale = Vector2( 1, 0.1 )
 shape = SubResource( 3 )
-_sections_unfolded = [ "Transform" ]
 
 [connection signal="timeout" from="RespawnCooldown" to="." method="_on_RespawnCooldown_timeout"]
 [connection signal="timeout" from="ShakeTimer" to="." method="_on_ShakeTimer_timeout"]

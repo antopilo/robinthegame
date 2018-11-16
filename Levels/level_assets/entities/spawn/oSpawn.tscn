@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Levels/level_assets/entities/spawn/oSpawn.gd" type="Script" id=1]
+[ext_resource path="res://Levels/level_assets/entities/spawn/Spawn.cs" type="Script" id=1]
 [ext_resource path="res://Levels/level_assets/entities/ent_global.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -12,14 +12,12 @@ radius = 19.8513
 
 offsets = PoolRealArray( 0, 0.889952, 0.990431 )
 colors = PoolColorArray( 0, 0, 0, 0, 0.372549, 0.372549, 0.372549, 1, 0.552941, 0.552941, 0.552941, 0 )
-_sections_unfolded = [ "colors" ]
 
 [sub_resource type="GradientTexture" id=3]
 
 flags = 4
 gradient = SubResource( 2 )
 width = 2048
-_sections_unfolded = [ "gradient" ]
 
 [sub_resource type="ParticlesMaterial" id=4]
 
@@ -59,20 +57,17 @@ anim_speed_random = 0.0
 anim_offset = 0.0
 anim_offset_random = 0.0
 anim_loop = false
-_sections_unfolded = [ "Color", "Emission Shape", "color_ramp" ]
 
 [sub_resource type="Gradient" id=5]
 
 offsets = PoolRealArray( 0, 1 )
 colors = PoolColorArray( 0.980392, 0.52549, 0.121569, 1, 0.878431, 0.360784, 0.105882, 1 )
-_sections_unfolded = [ "colors" ]
 
 [sub_resource type="GradientTexture" id=6]
 
 flags = 4
 gradient = SubResource( 5 )
 width = 2048
-_sections_unfolded = [ "gradient" ]
 
 [sub_resource type="ParticlesMaterial" id=7]
 
@@ -112,7 +107,6 @@ anim_speed_random = 0.0
 anim_offset = 0.0
 anim_offset_random = 0.0
 anim_loop = false
-_sections_unfolded = [ "Angular Velocity", "Color", "Emission Shape", "Gravity", "Initial Velocity", "Orbit Velocity", "Scale", "color_ramp" ]
 
 [sub_resource type="ParticlesMaterial" id=8]
 
@@ -152,16 +146,14 @@ anim_offset = 0.0
 anim_offset_random = 0.0
 anim_loop = false
 
-[node name="spawn" type="Position2D" groups=[
+[node name="spawn" type="Node2D" groups=[
 "spawn",
 ]]
 position = Vector2( 56, 160 )
 scale = Vector2( 0.8, 0.8 )
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Area2D" type="Area2D" parent="."]
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -179,7 +171,6 @@ scale = Vector2( 1.25, 1.25 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 88, 0, 16, 16 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="fire" type="Sprite" parent="."]
 position = Vector2( -5.00001, 4.99998 )
@@ -187,7 +178,6 @@ scale = Vector2( 1.25, 1.25 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 120, 0, 8, 8 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="smoke" type="Particles2D" parent="fire"]
 position = Vector2( 0, -3.99998 )
@@ -209,7 +199,6 @@ texture = null
 normal_map = null
 h_frames = 1
 v_frames = 1
-_sections_unfolded = [ "Process Material", "Time", "process_material" ]
 
 [node name="flame" type="Particles2D" parent="fire"]
 emitting = true
@@ -230,7 +219,6 @@ texture = null
 normal_map = null
 h_frames = 1
 v_frames = 1
-_sections_unfolded = [ "Process Material", "process_material" ]
 
 [node name="Particles2D" type="Particles2D" parent="fire"]
 visible = false
@@ -252,7 +240,6 @@ texture = null
 normal_map = null
 h_frames = 1
 v_frames = 1
-_sections_unfolded = [ "Process Material", "Textures", "process_material" ]
 
 [node name="bed" type="Sprite" parent="."]
 visible = false
@@ -261,6 +248,5 @@ scale = Vector2( 1.25, 1.25 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 104, 0, 16, 8 )
-_sections_unfolded = [ "Transform" ]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

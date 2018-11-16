@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Levels/level_assets/entities/jump_pad/oJumpPad.gd" type="Script" id=1]
+[ext_resource path="res://Levels/level_assets/entities/jump_pad/JumpPad.cs" type="Script" id=1]
 [ext_resource path="res://Levels/level_assets/entities/jump_pad/animation/jumpPad1.png" type="Texture" id=2]
 [ext_resource path="res://Levels/level_assets/entities/jump_pad/animation/jumpPad2.png" type="Texture" id=3]
 [ext_resource path="res://Levels/level_assets/entities/jump_pad/animation/jumpPad3.png" type="Texture" id=4]
@@ -36,7 +36,6 @@ extents = Vector2( 8, 8 )
 
 [node name="Jumppad" type="Node2D"]
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 0, 4 )
@@ -47,16 +46,13 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-_sections_unfolded = [ "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
-_sections_unfolded = [ "Transform", "shape" ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "bounce"
-_sections_unfolded = [ "frames" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 input_pickable = false
@@ -64,12 +60,10 @@ collision_layer = 1
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-physics_material_override = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 3 )
 disabled = true
-_sections_unfolded = [ "Transform", "shape" ]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

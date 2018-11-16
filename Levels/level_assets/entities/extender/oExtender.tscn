@@ -1,16 +1,14 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Levels/level_assets/entities/extender/extender.gd" type="Script" id=1]
-[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender8.png" type="Texture" id=2]
-[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender7.png" type="Texture" id=3]
-[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender6.png" type="Texture" id=4]
-[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender5.png" type="Texture" id=5]
-[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender4.png" type="Texture" id=6]
-[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender3.png" type="Texture" id=7]
-[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender2.png" type="Texture" id=8]
-[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender1.png" type="Texture" id=9]
-
-
+[ext_resource path="res://Levels/level_assets/entities/extender/Extender.cs" type="Script" id=1]
+[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender1.png" type="Texture" id=2]
+[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender2.png" type="Texture" id=3]
+[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender3.png" type="Texture" id=4]
+[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender4.png" type="Texture" id=5]
+[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender5.png" type="Texture" id=6]
+[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender6.png" type="Texture" id=7]
+[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender7.png" type="Texture" id=8]
+[ext_resource path="res://Levels/level_assets/entities/extender/animation/extender8.png" type="Texture" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -22,15 +20,14 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": false,
-"name": "extend",
+"name": "retract",
 "speed": 15.0
 }, {
 "frames": [ ExtResource( 9 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": false,
-"name": "retract",
+"name": "extend",
 "speed": 15.0
 } ]
-_sections_unfolded = [ "Resource" ]
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -44,14 +41,12 @@ extents = Vector2( 8, 2 )
 
 [node name="extender" type="Node2D"]
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 8, -4 )
 frames = SubResource( 1 )
 animation = "retract"
 frame = 7
-_sections_unfolded = [ "frames" ]
 
 [node name="collision" type="StaticBody2D" parent="."]
 position = Vector2( 8, 12 )
@@ -60,8 +55,6 @@ collision_layer = 1
 collision_mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-physics_material_override = null
-_sections_unfolded = [ "Transform" ]
 
 [node name="shape" type="CollisionShape2D" parent="collision"]
 shape = SubResource( 2 )
@@ -79,7 +72,6 @@ audio_bus_name = "Master"
 
 [node name="shape" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 3 )
-_sections_unfolded = [ "shape" ]
 
 [node name="Tween" type="Tween" parent="."]
 repeat = false

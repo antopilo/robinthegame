@@ -1,12 +1,13 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://scenes/Overlay.gd" type="Script" id=1]
-[ext_resource path="res://images/transitions/pokemask2.png" type="Texture" id=2]
+[ext_resource path="res://scenes/SceneTransition.cs" type="Script" id=1]
+[ext_resource path="res://images/transitions/gr_arc180Mask.png" type="Texture" id=2]
 [ext_resource path="res://scenes/gameScene.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/ui/Dialog.gd" type="Script" id=4]
+[ext_resource path="res://Assets/ui/Dialog.cs" type="Script" id=4]
 [ext_resource path="res://Assets/ui/Dialog9patch.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Fonts/Fool.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://Assets/ui/console.gd" type="Script" id=7]
+[ext_resource path="res://Assets/ui/Console.cs" type="Script" id=7]
+[ext_resource path="res://Assets/Fonts/PixelFont.tres" type="DynamicFont" id=8]
 
 [sub_resource type="Shader" id=1]
 
@@ -35,7 +36,6 @@ render_priority = 0
 shader = SubResource( 1 )
 shader_param/cutoff = 1.0
 shader_param/mask = ExtResource( 2 )
-_sections_unfolded = [ "shader", "shader_param", "shader_param/mask" ]
 
 [sub_resource type="Animation" id=3]
 
@@ -86,10 +86,36 @@ outline_color = Color( 1, 1, 1, 1 )
 use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 6 )
-_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[sub_resource type="StyleBoxFlat" id=7]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+bg_color = Color( 0.172549, 0.164706, 0.196078, 0.457059 )
+draw_center = true
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color( 0.8, 0.8, 0.8, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_size = 0
+anti_aliasing = true
+anti_aliasing_size = 1
 
 [node name="root" type="Node2D"]
-_sections_unfolded = [ "Transform" ]
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 pause_mode = 2
@@ -99,7 +125,6 @@ rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 script = ExtResource( 1 )
-_sections_unfolded = [ "Pause" ]
 
 [node name="Transition" type="ColorRect" parent="Overlay"]
 pause_mode = 2
@@ -119,7 +144,6 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 color = Color( 0, 0, 0, 1 )
-_sections_unfolded = [ "Material", "Pause", "material" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Overlay/Transition"]
 pause_mode = 2
@@ -131,7 +155,6 @@ playback_speed = 1.0
 anims/FadeIn = SubResource( 3 )
 anims/FadeOut = SubResource( 4 )
 blend_times = [  ]
-_sections_unfolded = [ "Pause" ]
 
 [node name="game" type="ViewportContainer" parent="."]
 anchor_left = 0.0
@@ -148,7 +171,6 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 stretch = true
 stretch_shrink = 6
-_sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="Viewport" type="Viewport" parent="game"]
 arvr = false
@@ -176,29 +198,8 @@ shadow_atlas_quad_1 = 2
 shadow_atlas_quad_2 = 3
 shadow_atlas_quad_3 = 4
 
-[node name="game_root" parent="game/Viewport" instance=ExtResource( 3 )]
-
-[node name="VideoPlayer" type="VideoPlayer" parent="game"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 40.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-audio_track = 0
-stream = null
-volume_db = 0.0
-autoplay = false
-paused = false
-expand = true
-buffering_msec = 500
-bus = "Master"
+[node name="GameManager" parent="game/Viewport" instance=ExtResource( 3 )]
+StartLevel = 6
 
 [node name="ui" type="Control" parent="."]
 anchor_left = 0.0
@@ -213,10 +214,8 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
 
 [node name="Dialog" type="Control" parent="ui"]
-editor/display_folded = true
 visible = false
 anchor_left = 0.5
 anchor_top = 1.0
@@ -254,7 +253,6 @@ patch_margin_left = 8
 patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
-_sections_unfolded = [ "Rect" ]
 
 [node name="label" type="RichTextLabel" parent="ui/Dialog"]
 anchor_left = 0.5
@@ -273,17 +271,18 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/normal_font = SubResource( 6 )
 bbcode_enabled = true
-bbcode_text = "[color=brown]test[/color]"
+bbcode_text = "
+"
 visible_characters = -1
 percent_visible = 1.0
 meta_underlined = false
 tab_size = 0
-text = "test"
+text = "
+"
 scroll_active = false
 scroll_following = true
 selection_enabled = false
 override_selected_font_color = false
-_sections_unfolded = [ "BBCode", "Margin", "Rect", "Visibility", "custom_colors", "custom_constants", "custom_fonts" ]
 
 [node name="Timer" type="Timer" parent="ui/Dialog"]
 process_mode = 1
@@ -298,17 +297,15 @@ playback_speed = 1.0
 playback/active = false
 playback/repeat = false
 playback/speed = 1.0
-_sections_unfolded = [ "playback" ]
 
 [node name="Console" type="Control" parent="ui"]
-editor/display_folded = true
-visible = false
 anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 0.0
 anchor_bottom = 1.0
-margin_top = -153.0
+margin_top = -147.0
 margin_right = 522.0
+margin_bottom = 6.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -316,7 +313,6 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 7 )
-_sections_unfolded = [ "Anchor", "Margin", "Rect" ]
 
 [node name="LineEdit" type="LineEdit" parent="ui/Console"]
 anchor_left = 0.5
@@ -334,6 +330,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 secret_character = "*"
 focus_mode = 2
@@ -344,8 +341,38 @@ placeholder_alpha = 1.0
 caret_blink = true
 caret_blink_speed = 0.65
 caret_position = 0
-_sections_unfolded = [ "Caret", "Placeholder", "custom_fonts" ]
 
-[connection signal="animation_finished" from="Overlay/Transition/AnimationPlayer" to="Overlay" method="_on_AnimationPlayer_animation_finished"]
+[node name="ConsoleBox" type="RichTextLabel" parent="ui/Console"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 21.0
+margin_top = -927.0
+margin_right = 503.0
+margin_bottom = 51.0
+grow_vertical = 0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/normal = SubResource( 7 )
+custom_fonts/normal_font = ExtResource( 8 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+bbcode_enabled = true
+bbcode_text = ""
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = true
+tab_size = 4
+text = ""
+scroll_active = false
+scroll_following = true
+selection_enabled = false
+override_selected_font_color = false
+
 [connection signal="timeout" from="ui/Dialog/Timer" to="ui/Dialog" method="_on_Timer_timeout"]
 [connection signal="text_entered" from="ui/Console/LineEdit" to="ui/Console" method="_on_LineEdit_text_entered"]
