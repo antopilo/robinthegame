@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 public class Level : Node2D
@@ -62,11 +63,75 @@ public class Level : Node2D
 
         LevelRect = LayerSolid.GetUsedRect().Size;
         LevelSize = new Vector2(LevelRect.x * TileSize, (LevelRect.y - 0.5f) * TileSize);
+        
         LevelPosition = GlobalPosition;
 		LevelZoom = 1f;
 		
         LoadEntities();
         ChooseSpawn();
+        //AutoTileBorders();
+    }
+
+    /// <summary>
+    /// This methods Change each tiles that are on the border of the level to autotile with the level next to it.
+    /// This gives a better look and makes the levels feel more connected.
+    /// I KNOW THIS IS VERY POOR CODE BUT IT WORKS. - thats for john 
+    /// 
+    ///     x   x   x
+    ///     x   x   x
+    ///     x   x   x 
+    /// </summary>
+    public void AutoTileBorders()
+    {
+        Random rnd = new Random();
+        foreach (Vector2 Tile in LayerSolid.GetUsedCells())
+        {
+            if (Tile.y == 0 || Tile.x == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y - 1)
+            {
+                bool right = false;
+                bool left = false;
+                bool bottom = false;
+                bool top = false;
+
+                // Check if there is a tile next to the current one. Checks all side.
+                if (Tile.x != LevelRect.x - 1 && LayerSolid.GetCell((int)Tile.x + 1, (int)Tile.y) == -1)
+                    right = true;
+                if (Tile.x != 0 && LayerSolid.GetCell((int)Tile.x - 1, (int)Tile.y) == -1)
+                    left = true;
+                if (Tile.y != LevelRect.y - 1 && LayerSolid.GetCell((int)Tile.x, (int)Tile.y + 1) == -1)
+                    bottom = true;
+                if (Tile.y != 0 && LayerSolid.GetCell((int)Tile.x, (int)Tile.y - 1) == -1)
+                    top = true;
+
+                var autoTiling = new Vector2();
+
+                if (!right && left && !bottom && top)       // Top left
+                    autoTiling.y = 0;
+                else if (!right && !left && !bottom && top) // Top
+                    autoTiling.y = 1;
+                else if (right && !left && !bottom && top)  // Top Right
+                    autoTiling.y = 2;
+                else if (!right && left && !bottom && !top) // Middle left
+                    autoTiling.y = 3;
+                else if (!right && !left && !bottom && !top)// Middle
+                    autoTiling.y = 4;
+                else if (right && !left && !bottom && !top) // Middle right
+                    autoTiling.y = 5;
+                else if (!right && left && bottom && !top)  // Bottom left
+                    autoTiling.y = 6;
+                else if (!right && !left && bottom && !top) // Bottom 
+                    autoTiling.y = 7;
+                else if (right && !left && bottom && !top)  // Bottom right
+                    autoTiling.y = 8;
+
+                int variation = rnd.Next(4); // Random variation of the tile.
+                
+                autoTiling.x = variation;
+
+                LayerSolid.SetCell((int)Tile.x, (int)Tile.y, LayerSolid.GetCellv(Tile), 
+                            false, false, false, autoTiling);
+            }
+        }
     }
 
     public void LoadEntities()

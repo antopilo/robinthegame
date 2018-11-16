@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/SceneTransition.cs" type="Script" id=1]
-[ext_resource path="res://images/transitions/gr_arc180Mask.png" type="Texture" id=2]
+[ext_resource path="res://images/transitions/pokemask2.png" type="Texture" id=2]
 [ext_resource path="res://scenes/gameScene.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/ui/Dialog.cs" type="Script" id=4]
 [ext_resource path="res://Assets/ui/Dialog9patch.png" type="Texture" id=5]
