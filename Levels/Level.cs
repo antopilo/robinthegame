@@ -65,7 +65,7 @@ public class Level : Node2D
         LevelSize = new Vector2(LevelRect.x * TileSize, (LevelRect.y - 0.5f) * TileSize);
         
         LevelPosition = GlobalPosition;
-		LevelZoom = 1f;
+		LevelZoom = 1;
 		
         LoadEntities();
         ChooseSpawn();

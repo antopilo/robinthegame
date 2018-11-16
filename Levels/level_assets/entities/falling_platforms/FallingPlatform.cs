@@ -43,9 +43,11 @@ public class FallingPlatform : Node2D
     public void Fall()
     {
         Tween.InterpolateProperty(Platform, "position", InitialPosition,
-                new Vector2(InitialPosition.x, FallDistance), 0.8f, Tween.TransitionType.Expo, Tween.EaseType.OutIn);
+                new Vector2(InitialPosition.x, FallDistance), 0.8f, Tween.TransitionType.Expo, Tween.EaseType.In);
         Tween.InterpolateProperty(Platform, "modulate", InitialColor,
+
            new Color(1, 1, 1, 0), 2, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
+
         Tween.Start();
         Timer.Start();
         Collision.Disabled = true;
@@ -64,9 +66,11 @@ public class FallingPlatform : Node2D
     private void _on_RespawnCooldown_timeout()
     {
         Tween.InterpolateProperty(Platform, "position", new Vector2(InitialPosition.x, FallDistance), 
-            InitialPosition, 0.8f, Tween.TransitionType.Expo, Tween.EaseType.OutIn);
+            InitialPosition, 0.8f, Tween.TransitionType.Expo, Tween.EaseType.Out);
+
         Tween.InterpolateProperty(Platform, "modulate", new Color(1, 1, 1, 0),
-            InitialColor, 2, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
+            InitialColor, 2, Tween.TransitionType.Linear, Tween.EaseType.Out);
+
         Tween.Start();
     }
 
