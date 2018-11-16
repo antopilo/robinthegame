@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public class Console : Control
 {
@@ -61,16 +62,14 @@ public class Console : Control
         bool Toggle;
 
         // Parse the command.
-        string[] Input = new_text.ToUpper().Split(" ");
-        string Command = Input[0];
-        string Parameters = "";
-        if (Input.Length > 1)
-             Parameters = Input[1];
+        var input = new_text.ToUpper().Split(" ");
+        var command = input[0];
+        var parameters = input.Skip(1).ToArray();
 
         LastCommand = new_text;
         ConsoleInput.Clear();
 
-        switch (Command)
+        switch (command)
         {
             case "QUIT":
                 GetTree().Quit();
@@ -81,7 +80,8 @@ public class Console : Control
                 GameController.Update();
                 break;
 
-            case "SPAWN":  case "RESPAWN":
+            case "SPAWN":
+            case "RESPAWN":
                 GameController.Spawn(true);
                 break;
 
@@ -89,19 +89,21 @@ public class Console : Control
             case "CONTROLLER": 
                 Toggle = !Weapon.ControllerMode;
                 
-                if(Parameters == "")
+                if(parameters.Length == 0)
                     Weapon.ControllerMode = !Weapon.ControllerMode;
-                else if(Parameters == "1")
+                else if(parameters[0] == "1")
                     Weapon.ControllerMode = true;
-                else if(Parameters == "0")
+                else if(parameters[0] == "0")
                     Weapon.ControllerMode = false;
                 break;
 
             // Set the Window Size.
             case "WINDOW":
-                switch (Parameters)
+                switch (parameters[0])
                 {
-                    case "": case "0": case "1":
+                    case "":
+                    case "0":
+                    case "1":
                         OS.WindowSize = new Vector2(320, 180);
                         break;
                     case "2":
@@ -123,7 +125,7 @@ public class Console : Control
 
             // Fullscreen
             case "FULLSCREEN":
-                if (Parameters == "1")
+                if (parameters[0] == "1")
                     OS.WindowFullscreen = true;
                 else
                     OS.WindowFullscreen = false;
@@ -131,7 +133,7 @@ public class Console : Control
             
             // Toggle Vsync usage.
             case "VSYNC":
-                if (Parameters == "0")
+                if (parameters[0] == "0")
                     OS.VsyncEnabled = false;
                 else
                     OS.VsyncEnabled = true;
@@ -139,7 +141,7 @@ public class Console : Control
             
             // Make the borderless
             case "BORDERLESS":
-                if (Parameters == "1")
+                if (parameters[0] == "1")
                     OS.WindowBorderless = true;
                 else
                     OS.WindowBorderless = false;
@@ -152,7 +154,7 @@ public class Console : Control
 
             // Teleport the player to a specified room.
             case "TP":
-                string DestinationLevel = Parameters;
+                string DestinationLevel = parameters[0];
                 Level Level = GameController.GetNode(DestinationLevel) as Level;
 
                 if(Level != null && Level.IsInGroup("level"))
@@ -164,34 +166,34 @@ public class Console : Control
             
             // Move the player X Y Tile.
             case "MOVE":
-                float x = Input[1].ToFloat();
-                float y;
+                
 
-                if (Input.Length == 3)
+                if (parameters.Length == 2)
                 {
-                    y = Input[2].ToFloat();
+                    var y = parameters[1].ToFloat();
                     Player.MoveLocalY(y * 8);
                 }
-                else if (Input.Length > 3)
+                else if (parameters.Length > 2)
+                {
                     ConsoleBox.BbcodeText += "\n [color=red]The move Command must follow this pattern: move X Y[/color]";
-                
+                    return;
+                }
+
+                var x = parameters[0].ToFloat();
+
                 Player.MoveLocalX(x * 8);
                 break;
             case "HELP":
                 ConsoleBox.BbcodeText += "\n [color=red]Here is the list of commands that are available: [/color]";
 
-                foreach (string Cmd in Commands)
-                {
-                    ConsoleBox.BbcodeText += "\n " + "[color=red]" + Cmd + "[/color]";
-                }
-                
-
+                foreach (string cmd in Commands)
+                    ConsoleBox.BbcodeText += "\n " + "[color=red]" + cmd + "[/color]";
                 break;
             default:
                 ConsoleBox.BbcodeText += "\n " + "[color=red]Unknown Command. Type : help for the list of commands.[/color]";
                 return;
-                
         }
+
         ConsoleBox.BbcodeText += "\n " + new_text;
     }
 }

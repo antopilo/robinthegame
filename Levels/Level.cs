@@ -1,6 +1,6 @@
 using Godot;
-using System;
 using System.Collections.Generic;
+
 public class Level : Node2D
 {
     const int MIN_WIDTH = 320;
@@ -142,7 +142,7 @@ public class Level : Node2D
 
         LayerEntities.SetCell(X, Y, -1); // Erase the Tile from the tilemap(it has been replaced with a real object).
 
-        if(pName == "Spawn")
+        if (pName == "Spawn")
         {
             SpawnPosition = NewEntity.GlobalPosition + LevelPosition;
             Spawns.Add(SpawnPosition);
@@ -152,19 +152,16 @@ public class Level : Node2D
 
     public void ChooseSpawn()
     {
-        float DistanceFromPlayer;
-        float CurrentFromPlayer;
-
         foreach (Node node in Entities.GetChildren())
         {
             if (node.IsInGroup("spawn"))
             {
                 Spawn s = node as Spawn;
                 s.Active = false;
-                DistanceFromPlayer = Mathf.Abs((Player.GlobalPosition - s.GlobalPosition).Length());
-                CurrentFromPlayer = Mathf.Abs((Player.GlobalPosition - SpawnPosition).Length());
+                var distanceFromPlayer = Mathf.Abs((Player.GlobalPosition - s.GlobalPosition).Length());
+                var currentFromPlayer = Mathf.Abs((Player.GlobalPosition - SpawnPosition).Length());
 
-                if(DistanceFromPlayer <= CurrentFromPlayer)
+                if(distanceFromPlayer <= currentFromPlayer)
                 {
                     SpawnPosition = s.GlobalPosition;
                     s.Active = true;

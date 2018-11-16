@@ -61,6 +61,7 @@
     <Compile Include="Levels\level_assets\entities\spikes\Spike.cs" />
     <Compile Include="player\Arrow.cs" />
     <Compile Include="player\Player.cs" />
+    <Compile Include="player\States.cs" />
     <Compile Include="player\Weapon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="scenes\GameController.cs" />

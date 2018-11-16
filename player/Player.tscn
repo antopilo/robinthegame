@@ -10,12 +10,12 @@
 [ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=8]
 [ext_resource path="res://player/frames/Running/Running 4F4.png" type="Texture" id=9]
 [ext_resource path="res://player/frames/Running/Running 4F1.png" type="Texture" id=10]
-[ext_resource path="res://player/frames/lookup.png" type="Texture" id=11]
+[ext_resource path="res://player/frames/wall.png" type="Texture" id=11]
 [ext_resource path="res://player/frames/crouch.png" type="Texture" id=12]
-[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=13]
-[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=14]
-[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=15]
-[ext_resource path="res://player/frames/wall.png" type="Texture" id=16]
+[ext_resource path="res://player/frames/lookup.png" type="Texture" id=13]
+[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=14]
+[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=15]
+[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=16]
 [ext_resource path="res://player/Weapon.cs" type="Script" id=17]
 [ext_resource path="res://player/aura.png" type="Texture" id=18]
 
@@ -45,7 +45,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 11 ) ],
 "loop": true,
-"name": "lookup",
+"name": "Wall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 12 ) ],
@@ -53,14 +53,14 @@ animations = [ {
 "name": "crouch",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": false,
-"name": "falling",
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "lookup",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 16 ) ],
-"loop": true,
-"name": "Wall",
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": false,
+"name": "falling",
 "speed": 5.0
 } ]
 
