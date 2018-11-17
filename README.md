@@ -114,3 +114,4 @@ To turn a decent level into a good level you should at least follow those rules.
 | Normal jump | 0-6 tiles | 6-7 tiles | 7 tiles   |
 | Super jump  | 0-7 tiles | 7 tiles   | 8-9 tiles |
 
+To be continued....
