@@ -2,6 +2,7 @@ using Godot;
 
 public class FallingPlatform : Node2D
 {
+    public Rect2 Box;
     const float FALL_DISTANCE = 300;
     const int SHAKE_AMPLITUDE = 25;
     const int SHAKE_LENGTH = 20;
@@ -33,6 +34,8 @@ public class FallingPlatform : Node2D
         // Get initial position and color so the platform can reset to those values.
         InitialColor = (this as CanvasItem).Modulate;
         InitialPosition = Platform.Position;
+
+        Box = new Rect2(GlobalPosition, new Vector2(8, 8));
     }
 
     public override void _PhysicsProcess(float delta)

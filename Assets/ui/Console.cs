@@ -77,7 +77,7 @@ public class Console : Control
 
             case "SHOWGRID":
                 GameController.ShowGrid = !GameController.ShowGrid;
-                GameController.Update();
+                GameController.CurrentRoom.Update();
                 break;
 
             case "SPAWN":

@@ -2,6 +2,7 @@ using Godot;
 
 public class Key : Node2D
 {
+    public Rect2 Box;
     Player Player;
     Sprite Sprite;
     Tween T;
@@ -18,6 +19,8 @@ public class Key : Node2D
         Player = GetNode("../../../Player") as Player;
         Sprite = GetNode("sprKey") as Sprite;
         T = GetNode("Tween") as Tween;
+
+        Box = new Rect2(GlobalPosition, new Vector2(8, 8));
     }
 
     public override void _PhysicsProcess(float delta)

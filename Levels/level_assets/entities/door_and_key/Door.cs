@@ -2,6 +2,7 @@ using Godot;
 
 public class Door : Node2D
 {
+    public Rect2 Box;
     Player Player;
     CollisionShape2D Collision;
     Sprite Sprite;
@@ -16,6 +17,8 @@ public class Door : Node2D
         Player = GetNode("../../../Player") as Player;
         Collision = GetNode("collision/box") as CollisionShape2D;
         Sprite = GetNode("sprDoor") as Sprite;
+
+        Box = new Rect2(GlobalPosition, new Vector2(24, 24));
     }
 
     public override void _PhysicsProcess(float delta)

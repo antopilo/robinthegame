@@ -6,13 +6,14 @@ public class Spawn : Node2D
     public bool Active = false;
     Particles2D Flames;
     Particles2D Smoke;
-
+    public Rect2 Box;
     public override void _Ready()
     {
         base._Ready();
         Room = (Level)GetNode("../../");
         Flames = (Particles2D)GetNode("fire/flame");
         Smoke = (Particles2D)GetNode("fire/smoke");
+        Box = new Rect2(GlobalPosition, new Vector2(8, 8));
     }
     public override void _PhysicsProcess(float delta)
     {

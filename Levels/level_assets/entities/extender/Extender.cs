@@ -5,13 +5,15 @@ public class Extender : Node2D
     private AnimatedSprite Spr;
 	private Tween T;
 	private StaticBody2D Collision;
-
+    public Rect2 Box;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         Spr = GetNode("AnimatedSprite") as AnimatedSprite;
 		T = GetNode("Tween") as Tween;
 		Collision = GetNode("collision") as StaticBody2D;
+
+        Box = new Rect2(GlobalPosition, new Vector2(16, 8));
     }
 
 	private void _on_Area2D_body_entered(PhysicsBody2D body)

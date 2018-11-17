@@ -43,10 +43,16 @@ public class GameController : Node2D
                 // If the Player is inside the level.
                 if ((x > xMin) && (y > yMin) && (x < xMax) && (y < yMax) && CurrentRoom != node)
                 {
+                    Level oldLevel = CurrentRoom;
                     CurrentRoom.ResetSpawns();
+
                     CurrentRoom = (Level)node;
                     CurrentRoom.ChooseSpawn();
+                    CurrentRoom.Update();
+
+                    oldLevel.Update();
                     MoveCamToRoom(CurrentRoom);
+                    
                     //Player.Spawn(false);
                 }
             }
@@ -110,16 +116,16 @@ public class GameController : Node2D
     /// </summary>
     public override void _Draw()
     {
-        if(ShowGrid == true)
-		{
-			DrawSetTransform(new Vector2(), 0, new Vector2(8, 8)); // Tile size is 8.
+  //      if(ShowGrid == true)
+		//{
+		//	DrawSetTransform(new Vector2(), 0, new Vector2(8, 8)); // Tile size is 8.
 
-            for (int x = -500; x < 500; x++)
-            {
-                DrawLine(new Vector2(x, 0), new Vector2(x, 1000), new Color(1, 0, 0), 1.0f);
-                DrawLine(new Vector2(0, x), new Vector2(1000, x), new Color(1, 0, 0), 1.0f);
-            }
-		}  
+  //          for (int x = -500; x < 500; x++)
+  //          {
+  //              DrawLine(new Vector2(x, 0), new Vector2(x, 1000), new Color(1, 0, 0), 1.0f);
+  //              DrawLine(new Vector2(0, x), new Vector2(1000, x), new Color(1, 0, 0), 1.0f);
+  //          }
+		//}  
     } 
 
     public void Spawn(bool WithAnimation)

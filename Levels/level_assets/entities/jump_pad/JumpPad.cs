@@ -10,12 +10,16 @@ public class JumpPad : Node2D
     float Angle;
     Vector2 Direction = new Vector2();
 
+    public Rect2 Box;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         Hitbox = GetNode("StaticBody2D/CollisionShape2D") as CollisionShape2D;
         DetectionZone = GetNode("Area2D") as Area2D;
         Sprite = GetNode("AnimatedSprite") as AnimatedSprite;
+
+        Box = new Rect2(GlobalPosition, new Vector2(8,4));
     }
 
     private void _on_Area2D_body_entered(PhysicsBody2D body)

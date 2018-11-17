@@ -39,9 +39,11 @@ public class Level : Node2D
     TileMap LayerFgDecals;
     TileMap LayerBgDecals;
     #endregion
-    
+
+    GameController World;
     public override void _Ready()
     {
+        World = GetNode("..") as GameController;
         // Get Layers
         LayerSolid = GetNode("fg_tile") as TileMap;
         LayerBackground = GetNode("bg_tile") as TileMap;
@@ -71,6 +73,22 @@ public class Level : Node2D
         LoadEntities();
         ChooseSpawn();
         AutoTileBorders();
+
+        
+    }
+
+    public override void _Draw()
+    {
+        if (World.ShowGrid && World.CurrentRoom == this)
+        {
+            foreach (Vector2 item in LayerSolid.GetUsedCells())
+                DrawRect(new Rect2(LayerSolid.MapToWorld(item), new Vector2(8, 8)), new Color(1, 0, 0), false);
+            foreach (Node2D node2D in Entities.GetChildren())
+            {
+                //DrawRect((Rect2)node2D.Get("Box"), new Color(1, 0, 0), false);
+            }
+        }
+
     }
 
     /// <summary>
