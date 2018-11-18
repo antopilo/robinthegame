@@ -2,21 +2,21 @@ Game Structure
 
 [TOC]
 
-​![1542558639206](C:\Users\antoi\AppData\Roaming\Typora\typora-user-images\1542558639206.png) This is the whole game in a glance. Separated in 3 layers. Transition, Game, UI.
+![Imgur](https://i.imgur.com/MCOK9bx.png) This is the whole game in a glance. Separated in 3 layers. Transition, Game, UI.
 
 
 
 -----
 
-## Overlay
+## Overlay 
 
-![1542554916341](C:\Users\antoi\AppData\Roaming\Typora\typora-user-images\1542554916341.png)
+![1542554916341](https://i.imgur.com/TcDOn98.png)
 
 The overlay node is responsible for the Screen transition animation. There is a ColorRect node that contains the Image for the transition. There is also a AnimationPlayer that Animate the progression of the transition. The script Attached on the Overlay only Calls "Play()" on the animation player. The only purpose of the script is to be called from GameManager.cs see Spawn method.
 
 ## GameManager, also can be called World
 
-![1542555069980](C:\Users\antoi\AppData\Roaming\Typora\typora-user-images\1542555069980.png)
+![1542555069980](https://i.imgur.com/EhKgVeD.png)
 
 The GameManger is child of a viewport node. The viewport node can be ignored because its only purpose is to Scale the game up from low res to 1080p.
 
@@ -28,7 +28,7 @@ This node is the most important one because it handles: Level Transition, Spawni
 
 GameController.cs has 4 main variables. The player, The current Level, The Starting level and the DebugGrid toggle. The Starting level can be directly changed in the godot inspector like so:
 
-![1542555467791](C:\Users\antoi\AppData\Roaming\Typora\typora-user-images\1542555467791.png)
+![1542555467791](https://i.imgur.com/E0ZzfyP.png)
 
 UpdateRoom() : This method is called every frame and it determine which level is the player located in. It uses basic math to tell if the player is inside the rectangle of a level. It changes CurrentRoom.
 
@@ -42,13 +42,13 @@ ChangeRoom(): This is only useful when you want to Force the game to change room
 
 ## Levels
 
-Levels are ALWAYS child of the GameManager Node a.k.a World. For Levels to be considered as levels by the game manager, they must have the group "level" applied to them. When Selecting your level, in the inspector there is a "Node" tab, then a Group option and see if your level has the "level" group. You can also click this icon: ![1542556138775](C:\Users\antoi\AppData\Roaming\Typora\typora-user-images\1542556138775.png)
+Levels are ALWAYS child of the GameManager Node a.k.a World. For Levels to be considered as levels by the game manager, they must have the group "level" applied to them. When Selecting your level, in the inspector there is a "Node" tab, then a Group option and see if your level has the "level" group. You can also click this icon: ![1542556138775](https://i.imgur.com/8EQFFsi.png)
 
-![1542556091066](C:\Users\antoi\AppData\Roaming\Typora\typora-user-images\1542556091066.png)
+![1542556091066](https://i.imgur.com/gYfyUbY.png)
 
 A level has 5 Layers(for now) and 1 Node2D called objects.All of the levels information are contained inside those 5 layers. Each layer is a TileMap node. TileMap nodes are Nodes that you can Draw Tiles on. Here are all of the layers.
 
-![1542556241050](C:\Users\antoi\AppData\Roaming\Typora\typora-user-images\1542556241050.png)
+![1542556241050](https://i.imgur.com/HRsHWW3.png)
 
 bg_tile: This is the Background Tile Layer. Its basicly Background that you can paint. It is non-solid. Player cant interact with this.
 
@@ -94,7 +94,7 @@ ResetSpawn(): When leaving the level. all spawn must be turn off.
 
 The player is a KinematicBody2D because this type of node is used for moving bodies. KinematicBody2D have the MoveAndSlide function built-in which is used to move the player. The player has 3 States: Ground, Wall and Air. The most important part to know about the player is the main loop.
 
-![1542557624647](C:\Users\antoi\AppData\Roaming\Typora\typora-user-images\1542557624647.png)
+![1542557624647](https://i.imgur.com/aoPyqyz.png)
 
 This is called every frame.
 
