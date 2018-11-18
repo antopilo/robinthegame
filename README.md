@@ -1,5 +1,9 @@
 # Robin the game
 
+[GAME DOCUMENTATION]: RobinStructure.md	"Game Doc."
+
+
+
 ## What is Robin:video_game:
 
 > Robin is a platforming game about robinhood that finds a magic arrow that allows him to control it in the air. the progression of the game is room-based
@@ -113,5 +117,3 @@ To turn a decent level into a good level you should at least follow those rules.
 | ----------- | --------- | --------- | --------- |
 | Normal jump | 0-6 tiles | 6-7 tiles | 7 tiles   |
 | Super jump  | 0-7 tiles | 7 tiles   | 8-9 tiles |
-
-To be continued....

@@ -4,13 +4,17 @@ using System.Collections.Generic;
 
 public class Level : Node2D
 {
+	// IF the level is smaller than the screen reset the size to those values.
     const int MIN_WIDTH = 320; 
     const int MIN_HEIGHT = 180;
+	
+	// Tiles are 8x8 pixels
     const int TileSize = 8;
 
-    public Vector2 LevelRect;
-    public Vector2 LevelSize;
-    public Vector2 LevelPosition;
+	
+    public Vector2 LevelRect; // True size
+    public Vector2 LevelSize;  // Size to fit in the screen. half a tile shorter on the Y axis.
+    public Vector2 LevelPosition; // Position in the World
 
     private Node Entities;
     private Player Player;

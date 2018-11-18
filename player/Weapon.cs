@@ -21,9 +21,7 @@ public class Weapon : Node2D
     }
 
     public override void _Input(InputEvent @event)
-    {
-        base._Input(@event);
-
+	{
         if (CanShoot)
         {
             if (@event.IsActionPressed("fire"))
