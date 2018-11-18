@@ -51,8 +51,6 @@ public class Player : KinematicBody2D
 
     public override void _Input(InputEvent e)
     {
-        base._Input(e);
-
         if (e.IsActionPressed("jump"))
             if (State == States.Ground)
             {
@@ -75,8 +73,6 @@ public class Player : KinematicBody2D
 
     public override void _PhysicsProcess(float delta)
     {
-        base._PhysicsProcess(delta);
-
         GetInput();
         UpdateVelocity();
         UpdateState();

@@ -2,33 +2,44 @@ using Godot;
 
 public class Spawn : Node2D
 {
-    Level Room;
+    // State of the spawn.
     public bool Active = false;
-    Particles2D Flames;
-    Particles2D Smoke;
+
+    // Particles reference
+    private Particles2D Flames;
+    private Particles2D Smoke;
+    private Level Level;
+
+    // Box for debugging draw.
     public Rect2 Box;
+
     public override void _Ready()
     {
-        base._Ready();
-        Room = (Level)GetNode("../../");
-        Flames = (Particles2D)GetNode("fire/flame");
-        Smoke = (Particles2D)GetNode("fire/smoke");
-        Box = new Rect2(GlobalPosition, new Vector2(8, 8));
+        // Get Node
+        Flames = GetNode("fire/flame") as Particles2D;
+        Smoke = GetNode("fire/smoke") as Particles2D;
+        Level = GetNode("../..") as Level;
+
+        // Set Debug box
+        Box = new Rect2(Position, new Vector2(8, 8));
     }
     public override void _PhysicsProcess(float delta)
     {
-        base._PhysicsProcess(delta);
-
+        // If Activate, Emit particles( Fire and smoke).
         Flames.Emitting = Active;
         Smoke.Emitting = Active;
     }
 
+    /// <summary>
+    /// When the player Walks on a spawn. Activate the fire.
+    /// </summary>
+    /// <param name="body"></param>
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
         if (body.IsInGroup("Player"))
         {
             Active = true;
-            Room.ChooseSpawn();
+            Level.ChooseSpawn();
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Level : Node2D
 {
-    const int MIN_WIDTH = 320;
+    const int MIN_WIDTH = 320; 
     const int MIN_HEIGHT = 180;
     const int TileSize = 8;
 
@@ -17,8 +17,8 @@ public class Level : Node2D
 
     [Export] public float LevelZoom = 1;
 
-    public Vector2 SpawnPosition = new Vector2();
-    List<Vector2> Spawns = new List<Vector2>();
+    public Vector2 SpawnPosition = new Vector2(); // Current spawn of the player.
+    List<Vector2> Spawns = new List<Vector2>(); // List of possible spawns.
 
     #region Entities
     private PackedScene FallingPlatform;
@@ -43,7 +43,9 @@ public class Level : Node2D
     GameController World;
     public override void _Ready()
     {
+
         World = GetNode("..") as GameController;
+
         // Get Layers
         LayerSolid = GetNode("fg_tile") as TileMap;
         LayerBackground = GetNode("bg_tile") as TileMap;
@@ -51,7 +53,7 @@ public class Level : Node2D
         LayerFgDecals = GetNode("fg_decals") as TileMap;
         LayerBgDecals = GetNode("bg_decals") as TileMap;
 
-        // Get Entities
+        // Preload entities Scenes
         FallingPlatform = ResourceLoader.Load("res://Levels/level_assets/entities/falling_platforms/FallingPlatform3Wide.tscn") as PackedScene;
         Spike = ResourceLoader.Load("res://Levels/level_assets/entities/spikes/oSpike.tscn") as PackedScene;
         JumpPad = ResourceLoader.Load("res://Levels/level_assets/entities/jump_pad/oJumpPad.tscn") as PackedScene;
@@ -63,7 +65,7 @@ public class Level : Node2D
         JumpThroughPlatform = ResourceLoader.Load("res://Levels/level_assets/entities/jump_through_platform/fall_through_platform.tscn") as PackedScene;
 
         Player = GetNode("../Player") as Player;
-        Entities = (Node)GetNode("objects");
+        Entities = GetNode("objects");
 
         LevelRect = LayerSolid.GetUsedRect().Size;
         LevelSize = new Vector2(LevelRect.x * TileSize, (LevelRect.y - 0.5f) * TileSize);
@@ -73,19 +75,24 @@ public class Level : Node2D
         LoadEntities();
         ChooseSpawn();
         AutoTileBorders();
-
-        
     }
 
+    /// <summary>
+    /// This methods if for diplay debug grid. See Console.cs for more info.
+    /// </summary>
     public override void _Draw()
     {
+        // If ShowGrid is true, Display rectangle on each tile of current level.
         if (World.ShowGrid && World.CurrentRoom == this)
         {
+            // Tiles
             foreach (Vector2 item in LayerSolid.GetUsedCells())
                 DrawRect(new Rect2(LayerSolid.MapToWorld(item), new Vector2(8, 8)), new Color(1, 0, 0), false);
+
+            // Entities. need fix
             foreach (Node2D node2D in Entities.GetChildren())
             {
-                //DrawRect((Rect2)node2D.Get("Box"), new Color(1, 0, 0), false);
+                DrawRect((Rect2)node2D.Get("Box"), new Color(1, 0, 0), false);
             }
         }
 
@@ -109,6 +116,7 @@ public class Level : Node2D
             if (LayerSolid.TileSet.TileGetTileMode(LayerSolid.GetCellv(Tile)) != TileSet.TileMode.AutoTile)
                 return;
 
+            // If the tile is on any border.
             if (Tile.y == 0 || Tile.x == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y - 1)
             {
                 bool right = false;
@@ -147,14 +155,18 @@ public class Level : Node2D
                 else if (right && !left && bottom && !top)  // Bottom right
                     autoTiling.y = 8;
                 
-                autoTiling.x = rnd.Next(4);
+                autoTiling.x = rnd.Next(4); // Generate random variation of the same tile.(there is 4 version)
 
                 LayerSolid.SetCell((int)Tile.x, (int)Tile.y, LayerSolid.GetCellv(Tile), 
-                            false, false, false, autoTiling);
+                            false, false, false, autoTiling); // Update tile.
             }
         }
     }
 
+    /// <summary>
+    /// This loads all the entities of replace the fake tiles placeholder with real
+    /// Objects. It calls Place entities to place them.
+    /// </summary>
     public void LoadEntities()
     {
         foreach (Vector2 Tile in LayerEntities.GetUsedCells())
@@ -191,11 +203,18 @@ public class Level : Node2D
         }
     }
 
+    /// <summary>
+    /// This methods Place a single Entity and add rotation if necessary.
+    /// AntoPilo: dont loose time on this.
+    /// </summary>
+    /// <param name="pPosition"></param>
+    /// <param name="pName"></param>
+    /// <param name="pEntity"></param>
     public void PlaceEntity(Vector2 pPosition, string pName, PackedScene pEntity)
     {
         Node2D NewEntity = (Node2D)pEntity.Instance();
         NewEntity.Name = pName;
-        Entities.AddChild(NewEntity);
+        Entities.AddChild(NewEntity); // Add Entitiy to the world.
 
         int X = (int)pPosition.x;
         int Y = (int)pPosition.y;
@@ -236,6 +255,10 @@ public class Level : Node2D
         }
     }
 
+    /// <summary>
+    /// After placing all of the spawns. This Decides which spawn is the closest to the player.
+    /// It set SpawnPosition to the closest one.
+    /// </summary>
     public void ChooseSpawn()
     {
         foreach (Node node in Entities.GetChildren())
@@ -244,6 +267,7 @@ public class Level : Node2D
             {
                 Spawn s = node as Spawn;
                 s.Active = false;
+
                 var distanceFromPlayer = Mathf.Abs((Player.GlobalPosition - s.GlobalPosition).Length());
                 var currentFromPlayer = Mathf.Abs((Player.GlobalPosition - SpawnPosition).Length());
 
@@ -256,6 +280,10 @@ public class Level : Node2D
         }
     }
 
+    /// <summary>
+    /// Before leaving the levels. all of the spawns must be turned off.
+    /// This is called by GameController.
+    /// </summary>
     public void ResetSpawns()
     {
         foreach (Node node in Entities.GetChildren())

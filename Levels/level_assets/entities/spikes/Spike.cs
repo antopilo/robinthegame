@@ -12,6 +12,7 @@ public class Spike : Node2D
 	{
     	if(body is Player)
 			((Player)body).Spawn(true);
+        
 	}
 }
 

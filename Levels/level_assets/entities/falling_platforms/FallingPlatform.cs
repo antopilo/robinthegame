@@ -40,33 +40,41 @@ public class FallingPlatform : Node2D
 
     public override void _PhysicsProcess(float delta)
     {
-        base._PhysicsProcess(delta);
-
         if (Shaking) // If shaking, do the shaking animation/effect.
         {
-            Sprite.RotationDegrees = Mathf.Cos(DeltaTime * 20) * 25;
+            Sprite.RotationDegrees = Mathf.Cos(DeltaTime * SHAKE_LENGTH) * SHAKE_AMPLITUDE;
             DeltaTime += delta;
         }
     }
 
     public void Fall()
     {
+        
         Collision.Disabled = true;
 
+        // Slowly make the platform fall down on the Y axis.
         Tween.InterpolateProperty(Platform, "position", InitialPosition, new Vector2(InitialPosition.x, FALL_DISTANCE),
                  0.8f, Tween.TransitionType.Expo, Tween.EaseType.In);
 
+        // Slowly make the opacity weaker.
         Tween.InterpolateProperty(Platform, "modulate", InitialColor,
            new Color(1, 1, 1, 0), 2, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
 
+        // Start Anim and cooldown.
         Tween.Start();
         Timer.Start();
         
     }
+
+    /// <summary>
+    /// This is when something Collides with the platform (walks on it).
+    /// </summary>
+    /// <param name="body"></param>
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
-        if(Available && Up)
+        if(Available && Up) // If Ready
         {
+            // Activate shaking process and Timer.
             Shaking = true;
             Available = false;
             Up = false;
@@ -75,8 +83,12 @@ public class FallingPlatform : Node2D
         }
     }
 
+    /// <summary>
+    /// Called when the platform needs to go back up.
+    /// </summary>
     private void _on_RespawnCooldown_timeout()
     {
+        // Slowly Tween back to original position and opacity.
         Tween.InterpolateProperty(Platform, "position", new Vector2(InitialPosition.x, FALL_DISTANCE), 
             InitialPosition, 0.8f, Tween.TransitionType.Expo, Tween.EaseType.Out);
 
@@ -86,6 +98,12 @@ public class FallingPlatform : Node2D
         Tween.Start();
     }
 
+    /// <summary>
+    /// When an animation is done. this is called.
+    /// It is called twice. Once when its going down. and twice when going up.
+    /// </summary>
+    /// <param name="object"></param>
+    /// <param name="key"></param>
     private void _on_TweenElevator_tween_completed(Godot.Object @object, NodePath key)
     {
         if (Up)
@@ -102,6 +120,9 @@ public class FallingPlatform : Node2D
         Sprite.GlobalRotationDegrees = 0;
     }
 
+    /// <summary>
+    /// When Shaking timer is done. FALL! AHHHHHHHHHHHHHHHHHHHHHHHHHh....
+    /// </summary>
     private void _on_ShakeTimer_timeout()
         =>  Fall();
 }

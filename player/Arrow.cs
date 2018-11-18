@@ -46,8 +46,6 @@ public class Arrow : KinematicBody2D
     }
     public override void _Input(InputEvent @event)
     {
-        base._Input(@event);
-
         if (@event.IsActionPressed("fire") && CanDash)
             Dash();
         else if (@event.IsActionPressed("fire") || @event.IsActionPressed("right_click"))
@@ -56,9 +54,7 @@ public class Arrow : KinematicBody2D
 
     public override void _PhysicsProcess(float delta)
     {
-        base._PhysicsProcess(delta);
-
-        if (MovingBack)
+        if (MovingBack) // If the arrow is returning to the player. Return.
         {
             LookAt(Player.GlobalPosition);
             return;
@@ -66,6 +62,7 @@ public class Arrow : KinematicBody2D
 
         if(IsControlled && !Frozen)
         {
+            // Either Controller mode or Mouse mode.
             if (ControllerMode)
             {
                 JoyStickControl();
@@ -84,25 +81,40 @@ public class Arrow : KinematicBody2D
         CheckCollision();
     }
 
+    /// <summary>
+    /// When using the mouse, the arrow follows the mouse position.
+    /// This is an algorithm that is yet to be solved because I dont know what 1.33 is.
+    /// It is just a random number that I guessed and it worked. We need to solve this asap
+    /// because 1.33 is only valid for 1280x720 so it must be something in relation with
+    /// screen resolution. Good luck.
+    /// TODO: Find the mysterious value in this equation.
+    /// </summary>
     public void MouseControl()
     {
         Vector2 Mouse = GetGlobalMousePosition();
         Vector2 Center = (Player.Camera).GetCameraScreenCenter();
         float StretchFactor = OS.WindowSize.x / 320;
+
         LookAt(Mouse / StretchFactor + (Center - (GetViewportRect().Size / 2f))/ 1.33f);
     }
 
     public void JoyStickControl()
     {
+        // Get angle of the joystick and transpose it to the arrow.
         Direction = new Vector2(Input.GetJoyAxis(0, (int)JoystickList.Axis2), Input.GetJoyAxis(0, (int)JoystickList.Axis3));
         Angle = Direction.Angle();
 
+        // If the joystick is in neutral position. Angle = last angle of the Joystick.
         if (Mathf.Abs(Direction.x) < DEADZONE && Mathf.Abs(Direction.y) < DEADZONE)
             Angle = LastDirection.Angle();
         else
             LastDirection = Direction;
     }
 
+    /// <summary>
+    /// This method is triggered when the arrow hit something. It then decide what angle
+    /// should the arrow be depending on the angle of the surface. it Snaps at every 90 degrees.
+    /// </summary>
     public void CheckCollision()
     {
         KinematicCollision2D Collision = MoveAndCollide(GlobalTransform.x * Speed);
@@ -131,6 +143,7 @@ public class Arrow : KinematicBody2D
 
             FreezeArrow();
         }
+        // If the arrow leaves the level screen. return to player.
         else if (Position.x <= World.CurrentRoom.LevelPosition.x || 
             Position.y <= World.CurrentRoom.LevelPosition.y ||
             Position.x >= (World.CurrentRoom.LevelPosition.x + World.CurrentRoom.LevelSize.x) ||
@@ -145,6 +158,9 @@ public class Arrow : KinematicBody2D
             
     }
 
+    /// <summary>
+    /// Freezes the arrow and stops the particles.
+    /// </summary>
     public void FreezeArrow()
     {
         FreezePosition = GlobalPosition;
@@ -156,9 +172,12 @@ public class Arrow : KinematicBody2D
         ((Particles2D)GetNode("Particles2D")).Emitting = false;
     }
 
+    /// <summary>
+    /// Slowly Moves the arrow to the player using a Tween.
+    /// </summary>
     public void ReturnToPlayer()
     {
-        float Time = (Position - Player.Position).Length() / 300;
+        float Time = (Position - Player.Position).Length() / 300; // THis is to have a constant speed.
 
         T.FollowProperty(this, "global_position", GlobalPosition, Player, "global_position", Time,
             Tween.TransitionType.Quint, Tween.EaseType.In);
@@ -199,6 +218,12 @@ public class Arrow : KinematicBody2D
         CanDash = false;
     }
 
+    /// <summary>
+    /// Called when the arrow is returned to the player
+    /// when tween is done.
+    /// </summary>
+    /// <param name="object"></param>
+    /// <param name="key"></param>
     private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
     {
         Weapon.CanShoot = true;

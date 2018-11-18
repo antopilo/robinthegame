@@ -3,15 +3,18 @@ using Godot;
 public class GameController : Node2D
 {
     [Export] int StartLevel = 0;
+
     public Player Player;
     public Level CurrentRoom;
+
     public bool ShowGrid = false;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         Player = GetNode("Player") as Player;
-        CurrentRoom = (Level)GetNode(StartLevel.ToString());
+        CurrentRoom = GetNode(StartLevel.ToString()) as Level;
+
         Spawn(false);
         MoveCamToRoom(CurrentRoom);
     }
@@ -19,11 +22,13 @@ public class GameController : Node2D
     // Called Every frame.
     public override void _PhysicsProcess(float delta)
     {
-        base._PhysicsProcess(delta);
-
         UpdateRoom();
     }
 
+    /// <summary>
+    /// Loops through each level(Node that have the "level" tag), and determine in which room
+    /// is the player located.
+    /// </summary>
     private void UpdateRoom()
     {
         Level Room;
@@ -33,6 +38,7 @@ public class GameController : Node2D
             if (node.IsInGroup("level"))
             {
                 Room = (Level)node;
+
                 float x = Player.Position.x;
                 float y = Player.Position.y;
                 float xMin = ((Level)node).LevelPosition.x;
@@ -66,11 +72,13 @@ public class GameController : Node2D
 
         Tween T;
 
+        // If there is no Tween node, then create one and use it.
         if (!HasNode("CameraAreaTween"))
         {
             T = new Tween();
             T.Name = "CameraAreaTween";
             AddChild(T);
+
             T.Connect("tween_completed", this, "_on_Tween_tween_completed");
         }
         else
@@ -84,7 +92,8 @@ public class GameController : Node2D
         float NewLimitRight = pRoom.GlobalPosition.x + pRoom.LevelSize.x;
         float NewLimitTop = pRoom.GlobalPosition.y;
         float NewLimitBottom = pRoom.GlobalPosition.y + pRoom.LevelSize.y;
-        Vector2 NewCameraZoom = new Vector2(pRoom.LevelZoom, pRoom.LevelZoom);
+
+        Vector2 NewCameraZoom = new Vector2(pRoom.LevelZoom, pRoom.LevelZoom); // Levels can have custom zoom.
 
         Camera2D Camera = Player.Camera;
         Vector2 CameraCenter = Camera.GetCameraScreenCenter();
@@ -95,6 +104,7 @@ public class GameController : Node2D
         Camera.LimitBottom = (int)(CameraCenter.y + GetViewport().Size.y / 2 * Camera.Zoom.y);
 
         float Time = 0.4f;
+
         Tween.TransitionType Transition = Tween.TransitionType.Linear;
         Tween.EaseType Ease = Tween.EaseType.InOut;
 
@@ -109,37 +119,25 @@ public class GameController : Node2D
             Player.Arrow.ReturnToPlayer();
     }
 
-
     /// <summary>
-    /// Draw the debug grid. not optimised at ALL.
-    /// TODO: Improve the debug grid, or change for a better Debug view.
+    /// The spawn is currently half done. For now Spawning the player means moving smoothly
+    /// the player from his current position to the closest spawn in the current level.
+    /// The "WithAnimation" param, means if the transition animation is played or not.
     /// </summary>
-    public override void _Draw()
-    {
-  //      if(ShowGrid == true)
-		//{
-		//	DrawSetTransform(new Vector2(), 0, new Vector2(8, 8)); // Tile size is 8.
-
-  //          for (int x = -500; x < 500; x++)
-  //          {
-  //              DrawLine(new Vector2(x, 0), new Vector2(x, 1000), new Color(1, 0, 0), 1.0f);
-  //              DrawLine(new Vector2(0, x), new Vector2(1000, x), new Color(1, 0, 0), 1.0f);
-  //          }
-		//}  
-    } 
-
+    /// <param name="WithAnimation"></param>
     public void Spawn(bool WithAnimation)
     {
         
         if (WithAnimation)
         {
+            // Player the transition.
             SceneTransition TransitionPlayer = (SceneTransition)GetNode("../../../Overlay");
             TransitionPlayer.Fade();
         }
             
         Tween T;
        
-        // If there is no Tween to use. Create one!
+        // If there is no Tween Node to use. Create one!
         if (!HasNode("TweenSpawn"))
         {
             T = new Tween();
@@ -153,7 +151,7 @@ public class GameController : Node2D
             T = (Tween)GetNode("TweenSpawn");
         }
 
-        T.RemoveAll();
+        T.RemoveAll(); // Stop all current animation on that Tween.
 
         Vector2 StartPosition = Player.Position;
         Vector2 EndPosition = CurrentRoom.SpawnPosition;
@@ -166,12 +164,12 @@ public class GameController : Node2D
         Player.CanControl = false;
         Player.Sprite.Play("jumping");
 
-        MoveCamToRoom(CurrentRoom);
+        MoveCamToRoom(CurrentRoom); // Move the Camera.
     }
 
     public void _on_Tween_tween_completed(Godot.Object @object, KeyList @key)
     {
-        GetTree().Paused = false;
+        GetTree().Paused = false; // UnFreeze the player 
         Player.CanControl = true;
         Player.CollisionBox.Disabled = false;
     }
