@@ -11,6 +11,7 @@ public class Player : KinematicBody2D
     private const int GRAVITY = 4;
     private const int ACCELERATION = 5;
     private const int DECELERATION = 4;
+    private const float JUMP_TIMING_TOLERANCE = 0.1f;
     private const int JUMP_FORCE = 190;
     private const int SUPER_JUMP_FORCE = 220;
     private const int WALL_JUMP_HEIGHT = 140;
@@ -20,9 +21,10 @@ public class Player : KinematicBody2D
     private const int MAX_AIR_SPEED = 100;
     private const int MAX_FALL_SPEED = 300;
 
+    private float NextJumpTime = 0f;
     private float CurrentMaxSpeed = MAX_SPEED;
     private float GravityMult = 1f;
-    private Vector2 Velocity = new Vector2();
+    public Vector2 Velocity = new Vector2();
 
     public bool CanControl = true;
     public int LastDirectionX = 0;
@@ -35,8 +37,11 @@ public class Player : KinematicBody2D
     public bool IsWallJumping { get; private set; } = false;
     public bool WasOnGround { get; private set; } = false;
     public bool CanWallJump { get; private set; } = false;
+    public bool CanJump { get; private set; } = false;
     public bool ArrowExist { get; set; } = false;
     public bool IsCeilling { get; private set; } = false;
+
+    private float DeltaTime = 0;
 
     public List<Node2D> Following = new List<Node2D>(); // List of following entities.
 
@@ -52,10 +57,11 @@ public class Player : KinematicBody2D
     public override void _Input(InputEvent e)
     {
         if (e.IsActionPressed("jump"))
-            if (State == States.Ground)
+            if (State == States.Ground || DeltaTime <= NextJumpTime && CanJump)
             {
+                CanJump = false;
                 WasOnGround = true;
-
+                
                 if (Sprite.Animation == "Crouch")
                     SuperJump();
                 else
@@ -81,6 +87,8 @@ public class Player : KinematicBody2D
         MoveAndSlide(Velocity);
         ApplyGravity();
         GetArrow();
+
+        DeltaTime += delta;
     }
 
 
@@ -185,6 +193,7 @@ public class Player : KinematicBody2D
         State = States.Ground;
         CurrentMaxSpeed = MAX_SPEED;
         CanControl = true;
+        CanJump = true;
         IsCeilling = false;
     }
 
@@ -211,6 +220,9 @@ public class Player : KinematicBody2D
 
     public void EnterAirState() // Air State.
     {
+        if(State != States.Air)
+            NextJumpTime = DeltaTime + JUMP_TIMING_TOLERANCE;
+
         if (Velocity.y > 0)
             Sprite.Play("falling");
         else
@@ -273,13 +285,9 @@ public class Player : KinematicBody2D
     /// </summary>
     public void Jump()
     {
-        if (State != States.Ground)
-            return;
-
         CurrentMaxSpeed = MAX_SPEED;
         Velocity.y = -JUMP_FORCE;
     }
-
 
     /// <summary>
     /// Crouch jump

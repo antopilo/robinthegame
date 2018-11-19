@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/SceneTransition.cs" type="Script" id=1]
 [ext_resource path="res://images/transitions/pokemask2.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Assets/Fonts/Fool.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Assets/ui/Console.cs" type="Script" id=7]
 [ext_resource path="res://Assets/Fonts/PixelFont.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Assets/Fonts/Minecraft.ttf" type="DynamicFontData" id=9]
 
 [sub_resource type="Shader" id=1]
 
@@ -115,10 +116,22 @@ shadow_size = 0
 anti_aliasing = true
 anti_aliasing_size = 1
 
+[sub_resource type="DynamicFont" id=8]
+
+size = 32
+outline_size = 2
+outline_color = Color( 1, 0, 0, 1 )
+use_mipmaps = false
+use_filter = false
+extra_spacing_char = 2
+extra_spacing_space = 2
+font_data = ExtResource( 9 )
+
 [node name="root" type="Node2D"]
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 pause_mode = 2
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -201,6 +214,7 @@ shadow_atlas_quad_3 = 4
 [node name="GameManager" parent="game/Viewport" instance=ExtResource( 3 )]
 
 [node name="ui" type="Control" parent="."]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -215,6 +229,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 
 [node name="Dialog" type="Control" parent="ui"]
+editor/display_folded = true
 visible = false
 anchor_left = 0.5
 anchor_top = 1.0
@@ -298,6 +313,7 @@ playback/repeat = false
 playback/speed = 1.0
 
 [node name="Console" type="Control" parent="ui"]
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 1.0
@@ -374,5 +390,34 @@ scroll_following = true
 selection_enabled = false
 override_selected_font_color = false
 
+[node name="Fps" type="Label" parent="ui/Console"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1880.0
+margin_top = -926.0
+margin_right = 1922.0
+margin_bottom = -859.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+custom_constants/shadow_offset_x = -6
+custom_constants/shadow_as_outline = 6
+text = "60
+"
+align = 2
+uppercase = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [connection signal="timeout" from="ui/Dialog/Timer" to="ui/Dialog" method="_on_Timer_timeout"]
 [connection signal="text_entered" from="ui/Console/LineEdit" to="ui/Console" method="_on_LineEdit_text_entered"]
+
+[editable path="game/Viewport/GameManager"]

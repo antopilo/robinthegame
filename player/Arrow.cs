@@ -154,8 +154,7 @@ public class Arrow : KinematicBody2D
         else if (Frozen)
         {
             Position = FreezePosition;
-        }
-            
+        }  
     }
 
     /// <summary>

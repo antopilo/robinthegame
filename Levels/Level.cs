@@ -96,7 +96,7 @@ public class Level : Node2D
             // Entities. need fix
             foreach (Node2D node2D in Entities.GetChildren())
             {
-                DrawRect((Rect2)node2D.Get("Box"), new Color(1, 0, 0), false);
+                //DrawRect((Rect2)node2D.Get("Box"), new Color(1, 0, 0), false);
             }
         }
 
@@ -118,10 +118,9 @@ public class Level : Node2D
         {
             // If the tile is not autotile. Which should always be.
             if (LayerSolid.TileSet.TileGetTileMode(LayerSolid.GetCellv(Tile)) != TileSet.TileMode.AutoTile)
-                return;
+                continue;
 
-            // If the tile is on any border.
-            if (Tile.y == 0 || Tile.x == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y - 1)
+            if (Tile.x == 0 || Tile.y == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y)
             {
                 bool right = false;
                 bool left = false;
@@ -158,10 +157,10 @@ public class Level : Node2D
                     autoTiling.y = 7;
                 else if (right && !left && bottom && !top)  // Bottom right
                     autoTiling.y = 8;
-                
+
                 autoTiling.x = rnd.Next(4); // Generate random variation of the same tile.(there is 4 version)
 
-                LayerSolid.SetCell((int)Tile.x, (int)Tile.y, LayerSolid.GetCellv(Tile), 
+                LayerSolid.SetCell((int)Tile.x, (int)Tile.y, LayerSolid.GetCellv(Tile),
                             false, false, false, autoTiling); // Update tile.
             }
         }

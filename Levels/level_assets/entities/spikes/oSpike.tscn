@@ -9,7 +9,7 @@ custom_solver_bias = 0.0
 extents = Vector2( 4, 2 )
 
 [node name="oSpike" type="Area2D"]
-input_pickable = true
+input_pickable = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1

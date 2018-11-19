@@ -4,6 +4,7 @@ using System.Linq;
 
 public class Console : Control
 {
+    private Label FpsLabel;
     private LineEdit ConsoleInput;
     private GameController GameController;
     private Dialog DialogBox;
@@ -19,6 +20,7 @@ public class Console : Control
     public override void _Ready()
     {
         // Get Node references.
+        FpsLabel = GetNode("Fps") as Label;
         ConsoleInput = GetNode("LineEdit") as LineEdit;
         GameController = GetNode("../../game/Viewport/GameManager") as GameController;
         DialogBox = GetNode("../Dialog") as Dialog;
@@ -54,6 +56,11 @@ public class Console : Control
         // Press up for the previous command.
         if (@event.IsActionPressed("ui_up"))
             ConsoleInput.Text = LastCommand;
+    }
+
+    public override void _Process(float delta)
+    {
+        FpsLabel.Text = Engine.GetFramesPerSecond().ToString();
     }
 
     // Event for when entering a new command.
@@ -138,6 +145,11 @@ public class Console : Control
                 else
                     OS.VsyncEnabled = true;
                 break;
+            case "MAXFPS":
+                
+                Engine.SetTargetFps(parameters[0].ToInt());
+                
+                break;
             
             // Make the borderless
             case "BORDERLESS":
@@ -183,6 +195,7 @@ public class Console : Control
 
                 Player.MoveLocalX(x * 8);
                 break;
+
             case "HELP":
                 ConsoleBox.BbcodeText += "\n [color=red]Here is the list of commands that are available: [/color]";
 

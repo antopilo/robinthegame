@@ -38,6 +38,7 @@ public class Spawn : Node2D
     {
         if (body.IsInGroup("Player"))
         {
+			Level.ResetSpawns();
             Active = true;
             Level.ChooseSpawn();
         }

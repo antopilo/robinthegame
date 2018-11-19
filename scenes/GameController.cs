@@ -49,6 +49,9 @@ public class GameController : Node2D
                 // If the Player is inside the level.
                 if ((x > xMin) && (y > yMin) && (x < xMax) && (y < yMax) && CurrentRoom != node)
                 {
+                    if (y <= CurrentRoom.LevelPosition.y)
+                        Player.Jump();
+
                     Level oldLevel = CurrentRoom;
                     CurrentRoom.ResetSpawns();
 
