@@ -71,7 +71,7 @@ public class GameController : Node2D
     private void MoveCamToRoom(Level pRoom)
     {
         // This function smoothly moves the camera to a specified pRoom.
-        GetTree().Paused = true;
+        Player.SetPhysicsProcess(false);
 
         Tween T;
 
@@ -172,7 +172,7 @@ public class GameController : Node2D
 
     public void _on_Tween_tween_completed(Godot.Object @object, KeyList @key)
     {
-        GetTree().Paused = false; // UnFreeze the player 
+        Player.SetPhysicsProcess(true);
         Player.CanControl = true;
         Player.CollisionBox.Disabled = false;
     }

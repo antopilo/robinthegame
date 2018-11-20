@@ -22,6 +22,7 @@ custom_solver_bias = 0.0
 extents = Vector2( 12, 1 )
 
 [node name="FallingPlatform3" type="Node2D"]
+pause_mode = 1
 script = ExtResource( 1 )
 
 [node name="Node2D" type="Node2D" parent="."]
