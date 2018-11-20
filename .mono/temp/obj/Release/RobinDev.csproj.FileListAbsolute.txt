@@ -1,0 +1,6 @@
+F:\Desktop\robinthegame\.mono\temp\bin\Release\RobinDev.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Release\RobinDev.pdb
+F:\Desktop\robinthegame\.mono\temp\obj\Release\RobinDev.csprojAssemblyReference.cache
+F:\Desktop\robinthegame\.mono\temp\obj\Release\RobinDev.csproj.CoreCompileInputs.cache
+F:\Desktop\robinthegame\.mono\temp\obj\Release\RobinDev.dll
+F:\Desktop\robinthegame\.mono\temp\obj\Release\RobinDev.pdb

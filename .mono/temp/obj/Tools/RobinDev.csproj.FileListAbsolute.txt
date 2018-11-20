@@ -4,3 +4,9 @@ C:\Users\antoi\Desktop\Projet\robinCsharp\.mono\temp\obj\Tools\RobinDev.csprojAs
 C:\Users\antoi\Desktop\Projet\robinCsharp\.mono\temp\obj\Tools\RobinDev.csproj.CoreCompileInputs.cache
 C:\Users\antoi\Desktop\Projet\robinCsharp\.mono\temp\obj\Tools\RobinDev.dll
 C:\Users\antoi\Desktop\Projet\robinCsharp\.mono\temp\obj\Tools\RobinDev.pdb
+F:\Desktop\robinthegame\.mono\temp\bin\Tools\RobinDev.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Tools\RobinDev.pdb
+F:\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csprojAssemblyReference.cache
+F:\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CoreCompileInputs.cache
+F:\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.dll
+F:\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.pdb

@@ -419,5 +419,3 @@ max_lines_visible = -1
 
 [connection signal="timeout" from="ui/Dialog/Timer" to="ui/Dialog" method="_on_Timer_timeout"]
 [connection signal="text_entered" from="ui/Console/LineEdit" to="ui/Console" method="_on_LineEdit_text_entered"]
-
-[editable path="game/Viewport/GameManager"]
