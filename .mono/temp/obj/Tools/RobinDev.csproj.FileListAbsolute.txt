@@ -10,3 +10,9 @@ F:\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csprojAssemblyReference.ca
 F:\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CoreCompileInputs.cache
 F:\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.dll
 F:\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.pdb
+F:\Desktop\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Tools\System.ServiceModel.Internals.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Tools\System.Transactions.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Tools\System.EnterpriseServices.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.xml
+F:\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CopyComplete

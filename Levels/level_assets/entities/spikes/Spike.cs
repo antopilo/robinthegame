@@ -8,12 +8,13 @@ public class Spike : Node2D
     {
         Box = new Rect2(GlobalPosition, new Vector2(8, 4));
     }
+
     private void _on_oSpike_body_entered(PhysicsBody2D body)
 	{
-        if (body is Player)
+        if (body is Player && (body as Player).Alive)
         {
+            (body as Player).Alive = false;
             (body as Player).Spawn(true);
-           
         }
 	}
 }

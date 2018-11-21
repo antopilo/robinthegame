@@ -46,6 +46,9 @@
       <HintPath>$(ProjectDir)\.mono\assemblies\GodotSharpEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +61,7 @@
     <Compile Include="Levels\level_assets\entities\extender\Extender.cs" />
     <Compile Include="Levels\level_assets\entities\falling_platforms\FallingPlatform.cs" />
     <Compile Include="Levels\level_assets\entities\jump_pad\JumpPad.cs" />
+    <Compile Include="Levels\level_assets\entities\Sign\Sign.cs" />
     <Compile Include="Levels\level_assets\entities\spawn\Spawn.cs" />
     <Compile Include="Levels\level_assets\entities\spikes\Spike.cs" />
     <Compile Include="player\Arrow.cs" />
@@ -66,8 +70,14 @@
     <Compile Include="player\Weapon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="scenes\GameController.cs" />
+    <Compile Include="scenes\Options.cs" />
     <Compile Include="scenes\PauseMenu.cs" />
+    <Compile Include="scenes\Root.cs" />
     <Compile Include="scenes\SceneTransition.cs" />
+    <Compile Include="scenes\Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -114,6 +114,7 @@ public class Level : Node2D
     public void AutoTileBorders()
     {
         Random rnd = new Random();
+
         foreach (Vector2 Tile in LayerSolid.GetUsedCells())
         {
             // If the tile is not autotile. Which should always be.

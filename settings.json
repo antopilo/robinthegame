@@ -1,0 +1,11 @@
+{
+  "Resolution": {
+    "x": 0.0,
+    "y": 0.0
+  },
+  "Fullscreen": false,
+  "Borderless": false,
+  "Vsync": false,
+  "Controller": true,
+  "MaxFps": 0
+}

@@ -196,7 +196,7 @@ public class Arrow : KinematicBody2D
         if(Fuel <= 0)
         {
             //TODO: Make Arrow fall down with gravity.
-            LookAt(Player.Position);
+            // LookAt(Player.Position);
         }
     }
 

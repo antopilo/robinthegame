@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/grass01.png-686c3a300db0e9f5e122e87839a53525.stex"
+path="res://.import/fg_tile.png-728318d31dafcc6c284be875007f186b.stex"
 
 [deps]
 
-source_file="res://Levels/level_assets/tilesets/grass01.png"
-dest_files=[ "res://.import/grass01.png-686c3a300db0e9f5e122e87839a53525.stex" ]
+source_file="res://Levels/level_assets/tilesets/fg_tile.png"
+dest_files=[ "res://.import/fg_tile.png-728318d31dafcc6c284be875007f186b.stex" ]
 
 [params]
 
@@ -27,5 +27,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

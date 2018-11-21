@@ -9,13 +9,13 @@
 [ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=7]
 [ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=8]
 [ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=9]
-[ext_resource path="res://player/frames/lookup.png" type="Texture" id=10]
+[ext_resource path="res://player/frames/crouch.png" type="Texture" id=10]
 [ext_resource path="res://player/frames/wall.png" type="Texture" id=11]
 [ext_resource path="res://player/frames/Running/Running 4F2.png" type="Texture" id=12]
 [ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=13]
 [ext_resource path="res://player/frames/Running/Running 4F4.png" type="Texture" id=14]
 [ext_resource path="res://player/frames/Running/Running 4F1.png" type="Texture" id=15]
-[ext_resource path="res://player/frames/crouch.png" type="Texture" id=16]
+[ext_resource path="res://player/frames/lookup.png" type="Texture" id=16]
 [ext_resource path="res://player/Weapon.cs" type="Script" id=17]
 [ext_resource path="res://player/aura.png" type="Texture" id=18]
 
@@ -45,7 +45,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 10 ) ],
 "loop": true,
-"name": "lookup",
+"name": "crouch",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 11 ) ],
@@ -60,7 +60,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
-"name": "crouch",
+"name": "lookup",
 "speed": 5.0
 } ]
 
@@ -187,14 +187,13 @@ h_frames = 1
 v_frames = 1
 
 [node name="Light2D" type="Light2D" parent="."]
-visible = false
 enabled = true
 editor_only = false
 texture = ExtResource( 18 )
 offset = Vector2( 0, 0 )
-texture_scale = 2.0
-color = Color( 1, 1, 1, 0.607843 )
-energy = 1.0
+texture_scale = 1.5
+color = Color( 0.133333, 0.133333, 0.133333, 0.603922 )
+energy = 1.2
 mode = 0
 range_height = 0.0
 range_z_min = -1024
@@ -205,9 +204,9 @@ range_item_cull_mask = 1
 shadow_enabled = true
 shadow_color = Color( 0, 0, 0, 0 )
 shadow_buffer_size = 2048
-shadow_gradient_length = 0.0
-shadow_filter = 0
-shadow_filter_smooth = 0.0
+shadow_gradient_length = 0.1
+shadow_filter = 5
+shadow_filter_smooth = 25.0
 shadow_item_cull_mask = 1
 
 [connection signal="timeout" from="DisableInput" to="." method="_on_DisableInput_timeout"]

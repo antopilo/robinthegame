@@ -4,6 +4,8 @@ using System.Linq;
 
 public class Console : Control
 {
+    private Root root;
+
     private Label FpsLabel;
     private LineEdit ConsoleInput;
     private GameController GameController;
@@ -20,6 +22,8 @@ public class Console : Control
     public override void _Ready()
     {
         // Get Node references.
+        root = GetNode("../..") as Root;
+
         FpsLabel = GetNode("Fps") as Label;
         ConsoleInput = GetNode("LineEdit") as LineEdit;
         GameController = GetNode("../../game/Viewport/GameManager") as GameController;
@@ -111,52 +115,71 @@ public class Console : Control
                     case "":
                     case "0":
                     case "1":
-                        OS.WindowSize = new Vector2(320, 180);
+                        root.settings.Resolution = new Vector2(320, 180);
                         break;
                     case "2":
-                        OS.WindowSize = new Vector2(640, 360);
+                        root.settings.Resolution = new Vector2(640, 360);
                         break;
                     case "3":
-                        OS.WindowSize = new Vector2(1280, 720);
+                        root.settings.Resolution = new Vector2(1280, 720);
                         break;
                     case "4":
-                        OS.WindowSize = new Vector2(1920, 900);
+                        root.settings.Resolution = new Vector2(1920, 900);
                         OS.WindowPosition = new Vector2();
                         break;
 					case "5":
-                        OS.WindowSize = new Vector2(1920, 1080);
+                        root.settings.Resolution = new Vector2(1920, 1080);
                         OS.WindowPosition = new Vector2();
                         break;
                 }
+                root.ApplySettings();
                 break;
 
             // Fullscreen
             case "FULLSCREEN":
+                if (parameters.Length == 0)
+                    root.settings.Fullscreen = !root.settings.Fullscreen;
+
                 if (parameters[0] == "1")
-                    OS.WindowFullscreen = true;
+                    root.settings.Fullscreen = true;
                 else
-                    OS.WindowFullscreen = false;
+                    root.settings.Fullscreen = false;
+
+                root.ApplySettings();
                 break;
             
             // Toggle Vsync usage.
             case "VSYNC":
                 if (parameters[0] == "0")
-                    OS.VsyncEnabled = false;
+                    root.settings.Vsync = false;
                 else
-                    OS.VsyncEnabled = true;
+                    root.settings.Vsync = true;
+                root.ApplySettings();
                 break;
             case "MAXFPS":
-                
-                Engine.SetTargetFps(parameters[0].ToInt());
-                
+                if (parameters.Length == 0)
+                    ConsoleBox.BbcodeText += "\n [color=red]Must specify a value.[/color]";
+
+                root.settings.MaxFps = parameters[0].ToInt();
+                root.ApplySettings();
                 break;
             
             // Make the borderless
             case "BORDERLESS":
                 if (parameters[0] == "1")
-                    OS.WindowBorderless = true;
+                {
+                    root.settings.Borderless = true;
+                    root.settings.Fullscreen = false;
+                    root.settings.Resolution = OS.GetScreenSize();
+                    OS.WindowPosition = new Vector2(0, 0);
+                }
                 else
-                    OS.WindowBorderless = false;
+                {
+                    root.settings.Borderless = false;
+                    OS.WindowPosition = new Vector2(0, 0);
+                }
+
+                root.ApplySettings();
                 break;
 
             // Say command
@@ -202,6 +225,7 @@ public class Console : Control
                 foreach (string cmd in Commands)
                     ConsoleBox.BbcodeText += "\n " + "[color=red]" + cmd + "[/color]";
                 break;
+
             default:
                 ConsoleBox.BbcodeText += "\n " + "[color=red]Unknown Command. Type : help for the list of commands.[/color]";
                 return;

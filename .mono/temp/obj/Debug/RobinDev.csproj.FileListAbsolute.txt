@@ -16,3 +16,6 @@ C:\Users\antoi\Desktop\robinthegame-csharp\.mono\temp\obj\Debug\RobinDev.csprojA
 C:\Users\antoi\Desktop\robinthegame-csharp\.mono\temp\obj\Debug\RobinDev.csproj.CoreCompileInputs.cache
 C:\Users\antoi\Desktop\robinthegame-csharp\.mono\temp\obj\Debug\RobinDev.dll
 C:\Users\antoi\Desktop\robinthegame-csharp\.mono\temp\obj\Debug\RobinDev.pdb
+F:\Desktop\robinthegame\.mono\temp\bin\Debug\Newtonsoft.Json.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Debug\Newtonsoft.Json.xml
+F:\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.csproj.CopyComplete

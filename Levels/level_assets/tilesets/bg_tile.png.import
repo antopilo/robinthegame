@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/woodTileset.png-1dcdd28315ce2d5abcf44a1d445f057a.stex"
+path="res://.import/bg_tile.png-44026956279ae3af32784f9fac42449e.stex"
 
 [deps]
 
-source_file="res://Levels/level_assets/tilesets/woodTileset.png"
-dest_files=[ "res://.import/woodTileset.png-1dcdd28315ce2d5abcf44a1d445f057a.stex" ]
+source_file="res://Levels/level_assets/tilesets/bg_tile.png"
+dest_files=[ "res://.import/bg_tile.png-44026956279ae3af32784f9fac42449e.stex" ]
 
 [params]
 

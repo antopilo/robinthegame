@@ -21,7 +21,7 @@ public class FallingPlatform : Node2D
     private bool Available = true;
     private bool Up = true;
     private bool Shaking = false;
-    
+    private bool Ready = true;
     public override void _Ready()
     {
         Sprite = GetNode("Platform/Sprite") as Sprite;
@@ -72,11 +72,12 @@ public class FallingPlatform : Node2D
     /// <param name="body"></param>
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
-        if(Available && Up) // If Ready
+        if(Available && Up && Ready) // If Ready
         {
             // Activate shaking process and Timer.
             Shaking = true;
             Available = false;
+            Ready = false;
             Up = false;
 
             ShakeTimer.Start();
@@ -89,11 +90,10 @@ public class FallingPlatform : Node2D
     private void _on_RespawnCooldown_timeout()
     {
         // Slowly Tween back to original position and opacity.
-        Tween.InterpolateProperty(Platform, "position", new Vector2(InitialPosition.x, FALL_DISTANCE), 
-            InitialPosition, 0.8f, Tween.TransitionType.Expo, Tween.EaseType.Out);
+        Tween.InterpolateProperty(Sprite, "scale", new Vector2(), new Vector2(1, 1), 2f, Tween.TransitionType.Elastic, Tween.EaseType.Out);
 
-        Tween.InterpolateProperty(Platform, "modulate", new Color(1, 1, 1, 0),
-            InitialColor, 2, Tween.TransitionType.Linear, Tween.EaseType.Out);
+        Platform.Position = InitialPosition;
+        Platform.Modulate = InitialColor;
 
         Tween.Start();
     }
@@ -110,6 +110,7 @@ public class FallingPlatform : Node2D
         {
             Available = true;
             Collision.Disabled = false;
+            Ready = true;
         }
         else
         {

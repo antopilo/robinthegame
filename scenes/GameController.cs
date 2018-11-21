@@ -163,7 +163,7 @@ public class GameController : Node2D
         T.InterpolateProperty(Player, "position", StartPosition, EndPosition, 0.4f, Tween.TransitionType.Expo, Tween.EaseType.Out);
         T.Start();
 
-        Player.CollisionBox.Disabled = true;
+        Player.Alive = false;
         Player.CanControl = false;
         Player.Sprite.Play("jumping");
 
@@ -174,7 +174,7 @@ public class GameController : Node2D
     {
         Player.SetPhysicsProcess(true);
         Player.CanControl = true;
-        Player.CollisionBox.Disabled = false;
+        Player.Alive = true;
     }
 
     public void ChangeRoom(Level pRoom)

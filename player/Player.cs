@@ -33,6 +33,7 @@ public class Player : KinematicBody2D
     
     public States State { get; private set; }
 
+    public bool Alive = true;
     public bool IsCrouching { get; private set; } = false;
     public bool IsWallJumping { get; private set; } = false;
     public bool WasOnGround { get; private set; } = false;

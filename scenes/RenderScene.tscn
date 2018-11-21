@@ -1,15 +1,17 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://scenes/SceneTransition.cs" type="Script" id=1]
-[ext_resource path="res://images/transitions/pokemask2.png" type="Texture" id=2]
-[ext_resource path="res://scenes/gameScene.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/ui/Dialog.cs" type="Script" id=4]
-[ext_resource path="res://Assets/ui/Dialog9patch.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Fonts/Fool.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://Assets/ui/Console.cs" type="Script" id=7]
-[ext_resource path="res://Assets/Fonts/PixelFont.tres" type="DynamicFont" id=8]
-[ext_resource path="res://Assets/Fonts/Minecraft.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://scenes/PauseMenu.cs" type="Script" id=10]
+[ext_resource path="res://scenes/Root.cs" type="Script" id=1]
+[ext_resource path="res://scenes/SceneTransition.cs" type="Script" id=2]
+[ext_resource path="res://images/transitions/pokemask2.png" type="Texture" id=3]
+[ext_resource path="res://scenes/gameScene.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/ui/Dialog.cs" type="Script" id=5]
+[ext_resource path="res://Assets/ui/Dialog9patch.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Fonts/Fool.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Assets/ui/Console.cs" type="Script" id=8]
+[ext_resource path="res://Assets/Fonts/PixelFont.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Assets/Fonts/Minecraft.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://scenes/PauseMenu.cs" type="Script" id=11]
+[ext_resource path="res://scenes/Options.cs" type="Script" id=12]
 
 [sub_resource type="Shader" id=1]
 
@@ -37,7 +39,7 @@ void fragment()
 render_priority = 0
 shader = SubResource( 1 )
 shader_param/cutoff = 1.0
-shader_param/mask = ExtResource( 2 )
+shader_param/mask = ExtResource( 3 )
 
 [sub_resource type="Animation" id=3]
 
@@ -87,7 +89,7 @@ outline_size = 0
 outline_color = Color( 1, 1, 1, 1 )
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 6 )
+font_data = ExtResource( 7 )
 
 [sub_resource type="StyleBoxFlat" id=7]
 
@@ -126,7 +128,7 @@ use_mipmaps = false
 use_filter = false
 extra_spacing_char = 2
 extra_spacing_space = 2
-font_data = ExtResource( 9 )
+font_data = ExtResource( 10 )
 
 [sub_resource type="DynamicFont" id=9]
 
@@ -137,18 +139,20 @@ use_mipmaps = false
 use_filter = false
 extra_spacing_char = 2
 extra_spacing_space = 2
-font_data = ExtResource( 9 )
+font_data = ExtResource( 10 )
 
 [node name="root" type="Node2D"]
+script = ExtResource( 1 )
 
 [node name="Overlay" type="CanvasLayer" parent="."]
 pause_mode = 2
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="Transition" type="ColorRect" parent="Overlay"]
 pause_mode = 2
@@ -223,7 +227,7 @@ shadow_atlas_quad_1 = 2
 shadow_atlas_quad_2 = 3
 shadow_atlas_quad_3 = 4
 
-[node name="GameManager" parent="game/Viewport" instance=ExtResource( 3 )]
+[node name="GameManager" parent="game/Viewport" instance=ExtResource( 4 )]
 
 [node name="ui" type="Control" parent="."]
 editor/display_folded = true
@@ -257,7 +261,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="ui/Dialog"]
 anchor_left = 0.0
@@ -273,7 +277,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 24, 24 )
 patch_margin_left = 8
 patch_margin_top = 8
@@ -325,7 +329,6 @@ playback/repeat = false
 playback/speed = 1.0
 
 [node name="Console" type="Control" parent="ui"]
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 1.0
@@ -340,7 +343,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="LineEdit" type="LineEdit" parent="ui/Console"]
 anchor_left = 0.5
@@ -358,7 +361,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 8 )
+custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 secret_character = "*"
 focus_mode = 2
@@ -387,7 +390,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_styles/normal = SubResource( 7 )
-custom_fonts/normal_font = ExtResource( 8 )
+custom_fonts/normal_font = ExtResource( 9 )
 custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2
 bbcode_enabled = true
@@ -407,7 +410,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1880.0
+margin_left = 1783.0
 margin_top = -926.0
 margin_right = 1922.0
 margin_bottom = -859.0
@@ -446,7 +449,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="ColorRect" type="ColorRect" parent="ui/PauseMenu"]
 anchor_left = 0.0
@@ -462,6 +465,7 @@ size_flags_vertical = 1
 color = Color( 0.0509804, 0.0509804, 0.0509804, 0.454902 )
 
 [node name="MarginContainer" type="MarginContainer" parent="ui/PauseMenu"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -495,7 +499,8 @@ size_flags_vertical = 1
 custom_constants/separation = 50
 alignment = 0
 
-[node name="MainOption" type="VBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer"]
+[node name="Main" type="VBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -511,7 +516,7 @@ size_flags_vertical = 1
 custom_constants/separation = 50
 alignment = 0
 
-[node name="Resume" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/MainOption"]
+[node name="Resume" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Main"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -534,7 +539,7 @@ text = "Resume"
 flat = true
 align = 0
 
-[node name="Options" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/MainOption"]
+[node name="Options" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Main"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -558,7 +563,7 @@ text = "Options"
 flat = true
 align = 0
 
-[node name="Quit" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/MainOption"]
+[node name="Quit" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Main"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -582,31 +587,14 @@ text = "Quit"
 flat = true
 align = 0
 
-[node name="HSplitContainer" type="HSplitContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer"]
+[node name="Options" type="VBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer"]
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 198.0
-margin_right = 198.0
-margin_bottom = 675.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-split_offset = 0
-collapsed = false
-dragger_visibility = 0
-
-[node name="Options" type="VBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 248.0
-margin_right = 664.0
+margin_right = 600.0
 margin_bottom = 675.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -616,13 +604,51 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_constants/separation = 50
 alignment = 0
+script = ExtResource( 12 )
 
-[node name="Resolution" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
+[node name="Resolution" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 416.0
+margin_right = 402.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Label" type="Label" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Resolution"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 4.0
+margin_right = 200.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 9 )
+text = "Resolution :"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Resolution" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Resolution"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_right = 402.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -636,23 +662,60 @@ toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
 group = null
-text = "Resolution : 1280 x 720"
+text = "1280 x 720"
 flat = true
 align = 0
 
-[node name="Fullscreen" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
+[node name="Fullscreen" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 90.0
-margin_right = 416.0
+margin_right = 402.0
 margin_bottom = 130.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Label" type="Label" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Fullscreen"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 4.0
+margin_right = 200.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 9 )
+text = "Fullscreen :"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Fullscreen" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Fullscreen"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 204.0
+margin_right = 304.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
-mouse_default_cursor_shape = 0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 9 )
@@ -660,18 +723,55 @@ toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
 group = null
-text = "Fullscreen : false"
+text = "False"
 flat = true
 align = 0
 
-[node name="Borderless" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
+[node name="Vsync" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 180.0
-margin_right = 416.0
+margin_right = 402.0
 margin_bottom = 220.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Label" type="Label" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Vsync"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 4.0
+margin_right = 128.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 9 )
+text = "Vsync :"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Vsync" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Vsync"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 132.0
+margin_right = 232.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -684,18 +784,54 @@ toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
 group = null
-text = "Borderless : false"
+text = "False"
 flat = true
 align = 0
 
-[node name="Controller Mode" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
+[node name="Fps" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 270.0
-margin_right = 416.0
+margin_right = 402.0
 margin_bottom = 310.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Label" type="Label" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Fps"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 4.0
+margin_right = 162.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 9 )
+text = "Fps max:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Fps" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Fps"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 166.0
+margin_right = 218.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -708,14 +844,119 @@ toggle_mode = false
 enabled_focus_mode = 0
 shortcut = null
 group = null
-text = "Controller mode : false"
+text = "60"
+flat = true
+align = 0
+
+[node name="Controller" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 360.0
+margin_right = 402.0
+margin_bottom = 400.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Label" type="Label" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Controller"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 4.0
+margin_right = 182.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 9 )
+text = "Controller:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Controller" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Controller"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 186.0
+margin_right = 286.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 9 )
+toggle_mode = false
+enabled_focus_mode = 0
+shortcut = null
+group = null
+text = "False"
+flat = true
+align = 0
+
+[node name="Apply" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 450.0
+margin_right = 402.0
+margin_bottom = 490.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Apply" type="Button" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Apply"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 262.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 9 )
+toggle_mode = false
+enabled_focus_mode = 0
+shortcut = null
+group = null
+text = "Apply changes"
 flat = true
 align = 0
 
 [connection signal="timeout" from="ui/Dialog/Timer" to="ui/Dialog" method="_on_Timer_timeout"]
 [connection signal="text_entered" from="ui/Console/LineEdit" to="ui/Console" method="_on_LineEdit_text_entered"]
-[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/MainOption/Resume" to="ui/PauseMenu" method="Unpause"]
-[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/MainOption/Quit" to="ui/PauseMenu" method="Quit"]
-[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Resolution" to="ui/PauseMenu" method="Unpause"]
-[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Borderless" to="ui/PauseMenu" method="Quit"]
-[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Controller Mode" to="ui/PauseMenu" method="Quit"]
+[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Main/Resume" to="ui/PauseMenu" method="Unpause"]
+[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Main/Options" to="ui/PauseMenu" method="ToggleOption"]
+[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Main/Quit" to="ui/PauseMenu" method="Quit"]
+[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Resolution/Resolution" to="ui/PauseMenu" method="_on_Resolution_pressed"]
+[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Fullscreen/Fullscreen" to="ui/PauseMenu" method="_on_Fullscreen_pressed"]
+[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Vsync/Vsync" to="ui/PauseMenu" method="_on_Vsync_pressed"]
+[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Fps/Fps" to="ui/PauseMenu" method="_on_Fps_pressed"]
+[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Controller/Controller" to="ui/PauseMenu" method="_on_Controller_pressed"]
+[connection signal="pressed" from="ui/PauseMenu/MarginContainer/HBoxContainer/Options/Apply/Apply" to="ui/PauseMenu" method="_on_Apply_pressed"]
