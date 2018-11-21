@@ -34,6 +34,7 @@ public class Level : Node2D
     private PackedScene Spawn;
     private PackedScene FallBlock;
     private PackedScene JumpThroughPlatform; 
+	private PackedScene BagCoin;
     #endregion
 
     #region Layers
@@ -67,6 +68,7 @@ public class Level : Node2D
         Spawn = ResourceLoader.Load("res://Levels/level_assets/entities/spawn/oSpawn.tscn") as PackedScene;
         FallBlock = ResourceLoader.Load("res://Levels/level_assets/entities/falling_platforms/FallingPlatform1.tscn") as PackedScene;
         JumpThroughPlatform = ResourceLoader.Load("res://Levels/level_assets/entities/jump_through_platform/fall_through_platform.tscn") as PackedScene;
+		BagCoin = ResourceLoader.Load("res://Levels/level_assets/entities/Coin/Coin.tscn") as PackedScene;
 
         Player = GetNode("../Player") as Player;
         Entities = GetNode("objects");
@@ -203,6 +205,9 @@ public class Level : Node2D
                 case 7:
                     PlaceEntity(Tile, "Spike", Spike);
                     break;
+				case 8:
+					PlaceEntity(Tile, "BagCoin", BagCoin);
+					break;
             }
         }
     }

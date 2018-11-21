@@ -56,6 +56,7 @@
     <Compile Include="Assets\ui\Dialog.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\level_assets\entities\BouncingBall\BouncingBall.cs" />
+    <Compile Include="Levels\level_assets\entities\Coin\Coin.cs" />
     <Compile Include="Levels\level_assets\entities\door_and_key\Door.cs" />
     <Compile Include="Levels\level_assets\entities\door_and_key\Key.cs" />
     <Compile Include="Levels\level_assets\entities\extender\Extender.cs" />
