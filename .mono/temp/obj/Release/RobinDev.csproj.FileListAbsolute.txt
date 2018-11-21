@@ -10,3 +10,9 @@ C:\Users\antoi\Desktop\robinthegame-csharp\.mono\temp\obj\Release\RobinDev.cspro
 C:\Users\antoi\Desktop\robinthegame-csharp\.mono\temp\obj\Release\RobinDev.csproj.CoreCompileInputs.cache
 C:\Users\antoi\Desktop\robinthegame-csharp\.mono\temp\obj\Release\RobinDev.dll
 C:\Users\antoi\Desktop\robinthegame-csharp\.mono\temp\obj\Release\RobinDev.pdb
+F:\Desktop\robinthegame\.mono\temp\bin\Release\Newtonsoft.Json.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Release\System.ServiceModel.Internals.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Release\System.Transactions.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Release\System.EnterpriseServices.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Release\Newtonsoft.Json.xml
+F:\Desktop\robinthegame\.mono\temp\obj\Release\RobinDev.csproj.CopyComplete
