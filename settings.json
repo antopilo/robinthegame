@@ -3,9 +3,9 @@
     "x": 0.0,
     "y": 0.0
   },
-  "Fullscreen": false,
+  "Fullscreen": true,
   "Borderless": false,
   "Vsync": false,
-  "Controller": true,
+  "Controller": false,
   "MaxFps": 0
 }

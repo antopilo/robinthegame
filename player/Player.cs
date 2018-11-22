@@ -392,10 +392,10 @@ public class Player : KinematicBody2D
     /// </summary>
     public void GetArrow()
     {
-        if (HasNode("new_arrow"))
+        if (HasNode("arrow"))
         {
             ArrowExist = true;
-            Arrow = GetNode("../new_arrow") as Arrow;
+            Arrow = GetNode("../arrow") as Arrow;
         }
         else
         {

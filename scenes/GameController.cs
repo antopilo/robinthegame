@@ -2,7 +2,7 @@ using Godot;
 
 public class GameController : Node2D
 {
-    [Export] int StartLevel = 0;
+    [Export] string StartLevel = "0";
 
     public Player Player;
     public Level CurrentRoom;
@@ -13,7 +13,7 @@ public class GameController : Node2D
     public override void _Ready()
     {
         Player = GetNode("Player") as Player;
-        CurrentRoom = GetNode(StartLevel.ToString()) as Level;
+        CurrentRoom = GetNode(StartLevel) as Level;
 
         Spawn(false);
         MoveCamToRoom(CurrentRoom);
@@ -118,7 +118,7 @@ public class GameController : Node2D
         T.InterpolateProperty(Camera, "zoom", Camera.Zoom, NewCameraZoom, 0.6f, Transition, Ease);
         T.Start();
 
-        if (Player.ArrowExist) // If an arrow was in the old room. Return it to the player.
+        if (Player.Arrow != null) // If an arrow was in the old room. Return it to the player.
             Player.Arrow.ReturnToPlayer();
     }
 

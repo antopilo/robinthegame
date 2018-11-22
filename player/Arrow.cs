@@ -93,9 +93,11 @@ public class Arrow : KinematicBody2D
     {
         Vector2 Mouse = GetGlobalMousePosition();
         Vector2 Center = (Player.Camera).GetCameraScreenCenter();
+		Vector2 Offset = Center - (GetViewportRect().Size / 2f);
         float StretchFactor = OS.WindowSize.x / 320;
 
-        LookAt(Mouse / StretchFactor + (Center - (GetViewportRect().Size / 2f))/ 1.33f);
+        LookAt(Mouse / (StretchFactor) + Offset * ((OS.WindowSize.x - 320f) / OS.WindowSize.x));
+
     }
 
     public void JoyStickControl()

@@ -16,3 +16,15 @@ F:\Desktop\robinthegame\.mono\temp\bin\Tools\System.Transactions.dll
 F:\Desktop\robinthegame\.mono\temp\bin\Tools\System.EnterpriseServices.dll
 F:\Desktop\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.xml
 F:\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CopyComplete
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\bin\Tools\RobinDev.dll
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\bin\Tools\RobinDev.pdb
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.dll
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\bin\Tools\System.ServiceModel.Internals.dll
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\bin\Tools\System.Transactions.dll
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\bin\Tools\System.EnterpriseServices.dll
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.xml
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\obj\Tools\RobinDev.csprojAssemblyReference.cache
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CoreCompileInputs.cache
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CopyComplete
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\obj\Tools\RobinDev.dll
+C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\obj\Tools\RobinDev.pdb
