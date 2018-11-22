@@ -10,20 +10,18 @@ public class Root : Node2D
     public Player Player;
     public Weapon Weapon;
 
-    public override void _Init()
-    {
-        LoadSettings();
-        ApplySettings();
-    }
     public override void _Ready()
     {
         // Get node
         GameController = GetNode("game/Viewport/GameManager") as GameController;
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;
+
+        LoadSettings();
+        ApplySettings();
     }
 
-	public void LoadSettings()
+    public void LoadSettings()
 	{
         StreamReader writer = new StreamReader("settings.json");
         string file = writer.ReadToEnd();

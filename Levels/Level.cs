@@ -80,7 +80,7 @@ public class Level : Node2D
 		
         LoadEntities();
         ChooseSpawn();
-        AutoTileBorders();
+       // AutoTileBorders();
     }
 
     /// <summary>
@@ -119,9 +119,10 @@ public class Level : Node2D
 
         foreach (Vector2 Tile in LayerSolid.GetUsedCells())
         {
+
             // If the tile is not autotile. Which should always be.
             if (LayerSolid.TileSet.TileGetTileMode(LayerSolid.GetCellv(Tile)) != TileSet.TileMode.AutoTile)
-                continue;
+                return;
 
             if (Tile.x == 0 || Tile.y == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y)
             {

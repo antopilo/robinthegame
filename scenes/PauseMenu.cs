@@ -38,6 +38,7 @@ public class PauseMenu : Control
             GetTree().Paused = !GetTree().Paused;
             Visible = GetTree().Paused;
             OptionsMenu.Visible = false;
+            (GetNode("MarginContainer/HBoxContainer/Main/Resume") as Button).GrabFocus();
         }
     }
 

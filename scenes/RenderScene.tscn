@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/Root.cs" type="Script" id=1]
 [ext_resource path="res://scenes/SceneTransition.cs" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/Fonts/Minecraft.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://scenes/PauseMenu.cs" type="Script" id=11]
 [ext_resource path="res://scenes/Options.cs" type="Script" id=12]
+[ext_resource path="res://Assets/audio/Wavykreptotune.wav" type="AudioStream" id=13]
 
 [sub_resource type="Shader" id=1]
 
@@ -231,7 +232,6 @@ shadow_atlas_quad_3 = 4
 StartLevel = "0"
 
 [node name="ui" type="Control" parent="."]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -435,6 +435,7 @@ max_lines_visible = -1
 
 [node name="PauseMenu" type="Control" parent="ui"]
 pause_mode = 2
+editor/display_folded = true
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -466,7 +467,6 @@ size_flags_vertical = 1
 color = Color( 0.0509804, 0.0509804, 0.0509804, 0.454902 )
 
 [node name="MarginContainer" type="MarginContainer" parent="ui/PauseMenu"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -501,7 +501,6 @@ custom_constants/separation = 50
 alignment = 0
 
 [node name="Main" type="VBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -527,13 +526,16 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_bottom = NodePath("../Options")
+focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 9 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
-enabled_focus_mode = 0
+enabled_focus_mode = 2
 shortcut = null
 group = null
 text = "Resume"
@@ -551,13 +553,18 @@ margin_bottom = 130.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_top = NodePath("../Resume")
+focus_neighbour_right = NodePath("../../Options/Resolution/Resolution")
+focus_neighbour_bottom = NodePath("../Quit")
+focus_mode = 2
 mouse_filter = 0
-mouse_default_cursor_shape = 0
+mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 9 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
-enabled_focus_mode = 0
+enabled_focus_mode = 2
 shortcut = null
 group = null
 text = "Options"
@@ -575,13 +582,15 @@ margin_bottom = 220.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 9 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
-enabled_focus_mode = 0
+enabled_focus_mode = 2
 shortcut = null
 group = null
 text = "Quit"
@@ -608,7 +617,6 @@ alignment = 0
 script = ExtResource( 12 )
 
 [node name="Resolution" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -654,13 +662,18 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Apply/Apply")
+focus_neighbour_bottom = NodePath("../../Fullscreen/Fullscreen")
+focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 9 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
-enabled_focus_mode = 0
+enabled_focus_mode = 2
 shortcut = null
 group = null
 text = "1280 x 720"
@@ -668,7 +681,6 @@ flat = true
 align = 0
 
 [node name="Fullscreen" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -715,13 +727,18 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Resolution/Resolution")
+focus_neighbour_bottom = NodePath("../../Vsync/Vsync")
+focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 9 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
-enabled_focus_mode = 0
+enabled_focus_mode = 2
 shortcut = null
 group = null
 text = "False"
@@ -729,7 +746,6 @@ flat = true
 align = 0
 
 [node name="Vsync" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -776,13 +792,18 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Fullscreen/Fullscreen")
+focus_neighbour_bottom = NodePath("../../Fps/Fps")
+focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 9 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
-enabled_focus_mode = 0
+enabled_focus_mode = 2
 shortcut = null
 group = null
 text = "False"
@@ -836,13 +857,17 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Vsync/Vsync")
+focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 9 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
-enabled_focus_mode = 0
+enabled_focus_mode = 2
 shortcut = null
 group = null
 text = "60"
@@ -850,7 +875,6 @@ flat = true
 align = 0
 
 [node name="Controller" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -897,13 +921,18 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Fps/Fps")
+focus_neighbour_bottom = NodePath("../../Apply/Apply")
+focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 9 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
-enabled_focus_mode = 0
+enabled_focus_mode = 2
 shortcut = null
 group = null
 text = "False"
@@ -911,7 +940,6 @@ flat = true
 align = 0
 
 [node name="Apply" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -937,18 +965,32 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Controller/Controller")
+focus_neighbour_bottom = NodePath("../../Resolution/Resolution")
+focus_mode = 2
 mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 9 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
-enabled_focus_mode = 0
+enabled_focus_mode = 2
 shortcut = null
 group = null
 text = "Apply changes"
 flat = true
 align = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -54.6
+pitch_scale = 1.0
+autoplay = true
+stream_paused = false
+mix_target = 0
+bus = "Master"
 
 [connection signal="timeout" from="ui/Dialog/Timer" to="ui/Dialog" method="_on_Timer_timeout"]
 [connection signal="text_entered" from="ui/Console/LineEdit" to="ui/Console" method="_on_LineEdit_text_entered"]

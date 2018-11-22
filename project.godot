@@ -21,6 +21,31 @@ boot_splash/image="res://images/loading_screen.png"
 boot_splash/fullsize=false
 config/icon="res://images/icon.png"
 
+[debug]
+
+gdscript/warnings/enable=false
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unassigned_variable_op_assign=false
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_class_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/unreachable_code=false
+gdscript/warnings/standalone_expression=false
+gdscript/warnings/void_assignment=false
+gdscript/warnings/narrowing_conversion=false
+gdscript/warnings/function_may_yield=false
+gdscript/warnings/variable_conflicts_function=false
+gdscript/warnings/function_conflicts_variable=false
+gdscript/warnings/function_conflicts_constant=false
+gdscript/warnings/incompatible_ternary=false
+gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
+gdscript/warnings/property_used_as_function=false
+gdscript/warnings/constant_used_as_function=false
+gdscript/warnings/function_used_as_property=false
+gdscript/warnings/integer_division=false
+gdscript/warnings/deprecated_keyword=false
+
 [display]
 
 window/size/width=1920
@@ -180,6 +205,10 @@ pause={
  ]
 }
 
+[mono]
+
+export/include_scripts_content=true
+
 [physics]
 
 common/physics_fps=144
@@ -192,8 +221,6 @@ quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/2d/use_pixel_snap=true
 quality/filters/use_nearest_mipmap_filter=true
+quality/filters/anisotropic_filter_level=1
 limits/rendering/max_renderable_elements=999999
-quality/voxel_cone_tracing/high_quality=false
 environment/default_clear_color=Color( 0.0980392, 0.623529, 0.905882, 1 )
-quality/depth/hdr=false
-environment/default_environment="res://default_env.tres"

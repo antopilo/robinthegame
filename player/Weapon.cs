@@ -47,10 +47,12 @@ public class Weapon : Node2D
         Vector2 FinalPosition = Origin.GlobalPosition;
 
         CurrentArrow = (Arrow)ArrowScene.Instance();
+		GetNode("../..").AddChild(CurrentArrow);
+		
         CurrentArrow.GlobalPosition = FinalPosition;
         CurrentArrow.ControllerMode = ControllerMode;
         CurrentArrow.Name = "arrow";
 
-        GetNode("../..").AddChild(CurrentArrow);
+        
     }
 }
