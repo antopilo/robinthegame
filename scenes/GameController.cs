@@ -188,4 +188,15 @@ public class GameController : Node2D
         Spawn(false);
         MoveCamToRoom(CurrentRoom);
     }
+
+    public bool PlayerHas(Node2D pItem)
+    {
+        foreach (var item in Player.Following)
+        {
+            if (item == pItem)
+                return true;
+        }
+
+        return false;
+    }
 }

@@ -271,6 +271,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 
 [node name="LevelInfo" type="Control" parent="ui"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -307,7 +308,8 @@ custom_constants/margin_top = 75
 custom_constants/margin_bottom = 900
 _sections_unfolded = [ "Visibility", "custom_constants" ]
 
-[node name="VSplit" type="VBoxContainer" parent="ui/LevelInfo/MarginContainer"]
+[node name="Info" type="Control" parent="ui/LevelInfo/MarginContainer"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -315,6 +317,37 @@ anchor_bottom = 0.0
 margin_top = 75.0
 margin_right = 1922.0
 margin_bottom = 175.0
+rect_pivot_offset = Vector2( 0, 57 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+_sections_unfolded = [ "Hint", "Rect" ]
+
+[node name="Bg" type="ColorRect" parent="ui/LevelInfo/MarginContainer/Info"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1922.0
+margin_bottom = 114.0
+rect_pivot_offset = Vector2( 0, 50 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.12549, 0.12549, 0.12549, 0.447059 )
+_sections_unfolded = [ "Anchor", "Rect" ]
+
+[node name="VSplit" type="VBoxContainer" parent="ui/LevelInfo/MarginContainer/Info"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1922.0
+margin_bottom = 114.0
 grow_vertical = 0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -326,14 +359,14 @@ custom_constants/separation = 15
 alignment = 1
 _sections_unfolded = [ "custom_constants" ]
 
-[node name="LevelName" type="Label" parent="ui/LevelInfo/MarginContainer/VSplit"]
+[node name="LevelName" type="Label" parent="ui/LevelInfo/MarginContainer/Info/VSplit"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 19.0
+margin_top = 33.0
 margin_right = 1922.0
-margin_bottom = 51.0
+margin_bottom = 65.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -341,20 +374,21 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 6 )
+text = "Unkown "
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_fonts", "custom_fonts/font" ]
 
-[node name="Difficulty" type="HBoxContainer" parent="ui/LevelInfo/MarginContainer/VSplit"]
+[node name="Difficulty" type="HBoxContainer" parent="ui/LevelInfo/MarginContainer/Info/VSplit"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 66.0
+margin_top = 80.0
 margin_right = 1922.0
-margin_bottom = 66.0
+margin_bottom = 80.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -365,15 +399,15 @@ custom_constants/separation = 15
 alignment = 1
 _sections_unfolded = [ "Rect", "custom_constants" ]
 
-[node name="Skull1" type="Control" parent="ui/LevelInfo/MarginContainer/VSplit/Difficulty"]
+[node name="Skull1" type="Control" parent="ui/LevelInfo/MarginContainer/Info/VSplit/Difficulty"]
 editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 898.0
-margin_right = 930.0
+margin_left = 945.0
+margin_right = 977.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -384,7 +418,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="1" type="TextureRect" parent="ui/LevelInfo/MarginContainer/VSplit/Difficulty/Skull1"]
+[node name="1" type="TextureRect" parent="ui/LevelInfo/MarginContainer/Info/VSplit/Difficulty/Skull1"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -405,15 +439,15 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
 
-[node name="Skull2" type="Control" parent="ui/LevelInfo/MarginContainer/VSplit/Difficulty"]
+[node name="Skull2" type="Control" parent="ui/LevelInfo/MarginContainer/Info/VSplit/Difficulty"]
 editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 921.0
-margin_right = 953.0
+margin_left = 968.0
+margin_right = 1000.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -424,7 +458,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="2" type="TextureRect" parent="ui/LevelInfo/MarginContainer/VSplit/Difficulty/Skull2"]
+[node name="2" type="TextureRect" parent="ui/LevelInfo/MarginContainer/Info/VSplit/Difficulty/Skull2"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -445,7 +479,7 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Grow Direction", "Rect" ]
 
-[node name="Skull3" type="Control" parent="ui/LevelInfo/MarginContainer/VSplit/Difficulty"]
+[node name="Skull3" type="Control" parent="ui/LevelInfo/MarginContainer/Info/VSplit/Difficulty"]
 editor/display_folded = true
 visible = false
 anchor_left = 0.0
@@ -464,7 +498,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Rect" ]
 
-[node name="3" type="TextureRect" parent="ui/LevelInfo/MarginContainer/VSplit/Difficulty/Skull3"]
+[node name="3" type="TextureRect" parent="ui/LevelInfo/MarginContainer/Info/VSplit/Difficulty/Skull3"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -483,23 +517,6 @@ size_flags_vertical = 1
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 0
-_sections_unfolded = [ "Rect" ]
-
-[node name="ColorRect" type="ColorRect" parent="ui/LevelInfo/MarginContainer/VSplit"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 81.0
-margin_right = 1922.0
-margin_bottom = 81.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-color = Color( 0.12549, 0.12549, 0.12549, 0.447059 )
 _sections_unfolded = [ "Rect" ]
 
 [node name="Dialog" type="Control" parent="ui"]

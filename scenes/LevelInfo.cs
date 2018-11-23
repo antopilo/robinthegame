@@ -5,6 +5,8 @@ public class LevelInfo : Control
 {
     private Tween Tween;
     private Control Container;
+    private Control Scale;
+
     private Label LevelName;
     private Node Difficulty;
 
@@ -17,19 +19,25 @@ public class LevelInfo : Control
     {
         Tween = GetNode("Tween") as Tween;
         Container = GetNode("MarginContainer") as Control;
-        Difficulty = GetNode("MarginContainer/VSplit/Difficulty") as Node;
+        Scale = GetNode("MarginContainer/Info") as Control;
 
-        LevelName = Container.GetNode("VSplit/LevelName") as Label;
+        Difficulty = GetNode("MarginContainer/Info/VSplit/Difficulty") as Node;
+        LevelName = GetNode("MarginContainer/Info/VSplit/LevelName") as Label;
 
-        Skull1 = GetNode("MarginContainer/VSplit/Difficulty/Skull1") as Control;
-        Skull2 = GetNode("MarginContainer/VSplit/Difficulty/Skull2") as Control;
-        Skull3 = GetNode("MarginContainer/VSplit/Difficulty/Skull3") as Control;
+        Skull1 = GetNode("MarginContainer/Info/VSplit/Difficulty/Skull1") as Control;
+        Skull2 = GetNode("MarginContainer/Info/VSplit/Difficulty/Skull2") as Control;
+        Skull3 = GetNode("MarginContainer/Info/VSplit/Difficulty/Skull3") as Control;
     }
     
     public void UpdateInfo(Level pLevel)
     {
+        //Tween.StopAll();
+
         Tween.InterpolateProperty(this as CanvasItem, "modulate", new Color(1, 1, 1, 0), new Color(1, 1, 1, 1),
             2f, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
+        Tween.InterpolateProperty(Scale, "rect_scale", new Vector2(1, 0) , new Vector2(1, 1),
+            0.5f, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
+
         LevelName.Text = pLevel.LevelName;
 
         switch (pLevel.LevelDifficulty)
@@ -64,8 +72,12 @@ public class LevelInfo : Control
     {
         if((this as CanvasItem).Modulate == new Color(1, 1, 1, 1))
         {
+            
             Tween.InterpolateProperty(this as CanvasItem, "modulate", new Color(1, 1, 1, 1), new Color(1, 1, 1, 0),
                 2f, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
+            Tween.InterpolateProperty(Scale, "rect_scale", new Vector2(1, 1), new Vector2(1, 0),
+                0.5f, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
+
             Tween.Start();
         }
         

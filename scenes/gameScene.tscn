@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/GameController.cs" type="Script" id=1]
 [ext_resource path="res://Levels/worlds/world1/0.tscn" type="PackedScene" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://Levels/bg/forest/mountains.png" type="Texture" id=20]
 [ext_resource path="res://Levels/bg/forest/trees.png" type="Texture" id=21]
 [ext_resource path="res://Levels/bg/forest/trees2.png" type="Texture" id=22]
+[ext_resource path="res://scenes/QuestManager.cs" type="Script" id=23]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -535,4 +536,8 @@ position = Vector2( 160, 96 )
 texture = ExtResource( 22 )
 region_enabled = true
 region_rect = Rect2( 3, 35, 768, 141 )
+
+[node name="QuestManager" type="Node2D" parent="."]
+script = ExtResource( 23 )
+_sections_unfolded = [ "Script" ]
 

@@ -74,11 +74,14 @@
     <Compile Include="scenes\LevelInfo.cs" />
     <Compile Include="scenes\Options.cs" />
     <Compile Include="scenes\PauseMenu.cs" />
+    <Compile Include="scenes\Quest.cs" />
+    <Compile Include="scenes\QuestManager.cs" />
     <Compile Include="scenes\Root.cs" />
     <Compile Include="scenes\SceneTransition.cs" />
     <Compile Include="scenes\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
