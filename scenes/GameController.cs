@@ -4,6 +4,8 @@ public class GameController : Node2D
 {
     [Export] string StartLevel = "0";
 
+    public LevelInfo LevelInfo;
+    public Root Root;
     public Player Player;
     public Level CurrentRoom;
 
@@ -12,11 +14,14 @@ public class GameController : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        Root = GetNode("../../..") as Root;
         Player = GetNode("Player") as Player;
         CurrentRoom = GetNode(StartLevel) as Level;
+        LevelInfo = GetNode("../../../ui/LevelInfo") as LevelInfo;
 
         Spawn(false);
         MoveCamToRoom(CurrentRoom);
+        
     }
 
     // Called Every frame.
@@ -61,7 +66,7 @@ public class GameController : Node2D
 
                     oldLevel.Update();
                     MoveCamToRoom(CurrentRoom);
-                    
+                    LevelInfo.UpdateInfo(CurrentRoom);
                     //Player.Spawn(false);
                 }
             }

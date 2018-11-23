@@ -2,20 +2,46 @@ using Godot;
 
 public class Spike : Node2D
 {
-    public Rect2 Box;
-    
-    public override void _Ready()
-    {
-        Box = new Rect2(GlobalPosition, new Vector2(8, 4));
-    }
-
     private void _on_oSpike_body_entered(PhysicsBody2D body)
 	{
-        if (body is Player && (body as Player).Alive)
+        float Rotation = this.RotationDegrees;
+
+        if(body is Player && (body as Player).Alive)
         {
-            (body as Player).Alive = false;
-            (body as Player).Spawn(true);
+            switch (Rotation)
+            {
+                case 0:
+                    if ((body as Player).Velocity.y >= 0)
+                    {
+                        (body as Player).Alive = false;
+                        (body as Player).Spawn(true);
+                    }
+                    break;
+                case 90:
+                    if ((body as Player).Velocity.x <= 0)
+                    {
+                        (body as Player).Alive = false;
+                        (body as Player).Spawn(true);
+                    }
+                    break;
+                case 180:
+                    if ((body as Player).Velocity.y >= 0)
+                    {
+                        (body as Player).Alive = false;
+                        (body as Player).Spawn(true);
+                    }
+                    break;
+                case 270:
+                    if ((body as Player).Velocity.x >= 0)
+                    {
+                        (body as Player).Alive = false;
+                        (body as Player).Spawn(true);
+                    }
+                    break;
+            }
         }
+        
+        GD.Print("P: " + body.GlobalPosition.y + "S: " + this.GlobalPosition.y);
 	}
 }
 

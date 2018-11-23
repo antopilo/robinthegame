@@ -5,17 +5,17 @@
 [ext_resource path="res://player/frames/idle/idle1.png" type="Texture" id=3]
 [ext_resource path="res://player/frames/idle/idle2.png" type="Texture" id=4]
 [ext_resource path="res://player/frames/idle/idle3.png" type="Texture" id=5]
-[ext_resource path="res://player/frames/jump/falling1.png" type="Texture" id=6]
-[ext_resource path="res://player/frames/wall.png" type="Texture" id=7]
-[ext_resource path="res://player/frames/crouch.png" type="Texture" id=8]
-[ext_resource path="res://player/frames/Running/Running 4F2.png" type="Texture" id=9]
-[ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=10]
-[ext_resource path="res://player/frames/Running/Running 4F4.png" type="Texture" id=11]
-[ext_resource path="res://player/frames/Running/Running 4F1.png" type="Texture" id=12]
-[ext_resource path="res://player/frames/lookup.png" type="Texture" id=13]
-[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=14]
-[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=15]
-[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=16]
+[ext_resource path="res://player/frames/wall.png" type="Texture" id=6]
+[ext_resource path="res://player/frames/jump/falling1.png" type="Texture" id=7]
+[ext_resource path="res://player/frames/Running/Running 4F2.png" type="Texture" id=8]
+[ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=9]
+[ext_resource path="res://player/frames/Running/Running 4F4.png" type="Texture" id=10]
+[ext_resource path="res://player/frames/Running/Running 4F1.png" type="Texture" id=11]
+[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=12]
+[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=13]
+[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=14]
+[ext_resource path="res://player/frames/lookup.png" type="Texture" id=15]
+[ext_resource path="res://player/frames/crouch.png" type="Texture" id=16]
 [ext_resource path="res://player/Weapon.cs" type="Script" id=17]
 [ext_resource path="res://player/aura.png" type="Texture" id=18]
 
@@ -35,32 +35,32 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
-"name": "Jump",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
 "name": "Wall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "crouch",
-"speed": 5.0
+"name": "Jump",
+"speed": 0.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "Running",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 13 ) ],
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": false,
+"name": "falling",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "lookup",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
-"loop": false,
-"name": "falling",
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "crouch",
 "speed": 5.0
 } ]
 
@@ -113,18 +113,20 @@ script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
+position = Vector2( 0, -8 )
 frames = SubResource( 2 )
 animation = "lookup"
 playing = true
 
 [node name="collisionBox" type="CollisionPolygon2D" parent="."]
-position = Vector2( 0, 4 )
+position = Vector2( 0, -4 )
 scale = Vector2( 0.949382, 0.987338 )
 build_mode = 0
 polygon = PoolVector2Array( 4, -4, 4, 4, -4, 4, -4, -4, -4, -5, -3, -6, -2, -7, -1, -8, 0, -8, 1, -8, 2, -7, 3, -6, 4, -5, 4, -4 )
 
 [node name="Weapon" type="Node2D" parent="."]
 editor/display_folded = true
+position = Vector2( 0, -8 )
 script = ExtResource( 17 )
 
 [node name="Timer" type="Timer" parent="Weapon"]
@@ -136,6 +138,7 @@ autostart = false
 [node name="Arrow_origin" type="Position2D" parent="Weapon"]
 
 [node name="WallCheck_right" type="RayCast2D" parent="."]
+position = Vector2( 0, -8 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 5, 0 )
@@ -144,6 +147,7 @@ collide_with_areas = false
 collide_with_bodies = true
 
 [node name="WallCheck_Left" type="RayCast2D" parent="."]
+position = Vector2( 0, -8 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( -5, 0 )
@@ -152,6 +156,7 @@ collide_with_areas = false
 collide_with_bodies = true
 
 [node name="ceilling_cast" type="RayCast2D" parent="."]
+position = Vector2( 0, -8 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, -5 )
@@ -167,6 +172,7 @@ autostart = false
 
 [node name="death_particle" type="Particles2D" parent="."]
 visible = false
+position = Vector2( 0, -8 )
 emitting = false
 amount = 25
 lifetime = 1.0
@@ -187,6 +193,7 @@ h_frames = 1
 v_frames = 1
 
 [node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, -8 )
 enabled = true
 editor_only = false
 texture = ExtResource( 18 )

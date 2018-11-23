@@ -7,8 +7,10 @@ public class Level : Node2D
 	// IF the level is smaller than the screen reset the size to those values.
     const int MIN_WIDTH = 320; 
     const int MIN_HEIGHT = 180;
-	
-	// Tiles are 8x8 pixels
+    [Export] public string LevelName = "Somewhere unknown...";
+    [Export] public int LevelDifficulty = 0;
+
+    // Tiles are 8x8 pixels
     const int TileSize = 8;
 
 	
@@ -80,7 +82,7 @@ public class Level : Node2D
 		
         LoadEntities();
         ChooseSpawn();
-       // AutoTileBorders();
+        AutoTileBorders();
     }
 
     /// <summary>
@@ -122,7 +124,7 @@ public class Level : Node2D
 
             // If the tile is not autotile. Which should always be.
             if (LayerSolid.TileSet.TileGetTileMode(LayerSolid.GetCellv(Tile)) != TileSet.TileMode.AutoTile)
-                return;
+                continue;
 
             if (Tile.x == 0 || Tile.y == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y)
             {
@@ -300,4 +302,6 @@ public class Level : Node2D
             if (node.IsInGroup("spawn"))
                 (node as Spawn).Active = false;
     }
+
+
 }

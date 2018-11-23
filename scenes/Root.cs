@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 
 public class Root : Node2D
 {
+    public LevelInfo LevelInfo;
     public Settings settings = new Settings();
     public GameController GameController;
     public Player Player;
@@ -16,6 +17,7 @@ public class Root : Node2D
         GameController = GetNode("game/Viewport/GameManager") as GameController;
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;
+        
 
         LoadSettings();
         ApplySettings();
@@ -23,7 +25,11 @@ public class Root : Node2D
 
     public void LoadSettings()
 	{
+        if (!System.IO.File.Exists("settings.json"))
+            SaveSettings();
+
         StreamReader writer = new StreamReader("settings.json");
+        
         string file = writer.ReadToEnd();
         writer.Close();
 
