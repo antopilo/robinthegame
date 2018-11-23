@@ -8,7 +8,7 @@ using Godot;
 class QuestManager : Node2D
 {
     [Export] public Quest CurrentQuest;
-
+    // new Comment
     public List<Quest> TrackedQuest = new List<Quest>();
     public List<Quest> CompletedQuest = new List<Quest>();
     public List<Quest> UntrackedQuest = new List<Quest>();
