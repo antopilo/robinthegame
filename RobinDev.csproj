@@ -76,6 +76,7 @@
     <Compile Include="scenes\PauseMenu.cs" />
     <Compile Include="scenes\Quest.cs" />
     <Compile Include="scenes\QuestManager.cs" />
+    <Compile Include="scenes\QuestViewer.cs" />
     <Compile Include="scenes\Root.cs" />
     <Compile Include="scenes\SceneTransition.cs" />
     <Compile Include="scenes\Settings.cs" />

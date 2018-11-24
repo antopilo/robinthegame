@@ -7,7 +7,7 @@ public class Level : Node2D
 	// IF the level is smaller than the screen reset the size to those values.
     const int MIN_WIDTH = 320; 
     const int MIN_HEIGHT = 180;
-    [Export] public string LevelName = "Somewhere unknown...";
+    [Export] public string LevelName = "Somewhere Unknown...";
     [Export] public int LevelDifficulty = 0;
 
     // Tiles are 8x8 pixels

@@ -1,71 +1,39 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Godot;
+using System;
 
 public enum QuestType { Retreive, GoTo, Collect }
-public enum QuestState { Inactive, Active, Completed}
+public enum QuestState { Inactive, Active, Completed }
 
-public class Quest
+public class Quest : Node
 {
     #region Properties
-    public string Name = "Unkown Quest";
-    public int Experience;
-    public QuestType Type = QuestType.Collect;
-    [Export] public Level Destination;
-    [Export] public Node2D Object;
-    [Export] public Node2D Receiver;
-
-    public QuestState State { get; private set; } 
+    [Export] public string QuestName = "Unknown Quest";
+    [Export(PropertyHint.Range,"0,50")] public int Experience;
+    [Export] public QuestType Type = QuestType.GoTo;
+    [Export] public NodePath Destination;
+    [Export] public NodePath Object;
+    [Export] public NodePath Receiver;
     #endregion
+
+    public QuestState State = QuestState.Active;
 
     private GameController GameController;
     private QuestManager QuestManager;
 
-    #region Errors
-    private const string ERR_NAME_NULL = "ERR_NO_NAME_SET";
-    #endregion
-
-    #region Constructors
-    public Quest(string pName, Level pDestination)
+    public override void _Ready()
     {
-        if (pName == null)
-            Name = ERR_NAME_NULL;
-        else
-            Name = pName;
-        Type = QuestType.GoTo;
-
-        if (pDestination == null)
-            throw new ArgumentNullException("Destination can't be null");
-        else
-            Destination = pDestination;
+        QuestManager = GetParent() as QuestManager;
+        GameController = GetParent().GetParent() as GameController;
     }
-
-    public Quest(string pName, Node2D pObject)
-    {
-        this.Name = pName;
-        this.Type = QuestType.Collect;
-        this.Object = pObject;
-    }
-
-    public Quest(string pName, Node2D pObject, Node2D pRetreive)
-    {
-        this.Name = pName;
-        this.Receiver = pRetreive;
-        this.Type = QuestType.Retreive;
-        this.Object = pObject;
-    } 
-    #endregion
 
     public void CheckStatus()
     {
-        if (QuestManager.CurrentQuest == this && CheckCompleted())
+        if (QuestManager.CurrentQuest == this && CheckCompleted() == true)
         {
             State = QuestState.Completed;
             QuestManager.TrackedQuest.Remove(this);
             QuestManager.CompletedQuest.Add(this);
+            QuestManager.NextQuest();
         }
         else if (QuestManager.CurrentQuest == this && !CheckCompleted())
             this.State = QuestState.Active;
@@ -77,18 +45,23 @@ public class Quest
 
     public bool CheckCompleted()
     {
+        if (QuestManager.CurrentQuest.State == QuestState.Completed)
+            return true;
         switch (Type)
         {
             case QuestType.Retreive:
-                if (GameController.PlayerHas(this.Object))
+                if (GameController.PlayerHas(GetNode(Object) as Node2D))
                     return true;
                 break;
             case QuestType.GoTo:
-                if (GameController.CurrentRoom == Destination)
+                GD.Print(GetNode(Destination).Name);
+                if (GameController.CurrentRoom == GetNode(Destination))
                     return true;
+                else
+                    return false;
                 break;
             case QuestType.Collect:
-                if (GameController.PlayerHas(this.Object))
+                if (GameController.PlayerHas(GetNode(Object) as Node2D))
                     return true;
                 break;
         }
@@ -96,4 +69,3 @@ public class Quest
         return false;
     }
 }
-
