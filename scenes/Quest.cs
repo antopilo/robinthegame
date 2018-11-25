@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public enum QuestType { Retreive, GoTo, Collect }
+public enum QuestType { Retreive, GoTo, Collect, TalkTo, Multiple }
 public enum QuestState { Inactive, Active, Completed }
 
 public class Quest : Node
@@ -10,6 +10,7 @@ public class Quest : Node
     [Export] public string QuestName = "Unknown Quest";
     [Export(PropertyHint.Range,"0,50")] public int Experience;
     [Export] public QuestType Type = QuestType.GoTo;
+
     [Export] public NodePath Destination;
     [Export] public NodePath Object;
     [Export] public NodePath Receiver;
@@ -35,6 +36,7 @@ public class Quest : Node
             QuestManager.CompletedQuest.Add(this);
             QuestManager.NextQuest();
         }
+
         else if (QuestManager.CurrentQuest == this && !CheckCompleted())
             this.State = QuestState.Active;
         else if (QuestManager.CurrentQuest != this && !CheckCompleted())
@@ -47,11 +49,14 @@ public class Quest : Node
     {
         if (QuestManager.CurrentQuest.State == QuestState.Completed)
             return true;
+
         switch (Type)
         {
             case QuestType.Retreive:
                 if (GameController.PlayerHas(GetNode(Object) as Node2D))
                     return true;
+                else
+                    return false;
                 break;
             case QuestType.GoTo:
                 GD.Print(GetNode(Destination).Name);
@@ -63,6 +68,8 @@ public class Quest : Node
             case QuestType.Collect:
                 if (GameController.PlayerHas(GetNode(Object) as Node2D))
                     return true;
+                else
+                    return false;
                 break;
         }
 

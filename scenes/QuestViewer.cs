@@ -21,28 +21,35 @@ public class QuestViewer : Control
     {
         foreach (var quest in questManager.AllQuest)
         {
+            RichTextLabel CurrentLabel;
+
             if (!vBox.HasNode(quest.QuestName))
             {
                 RichTextLabel newLabel = new RichTextLabel();
+
                 newLabel.Name = quest.QuestName;
                 newLabel.BbcodeEnabled = true;
                 newLabel.RectMinSize = new Vector2(0,64);
-                vBox.AddChild(newLabel);
-                (vBox.GetNode(quest.QuestName) as RichTextLabel).BbcodeText = "[b]" + quest.QuestName + ": " + quest.State + "[/b]";
-                //newLabel.PushFont(ResourceLoader.Load("res://Assets/Fonts/QuestFont.tres") as Font);
+
+                vBox.AddChild(newLabel); GD.Print("AddedLabel");
+
+                newLabel.BbcodeText = "[b]" + quest.QuestName + ": " + quest.State + "[/b]";
+
                 newLabel.AddFontOverride("normal_font", ResourceLoader.Load("res://Assets/Fonts/QuestFont.tres") as Font);
+
+                CurrentLabel = newLabel;
             }
             else
             {
+                CurrentLabel = vBox.GetNode(quest.QuestName) as RichTextLabel;
+
                 if (quest.State == QuestState.Active)
-                    (vBox.GetNode(quest.QuestName) as RichTextLabel).BbcodeText = "[font=res://Assets/Fonts/QuestFont.tres]" + 
+                    CurrentLabel.BbcodeText = "[font=res://Assets/Fonts/QuestFont.tres]" + 
                         quest.QuestName + ": " + quest.State + "[/font]";
-
-
                 else if(quest.State == QuestState.Completed)
-                    (vBox.GetNode(quest.QuestName) as RichTextLabel).BbcodeText = "[font=res://Assets/Fonts/QuestFont.tres][s][color=green]" + quest.QuestName + ": " + quest.State + "[/color][/s][/font]";
+                    CurrentLabel.BbcodeText = "[font=res://Assets/Fonts/QuestFont.tres][s][color=green]" + quest.QuestName + ": " + quest.State + "[/color][/s][/font]";
                 else
-                    (vBox.GetNode(quest.QuestName) as RichTextLabel).BbcodeText = "[b]" + quest.QuestName + ": " + quest.State + "[/b]";
+                    CurrentLabel.BbcodeText = "[b]" + quest.QuestName + ": " + quest.State + "[/b]";
             }
         }
     }

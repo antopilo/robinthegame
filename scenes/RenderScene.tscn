@@ -283,7 +283,6 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 
 [node name="LevelInfo" type="Control" parent="ui"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -733,6 +732,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 13 )
+_sections_unfolded = [ "Visibility" ]
 
 [node name="MarginContainer" type="MarginContainer" parent="ui/QuestViewer"]
 anchor_left = 0.0
@@ -789,7 +789,7 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 509.0
+margin_right = 622.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 0, 64 )
 rect_pivot_offset = Vector2( 0, 0 )

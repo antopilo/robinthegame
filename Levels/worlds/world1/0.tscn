@@ -208,6 +208,7 @@ tile_data = PoolIntArray(  )
 [node name="objects" type="Node2D" parent="."]
 
 [node name="Sign" type="Node2D" parent="."]
+visible = false
 position = Vector2( 136, 160 )
 script = ExtResource( 8 )
 

@@ -10,6 +10,7 @@ public class QuestManager : Node2D
     public List<Quest> TrackedQuest = new List<Quest>();
     public List<Quest> CompletedQuest = new List<Quest>();
     public List<Quest> UntrackedQuest = new List<Quest>();
+    public List<Quest> AllQuest = new List<Quest>();
 
     public override void _Ready()
     {
@@ -17,6 +18,10 @@ public class QuestManager : Node2D
 
         TrackedQuest.Add(GetNode("GetKey") as Quest);
         TrackedQuest.Add(GetNode("OpenDoor") as Quest);
+
+        AllQuest.Add(GetNode("Next") as Quest);
+        AllQuest.Add(GetNode("GetKey") as Quest);
+        AllQuest.Add(GetNode("OpenDoor") as Quest);
 
     }
     public override void _Process(float delta)

@@ -65,6 +65,7 @@
     <Compile Include="Levels\level_assets\entities\Sign\Sign.cs" />
     <Compile Include="Levels\level_assets\entities\spawn\Spawn.cs" />
     <Compile Include="Levels\level_assets\entities\spikes\Spike.cs" />
+    <Compile Include="Npc\Npc.cs" />
     <Compile Include="player\Arrow.cs" />
     <Compile Include="player\Player.cs" />
     <Compile Include="player\States.cs" />
