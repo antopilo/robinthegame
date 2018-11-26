@@ -7,3 +7,12 @@ C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\obj\Debug\RobinDev.csproj.
 C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\obj\Debug\RobinDev.csproj.CopyComplete
 C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\obj\Debug\RobinDev.dll
 C:\Users\antoi\Desktop\Projet\robinthegame\.mono\temp\obj\Debug\RobinDev.pdb
+F:\Desktop\robinthegame\.mono\temp\bin\Debug\RobinDev.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Debug\RobinDev.pdb
+F:\Desktop\robinthegame\.mono\temp\bin\Debug\Newtonsoft.Json.dll
+F:\Desktop\robinthegame\.mono\temp\bin\Debug\Newtonsoft.Json.xml
+F:\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.csprojAssemblyReference.cache
+F:\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.csproj.CoreCompileInputs.cache
+F:\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.csproj.CopyComplete
+F:\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.dll
+F:\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.pdb

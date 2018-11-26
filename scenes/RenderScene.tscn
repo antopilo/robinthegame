@@ -1,20 +1,22 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/Root.cs" type="Script" id=1]
 [ext_resource path="res://scenes/SceneTransition.cs" type="Script" id=2]
 [ext_resource path="res://images/transitions/pokemask2.png" type="Texture" id=3]
 [ext_resource path="res://scenes/gameScene.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/LevelInfo.cs" type="Script" id=5]
+[ext_resource path="res://scenes/QuestViewer.cs" type="Script" id=5]
 [ext_resource path="res://Assets/Fonts/Minecraft.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://Assets/ui/Skull.png" type="Texture" id=7]
-[ext_resource path="res://Assets/ui/Dialog.cs" type="Script" id=8]
-[ext_resource path="res://Assets/ui/Dialog9patch.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Fonts/Fool.ttf" type="DynamicFontData" id=10]
-[ext_resource path="res://Assets/ui/Console.cs" type="Script" id=11]
-[ext_resource path="res://Assets/Fonts/PixelFont.tres" type="DynamicFont" id=12]
-[ext_resource path="res://scenes/QuestViewer.cs" type="Script" id=13]
-[ext_resource path="res://scenes/PauseMenu.cs" type="Script" id=14]
-[ext_resource path="res://scenes/Options.cs" type="Script" id=15]
+[ext_resource path="res://Assets/ui/Themes/Quest.tres" type="StyleBox" id=7]
+[ext_resource path="res://Assets/Fonts/QuestFont.tres" type="DynamicFont" id=8]
+[ext_resource path="res://scenes/LevelInfo.cs" type="Script" id=9]
+[ext_resource path="res://Assets/ui/Skull.png" type="Texture" id=10]
+[ext_resource path="res://Assets/ui/Dialog.cs" type="Script" id=11]
+[ext_resource path="res://Assets/ui/Dialog9patch.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Fonts/Fool.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://Assets/ui/Console.cs" type="Script" id=14]
+[ext_resource path="res://Assets/Fonts/PixelFont.tres" type="DynamicFont" id=15]
+[ext_resource path="res://scenes/PauseMenu.cs" type="Script" id=16]
+[ext_resource path="res://scenes/Options.cs" type="Script" id=17]
 
 [sub_resource type="Shader" id=1]
 
@@ -88,6 +90,46 @@ tracks/0/keys = {
 [sub_resource type="DynamicFont" id=6]
 
 size = 32
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = false
+use_filter = false
+extra_spacing_char = 2
+font_data = ExtResource( 6 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[sub_resource type="StyleBoxFlat" id=7]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+bg_color = Color( 0.203922, 0.203922, 0.203922, 1 )
+draw_center = true
+border_width_left = 4
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+border_color = Color( 0.8, 0.8, 0.8, 1 )
+border_blend = false
+corner_radius_top_left = 0
+corner_radius_top_right = 0
+corner_radius_bottom_right = 0
+corner_radius_bottom_left = 0
+corner_detail = 8
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+shadow_color = Color( 0, 0, 0, 0.6 )
+shadow_size = 0
+anti_aliasing = true
+anti_aliasing_size = 1
+_sections_unfolded = [ "Border Width" ]
+
+[sub_resource type="DynamicFont" id=8]
+
+size = 32
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = false
@@ -97,16 +139,16 @@ extra_spacing_space = 1
 font_data = ExtResource( 6 )
 _sections_unfolded = [ "Extra Spacing", "Settings" ]
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=9]
 
 size = 32
 outline_size = 0
 outline_color = Color( 1, 1, 1, 1 )
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 10 )
+font_data = ExtResource( 13 )
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxFlat" id=10]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
@@ -134,7 +176,7 @@ shadow_size = 0
 anti_aliasing = true
 anti_aliasing_size = 1
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=11]
 
 size = 32
 outline_size = 2
@@ -145,18 +187,7 @@ extra_spacing_char = 2
 extra_spacing_space = 2
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=10]
-
-size = 32
-outline_size = 2
-outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = false
-use_filter = false
-extra_spacing_char = 2
-font_data = ExtResource( 6 )
-_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
-
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=12]
 
 size = 32
 outline_size = 1
@@ -168,7 +199,7 @@ extra_spacing_space = 2
 font_data = ExtResource( 6 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=13]
 
 size = 32
 outline_size = 4
@@ -282,7 +313,129 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="LevelInfo" type="Control" parent="ui"]
+[node name="QuestViewer" type="Control" parent="ui"]
+editor/display_folded = true
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 5 )
+_sections_unfolded = [ "Mouse", "Visibility" ]
+
+[node name="MarginContainer" type="MarginContainer" parent="ui/QuestViewer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_constants/margin_right = 200
+custom_constants/margin_top = 100
+custom_constants/margin_left = 200
+custom_constants/margin_bottom = 100
+_sections_unfolded = [ "Material", "Mouse", "custom_constants" ]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ui/QuestViewer/MarginContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 200.0
+margin_top = 100.0
+margin_right = 1722.0
+margin_bottom = 975.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+alignment = 1
+_sections_unfolded = [ "Mouse", "Size Flags", "custom_constants" ]
+
+[node name="LeftPanel" type="VBoxContainer" parent="ui/QuestViewer/MarginContainer/HBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1518.0
+margin_bottom = 875.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Margin", "Mouse", "custom_constants" ]
+
+[node name="Active" type="Control" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1518.0
+margin_bottom = 435.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+_sections_unfolded = [ "Mouse", "Size Flags" ]
+
+[node name="VBox" type="VBoxContainer" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Active"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Title" type="Label" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Active/VBox"]
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1518.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 64 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 6 )
+text = "Open"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect", "Size Flags", "custom_fonts/font" ]
+
+[node name="ColorRect" type="ColorRect" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Active/VBox/Title"]
+show_behind_parent = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -293,7 +446,389 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 5 )
+color = Color( 0.203922, 0.196078, 0.196078, 0.74902 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Scroll" type="ScrollContainer" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Active/VBox"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 1518.0
+margin_bottom = 435.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+scroll_horizontal = 0
+scroll_vertical_enabled = true
+scroll_vertical = 0
+scroll_deadzone = 0
+_sections_unfolded = [ "Mouse", "Rect", "Size Flags" ]
+
+[node name="VBox" type="VBoxContainer" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Active/VBox/Scroll"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1518.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Quest3" type="Control" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Active/VBox/Scroll/VBox"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1518.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+_sections_unfolded = [ "Grow Direction", "Rect", "Size Flags" ]
+
+[node name="Panel" type="Panel" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Active/VBox/Scroll/VBox/Quest3"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/panel = ExtResource( 7 )
+_sections_unfolded = [ "Rect", "custom_styles" ]
+
+[node name="Label" type="Label" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Active/VBox/Scroll/VBox/Quest3"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 8 )
+text = "This is a Quest!"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Completed" type="Control" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 439.0
+margin_right = 1518.0
+margin_bottom = 875.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Completed"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="Title" type="Label" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Completed/VBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1518.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 64 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 6 )
+text = "Completed"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect", "Size Flags", "custom_fonts/font" ]
+
+[node name="ColorRect" type="ColorRect" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Completed/VBoxContainer/Title"]
+show_behind_parent = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.203922, 0.196078, 0.196078, 0.74902 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Scroll" type="ScrollContainer" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Completed/VBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 1518.0
+margin_bottom = 436.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+scroll_horizontal = 0
+scroll_vertical_enabled = true
+scroll_vertical = 0
+scroll_deadzone = 0
+_sections_unfolded = [ "Rect", "Size Flags" ]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/QuestViewer/MarginContainer/HBoxContainer/LeftPanel/Completed/VBoxContainer/Scroll"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1518.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+alignment = 0
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="VSeparator" type="VSeparator" parent="ui/QuestViewer/MarginContainer/HBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1518.0
+margin_right = 1522.0
+margin_bottom = 875.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/separator = SubResource( 7 )
+_sections_unfolded = [ "Hint", "Rect", "Size Flags", "Theme", "Visibility", "custom_styles", "custom_styles/separator" ]
+
+[node name="Right" type="VBoxContainer" parent="ui/QuestViewer/MarginContainer/HBoxContainer"]
+editor/display_folded = true
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 763.0
+margin_right = 1522.0
+margin_bottom = 875.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 0
+_sections_unfolded = [ "Margin", "custom_constants" ]
+
+[node name="Title" type="Label" parent="ui/QuestViewer/MarginContainer/HBoxContainer/Right"]
+editor/display_folded = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 759.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 64 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 6 )
+text = "Quest Info"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Grow Direction", "Rect", "Size Flags", "custom_fonts/font" ]
+
+[node name="ColorRect" type="ColorRect" parent="ui/QuestViewer/MarginContainer/HBoxContainer/Right/Title"]
+show_behind_parent = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.203922, 0.196078, 0.196078, 0.74902 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Info" type="MarginContainer" parent="ui/QuestViewer/MarginContainer/HBoxContainer/Right"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 759.0
+margin_bottom = 875.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+_sections_unfolded = [ "Size Flags" ]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ui/QuestViewer/MarginContainer/HBoxContainer/Right/Info"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 759.0
+margin_bottom = 807.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+alignment = 0
+
+[node name="Label" type="Label" parent="ui/QuestViewer/MarginContainer/HBoxContainer/Right/Info/VBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 759.0
+margin_bottom = 22.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 8 )
+text = "Title of the quest here!"
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Description" type="RichTextLabel" parent="ui/QuestViewer/MarginContainer/HBoxContainer/Right/Info/VBoxContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 26.0
+margin_right = 759.0
+margin_bottom = 807.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = true
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 8 )
+bbcode_enabled = false
+bbcode_text = ""
+visible_characters = -1
+percent_visible = 1.0
+meta_underlined = false
+tab_size = 4
+text = "Once upon a tiume"
+scroll_active = true
+scroll_following = false
+selection_enabled = false
+override_selected_font_color = false
+_sections_unfolded = [ "Size Flags", "custom_fonts", "custom_fonts/normal_font" ]
+
+[node name="Bg" type="ColorRect" parent="ui/QuestViewer/MarginContainer"]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 200.0
+margin_top = 100.0
+margin_right = 1722.0
+margin_bottom = 975.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.239216, 0.239216, 0.239216, 0.635294 )
+_sections_unfolded = [ "Mouse" ]
+
+[node name="LevelInfo" type="Control" parent="ui"]
+editor/display_folded = true
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 9 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="Tween" type="Tween" parent="ui/LevelInfo"]
@@ -383,7 +918,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 text = "..."
 align = 1
 percent_visible = 1.0
@@ -444,7 +979,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
@@ -484,7 +1019,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Grow Direction", "Rect" ]
@@ -524,7 +1059,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect" ]
@@ -546,7 +1081,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 8 )
+script = ExtResource( 11 )
 
 [node name="NinePatchRect" type="NinePatchRect" parent="ui/Dialog"]
 anchor_left = 0.0
@@ -562,7 +1097,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 9 )
+texture = ExtResource( 12 )
 region_rect = Rect2( 0, 0, 24, 24 )
 patch_margin_left = 8
 patch_margin_top = 8
@@ -584,7 +1119,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/normal_font = SubResource( 7 )
+custom_fonts/normal_font = SubResource( 9 )
 bbcode_enabled = true
 bbcode_text = "
 "
@@ -629,7 +1164,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 11 )
+script = ExtResource( 14 )
 
 [node name="LineEdit" type="LineEdit" parent="ui/Console"]
 anchor_left = 0.5
@@ -647,7 +1182,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 1
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 12 )
+custom_fonts/font = ExtResource( 15 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 secret_character = "*"
 focus_mode = 2
@@ -675,8 +1210,8 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/normal = SubResource( 8 )
-custom_fonts/normal_font = ExtResource( 12 )
+custom_styles/normal = SubResource( 10 )
+custom_fonts/normal_font = ExtResource( 15 )
 custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2
 bbcode_enabled = true
@@ -706,7 +1241,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 11 )
 custom_colors/font_color = Color( 1, 1, 0, 1 )
 custom_constants/shadow_offset_x = -6
 custom_constants/shadow_as_outline = 6
@@ -718,113 +1253,8 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="QuestViewer" type="Control" parent="ui"]
-editor/display_folded = true
-visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-script = ExtResource( 13 )
-_sections_unfolded = [ "Visibility" ]
-
-[node name="MarginContainer" type="MarginContainer" parent="ui/QuestViewer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_constants/margin_right = 1300
-custom_constants/margin_top = 200
-custom_constants/margin_bottom = 200
-_sections_unfolded = [ "Material", "Size Flags", "custom_constants" ]
-
-[node name="Bg" type="ColorRect" parent="ui/QuestViewer/MarginContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 200.0
-margin_right = 622.0
-margin_bottom = 875.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-color = Color( 0.239216, 0.239216, 0.239216, 0.635294 )
-
-[node name="VBox" type="VBoxContainer" parent="ui/QuestViewer/MarginContainer"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 200.0
-margin_right = 622.0
-margin_bottom = 875.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_constants/separation = 20
-alignment = 0
-_sections_unfolded = [ "Margin", "custom_constants" ]
-
-[node name="Label" type="Label" parent="ui/QuestViewer/MarginContainer/VBox"]
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 622.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 0, 64 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 10 )
-text = "Tracked Quests"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Rect", "Size Flags", "custom_fonts/font" ]
-
-[node name="ColorRect" type="ColorRect" parent="ui/QuestViewer/MarginContainer/VBox/Label"]
-show_behind_parent = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-color = Color( 0.203922, 0.196078, 0.196078, 0.74902 )
-_sections_unfolded = [ "Visibility" ]
-
 [node name="PauseMenu" type="Control" parent="ui"]
 pause_mode = 2
-editor/display_folded = true
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -840,7 +1270,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 14 )
+script = ExtResource( 16 )
 
 [node name="ColorRect" type="ColorRect" parent="ui/PauseMenu"]
 anchor_left = 0.0
@@ -856,7 +1286,6 @@ size_flags_vertical = 1
 color = Color( 0.0509804, 0.0509804, 0.0509804, 0.454902 )
 
 [node name="MarginContainer" type="MarginContainer" parent="ui/PauseMenu"]
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -891,6 +1320,7 @@ custom_constants/separation = 50
 alignment = 0
 
 [node name="Main" type="VBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -922,7 +1352,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 12 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -951,7 +1381,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -977,7 +1407,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -1004,7 +1434,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_constants/separation = 50
 alignment = 0
-script = ExtResource( 15 )
+script = ExtResource( 17 )
 
 [node name="Resolution" type="HBoxContainer" parent="ui/PauseMenu/MarginContainer/HBoxContainer/Options"]
 anchor_left = 0.0
@@ -1035,7 +1465,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "Resolution :"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1060,7 +1490,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -1100,7 +1530,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "Fullscreen :"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1125,7 +1555,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -1165,7 +1595,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "Vsync :"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1190,7 +1620,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -1230,7 +1660,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "Fps max:"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1254,7 +1684,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -1294,7 +1724,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "Controller:"
 percent_visible = 1.0
 lines_skipped = 0
@@ -1319,7 +1749,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -1363,7 +1793,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 toggle_mode = false
 enabled_focus_mode = 2

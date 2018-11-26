@@ -4,53 +4,60 @@ using System;
 public class QuestViewer : Control
 {
     private QuestManager questManager;
-    private VBoxContainer vBox;
+    private VBoxContainer ActiveQuestSection;
     
+
     public override void _Ready()
     {
         questManager = GetNode("../../game/Viewport/GameManager/QuestManager") as QuestManager;
-        vBox = GetNode("MarginContainer/VBox") as VBoxContainer;
+        ActiveQuestSection = GetNode("MarginContainer/HBoxContainer/LeftPanel/Active/VBox/Scroll/VBox") as VBoxContainer;
+        //vBox = GetNode("MarginContainer/VBox") as VBoxContainer;
+        AddQuest(questManager.AllQuest[0]);
     }
 
     public override void _Process(float delta)
     {
-        DisplayTrackedQuests();
+        //DisplayTrackedQuests();
     }
 
     public void DisplayTrackedQuests()
     {
         foreach (var quest in questManager.AllQuest)
         {
-            RichTextLabel CurrentLabel;
-
-            if (!vBox.HasNode(quest.QuestName))
+            if (!ActiveQuestSection.HasNode(quest.Name))
             {
-                RichTextLabel newLabel = new RichTextLabel();
-
-                newLabel.Name = quest.QuestName;
-                newLabel.BbcodeEnabled = true;
-                newLabel.RectMinSize = new Vector2(0,64);
-
-                vBox.AddChild(newLabel); GD.Print("AddedLabel");
-
-                newLabel.BbcodeText = "[b]" + quest.QuestName + ": " + quest.State + "[/b]";
-
-                newLabel.AddFontOverride("normal_font", ResourceLoader.Load("res://Assets/Fonts/QuestFont.tres") as Font);
-
-                CurrentLabel = newLabel;
-            }
-            else
-            {
-                CurrentLabel = vBox.GetNode(quest.QuestName) as RichTextLabel;
-
-                if (quest.State == QuestState.Active)
-                    CurrentLabel.BbcodeText = "[font=res://Assets/Fonts/QuestFont.tres]" + 
-                        quest.QuestName + ": " + quest.State + "[/font]";
-                else if(quest.State == QuestState.Completed)
-                    CurrentLabel.BbcodeText = "[font=res://Assets/Fonts/QuestFont.tres][s][color=green]" + quest.QuestName + ": " + quest.State + "[/color][/s][/font]";
-                else
-                    CurrentLabel.BbcodeText = "[b]" + quest.QuestName + ": " + quest.State + "[/b]";
+                AddQuest(quest);
             }
         }
+    }
+
+    public void AddQuest(Quest pQuest)
+    {
+        Control newControl = new Control();
+        newControl.SetHSizeFlags(2);
+        newControl.RectMinSize = new Vector2(0, 100);
+
+        Panel background = new Panel();
+        background.AddStyleboxOverride("Panel", ResourceLoader.Load("res://Assets/ui/Themes/Quest.tres") as StyleBox);
+        background.SizeFlagsHorizontal = 2;
+        background.SizeFlagsVertical = 2;
+        newControl.AddChild(background);
+
+        Label title = new Label();
+        title.AddFontOverride("normal", ResourceLoader.Load("res://Assets/Fonts/QuestFont.tres") as Font);
+        title.SizeFlagsHorizontal = 2;
+        title.SizeFlagsVertical = 2;
+        title.Text = pQuest.QuestName;
+        newControl.AddChild(title);
+
+        newControl.Name = pQuest.QuestName;
+
+        ActiveQuestSection.AddChild(newControl);
+
+    }
+
+    public void RemoveQuest(Quest pQuest)
+    {
+
     }
 }

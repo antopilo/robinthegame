@@ -59,7 +59,6 @@ public class Quest : Node
                     return false;
                 break;
             case QuestType.GoTo:
-                GD.Print(GetNode(Destination).Name);
                 if (GameController.CurrentRoom == GetNode(Destination))
                     return true;
                 else

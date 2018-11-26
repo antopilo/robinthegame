@@ -63,7 +63,7 @@ public class Player : KinematicBody2D
                 CanJump = false;
                 WasOnGround = true;
                 
-                if (Sprite.Animation == "Crouch")
+                if (IsCrouching)
                     SuperJump();
                 else
                     Jump();
@@ -140,11 +140,12 @@ public class Player : KinematicBody2D
             InputDirectionY = 1;
 
             if (InputDirectionX == 0)
-                Sprite.Play("crouch");
+                Sprite.Play("Crouch");
         }
         else
         {
             InputDirectionY = 0;
+            IsCrouching = false;
         }
     }
 
@@ -295,9 +296,6 @@ public class Player : KinematicBody2D
     /// </summary>
     public void SuperJump()
     {
-        if (State == States.Ground)
-            return;
-
         CurrentMaxSpeed = MAX_SPEED;
         Velocity.y = -SUPER_JUMP_FORCE;
     }

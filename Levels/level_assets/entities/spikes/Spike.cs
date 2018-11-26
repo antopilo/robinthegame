@@ -11,7 +11,7 @@ public class Spike : Node2D
             switch (Rotation)
             {
                 case 0:
-                    if ((body as Player).Velocity.y >= 0)
+                    if ((body as Player).Velocity.y >= -1)
                     {
                         (body as Player).Alive = false;
                         (body as Player).Spawn(true);
@@ -25,7 +25,7 @@ public class Spike : Node2D
                     }
                     break;
                 case 180:
-                    if ((body as Player).Velocity.y >= 0)
+                    if ((body as Player).Velocity.y <= 0)
                     {
                         (body as Player).Alive = false;
                         (body as Player).Spawn(true);

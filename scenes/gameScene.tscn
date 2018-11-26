@@ -290,14 +290,12 @@ LevelDifficulty = 1
 ] instance=ExtResource( 4 )]
 position = Vector2( 808, -96 )
 LevelName = "..."
-LevelDifficulty = 0
 
 [node name="2" parent="." groups=[
 "level",
 ] instance=ExtResource( 5 )]
 position = Vector2( 808, -280 )
 LevelName = "Wall Jump"
-LevelDifficulty = 0
 
 [node name="3" parent="." groups=[
 "level",
@@ -317,7 +315,6 @@ LevelDifficulty = 3
 "level",
 ] instance=ExtResource( 8 )]
 LevelName = ""
-LevelDifficulty = 0
 
 [node name="5" parent="." groups=[
 "level",
@@ -452,6 +449,7 @@ show_behind_parent = true
 "Player",
 ] instance=ExtResource( 18 )]
 pause_mode = 1
+editor/display_folded = true
 _sections_unfolded = [ "Pause", "Pickable", "Script", "Transform", "collision", "motion" ]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -537,6 +535,7 @@ region_enabled = true
 region_rect = Rect2( 3, 35, 768, 141 )
 
 [node name="QuestManager" type="Node2D" parent="."]
+editor/display_folded = true
 script = ExtResource( 23 )
 CurrentQuestPath = NodePath("Next")
 

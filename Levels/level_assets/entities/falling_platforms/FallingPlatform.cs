@@ -14,7 +14,8 @@ public class FallingPlatform : Node2D
     private Timer ShakeTimer;
     private CollisionShape2D Collision;
     float DeltaTime = 0; // Total time of the engine;
-
+    float NextTimeToFall = 0;
+    float SpawnDelay = 5f;
     private Vector2 InitialPosition = new Vector2();
     private Color InitialColor;
 
@@ -22,6 +23,7 @@ public class FallingPlatform : Node2D
     private bool Up = true;
     private bool Shaking = false;
     private bool Ready = true;
+
     public override void _Ready()
     {
         Sprite = GetNode("Platform/Sprite") as Sprite;
@@ -43,8 +45,10 @@ public class FallingPlatform : Node2D
         if (Shaking) // If shaking, do the shaking animation/effect.
         {
             Sprite.RotationDegrees = Mathf.Cos(DeltaTime * SHAKE_LENGTH) * SHAKE_AMPLITUDE;
-            DeltaTime += delta;
+            
         }
+
+        DeltaTime += delta;
     }
 
     public void Fall()
@@ -72,16 +76,21 @@ public class FallingPlatform : Node2D
     /// <param name="body"></param>
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
-        if(Available && Up && Ready) // If Ready
-        {
-            // Activate shaking process and Timer.
-            Shaking = true;
-            Available = false;
-            Ready = false;
-            Up = false;
+        if (!(body is Player))
+            return;
 
-            ShakeTimer.Start();
-        }
+        if((body as Player).Velocity.y >= 0)
+            if(Available && Up && Ready) // If Ready
+            {
+                // Activate shaking process and Timer.
+                Shaking = true;
+                Available = false;
+                Ready = false;
+                Up = false;
+
+                ShakeTimer.Start();
+
+            }
     }
 
     /// <summary>
@@ -111,6 +120,7 @@ public class FallingPlatform : Node2D
             Available = true;
             Collision.Disabled = false;
             Ready = true;
+            NextTimeToFall = DeltaTime + SpawnDelay;
         }
         else
         {
@@ -126,4 +136,5 @@ public class FallingPlatform : Node2D
     /// </summary>
     private void _on_ShakeTimer_timeout()
         =>  Fall();
+
 }

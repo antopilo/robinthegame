@@ -83,6 +83,7 @@ public class Level : Node2D
         LoadEntities();
         ChooseSpawn();
         AutoTileBorders();
+        LayerEntities.Visible = false;
     }
 
     /// <summary>
@@ -124,7 +125,7 @@ public class Level : Node2D
 
             // If the tile is not autotile. Which should always be.
             if (LayerSolid.TileSet.TileGetTileMode(LayerSolid.GetCellv(Tile)) != TileSet.TileMode.AutoTile)
-                continue;
+                return;
 
             if (Tile.x == 0 || Tile.y == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y)
             {
@@ -180,6 +181,8 @@ public class Level : Node2D
     {
         foreach (Vector2 Tile in LayerEntities.GetUsedCells())
         {
+           
+
             int Cell = LayerEntities.GetCell((int)Tile.x, (int)Tile.y);
 
             switch (Cell)
@@ -257,7 +260,7 @@ public class Level : Node2D
             ((Node2D)NewEntity).GlobalPosition = LayerEntities.MapToWorld(pPosition) + LevelPosition;
         }
 
-        LayerEntities.SetCell(X, Y, -1); // Erase the Tile from the tilemap(it has been replaced with a real object).
+        //LayerEntities.SetCell(X, Y, -1); // Erase the Tile from the tilemap(it has been replaced with a real object).
 
         if (pName == "Spawn")
         {
@@ -265,6 +268,8 @@ public class Level : Node2D
             Spawns.Add(SpawnPosition);
             ChooseSpawn();
         }
+
+        
     }
 
     /// <summary>
@@ -303,5 +308,22 @@ public class Level : Node2D
                 (node as Spawn).Active = false;
     }
 
+    public void Reload()
+    {
+        foreach (Node2D Ents in Entities.GetChildren())
+        {
+            if(!World.PlayerHas(Ents))
+                Ents.QueueFree();
 
+        }
+
+        LevelRect = LayerSolid.GetUsedRect().Size;
+        LevelSize = new Vector2(LevelRect.x * TileSize, (LevelRect.y - 0.5f) * TileSize);
+
+        LevelPosition = GlobalPosition;
+
+        LoadEntities();
+
+        AutoTileBorders();
+    }
 }

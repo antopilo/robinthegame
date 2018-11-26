@@ -43,7 +43,19 @@ public class PauseMenu : Control
     }
 
     private void ToggleOption()
-        => OptionsMenu.Visible = !OptionsMenu.Visible;
+    {
+        OptionsMenu.Visible = !OptionsMenu.Visible;
+
+        if (OptionsMenu.Visible)
+        {
+            (GetNode("MarginContainer/HBoxContainer/Options/Resolution/Resolution") as Button).Text = PossibleResolution[CurrentResolution].x.ToString() + " x " + PossibleResolution[CurrentResolution].y.ToString();
+            (GetNode("MarginContainer/HBoxContainer/Options/Vsync/Vsync") as Button).Text = root.settings.Vsync.ToString();
+            (GetNode("MarginContainer/HBoxContainer/Options/Fullscreen/Fullscreen") as Button).Text = root.settings.Fullscreen.ToString();
+            (GetNode("MarginContainer/HBoxContainer/Options/Controller/Controller") as Button).Text = root.settings.Controller.ToString();
+            (GetNode("MarginContainer/HBoxContainer/Options/Fps/Fps") as Button).Text = PossibleFps[CurrentFps].ToString();
+        }
+    }
+
 
     private void Unpause()
     {
@@ -55,7 +67,7 @@ public class PauseMenu : Control
         => GetTree().Quit();
 
     // SETTINGS HERE
-
+    
     public void _on_Resolution_pressed()
     {
         if (CurrentResolution < PossibleResolution.Length - 1)

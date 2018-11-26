@@ -36,8 +36,6 @@ public class Console : Control
 
     public override void _Input(InputEvent @event)
     {
-        base._Input(@event);
-
         // Toggle to Show or Hide the console.
         if (@event.IsActionReleased("console"))
         {
@@ -60,6 +58,13 @@ public class Console : Control
         // Press up for the previous command.
         if (@event.IsActionPressed("ui_up"))
             ConsoleInput.Text = LastCommand;
+
+        if(@event.IsActionPressed("Reload"))
+            GameController.CurrentRoom.Reload();
+
+        if (@event.IsActionPressed("Respawn"))
+            GameController.Spawn(true);
+
     }
 
     public override void _Process(float delta)
@@ -110,9 +115,16 @@ public class Console : Control
 
             // Set the Window Size.
             case "WINDOW":
+                if (parameters.Length == 0)
+                {
+                    root.settings.Resolution = new Vector2(320, 180);
+                    root.ApplySettings();
+                    break;
+                }
+                   
+                    
                 switch (parameters[0])
                 {
-                    case "":
                     case "0":
                     case "1":
                         root.settings.Resolution = new Vector2(320, 180);
@@ -166,7 +178,12 @@ public class Console : Control
             
             // Make the borderless
             case "BORDERLESS":
-                if (parameters[0] == "1")
+                if(parameters.Length == 0)
+                {
+                    root.settings.Borderless = !root.settings.Borderless;
+                    OS.WindowPosition = new Vector2(0, 0);
+                }
+                else if (parameters[0] == "1")
                 {
                     root.settings.Borderless = true;
                     root.settings.Fullscreen = false;
@@ -184,12 +201,16 @@ public class Console : Control
 
             // Say command
             case "SAY":
-                DialogBox.ShowMessage(new_text.Right(4));
+                //DialogBox.ShowMessage(new_text.Right(4));
                 break;
 
             // Teleport the player to a specified room.
             case "TP":
-                string DestinationLevel = parameters[0];
+                if (parameters.Length <= 0)
+                    return;
+
+                string DestinationLevel = parameters[0].ToLower();
+                GD.Print(DestinationLevel);
                 Level Level = GameController.GetNode(DestinationLevel) as Level;
 
                 if(Level != null && Level.IsInGroup("level"))
@@ -198,11 +219,19 @@ public class Console : Control
                     GameController.Spawn(true);
                 }
                 break;
-            
+
+            case "RELOAD":
+                GameController.CurrentRoom.Reload();
+                break;
+            case "SETSPAWN":
+                GameController.CurrentRoom.SpawnPosition = GameController.Player.Position;
+               
+                break;
             // Move the player X Y Tile.
             case "MOVE":
-                
 
+                if (parameters.Length == 0)
+                    return;
                 if (parameters.Length == 2)
                 {
                     var y = parameters[1].ToFloat();

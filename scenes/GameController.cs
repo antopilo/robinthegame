@@ -21,14 +21,13 @@ public class GameController : Node2D
 
         Spawn(false);
         MoveCamToRoom(CurrentRoom);
-        
     }
 
     // Called Every frame.
     public override void _PhysicsProcess(float delta)
-    {
-        UpdateRoom();
-    }
+        => UpdateRoom();
+
+
 
     /// <summary>
     /// Loops through each level(Node that have the "level" tag), and determine in which room

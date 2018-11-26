@@ -6,15 +6,15 @@
 [ext_resource path="res://player/frames/idle/idle2.png" type="Texture" id=4]
 [ext_resource path="res://player/frames/idle/idle3.png" type="Texture" id=5]
 [ext_resource path="res://player/frames/jump/falling1.png" type="Texture" id=6]
-[ext_resource path="res://player/frames/Running/Running 4F2.png" type="Texture" id=7]
-[ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=8]
-[ext_resource path="res://player/frames/Running/Running 4F4.png" type="Texture" id=9]
-[ext_resource path="res://player/frames/Running/Running 4F1.png" type="Texture" id=10]
+[ext_resource path="res://player/frames/lookup.png" type="Texture" id=7]
+[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=8]
+[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=9]
+[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=10]
 [ext_resource path="res://player/frames/wall.png" type="Texture" id=11]
-[ext_resource path="res://player/frames/lookup.png" type="Texture" id=12]
-[ext_resource path="res://player/frames/jump/falling2.png" type="Texture" id=13]
-[ext_resource path="res://player/frames/jump/falling3.png" type="Texture" id=14]
-[ext_resource path="res://player/frames/jump/falling4.png" type="Texture" id=15]
+[ext_resource path="res://player/frames/Running/Running 4F2.png" type="Texture" id=12]
+[ext_resource path="res://player/frames/Running/Running 4F3.png" type="Texture" id=13]
+[ext_resource path="res://player/frames/Running/Running 4F4.png" type="Texture" id=14]
+[ext_resource path="res://player/frames/Running/Running 4F1.png" type="Texture" id=15]
 [ext_resource path="res://player/frames/crouch.png" type="Texture" id=16]
 [ext_resource path="res://player/Weapon.cs" type="Script" id=17]
 [ext_resource path="res://player/aura.png" type="Texture" id=18]
@@ -38,46 +38,46 @@ animations = [ {
 "name": "Jump",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 7 ) ],
 "loop": true,
-"name": "Running",
-"speed": 15.0
+"name": "lookup",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": false,
+"name": "falling",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 11 ) ],
 "loop": true,
 "name": "Wall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 12 ) ],
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
 "loop": true,
-"name": "lookup",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": false,
-"name": "falling",
-"speed": 5.0
+"name": "Running",
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
-"name": "crouch",
+"name": "Crouch",
 "speed": 5.0
 } ]
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=3]
 
 offsets = PoolRealArray( 0.887147, 1 )
 colors = PoolColorArray( 0.690196, 0.690196, 0.690196, 1, 1, 1, 1, 0 )
 _sections_unfolded = [ "colors" ]
 
-[sub_resource type="GradientTexture" id=5]
+[sub_resource type="GradientTexture" id=4]
 
 flags = 4
-gradient = SubResource( 4 )
+gradient = SubResource( 3 )
 width = 2048
 _sections_unfolded = [ "gradient" ]
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=5]
 
 render_priority = 0
 trail_divisor = 1
@@ -106,7 +106,7 @@ angle = 360.0
 angle_random = 1.0
 scale = 4.0
 scale_random = 1.0
-color_ramp = SubResource( 5 )
+color_ramp = SubResource( 4 )
 hue_variation = 0.0
 hue_variation_random = 0.0
 anim_speed = 0.0
@@ -130,6 +130,7 @@ position = Vector2( 0, -2 )
 frames = SubResource( 2 )
 animation = "lookup"
 playing = true
+_sections_unfolded = [ "frames" ]
 
 [node name="collisionBox" type="CollisionPolygon2D" parent="."]
 position = Vector2( 0, 2 )
@@ -208,6 +209,7 @@ shadow_filter_smooth = 25.0
 shadow_item_cull_mask = 1
 
 [node name="Particles" type="Node2D" parent="."]
+visible = false
 position = Vector2( 0, 6 )
 
 [node name="RunDust" type="Particles2D" parent="Particles"]
@@ -224,7 +226,7 @@ fract_delta = true
 visibility_rect = Rect2( -100, -100, 200, 200 )
 local_coords = false
 draw_order = 0
-process_material = SubResource( 3 )
+process_material = SubResource( 5 )
 texture = null
 normal_map = null
 h_frames = 1
