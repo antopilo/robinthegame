@@ -1,0 +1,12 @@
+F:\Desktop\Stuff\robinthegame\.mono\temp\bin\Release\RobinDev.dll
+F:\Desktop\Stuff\robinthegame\.mono\temp\bin\Release\RobinDev.pdb
+F:\Desktop\Stuff\robinthegame\.mono\temp\bin\Release\Newtonsoft.Json.dll
+F:\Desktop\Stuff\robinthegame\.mono\temp\bin\Release\System.ServiceModel.Internals.dll
+F:\Desktop\Stuff\robinthegame\.mono\temp\bin\Release\System.Transactions.dll
+F:\Desktop\Stuff\robinthegame\.mono\temp\bin\Release\System.EnterpriseServices.dll
+F:\Desktop\Stuff\robinthegame\.mono\temp\bin\Release\Newtonsoft.Json.xml
+F:\Desktop\Stuff\robinthegame\.mono\temp\obj\Release\RobinDev.csprojAssemblyReference.cache
+F:\Desktop\Stuff\robinthegame\.mono\temp\obj\Release\RobinDev.csproj.CoreCompileInputs.cache
+F:\Desktop\Stuff\robinthegame\.mono\temp\obj\Release\RobinDev.csproj.CopyComplete
+F:\Desktop\Stuff\robinthegame\.mono\temp\obj\Release\RobinDev.dll
+F:\Desktop\Stuff\robinthegame\.mono\temp\obj\Release\RobinDev.pdb

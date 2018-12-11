@@ -3,9 +3,9 @@
     "x": 1280.0,
     "y": 720.0
   },
-  "Fullscreen": false,
+  "Fullscreen": true,
   "Borderless": false,
   "Vsync": false,
   "Controller": true,
-  "MaxFps": 144
+  "MaxFps": -1
 }

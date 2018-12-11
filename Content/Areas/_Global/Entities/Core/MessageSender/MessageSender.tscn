@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Content/Areas/_Global/Entities/Core/MessageSender/MessageSender.cs" type="Script" id=1]
+[ext_resource path="res://Content/Art/Sprites/Entities/ent_global.png" type="Texture" id=2]
+[ext_resource path="res://Content/Art/UI/Icons/pxlExclamMark.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 12, 4 )
+
+[node name="MessageSender" type="Node2D"]
+pause_mode = 2
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause", "Transform" ]
+Message = "Don't forget you can SUPER jump by crouching and then jump. It can help you reach those HIGH places. "
+
+[node name="TriggerZone" type="Area2D" parent="."]
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerZone"]
+position = Vector2( -4, 12 )
+shape = SubResource( 1 )
+
+[node name="Sign" type="Sprite" parent="."]
+position = Vector2( -8, 8 )
+texture = ExtResource( 2 )
+centered = false
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 112, 16, 8, 8 )
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="Mark" type="Sprite" parent="."]
+visible = false
+position = Vector2( -4, 0 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[connection signal="body_entered" from="TriggerZone" to="." method="_on_TriggerZone_body_entered"]
+[connection signal="body_exited" from="TriggerZone" to="." method="_on_TriggerZone_body_exited"]
