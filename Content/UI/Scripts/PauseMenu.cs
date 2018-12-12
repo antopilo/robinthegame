@@ -39,13 +39,19 @@ public class PauseMenu : Control
             Visible = GetTree().Paused;
             OptionsMenu.Visible = false;
             (GetNode("MarginContainer/HBoxContainer/Main/Resume") as Button).GrabFocus();
+
+            // SFX
+            if(Visible)
+                (GetNode("SFX/Open") as AudioStreamPlayer).Play();
+            else
+                (GetNode("SFX/Close") as AudioStreamPlayer).Play();
         }
     }
 
     private void ToggleOption()
     {
         OptionsMenu.Visible = !OptionsMenu.Visible;
-
+        (GetNode("SFX/Select") as AudioStreamPlayer).Play();
         if (OptionsMenu.Visible)
         {
             (GetNode("MarginContainer/HBoxContainer/Options/Resolution/Resolution") as Button).Text = PossibleResolution[CurrentResolution].x.ToString() + " x " + PossibleResolution[CurrentResolution].y.ToString();
@@ -53,6 +59,7 @@ public class PauseMenu : Control
             (GetNode("MarginContainer/HBoxContainer/Options/Fullscreen/Fullscreen") as Button).Text = root.settings.Fullscreen.ToString();
             (GetNode("MarginContainer/HBoxContainer/Options/Controller/Controller") as Button).Text = root.settings.Controller.ToString();
             (GetNode("MarginContainer/HBoxContainer/Options/Fps/Fps") as Button).Text = PossibleFps[CurrentFps].ToString();
+            (GetNode("SFX/Open") as AudioStreamPlayer).Play();
         }
     }
 
@@ -74,7 +81,7 @@ public class PauseMenu : Control
             CurrentResolution += 1;
         else
             CurrentResolution = 0;
-
+        (GetNode("SFX/Select") as AudioStreamPlayer).Play();
         root.settings.Resolution = PossibleResolution[CurrentResolution];
         (GetNode("MarginContainer/HBoxContainer/Options/Resolution/Resolution") as Button).Text = PossibleResolution[CurrentResolution].x.ToString() + " x " + PossibleResolution[CurrentResolution].y.ToString();
         GD.Print(root.settings.Resolution.ToString());
@@ -82,6 +89,8 @@ public class PauseMenu : Control
 
     private void _on_Vsync_pressed()
     {
+
+        (GetNode("SFX/Select") as AudioStreamPlayer).Play();
         root.settings.Vsync = !root.settings.Vsync;
         (GetNode("MarginContainer/HBoxContainer/Options/Vsync/Vsync") as Button).Text = root.settings.Vsync.ToString();
     }
@@ -89,24 +98,32 @@ public class PauseMenu : Control
 
     private void _on_Apply_pressed()
     {
+
+        (GetNode("SFX/Close") as AudioStreamPlayer).Play();
         root.SaveSettings();
         root.ApplySettings();
     }
 
     private void _on_Fullscreen_pressed()
     {
+
+        (GetNode("SFX/Select") as AudioStreamPlayer).Play();
         root.settings.Fullscreen = !root.settings.Fullscreen;
         (GetNode("MarginContainer/HBoxContainer/Options/Fullscreen/Fullscreen") as Button).Text = root.settings.Fullscreen.ToString();
     }
 	
 	private void _on_Controller_pressed()
     {
+
+        (GetNode("SFX/Select") as AudioStreamPlayer).Play();
         root.settings.Controller = !root.settings.Controller;
         (GetNode("MarginContainer/HBoxContainer/Options/Controller/Controller") as Button).Text = root.settings.Controller.ToString();
     }
 
     private void _on_Fps_pressed()
     {
+
+        (GetNode("SFX/Select") as AudioStreamPlayer).Play();
         if (CurrentFps < PossibleFps.Length - 1)
             CurrentFps += 1;
         else
@@ -115,6 +132,12 @@ public class PauseMenu : Control
         root.settings.MaxFps = PossibleFps[CurrentFps];
         (GetNode("MarginContainer/HBoxContainer/Options/Fps/Fps") as Button).Text = PossibleFps[CurrentFps].ToString();
         GD.Print(root.settings.MaxFps.ToString());
+    }
+
+
+    private void _OnSelectionChange()
+    {
+        (GetNode("SFX/Move") as AudioStreamPlayer).Play();
     }
 }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/GameController.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Levels/0.tscn" type="PackedScene" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://Content/Areas/Forest/Background/mountains.png" type="Texture" id=21]
 [ext_resource path="res://Content/Areas/Forest/Background/trees.png" type="Texture" id=22]
 [ext_resource path="res://Content/Areas/Forest/Background/trees2.png" type="Texture" id=23]
+[ext_resource path="res://Content/Audio/SFX/Environnement/Wind.wav" type="AudioStream" id=24]
 
 [node name="World" type="Node2D"]
 pause_mode = 2
@@ -442,4 +443,16 @@ position = Vector2( 160, 96 )
 texture = ExtResource( 23 )
 region_enabled = true
 region_rect = Rect2( 3, 35, 768, 141 )
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Wind" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 24 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = true
+stream_paused = false
+mix_target = 0
+bus = "Master"
+_sections_unfolded = [ "stream" ]
 

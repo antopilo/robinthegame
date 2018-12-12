@@ -5,7 +5,7 @@ public class Weapon : Node2D
     PackedScene ArrowScene;
     Player Player;
     Timer Timer;
-    Node2D Origin;
+    Position2D Origin;
 
     public Arrow CurrentArrow;
     public bool ControllerMode = false;
@@ -14,10 +14,10 @@ public class Weapon : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        ArrowScene = (PackedScene)ResourceLoader.Load("res://Content/Actors/Player/Arrow/arrow.tscn");
-        Player = (Player)GetNode("..");
-        Timer = (Timer)GetNode("Timer");
-        Origin = ((Node2D)GetNode("Arrow_origin"));
+        ArrowScene = ResourceLoader.Load("res://Content/Actors/Player/Arrow/arrow.tscn") as PackedScene;
+        Player = GetParent() as Player;
+        Timer = GetNode("../Timers/Timer") as Timer;
+        Origin = GetNode("Arrow_origin") as Position2D;
     }
 
     public override void _Input(InputEvent @event)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Content/Actors/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Content/Art/Sprites/Player/Statics/idle.png" type="Texture" id=2]
@@ -8,30 +8,17 @@
 [ext_resource path="res://Content/Art/Sprites/Player/Jump/falling1.png" type="Texture" id=6]
 [ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=7]
 [ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=8]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=9]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=10]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=11]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=12]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=13]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=14]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=15]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=16]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=9]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=10]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=11]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=12]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=13]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=14]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=15]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=16]
 [ext_resource path="res://Content/Actors/Player/Arrow/Scripts/Weapon.cs" type="Script" id=17]
 [ext_resource path="res://Content/Actors/Player/aura.png" type="Texture" id=18]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[ext_resource path="res://Content/Audio/SFX/Footsteps/151230__owlstorm__grassy-footstep-1.wav" type="AudioStream" id=19]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -62,20 +49,20 @@ animations = [ {
 "name": "Wall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "Running",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 13 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "Crouch",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": false,
 "name": "falling",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "Running",
+"speed": 15.0
 } ]
 
 [sub_resource type="Gradient" id=3]
@@ -146,25 +133,49 @@ animation = "lookup"
 playing = true
 _sections_unfolded = [ "frames" ]
 
-[node name="collisionBox" type="CollisionPolygon2D" parent="."]
+[node name="Collision" type="CollisionPolygon2D" parent="."]
 position = Vector2( 0, 2 )
 scale = Vector2( 0.949382, 0.987338 )
 build_mode = 0
 polygon = PoolVector2Array( 4, -4, 4, 4, -4, 4, -4, -4, -4, -5, -3, -6, -2, -7, -1, -8, 0, -8, 1, -8, 2, -7, 3, -6, 4, -5, 4, -4 )
 
 [node name="Weapon" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, -2 )
 script = ExtResource( 17 )
 
-[node name="Timer" type="Timer" parent="Weapon"]
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
-
 [node name="Arrow_origin" type="Position2D" parent="Weapon"]
 
-[node name="WallCheck_right" type="RayCast2D" parent="."]
+[node name="Particles" type="Node2D" parent="."]
+editor/display_folded = true
+visible = false
+position = Vector2( 0, 6 )
+
+[node name="RunDust" type="Particles2D" parent="Particles"]
+emitting = true
+amount = 11
+lifetime = 1.1
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 0.6
+randomness = 0.28
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = false
+draw_order = 0
+process_material = SubResource( 5 )
+texture = null
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Drawing", "Process Material", "Time", "process_material" ]
+
+[node name="Raycasts" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Right" type="RayCast2D" parent="Raycasts"]
 position = Vector2( 0, -2 )
 enabled = true
 exclude_parent = true
@@ -173,7 +184,7 @@ collision_mask = 2
 collide_with_areas = false
 collide_with_bodies = true
 
-[node name="WallCheck_Left" type="RayCast2D" parent="."]
+[node name="Left" type="RayCast2D" parent="Raycasts"]
 position = Vector2( 0, -2 )
 enabled = true
 exclude_parent = true
@@ -182,7 +193,7 @@ collision_mask = 2
 collide_with_areas = false
 collide_with_bodies = true
 
-[node name="ceilling_cast" type="RayCast2D" parent="."]
+[node name="Above" type="RayCast2D" parent="Raycasts"]
 position = Vector2( 0, -2 )
 enabled = true
 exclude_parent = true
@@ -190,12 +201,6 @@ cast_to = Vector2( 0, -5 )
 collision_mask = 2
 collide_with_areas = false
 collide_with_bodies = true
-
-[node name="DisableInput" type="Timer" parent="."]
-process_mode = 1
-wait_time = 0.25
-one_shot = false
-autostart = false
 
 [node name="Light" type="Light2D" parent="."]
 position = Vector2( 0, -2 )
@@ -221,29 +226,31 @@ shadow_filter = 5
 shadow_filter_smooth = 25.0
 shadow_item_cull_mask = 1
 
-[node name="Particles" type="Node2D" parent="."]
-visible = false
-position = Vector2( 0, 6 )
+[node name="Timers" type="Node" parent="."]
+editor/display_folded = true
 
-[node name="RunDust" type="Particles2D" parent="Particles"]
-emitting = true
-amount = 11
-lifetime = 1.1
+[node name="DisableInput" type="Timer" parent="Timers"]
+process_mode = 1
+wait_time = 0.25
 one_shot = false
-preprocess = 0.0
-speed_scale = 1.0
-explosiveness = 0.6
-randomness = 0.28
-fixed_fps = 0
-fract_delta = true
-visibility_rect = Rect2( -100, -100, 200, 200 )
-local_coords = false
-draw_order = 0
-process_material = SubResource( 5 )
-texture = null
-normal_map = null
-h_frames = 1
-v_frames = 1
-_sections_unfolded = [ "Drawing", "Process Material", "Time", "process_material" ]
+autostart = false
 
-[connection signal="timeout" from="DisableInput" to="." method="_on_DisableInput_timeout"]
+[node name="Timer" type="Timer" parent="Timers"]
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="Footstep" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 19 )
+volume_db = -13.468
+pitch_scale = 2.5
+autoplay = false
+stream_paused = false
+mix_target = 0
+bus = "Footsteps"
+_sections_unfolded = [ "stream" ]
+
+[connection signal="timeout" from="Timers/DisableInput" to="." method="_on_DisableInput_timeout"]

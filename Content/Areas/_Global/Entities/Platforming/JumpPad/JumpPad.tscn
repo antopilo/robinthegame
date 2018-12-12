@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Entities/Platforming/JumpPad/JumpPad.cs" type="Script" id=1]
 [ext_resource path="res://Content/Art/Sprites/Entities/JumpPad/jumpPad1.png" type="Texture" id=2]
@@ -9,9 +9,7 @@
 [ext_resource path="res://Content/Art/Sprites/Entities/JumpPad/jumpPad6.png" type="Texture" id=7]
 [ext_resource path="res://Content/Art/Sprites/Entities/JumpPad/jumpPad7.png" type="Texture" id=8]
 [ext_resource path="res://Content/Art/Sprites/Entities/JumpPad/jumpPad8.png" type="Texture" id=9]
-
-
-
+[ext_resource path="res://Content/Audio/SFX/JumpPad/Bounce-SoundBible.com-12678623.wav" type="AudioStream" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -42,6 +40,7 @@ pause_mode = 1
 script = ExtResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 4 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -60,6 +59,7 @@ frames = SubResource( 2 )
 animation = "bounce"
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+editor/display_folded = true
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -70,6 +70,17 @@ physics_material_override = null
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 3 )
 disabled = true
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Bounce" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 10 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+stream_paused = false
+mix_target = 0
+bus = "Master"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

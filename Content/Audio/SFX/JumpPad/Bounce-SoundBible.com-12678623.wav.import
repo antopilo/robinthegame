@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Bounce-SoundBible.com-12678623.wav-4cb2ac3ada3f5c0195ca4b1ca0c0189a.sample"
+
+[deps]
+
+source_file="res://Content/Audio/SFX/JumpPad/Bounce-SoundBible.com-12678623.wav"
+dest_files=[ "res://.import/Bounce-SoundBible.com-12678623.wav-4cb2ac3ada3f5c0195ca4b1ca0c0189a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

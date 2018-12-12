@@ -1,31 +1,13 @@
 [remap]
 
-importer="texture"
-type="StreamTexture"
-path="res://.import/loading_screen.png-83744a425cb10b6ec9db40121e660efd.stex"
+importer="image"
+type="Image"
+path="res://.import/loading_screen.png-83744a425cb10b6ec9db40121e660efd.image"
 
 [deps]
 
 source_file="res://Content/Art/System/loading_screen.png"
-dest_files=[ "res://.import/loading_screen.png-83744a425cb10b6ec9db40121e660efd.stex" ]
+dest_files=[ "res://.import/loading_screen.png-83744a425cb10b6ec9db40121e660efd.image" ]
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.7
-compress/hdr_mode=0
-compress/bptc_ldr=0
-compress/normal_map=0
-flags/repeat=0
-flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
-flags/srgb=2
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/HDR_as_SRGB=false
-process/invert_color=false
-stream=false
-size_limit=0
-detect_3d=true
-svg/scale=1.0

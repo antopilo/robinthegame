@@ -16,7 +16,6 @@ _sections_unfolded = [ "Pause", "Transform" ]
 Message = "Don't forget you can SUPER jump by crouching and then jump. It can help you reach those HIGH places. "
 
 [node name="TriggerZone" type="Area2D" parent="."]
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0

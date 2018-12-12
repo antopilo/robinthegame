@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Entities/_Core/Spawn/Spawn.cs" type="Script" id=1]
 [ext_resource path="res://Content/Art/Sprites/Entities/ent_global.png" type="Texture" id=2]
+[ext_resource path="res://Content/Audio/SFX/Fire/Small Fireball-SoundBible.com-1381880822.wav" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -193,5 +194,16 @@ texture = null
 normal_map = null
 h_frames = 1
 v_frames = 1
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="LightUp" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 3 )
+volume_db = -9.905
+pitch_scale = 1.0
+autoplay = false
+stream_paused = false
+mix_target = 0
+bus = "Master"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

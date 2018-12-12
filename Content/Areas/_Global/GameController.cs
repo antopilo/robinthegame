@@ -62,13 +62,17 @@ public class GameController : Node2D
                         Player.Jump();
 
                     Level oldLevel = CurrentRoom;
-                    CurrentRoom.ResetSpawns();
+
+                    oldLevel.Unload();
+                    oldLevel.ResetSpawns();
+                    oldLevel.Update();
 
                     CurrentRoom = Room;
+
                     CurrentRoom.ChooseSpawn();
                     CurrentRoom.Update();
+                    CurrentRoom.Load();
 
-                    oldLevel.Update();
                     MoveCamToRoom(CurrentRoom);
                     LevelInfo.UpdateInfo(CurrentRoom);
                 }
@@ -133,9 +137,8 @@ public class GameController : Node2D
     /// <summary>
     /// The spawn is currently half done. For now Spawning the player means moving smoothly
     /// the player from his current position to the closest spawn in the current level.
-    /// The "WithAnimation" param, means if the transition animation is played or not.
     /// </summary>
-    /// <param name="WithAnimation"></param>
+    /// <param name="WithAnimation">If the transition animation is played or not.</param>
     public void Spawn(bool WithAnimation)
     {
         SceneTransition TransitionPlayer = (SceneTransition)GetNode("../../../UI");
@@ -189,7 +192,7 @@ public class GameController : Node2D
     /// <summary>
     /// Checks if the player has pItem in his inventory.
     /// </summary>
-    /// <param name="pItem"></param>
+    /// <param name="pItem">Specify an item</param>
     /// <returns></returns>
     public bool PlayerHas(Node2D pItem)
     {

@@ -67,6 +67,8 @@ public class JumpPad : Node2D
             Sprite.Stop();
             Sprite.Frame = 0;
             Sprite.Play("bounce");
+
+            (GetNode("SFX/Bounce") as AudioStreamPlayer).Play();
         }
     }
 

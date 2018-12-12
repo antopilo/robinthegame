@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/151230__owlstorm__grassy-footstep-1.wav-15cacaa7aa7513a41f56e1471161c397.sample"
+
+[deps]
+
+source_file="res://Content/Audio/SFX/Footsteps/151230__owlstorm__grassy-footstep-1.wav"
+dest_files=[ "res://.import/151230__owlstorm__grassy-footstep-1.wav-15cacaa7aa7513a41f56e1471161c397.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

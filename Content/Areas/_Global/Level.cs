@@ -116,11 +116,6 @@ public class Level : Node2D
 
         foreach (Vector2 Tile in LayerSolid.GetUsedCells())
         {
-
-            // If the tile is not autotile. Which should always be.
-            if (LayerSolid.TileSet.TileGetTileMode(LayerSolid.GetCellv(Tile)) != TileSet.TileMode.AutoTile)
-                return;
-
             if (Tile.x == 0 || Tile.y == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y)
             {
                 bool right = false;
@@ -253,9 +248,7 @@ public class Level : Node2D
         {
             ((Node2D)NewEntity).GlobalPosition = LayerEntities.MapToWorld(pPosition) + LevelPosition;
         }
-
-        //LayerEntities.SetCell(X, Y, -1); // Erase the Tile from the tilemap(it has been replaced with a real object).
-
+        
         if (pName == "Spawn")
         {
             SpawnPosition = NewEntity.GlobalPosition + LevelPosition;
@@ -356,4 +349,21 @@ public class Level : Node2D
         AutoTileBorders();
     } 
     #endregion
+
+    public void Unload()
+    {
+        foreach (Node2D ent in Entities.GetChildren())
+        {
+            if (ent is Spawn || World.PlayerHas(ent))
+                continue;
+            ent.QueueFree();
+        }
+    }
+
+    public void Load()
+    {
+        LoadEntities(false);
+        ChooseSpawn();
+        AutoTileBorders();
+    }
 }

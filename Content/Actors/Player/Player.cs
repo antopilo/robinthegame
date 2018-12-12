@@ -50,7 +50,7 @@ public class Player : KinematicBody2D
     {
         base._Ready();
 
-        CollisionBox = (CollisionPolygon2D)GetNode("collisionBox");
+        CollisionBox = (CollisionPolygon2D)GetNode("Collision");
         Sprite = (AnimatedSprite)GetNode("AnimatedSprite");
         Camera = (Camera2D)GetNode("Camera2D");
     }
@@ -85,6 +85,7 @@ public class Player : KinematicBody2D
         UpdateState();
         CanWalljump();
 		SpeedLimits();
+        Sounds();
         MoveAndSlide(Velocity);
         ApplyGravity();
         GetArrow();
@@ -149,13 +150,17 @@ public class Player : KinematicBody2D
         }
     }
 
-    /// <summary>
-    /// Pretty much just adds the acceleration. 
-    /// </summary>
-    private void UpdateVelocity()
-        => Velocity.x += InputDirectionX * ACCELERATION;
+    
+    private void Sounds()
+    {
+        if (InputDirectionX != 0 && State == States.Ground)
+            (GetNode("SFX/Footstep") as AudioStreamPlayer).Playing = true;
+        else
+            (GetNode("SFX/Footstep") as AudioStreamPlayer).Playing = false;
 
+    }
 
+    #region States
     /// <summary>
     /// Decide what state is the player in. See States.cs for all of the possible states.
     /// </summary>
@@ -222,7 +227,7 @@ public class Player : KinematicBody2D
 
     public void EnterAirState() // Air State.
     {
-        if(State != States.Air)
+        if (State != States.Air)
             NextJumpTime = DeltaTime + JUMP_TIMING_TOLERANCE;
 
         if (Velocity.y > 0)
@@ -233,7 +238,14 @@ public class Player : KinematicBody2D
         State = States.Air;
     }
 
+    #endregion
 
+    #region Physics
+    /// <summary>
+    /// Pretty much just adds the acceleration. 
+    /// </summary>
+    private void UpdateVelocity()
+        => Velocity.x += InputDirectionX * ACCELERATION;
     /// <summary>
     /// Apply Constant force on the player. if the player is on the ground. Stop the gravity.
     /// </summary>
@@ -268,15 +280,16 @@ public class Player : KinematicBody2D
         if (Mathf.Abs(Velocity.x) < 10 && InputDirectionX == 0)
             Velocity.x = 0;
     }
+    #endregion
 
-
+    #region Abilities
     /// <summary>
     /// Decide if the player can Wall jump or not.
     /// </summary>
     private void CanWalljump()
     {
-        var Left = (RayCast2D)GetNode("WallCheck_Left");
-        var Right = (RayCast2D)GetNode("WallCheck_right");
+        var Left = (RayCast2D)GetNode("Raycasts/Left");
+        var Right = (RayCast2D)GetNode("Raycasts/Right");
 
         CanWallJump = (Left.IsColliding() || Right.IsColliding()) || State == States.Wall;
     }
@@ -307,11 +320,11 @@ public class Player : KinematicBody2D
     public void WallJump()
     {
         var JumpDirection = 0;
-        
+
         IsWallJumping = true;
         CanControl = false;
         CurrentMaxSpeed = MAX_AIR_SPEED;
-        (GetNode("DisableInput") as Timer).Start();
+        (GetNode("Timers/DisableInput") as Timer).Start();
 
         var CollisionCount = GetSlideCount() - 1;
 
@@ -332,8 +345,8 @@ public class Player : KinematicBody2D
         }
         else if (State != States.Ground)
         {
-            var RayLeft = GetNode("WallCheck_Left") as RayCast2D;
-            var RayRight = GetNode("WallCheck_right") as RayCast2D;
+            var RayLeft = GetNode("Raycasts/Left") as RayCast2D;
+            var RayRight = GetNode("Raycasts/Right") as RayCast2D;
 
             if (RayLeft.IsColliding())
             {
@@ -367,7 +380,7 @@ public class Player : KinematicBody2D
             IsWallJumping = true;
             CurrentMaxSpeed = MAX_AIR_SPEED;
             CanControl = false;
-            (GetNode("DisableInput") as Timer).Start();
+            (GetNode("Timers/DisableInput") as Timer).Start();
 
         }
         else if (pDirection.y != 0)
@@ -400,7 +413,8 @@ public class Player : KinematicBody2D
             ArrowExist = false;
             Arrow = null;
         }
-    }
+    } 
+    #endregion
 
     private void _on_DisableInput_timeout()
     {

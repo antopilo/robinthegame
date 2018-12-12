@@ -32,8 +32,12 @@ public class Spawn : Node2D
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
         if (body.IsInGroup("Player") && (body as Player).Alive)
+        {
+            if(!Active)
+                (GetNode("SFX/LightUp") as AudioStreamPlayer).Play();
             Level.ChangeSpawn(this);
-        this.Active = true;
+            this.Active = true;
+        }
     }
 }
 
