@@ -1,29 +1,30 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/GameController.cs" type="Script" id=1]
-[ext_resource path="res://Content/Areas/Forest/Levels/0.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Content/Areas/Forest/Levels/1.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Content/Areas/Forest/Levels/2.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Content/Areas/Forest/Levels/3.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Content/Areas/_Global/Level.cs" type="Script" id=6]
-[ext_resource path="res://Content/Areas/Forest/Tilesets/bg_tile.tres" type="TileSet" id=7]
-[ext_resource path="res://Content/Areas/Forest/Tilesets/bg_decals.tres" type="TileSet" id=8]
-[ext_resource path="res://Content/Areas/Forest/Tilesets/fg_tile.tres" type="TileSet" id=9]
-[ext_resource path="res://Content/Areas/Forest/Tilesets/entities.tres" type="TileSet" id=10]
-[ext_resource path="res://Content/Areas/Forest/Tilesets/fg_decals.tres" type="TileSet" id=11]
-[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Content/Areas/Forest/Levels/4.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Content/Areas/Forest/Levels/5.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Content/Areas/Forest/Levels/6.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Content/Areas/Forest/Levels/7.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Content/Areas/Forest/Levels/8.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Content/Areas/Forest/Levels/9.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Content/Actors/Player/Player.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Content/Areas/Forest/Background/clouds.png" type="Texture" id=20]
-[ext_resource path="res://Content/Areas/Forest/Background/mountains.png" type="Texture" id=21]
-[ext_resource path="res://Content/Areas/Forest/Background/trees.png" type="Texture" id=22]
-[ext_resource path="res://Content/Areas/Forest/Background/trees2.png" type="Texture" id=23]
-[ext_resource path="res://Content/Audio/SFX/Environnement/Wind.wav" type="AudioStream" id=24]
+[ext_resource path="res://Content/Areas/_Global/Levels/test.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Content/Areas/Forest/Levels/0.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Content/Areas/Forest/Levels/1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Content/Areas/Forest/Levels/2.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Content/Areas/Forest/Levels/3.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Content/Areas/_Global/Level.cs" type="Script" id=7]
+[ext_resource path="res://Content/Areas/Forest/Tilesets/bg_tile.tres" type="TileSet" id=8]
+[ext_resource path="res://Content/Areas/Forest/Tilesets/bg_decals.tres" type="TileSet" id=9]
+[ext_resource path="res://Content/Areas/Forest/Tilesets/fg_tile.tres" type="TileSet" id=10]
+[ext_resource path="res://Content/Areas/Forest/Tilesets/entities.tres" type="TileSet" id=11]
+[ext_resource path="res://Content/Areas/Forest/Tilesets/fg_decals.tres" type="TileSet" id=12]
+[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Content/Areas/Forest/Levels/4.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Content/Areas/Forest/Levels/5.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Content/Areas/Forest/Levels/6.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Content/Areas/Forest/Levels/7.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Content/Areas/Forest/Levels/8.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Content/Areas/Forest/Levels/9.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Content/Actors/Player/Player.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Content/Areas/Forest/Background/clouds.png" type="Texture" id=21]
+[ext_resource path="res://Content/Areas/Forest/Background/mountains.png" type="Texture" id=22]
+[ext_resource path="res://Content/Areas/Forest/Background/trees.png" type="Texture" id=23]
+[ext_resource path="res://Content/Areas/Forest/Background/trees2.png" type="Texture" id=24]
+[ext_resource path="res://Content/Audio/SFX/Environnement/Wind.wav" type="AudioStream" id=25]
 
 [node name="World" type="Node2D"]
 pause_mode = 2
@@ -36,22 +37,27 @@ __meta__ = {
 }
 StartLevel = "0"
 
-[node name="0" parent="." instance=ExtResource( 2 )]
+[node name="debug" parent="." groups=[
+"level",
+] instance=ExtResource( 2 )]
+position = Vector2( 0, -184 )
+
+[node name="0" parent="." instance=ExtResource( 3 )]
 _sections_unfolded = [ "Visibility" ]
 
-[node name="1" parent="." instance=ExtResource( 3 )]
+[node name="1" parent="." instance=ExtResource( 4 )]
 position = Vector2( 488, 0 )
 LevelName = "Unkown Forest B"
 
 [node name="2" parent="." groups=[
 "level",
-] instance=ExtResource( 4 )]
+] instance=ExtResource( 5 )]
 position = Vector2( 808, -40 )
 LevelName = "..."
 
 [node name="3" parent="." groups=[
 "level",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 6 )]
 position = Vector2( 808, -224 )
 LevelName = "Wall Jump"
 
@@ -61,7 +67,7 @@ LevelName = "Wall Jump"
 editor/display_folded = true
 show_behind_parent = true
 position = Vector2( 488, -408 )
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 _sections_unfolded = [ "Transform" ]
 LevelName = "Wall Jump"
 LevelDifficulty = 0
@@ -73,7 +79,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="bg_tile" type="TileMap" parent="3b/Layers"]
 show_behind_parent = true
 mode = 0
-tile_set = ExtResource( 7 )
+tile_set = ExtResource( 8 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -93,7 +99,7 @@ tile_data = PoolIntArray( 65587, 0, 2, 65588, 0, 65539, 65589, 0, 131075, 65596,
 [node name="bg_decals" type="TileMap" parent="3b/Layers"]
 show_behind_parent = true
 mode = 0
-tile_set = ExtResource( 8 )
+tile_set = ExtResource( 9 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -113,7 +119,7 @@ tile_data = PoolIntArray( 131147, -1610612727, 0, 327741, 1, 0, 393274, 7, 0, 45
 [node name="fg_tile" type="TileMap" parent="3b/Layers"]
 show_behind_parent = true
 mode = 0
-tile_set = ExtResource( 9 )
+tile_set = ExtResource( 10 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 0, 0, 0, 1, 0, 0 )
@@ -133,7 +139,7 @@ tile_data = PoolIntArray( 0, 0, 327684, 67, 0, 393220, 68, 0, 458757, 69, 0, 458
 [node name="entities" type="TileMap" parent="3b/Layers"]
 show_behind_parent = true
 mode = 0
-tile_set = ExtResource( 10 )
+tile_set = ExtResource( 11 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -153,7 +159,7 @@ tile_data = PoolIntArray(  )
 [node name="fg_decals" type="TileMap" parent="3b/Layers"]
 show_behind_parent = true
 mode = 0
-tile_set = ExtResource( 11 )
+tile_set = ExtResource( 12 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -173,7 +179,7 @@ tile_data = PoolIntArray(  )
 [node name="objects" type="Node2D" parent="3b"]
 _sections_unfolded = [ "Transform" ]
 
-[node name="DebugDraw" parent="3b" instance=ExtResource( 12 )]
+[node name="DebugDraw" parent="3b" instance=ExtResource( 13 )]
 corner_size = 5
 line_size = 5
 expand_color = Color( 1, 1, 1, 1 )
@@ -185,7 +191,7 @@ minimum_color = Color( 1, 1, 1, 1 )
 editor/display_folded = true
 show_behind_parent = true
 position = Vector2( 488, -224 )
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 _sections_unfolded = [ "Transform" ]
 LevelName = "Wall Jump"
 LevelDifficulty = 0
@@ -197,7 +203,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="bg_tile" type="TileMap" parent="3b2/Layers"]
 show_behind_parent = true
 mode = 0
-tile_set = ExtResource( 7 )
+tile_set = ExtResource( 8 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -217,7 +223,7 @@ tile_data = PoolIntArray(  )
 [node name="bg_decals" type="TileMap" parent="3b2/Layers"]
 show_behind_parent = true
 mode = 0
-tile_set = ExtResource( 8 )
+tile_set = ExtResource( 9 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -237,7 +243,7 @@ tile_data = PoolIntArray(  )
 [node name="fg_tile" type="TileMap" parent="3b2/Layers"]
 show_behind_parent = true
 mode = 0
-tile_set = ExtResource( 9 )
+tile_set = ExtResource( 10 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 0, 0, 0, 1, 0, 0 )
@@ -257,7 +263,7 @@ tile_data = PoolIntArray( 0, 0, 327684, 589858, 0, 3, 589859, 0, 65539, 589860, 
 [node name="entities" type="TileMap" parent="3b2/Layers"]
 show_behind_parent = true
 mode = 0
-tile_set = ExtResource( 10 )
+tile_set = ExtResource( 11 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -277,7 +283,7 @@ tile_data = PoolIntArray(  )
 [node name="fg_decals" type="TileMap" parent="3b2/Layers"]
 show_behind_parent = true
 mode = 0
-tile_set = ExtResource( 11 )
+tile_set = ExtResource( 12 )
 cell_size = Vector2( 8, 8 )
 cell_quadrant_size = 16
 cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -298,7 +304,7 @@ tile_data = PoolIntArray(  )
 position = Vector2( 8, -8 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="DebugDraw" parent="3b2" instance=ExtResource( 12 )]
+[node name="DebugDraw" parent="3b2" instance=ExtResource( 13 )]
 corner_size = 5
 line_size = 5
 expand_color = Color( 1, 1, 1, 1 )
@@ -306,45 +312,45 @@ minimum_color = Color( 1, 1, 1, 1 )
 
 [node name="4" parent="." groups=[
 "level",
-] instance=ExtResource( 13 )]
+] instance=ExtResource( 14 )]
 position = Vector2( 1624, -96 )
 LevelName = "The Big Leap"
 LevelDifficulty = 2
 
 [node name="5" parent="." groups=[
 "level",
-] instance=ExtResource( 14 )]
+] instance=ExtResource( 15 )]
 position = Vector2( 1944, -464 )
 LevelName = "The Big Climb"
 LevelDifficulty = 3
 
 [node name="6" parent="." groups=[
 "level",
-] instance=ExtResource( 15 )]
+] instance=ExtResource( 16 )]
 position = Vector2( 1624, -280 )
 LevelName = ""
 
 [node name="7" parent="." groups=[
 "level",
-] instance=ExtResource( 16 )]
+] instance=ExtResource( 17 )]
 editor/display_folded = true
 position = Vector2( 1624, -464 )
 LevelName = ""
 
 [node name="8" parent="." groups=[
 "level",
-] instance=ExtResource( 17 )]
+] instance=ExtResource( 18 )]
 position = Vector2( 1128, -40 )
 LevelName = ""
 
 [node name="9" parent="." groups=[
 "level",
-] instance=ExtResource( 18 )]
+] instance=ExtResource( 19 )]
 position = Vector2( 2264, -40 )
 
 [node name="Player" parent="." groups=[
 "Player",
-] instance=ExtResource( 19 )]
+] instance=ExtResource( 20 )]
 pause_mode = 1
 editor/display_folded = true
 z_index = 1
@@ -399,7 +405,7 @@ motion_mirroring = Vector2( 320, 0 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/far"]
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 _sections_unfolded = [ "Transform", "texture" ]
 
 [node name="mid" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
@@ -411,14 +417,13 @@ motion_mirroring = Vector2( 320, 0 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Sprite2" type="Sprite" parent="Player/Camera2D/ParallaxBackground/mid"]
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 780, 175 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="close" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
 editor/display_folded = true
-visible = false
 motion_scale = Vector2( 0.1, 0.1 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 320, 0 )
@@ -426,13 +431,12 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/close"]
 position = Vector2( 160, 96 )
-texture = ExtResource( 22 )
+texture = ExtResource( 23 )
 region_enabled = true
 region_rect = Rect2( -19, 39, 1011, 141 )
 
 [node name="close2" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
 editor/display_folded = true
-visible = false
 motion_scale = Vector2( 0.4, 0 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 320, 0 )
@@ -440,19 +444,19 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/close2"]
 position = Vector2( 160, 96 )
-texture = ExtResource( 23 )
+texture = ExtResource( 24 )
 region_enabled = true
 region_rect = Rect2( 3, 35, 768, 141 )
 
 [node name="SFX" type="Node" parent="."]
 
 [node name="Wind" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 24 )
+stream = ExtResource( 25 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true
 stream_paused = false
 mix_target = 0
-bus = "Master"
+bus = "Wind"
 _sections_unfolded = [ "stream" ]
 

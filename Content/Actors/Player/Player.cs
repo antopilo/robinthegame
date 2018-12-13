@@ -44,6 +44,10 @@ public class Player : KinematicBody2D
 
     private float DeltaTime = 0;
 
+    //SFX
+    [Export] float FootStepRate = 0f;
+    float FootStepTimer = 0;
+
     public List<Node2D> Following = new List<Node2D>(); // List of following entities.
 
     public override void _Ready()
@@ -62,7 +66,8 @@ public class Player : KinematicBody2D
             {
                 CanJump = false;
                 WasOnGround = true;
-                
+                (GetNode("SFX/Jump") as AudioStreamPlayer).Play(0);
+
                 if (IsCrouching)
                     SuperJump();
                 else
@@ -85,12 +90,13 @@ public class Player : KinematicBody2D
         UpdateState();
         CanWalljump();
 		SpeedLimits();
-        Sounds();
+        Sounds(delta);
         MoveAndSlide(Velocity);
         ApplyGravity();
         GetArrow();
 
         DeltaTime += delta;
+        FootStepTimer += delta;
     }
 
 
@@ -151,13 +157,13 @@ public class Player : KinematicBody2D
     }
 
     
-    private void Sounds()
+    private void Sounds(float delta)
     {
-        if (InputDirectionX != 0 && State == States.Ground)
-            (GetNode("SFX/Footstep") as AudioStreamPlayer).Playing = true;
-        else
-            (GetNode("SFX/Footstep") as AudioStreamPlayer).Playing = false;
-
+        if (InputDirectionX != 0 && State == States.Ground && FootStepTimer >= 0.125)
+        {
+            (GetNode("SFX/Footstep") as AudioStreamPlayer).Play(0);
+            FootStepTimer = 0;
+        }
     }
 
     #region States

@@ -9,7 +9,7 @@ public class Key : Node2D
     private Player Player;
     private Sprite Sprite;
     public Tween T;
-
+    private Door door;
     
     private float DistanceFromPlayer;
     private bool Grabbed = false;
@@ -52,19 +52,21 @@ public class Key : Node2D
             T.FollowProperty(this, "global_position", GlobalPosition, Target, "global_position", 0.3f, Tween.TransitionType.Linear, Tween.EaseType.Out);
             T.Start();
         }
+        if (Used == true && door.Sprite.Scale.x < 0.5)
+            Kill();
     }
 
     public void Kill()
     {
         T.StopAll();
-
         Sprite.Visible = false;
-        Player.Following.RemoveAt(Player.Following.Count - 1);
+        this.QueueFree();
     }
 
     public void MoveTo(Node2D pTarget)
     {
-        Vector2 Destination = pTarget.Position;
+        door = pTarget as Door;
+        Vector2 Destination = pTarget.GlobalPosition + new Vector2(12,12);
         T.StopAll();
         T.InterpolateProperty(this, "global_position", GlobalPosition, Destination, 0.3f, Tween.TransitionType.Expo, Tween.EaseType.InOut);
         T.Start();
@@ -76,12 +78,15 @@ public class Key : Node2D
         T.FollowProperty(this, "global_position", GlobalPosition, pTarget, "global_position", 0.3f, Tween.TransitionType.Linear, Tween.EaseType.Out);
         T.Start();
     }
+
     private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
     {
         if (Used)
         {
             Player.Following.Remove(this);
-            Kill();
+            door.Open();
+            Used = true;
+            //Kill();
         }
     }
 }

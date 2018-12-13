@@ -13,7 +13,6 @@ public class Level : Node2D
     // Tiles are 8x8 pixels
     const int TileSize = 8;
 
-	
     public Vector2 LevelRect; // True size
     public Vector2 LevelSize;  // Size to fit in the screen. half a tile shorter on the Y axis.
     public Vector2 LevelPosition; // Position in the World
@@ -37,6 +36,7 @@ public class Level : Node2D
     private PackedScene FallBlock;
     private PackedScene JumpThroughPlatform; 
 	private PackedScene Coin;
+    private PackedScene DartShooter;
     #endregion
 
     #region Layers
@@ -70,13 +70,13 @@ public class Level : Node2D
         Spawn = ResourceLoader.Load("res://Content/Areas/_Global/Entities/_Core/Spawn/Spawn.tscn") as PackedScene;
         JumpThroughPlatform = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Platforming/JumpThrough/JumpThrough.tscn") as PackedScene;
 		Coin = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Collectables/Coin/Coin.tscn") as PackedScene;
+        DartShooter = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Hazards/DartShooter/DartShooter.tscn") as PackedScene;
 
         Player = GetNode("../Player") as Player;
         Entities = GetNode("objects");
 
         LevelRect = LayerSolid.GetUsedRect().Size;
         LevelSize = new Vector2(LevelRect.x * TileSize, (LevelRect.y - 0.5f) * TileSize);
-        
         LevelPosition = GlobalPosition;
 		
         LoadEntities(true);
@@ -116,8 +116,9 @@ public class Level : Node2D
 
         foreach (Vector2 Tile in LayerSolid.GetUsedCells())
         {
-            if (Tile.x == 0 || Tile.y == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y)
+            if (Tile.x == 0 || Tile.y == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y - 1)
             {
+                GD.Print(Tile.y);
                 bool right = false;
                 bool left = false;
                 bool bottom = false;
@@ -175,10 +176,12 @@ public class Level : Node2D
             switch (Cell)
             {
                 case 0:
-                    PlaceEntity(Tile, "Door", Door);
+                    if (pLoadSpawns)
+                        PlaceEntity(Tile, "Door", Door);
                     break;
                 case 1:
-                    PlaceEntity(Tile, "Key", Key);
+                    if (pLoadSpawns)
+                        PlaceEntity(Tile, "Key", Key);
                     break;
                 case 2:
                     PlaceEntity(Tile, "FallingPlatform", FallingPlatform);
@@ -199,8 +202,8 @@ public class Level : Node2D
                 case 7:
                     PlaceEntity(Tile, "Spike", Spike);
                     break;
-                case 8:
-                    PlaceEntity(Tile, "Coin", Coin);
+                case 9:
+                    PlaceEntity(Tile, "DartShooter", DartShooter);
                     break;
             }
         }
@@ -266,31 +269,25 @@ public class Level : Node2D
     public void ChooseSpawn()
     {
         // Decides the closest spawn.
+        Spawn farthestSpawn = null;
+
         foreach (Node node in Entities.GetChildren())
         {
             if (node.IsInGroup("Spawn"))
             {
                 Spawn s = node as Spawn;
-                s.Active = false;
-
+                if (farthestSpawn == null)
+                    farthestSpawn = s;
+                
                 var distanceFromPlayer = Mathf.Abs((Player.GlobalPosition - s.GlobalPosition).Length());
                 var currentFromPlayer = Mathf.Abs((Player.GlobalPosition - SpawnPosition).Length());
-
                 if (distanceFromPlayer <= currentFromPlayer)
                 {
-                    
-                    SpawnPosition = s.GlobalPosition;
-                    s.Active = true;
+                    farthestSpawn = s;
                 }
             }
         }
-
-        // then clean up...
-        foreach (Node ent in Entities.GetChildren())
-        {
-            if (ent is Spawn && (ent as Spawn).Position != SpawnPosition)
-                (ent as Spawn).Active = false;
-        }
+        ChangeSpawn(farthestSpawn);
     }
 
     /// <summary>
@@ -299,71 +296,60 @@ public class Level : Node2D
     /// </summary>
     public void ResetSpawns()
     {
-        foreach (Node node in Entities.GetChildren())
-            if (node is Spawn)
-                (node as Spawn).Active = false;
+        //foreach (Node node in Entities.GetChildren())
+        //    if (node.IsInGroup("Spawn"))
+        //        (node as Spawn).Active = false;
     } 
 
     public void ChangeSpawn(Spawn pSpawn)
     {
+        if (pSpawn == null)
+            return;
         ResetSpawns();
-        SpawnPosition = pSpawn.Position;
+        SpawnPosition = pSpawn.GlobalPosition;
+        GD.Print("Spawned changed for: " + SpawnPosition.ToString());
     }
 
     #endregion
 
-    #region Reloading
+    #region Loading
     public void Reload()
     {
-        foreach (Node2D Ents in Entities.GetChildren())
-        {
-            if (!World.PlayerHas(Ents))
-                Ents.QueueFree();
-        }
-
-        LevelRect = LayerSolid.GetUsedRect().Size;
-        LevelSize = new Vector2(LevelRect.x * TileSize, (LevelRect.y - 0.5f) * TileSize);
-
-        LevelPosition = GlobalPosition;
-
-        LoadEntities(true);
-
-        AutoTileBorders();
+        EntitiesCleanUp(false);
+        Load();
     }
-
-    public void SoftReload()
-    {
-        foreach (Node2D Ents in Entities.GetChildren())
-        {
-            if (!World.PlayerHas(Ents) && !(Ents is Spawn))
-                Ents.QueueFree();
-        }
-
-        LevelRect = LayerSolid.GetUsedRect().Size;
-        LevelSize = new Vector2(LevelRect.x * TileSize, (LevelRect.y - 0.5f) * TileSize);
-
-        LevelPosition = GlobalPosition;
-
-        LoadEntities(false);
-
-        AutoTileBorders();
-    } 
-    #endregion
+    
 
     public void Unload()
     {
-        foreach (Node2D ent in Entities.GetChildren())
-        {
-            if (ent is Spawn || World.PlayerHas(ent))
-                continue;
-            ent.QueueFree();
-        }
+        EntitiesCleanUp(false);
     }
 
     public void Load()
     {
+        EntitiesCleanUp(false);
         LoadEntities(false);
-        ChooseSpawn();
+        //ChooseSpawn();
         AutoTileBorders();
     }
+
+    public void EntitiesCleanUp(bool pEverything)
+    {
+        if (pEverything)
+        {
+            foreach (Node2D ent in Entities.GetChildren())
+                ent.QueueFree();
+        }
+        else
+        {
+            foreach (Node2D ent in Entities.GetChildren())
+            {
+                if (ent is Spawn || ent is MessageSender || ent is Key || ent is Door)
+                    continue;
+                else
+                    ent.QueueFree();
+            }
+        }
+    }
+    #endregion
 }

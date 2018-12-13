@@ -210,12 +210,11 @@ public class Console : Control
                     return;
 
                 string DestinationLevel = parameters[0].ToLower();
-                GD.Print(DestinationLevel);
                 Level Level = GameController.GetNode(DestinationLevel) as Level;
 
                 if(Level != null && Level.IsInGroup("level"))
                 {
-                    GameController.CurrentRoom = Level;
+                   GameController.ChangeRoom(Level);
                     GameController.Spawn(true);
                 }
                 break;

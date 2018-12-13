@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Content/Actors/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Content/Art/Sprites/Player/Statics/idle.png" type="Texture" id=2]
@@ -6,19 +6,20 @@
 [ext_resource path="res://Content/Art/Sprites/Player/Idle/idle2.png" type="Texture" id=4]
 [ext_resource path="res://Content/Art/Sprites/Player/Idle/idle3.png" type="Texture" id=5]
 [ext_resource path="res://Content/Art/Sprites/Player/Jump/falling1.png" type="Texture" id=6]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=7]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=8]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=9]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=10]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=11]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=12]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=13]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=14]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=15]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=16]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=7]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=8]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=9]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=10]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=11]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=12]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=13]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=14]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=15]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=16]
 [ext_resource path="res://Content/Actors/Player/Arrow/Scripts/Weapon.cs" type="Script" id=17]
 [ext_resource path="res://Content/Actors/Player/aura.png" type="Texture" id=18]
-[ext_resource path="res://Content/Audio/SFX/Footsteps/151230__owlstorm__grassy-footstep-1.wav" type="AudioStream" id=19]
+[ext_resource path="res://Content/Audio/SFX/footstep.wav" type="AudioStream" id=19]
+[ext_resource path="res://Content/Audio/SFX/386645__jalastram__sfx-jump-17.wav" type="AudioStream" id=20]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -39,30 +40,30 @@ animations = [ {
 "name": "Jump",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "lookup",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "Wall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "Crouch",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": false,
 "name": "falling",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "Running",
 "speed": 15.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "Wall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "lookup",
+"speed": 5.0
 } ]
 
 [sub_resource type="Gradient" id=3]
@@ -124,6 +125,7 @@ collision_mask = 1
 collision/safe_margin = 0.001
 motion/sync_to_physics = false
 script = ExtResource( 1 )
+FootStepRate = 2.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 1 )
@@ -252,5 +254,14 @@ stream_paused = false
 mix_target = 0
 bus = "Footsteps"
 _sections_unfolded = [ "stream" ]
+
+[node name="Jump" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 20 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+stream_paused = false
+mix_target = 0
+bus = "Jump"
 
 [connection signal="timeout" from="Timers/DisableInput" to="." method="_on_DisableInput_timeout"]

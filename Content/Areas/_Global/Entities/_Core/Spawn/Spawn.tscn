@@ -199,11 +199,11 @@ v_frames = 1
 
 [node name="LightUp" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 3 )
-volume_db = -9.905
-pitch_scale = 1.0
+volume_db = -26.226
+pitch_scale = 1.5
 autoplay = false
 stream_paused = false
 mix_target = 0
-bus = "Master"
+bus = "Environnement"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

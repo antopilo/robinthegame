@@ -38,6 +38,7 @@ extents = Vector2( 8, 8 )
 [node name="Jumppad" type="Node2D"]
 pause_mode = 1
 script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Area2D" type="Area2D" parent="."]
 editor/display_folded = true
@@ -75,12 +76,13 @@ disabled = true
 
 [node name="Bounce" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 10 )
-volume_db = 0.0
+volume_db = -5.901
 pitch_scale = 1.0
 autoplay = false
 stream_paused = false
 mix_target = 0
-bus = "Master"
+bus = "JumpPad"
+_sections_unfolded = [ "stream" ]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

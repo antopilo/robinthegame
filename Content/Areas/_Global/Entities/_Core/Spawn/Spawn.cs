@@ -2,8 +2,7 @@ using Godot;
 
 public class Spawn : Node2D
 {
-    // State of the spawn.
-    public bool Active = false;
+
 
     // Particles reference
     private Particles2D Flames;
@@ -21,8 +20,8 @@ public class Spawn : Node2D
     public override void _PhysicsProcess(float delta)
     {
         // If Activate, Emit particles( Fire and smoke).
-        Flames.Emitting = Active;
-        Smoke.Emitting = Active;
+        Flames.Emitting = Level.SpawnPosition == this.GlobalPosition;
+        Smoke.Emitting = Level.SpawnPosition == this.GlobalPosition;
     }
 
     /// <summary>
@@ -31,12 +30,13 @@ public class Spawn : Node2D
     /// <param name="body"></param>
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
+        if (Level.SpawnPosition == this.GlobalPosition)
+            return;
+
         if (body.IsInGroup("Player") && (body as Player).Alive)
         {
-            if(!Active)
-                (GetNode("SFX/LightUp") as AudioStreamPlayer).Play();
+            (GetNode("SFX/LightUp") as AudioStreamPlayer).Play();
             Level.ChangeSpawn(this);
-            this.Active = true;
         }
     }
 }

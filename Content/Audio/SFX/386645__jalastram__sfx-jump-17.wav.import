@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/386645__jalastram__sfx-jump-17.wav-95ff790e3a8db2d24a2daf9ce5ea71a7.sample"
+
+[deps]
+
+source_file="res://Content/Audio/SFX/386645__jalastram__sfx-jump-17.wav"
+dest_files=[ "res://.import/386645__jalastram__sfx-jump-17.wav-95ff790e3a8db2d24a2daf9ce5ea71a7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

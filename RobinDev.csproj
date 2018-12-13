@@ -53,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content\Areas\_Global\Entities\Core\MessageSender\MessageSender.cs" />
+    <Compile Include="Content\Areas\_Global\Entities\Hazards\DartShooter\DartShooter.cs" />
+    <Compile Include="Content\Areas\_Global\Entities\Hazards\DartShooter\Dart\Dart.cs" />
     <Compile Include="Content\UI\Scripts\DeathCount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Content\UI\Scripts\Console.cs" />

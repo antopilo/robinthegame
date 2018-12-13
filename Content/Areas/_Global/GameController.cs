@@ -63,18 +63,15 @@ public class GameController : Node2D
 
                     Level oldLevel = CurrentRoom;
 
-                    oldLevel.Unload();
+                    //oldLevel.Unload();
                     oldLevel.ResetSpawns();
-                    oldLevel.Update();
 
                     CurrentRoom = Room;
-
                     CurrentRoom.ChooseSpawn();
-                    CurrentRoom.Update();
                     CurrentRoom.Load();
-
                     MoveCamToRoom(CurrentRoom);
                     LevelInfo.UpdateInfo(CurrentRoom);
+                    GD.Print("STATUS: PLAYER ENTERED ROOM : " + CurrentRoom.Name);
                 }
             }
         }
@@ -143,36 +140,16 @@ public class GameController : Node2D
     {
         SceneTransition TransitionPlayer = (SceneTransition)GetNode("../../../UI");
 
-        Player.Alive = false;
-        Player.CanControl = false;
-        Player.Sprite.Play("jumping");
         DeathCounter.Deaths++;
-
-        CurrentRoom.SoftReload();
+        CurrentRoom.Reload();
 
         if (WithAnimation)
             TransitionPlayer.Fade();
-            
-        Tween T;
-        // If there is no Tween Node to use. Create one!
-        if (!HasNode("TweenSpawn"))
-        {
-            T = new Tween();
-            T.Name = "TweenSpawn";
-            AddChild(T);
-            T.PauseMode = Node.PauseModeEnum.Process;
-            T.Connect("tween_completed", this, "_on_Tween_tween_completed");
-        }
-        else // Get existing Tween Node 
-        {
-            T = (Tween)GetNode("TweenSpawn");
-        }
 
-        T.RemoveAll(); // Stop all current animation on that Tween.
-        Vector2 StartPosition = Player.Position;
-        Vector2 EndPosition = CurrentRoom.SpawnPosition;
-        T.InterpolateProperty(Player, "position", StartPosition, EndPosition, 0.4f, Tween.TransitionType.Expo, Tween.EaseType.Out);
-        T.Start();
+        if (CurrentRoom.SpawnPosition == new Vector2())
+            CurrentRoom.ChooseSpawn();
+        Player.GlobalPosition = CurrentRoom.SpawnPosition;
+
     }
 
     public void _on_Tween_tween_completed(Godot.Object @object, KeyList @key)

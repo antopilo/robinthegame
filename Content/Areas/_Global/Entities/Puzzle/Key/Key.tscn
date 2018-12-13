@@ -3,8 +3,6 @@
 [ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Key/Key.cs" type="Script" id=1]
 [ext_resource path="res://Content/Art/Sprites/Entities/ent_global.png" type="Texture" id=2]
 
-
-
 [node name="key" type="Node2D"]
 z_index = 1
 script = ExtResource( 1 )
@@ -18,8 +16,10 @@ playback/repeat = false
 playback/speed = 1.0
 
 [node name="sprKey" type="Sprite" parent="."]
+z_index = 1
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 24, 0, 16, 15 )
+_sections_unfolded = [ "Z Index" ]
 
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

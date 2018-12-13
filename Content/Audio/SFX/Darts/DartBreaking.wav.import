@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/DartBreaking.wav-84ba4664d21d1ae1382b510e63b92cc7.sample"
+
+[deps]
+
+source_file="res://Content/Audio/SFX/Darts/DartBreaking.wav"
+dest_files=[ "res://.import/DartBreaking.wav-84ba4664d21d1ae1382b510e63b92cc7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
