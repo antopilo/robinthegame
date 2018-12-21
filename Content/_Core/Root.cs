@@ -17,7 +17,6 @@ public class Root : Node2D
         GameController = GetNode("Game/Viewport/World") as GameController;
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;
-        
 
         LoadSettings();
         ApplySettings();

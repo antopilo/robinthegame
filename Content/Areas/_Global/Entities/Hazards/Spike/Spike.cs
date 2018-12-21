@@ -35,9 +35,9 @@ public class Spike : Node2D
                     }
                     break;
             }
+
+            GD.Print("Player Spiked at " + this.GlobalPosition.ToString());
         }
-        
-        GD.Print("Player Spiked at " + this.GlobalPosition.ToString());
 	}
 }
 

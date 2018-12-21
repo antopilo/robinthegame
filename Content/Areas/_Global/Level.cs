@@ -118,7 +118,6 @@ public class Level : Node2D
         {
             if (Tile.x == 0 || Tile.y == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y - 1)
             {
-                GD.Print(Tile.y);
                 bool right = false;
                 bool left = false;
                 bool bottom = false;
@@ -319,17 +318,17 @@ public class Level : Node2D
         Load();
     }
     
-
     public void Unload()
     {
         EntitiesCleanUp(false);
+        ResetSpawns();
     }
 
     public void Load()
     {
         EntitiesCleanUp(false);
         LoadEntities(false);
-        //ChooseSpawn();
+        ChooseSpawn();
         AutoTileBorders();
     }
 
@@ -344,10 +343,9 @@ public class Level : Node2D
         {
             foreach (Node2D ent in Entities.GetChildren())
             {
-                if (ent is Spawn || ent is MessageSender || ent is Key || ent is Door)
-                    continue;
-                else
-                    ent.QueueFree();
+                GD.Print(ent.Name);
+                if (!(ent is Spawn || ent is MessageSender || ent is Key || ent is Door) )
+                    ent.Free();
             }
         }
     }

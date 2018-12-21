@@ -62,12 +62,9 @@ public class GameController : Node2D
                         Player.Jump();
 
                     Level oldLevel = CurrentRoom;
-
-                    //oldLevel.Unload();
-                    oldLevel.ResetSpawns();
+                    oldLevel.Unload();
 
                     CurrentRoom = Room;
-                    CurrentRoom.ChooseSpawn();
                     CurrentRoom.Load();
                     MoveCamToRoom(CurrentRoom);
                     LevelInfo.UpdateInfo(CurrentRoom);
@@ -139,17 +136,18 @@ public class GameController : Node2D
     public void Spawn(bool WithAnimation)
     {
         SceneTransition TransitionPlayer = (SceneTransition)GetNode("../../../UI");
-
+        Player.Alive = false;
         DeathCounter.Deaths++;
-        CurrentRoom.Reload();
+        //CurrentRoom.Reload();
 
         if (WithAnimation)
             TransitionPlayer.Fade();
 
         if (CurrentRoom.SpawnPosition == new Vector2())
             CurrentRoom.ChooseSpawn();
-        Player.GlobalPosition = CurrentRoom.SpawnPosition;
 
+        Player.GlobalPosition = CurrentRoom.SpawnPosition;
+        Player.Alive = true;
     }
 
     public void _on_Tween_tween_completed(Godot.Object @object, KeyList @key)

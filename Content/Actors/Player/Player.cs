@@ -30,7 +30,7 @@ public class Player : KinematicBody2D
     public int LastDirectionX = 0;
     private int InputDirectionX = 0;
     private int InputDirectionY = 0; // For later use maybe.
-    
+
     public States State { get; private set; }
 
     public bool Alive = true;
@@ -89,7 +89,7 @@ public class Player : KinematicBody2D
         UpdateVelocity();
         UpdateState();
         CanWalljump();
-		SpeedLimits();
+        SpeedLimits();
         Sounds(delta);
         MoveAndSlide(Velocity);
         ApplyGravity();
@@ -156,7 +156,7 @@ public class Player : KinematicBody2D
         }
     }
 
-    
+
     private void Sounds(float delta)
     {
         if (InputDirectionX != 0 && State == States.Ground && FootStepTimer >= 0.125)
@@ -419,7 +419,7 @@ public class Player : KinematicBody2D
             ArrowExist = false;
             Arrow = null;
         }
-    } 
+    }
     #endregion
 
     private void _on_DisableInput_timeout()

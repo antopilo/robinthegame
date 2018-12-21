@@ -2,10 +2,10 @@ using Godot;
 
 public class Weapon : Node2D
 {
-    PackedScene ArrowScene;
-    Player Player;
-    Timer Timer;
-    Position2D Origin;
+    private PackedScene ArrowScene;
+    private Player Player;
+    private Timer Timer;
+    private Position2D Origin;
 
     public Arrow CurrentArrow;
     public bool ControllerMode = false;

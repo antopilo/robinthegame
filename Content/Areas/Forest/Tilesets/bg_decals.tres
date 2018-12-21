@@ -168,6 +168,7 @@
 15/autotile/occluder_map = [  ]
 15/autotile/navpoly_map = [  ]
 15/autotile/priority_map = [  ]
+15/autotile/z_index_map = [  ]
 15/occluder_offset = Vector2( 0, 0 )
 15/navigation_offset = Vector2( 0, 0 )
 15/shapes = [  ]

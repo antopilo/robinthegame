@@ -1,0 +1,2 @@
+F:\Desktop\robinthegame3.1\.mono\temp\obj\Tools\Robin Developpement 0.2.2.csprojAssemblyReference.cache
+F:\Desktop\robinthegame3.1\.mono\temp\obj\Tools\Robin Developpement 0.2.2.csproj.CoreCompileInputs.cache

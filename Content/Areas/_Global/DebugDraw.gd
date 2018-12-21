@@ -13,7 +13,7 @@ export(Color, RGBA) var minimum_color = ColorN("red", 1)
 
 
 
-func _process(delta):
+func _process(_delta):
 	if Engine.editor_hint:
 		if has_node("../Layers/fg_tile") && get_node("../Layers/fg_tile") != null:
 			update()

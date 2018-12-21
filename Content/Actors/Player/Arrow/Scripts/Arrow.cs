@@ -37,7 +37,7 @@ public class Arrow : KinematicBody2D
         World = GetNode("..") as GameController;
         T = GetNode("Tween") as Tween;
 
-        LastDirection = new Vector2((float)Player.LastDirectionX, 0);
+        LastDirection = new Vector2(Player.LastDirectionX, 0);
         Weapon.CanShoot = false ;
         Player.ArrowExist = true;
         Player.Arrow = this;
@@ -92,12 +92,11 @@ public class Arrow : KinematicBody2D
     public void MouseControl()
     {
         Vector2 Mouse = GetGlobalMousePosition();
-        Vector2 Center = (Player.Camera).GetCameraScreenCenter();
+        Vector2 Center = Player.Camera.GetCameraScreenCenter();
 		Vector2 Offset = Center - (GetViewportRect().Size / 2f);
         float StretchFactor = OS.WindowSize.x / 320;
 
-        LookAt(Mouse / (StretchFactor) + Offset * ((OS.WindowSize.x - 320f) / OS.WindowSize.x));
-
+        LookAt((Mouse / StretchFactor) + Offset * ((OS.WindowSize.x - 320f) / OS.WindowSize.x));
     }
 
     public void JoyStickControl()
@@ -147,9 +146,9 @@ public class Arrow : KinematicBody2D
         }
         // If the arrow leaves the level screen. return to player.
         else if (Position.x <= World.CurrentRoom.LevelPosition.x || 
-            Position.y <= World.CurrentRoom.LevelPosition.y ||
-            Position.x >= (World.CurrentRoom.LevelPosition.x + World.CurrentRoom.LevelSize.x) ||
-            Position.y >= (World.CurrentRoom.LevelPosition.y + World.CurrentRoom.LevelSize.y))
+                Position.y <= World.CurrentRoom.LevelPosition.y ||
+                Position.x >= (World.CurrentRoom.LevelPosition.x + World.CurrentRoom.LevelSize.x) ||
+                Position.y >= (World.CurrentRoom.LevelPosition.y + World.CurrentRoom.LevelSize.y))
         {
             ReturnToPlayer();
         }
@@ -170,7 +169,7 @@ public class Arrow : KinematicBody2D
         Frozen = true;
         CanDash = false;
 
-        ((Particles2D)GetNode("Particles2D")).Emitting = false;
+        (GetNode("Particles2D") as Particles2D).Emitting = false;
     }
 
     /// <summary>
@@ -178,7 +177,7 @@ public class Arrow : KinematicBody2D
     /// </summary>
     public void ReturnToPlayer()
     {
-        float Time = (Position - Player.Position).Length() / 300; // THis is to have a constant speed.
+        float Time = (Position - Player.Position).Length() / 300; // This is to have a constant speed.
 
         T.FollowProperty(this, "global_position", GlobalPosition, Player, "global_position", Time,
             Tween.TransitionType.Quint, Tween.EaseType.In);
@@ -225,7 +224,7 @@ public class Arrow : KinematicBody2D
     /// </summary>
     /// <param name="object"></param>
     /// <param name="key"></param>
-    private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
+    private void _on_Tween_tween_completed(Object @object, NodePath key)
     {
         Weapon.CanShoot = true;
         QueueFree();

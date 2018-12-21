@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public class Options : Control
 {
@@ -10,15 +9,6 @@ public class Options : Control
     Button Vsync;
     Button Fps;
     Button Controller;
-    
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        //res = GetNode("")
-
-    }
-
 
 }
 

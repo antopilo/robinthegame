@@ -20,7 +20,7 @@ public class JumpPad : Node2D
         DetectionZone = GetNode("Area2D") as Area2D;
         Sprite = GetNode("AnimatedSprite") as AnimatedSprite;
 
-        Box = new Rect2(GlobalPosition, new Vector2(8,4));
+        Box = new Rect2(GlobalPosition, new Vector2(8, 4));
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public class JumpPad : Node2D
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
         // If its an arrow.
-        if(body is Arrow)
+        if (body is Arrow)
         {
             // Change animation
             Sprite.Frame = 4;
@@ -41,7 +41,7 @@ public class JumpPad : Node2D
         }
 
         // If its a player and there is no arrow. JUMP!
-        if(body is Player && !ArrowPresent)
+        if (body is Player && !ArrowPresent)
         {
             // The Jumppad methos takes a direction as params.
             // The direction is defined by the angle of the jumppad.
@@ -75,7 +75,7 @@ public class JumpPad : Node2D
 
     private void _on_Area2D_body_exited(PhysicsBody2D body)
     {
-        if(body is Arrow)
+        if (body is Arrow)
         {
             ArrowPresent = false;
             Sprite.Play("bounce");
