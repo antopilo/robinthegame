@@ -1,6 +1,8 @@
-[gd_resource type="TileSet" load_steps=2 format=2]
+[gd_resource type="TileSet" load_steps=4 format=2]
 
 [ext_resource path="res://Content/Art/Tilesets/bg_decals.png" type="Texture" id=1]
+[ext_resource path="res://Content/Areas/Forest/Tiles/SwayingGrass1.tres" type="Texture" id=2]
+[ext_resource path="res://Content/Areas/Forest/Tiles/SwayingVine1.tres" type="Texture" id=3]
 
 [resource]
 
@@ -173,4 +175,24 @@
 15/navigation_offset = Vector2( 0, 0 )
 15/shapes = [  ]
 15/z_index = 0
+16/name = "SwayingGrass1.tres 16"
+16/texture = ExtResource( 2 )
+16/tex_offset = Vector2( 0, 0 )
+16/modulate = Color( 1, 1, 1, 1 )
+16/region = Rect2( 0, 0, 8, 8 )
+16/tile_mode = 0
+16/occluder_offset = Vector2( 0, 0 )
+16/navigation_offset = Vector2( 0, 0 )
+16/shapes = [  ]
+16/z_index = 0
+17/name = "SwayingVine1.tres 17"
+17/texture = ExtResource( 3 )
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 0, 0, 8, 24 )
+17/tile_mode = 0
+17/occluder_offset = Vector2( 0, 0 )
+17/navigation_offset = Vector2( 0, 0 )
+17/shapes = [  ]
+17/z_index = 0
 

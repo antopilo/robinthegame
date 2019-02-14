@@ -27,6 +27,8 @@
 size = 32
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
 extra_spacing_char = 4
 extra_spacing_space = 1
 font_data = ExtResource( 4 )
@@ -119,6 +121,7 @@ thickness = 4
 size = 32
 outline_size = 1
 outline_color = Color( 0.403922, 0.403922, 0.403922, 1 )
+use_filter = true
 extra_spacing_char = 2
 extra_spacing_space = 2
 font_data = ExtResource( 4 )

@@ -15,13 +15,11 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=2]
 
-custom_solver_bias = 0.0
 extents = Vector2( 4, 4 )
 
 [node name="DartShooter" type="Node2D"]
 pause_mode = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Pause", "Transform" ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 4, 4 )
@@ -29,16 +27,10 @@ frames = SubResource( 1 )
 animation = "Shoot"
 frame = 1
 playing = true
-_sections_unfolded = [ "frames" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+editor/display_folded = true
 position = Vector2( 4, 4 )
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-physics_material_override = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource( 2 )

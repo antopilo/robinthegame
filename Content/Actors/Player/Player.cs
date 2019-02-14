@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 public class Player : KinematicBody2D
@@ -7,6 +8,7 @@ public class Player : KinematicBody2D
     public AnimatedSprite Sprite { get; private set; }
     public Camera2D Camera { get; private set; }
     public Arrow Arrow { get; set; }
+    private Particles2D RunDust;
 
     private const int GRAVITY = 4;
     private const int ACCELERATION = 5;
@@ -41,6 +43,7 @@ public class Player : KinematicBody2D
     public bool CanJump { get; private set; } = false;
     public bool ArrowExist { get; set; } = false;
     public bool IsCeilling { get; private set; } = false;
+    public Particles2D RunDust1 { get => RunDust; set => RunDust = value; }
 
     private float DeltaTime = 0;
 
@@ -50,6 +53,8 @@ public class Player : KinematicBody2D
 
     public List<Node2D> Following = new List<Node2D>(); // List of following entities.
 
+
+    // Init.
     public override void _Ready()
     {
         base._Ready();
@@ -57,8 +62,11 @@ public class Player : KinematicBody2D
         CollisionBox = (CollisionPolygon2D)GetNode("Collision");
         Sprite = (AnimatedSprite)GetNode("AnimatedSprite");
         Camera = (Camera2D)GetNode("Camera2D");
+        RunDust = (Particles2D)GetNode("Particles/RunDust");
     }
 
+    
+    // Jumping.
     public override void _Input(InputEvent e)
     {
         if (e.IsActionPressed("jump") && CanControl)
@@ -66,7 +74,9 @@ public class Player : KinematicBody2D
             {
                 CanJump = false;
                 WasOnGround = true;
-                (GetNode("SFX/Jump") as AudioStreamPlayer).Play(0);
+
+                // Jump sound.
+                //(GetNode("SFX/Jump") as AudioStreamPlayer).Play(0);
 
                 if (IsCrouching)
                     SuperJump();
@@ -83,6 +93,8 @@ public class Player : KinematicBody2D
             Velocity.y /= 1.75f;
     }
 
+
+    // Main loop.
     public override void _PhysicsProcess(float delta)
     {
         GetInput();
@@ -90,7 +102,8 @@ public class Player : KinematicBody2D
         UpdateState();
         CanWalljump();
         SpeedLimits();
-        Sounds(delta);
+        Sounds(delta); // Handles player sounds
+        Particles(); // Handles player particles
         MoveAndSlide(Velocity);
         ApplyGravity();
         GetArrow();
@@ -107,6 +120,7 @@ public class Player : KinematicBody2D
     /// </summary>
     private void GetInput()
     {
+        // Input disabling
         if (!CanControl)
         {
             InputDirectionX = 0;
@@ -114,6 +128,7 @@ public class Player : KinematicBody2D
             return;
         }
 
+        // Horizontal Inputs
         if (Input.IsActionPressed("ui_left"))
         {
             Sprite.Play("Running");
@@ -136,11 +151,13 @@ public class Player : KinematicBody2D
                 Sprite.Play("idle");
         }
 
+        // Looking up
         if (Input.IsActionPressed("ui_up"))
             InputDirectionY = -1;
         else
             InputDirectionY = 0;
 
+        // Crouching
         if (Input.IsActionPressed("ui_down") && State == States.Ground)
         {
             IsCrouching = true;
@@ -157,6 +174,12 @@ public class Player : KinematicBody2D
     }
 
 
+    private void Particles()
+    {
+        RunDust.Emitting = InputDirectionX != 0 && State == States.Ground;
+    }
+
+
     private void Sounds(float delta)
     {
         if (InputDirectionX != 0 && State == States.Ground && FootStepTimer >= 0.125)
@@ -165,6 +188,7 @@ public class Player : KinematicBody2D
             FootStepTimer = 0;
         }
     }
+
 
     #region States
     /// <summary>
@@ -181,22 +205,22 @@ public class Player : KinematicBody2D
         }
 
         var Collision = GetSlideCollision(CollisionCount);
+
         var NormalGround = new Vector2(0, -1);
+        var NormalLeft = new Vector2(1, 0);
+        var NormalRight = new Vector2(-1, 0);
+        var NormalCeiling = new Vector2(0, 1);
 
         if (Collision.Normal == NormalGround && State != States.Ground)
             EnterGroundState();
 
-        var NormalLeft = new Vector2(1, 0);
-        var NormalRight = new Vector2(-1, 0);
+        else if (Collision.Normal == NormalLeft || Collision.Normal == NormalRight)
+            EnterWallState(Collision.Normal == NormalLeft ? 1 : 0);
 
-        if (Collision.Normal == NormalLeft || Collision.Normal == NormalRight)
-            EnterWallState();
-
-        var Ceiling = new Vector2(0, 1);
-
-        if (Collision.Normal == Ceiling)
+        else if (Collision.Normal == NormalCeiling)
             Velocity.y = 0;
     }
+
 
     public void EnterGroundState() // Ground state.
     {
@@ -210,7 +234,8 @@ public class Player : KinematicBody2D
         IsCeilling = false;
     }
 
-    public void EnterWallState() // Wall State
+
+    public void EnterWallState(int direction) // Wall State
     {
         State = States.Wall;
         GravityMult = 1;
@@ -224,12 +249,14 @@ public class Player : KinematicBody2D
         {
             Velocity.y /= 1.1f;
             Sprite.Play("Wall");
+            Sprite.FlipH = Convert.ToBoolean(direction);
         }
         else
         {
             Sprite.Play("falling");
         }
     }
+
 
     public void EnterAirState() // Air State.
     {
@@ -243,8 +270,8 @@ public class Player : KinematicBody2D
 
         State = States.Air;
     }
-
     #endregion
+
 
     #region Physics
     /// <summary>
@@ -288,6 +315,7 @@ public class Player : KinematicBody2D
     }
     #endregion
 
+
     #region Abilities
     /// <summary>
     /// Decide if the player can Wall jump or not.
@@ -309,6 +337,7 @@ public class Player : KinematicBody2D
         CurrentMaxSpeed = MAX_SPEED;
         Velocity.y = -JUMP_FORCE;
     }
+
 
     /// <summary>
     /// Crouch jump
@@ -397,6 +426,7 @@ public class Player : KinematicBody2D
         WasOnGround = false;
     }
 
+
     public void Spawn(bool WithAnimation)
     {
         (GetParent() as GameController).Spawn(WithAnimation);
@@ -421,6 +451,7 @@ public class Player : KinematicBody2D
         }
     }
     #endregion
+
 
     private void _on_DisableInput_timeout()
     {

@@ -126,12 +126,12 @@
         </member>
         <member name="P:Godot.EditorFileDialog.ShowHiddenFiles">
             <summary>
-            If [code]true[/code] hidden files and directories will be visible in the [code]EditorFileDialog[/code].
+            If [code]true[/code], hidden files and directories will be visible in the [code]EditorFileDialog[/code].
             </summary>
         </member>
         <member name="P:Godot.EditorFileDialog.DisableOverwriteWarning">
             <summary>
-            If [code]true[/code] the [code]EditorFileDialog[/code] will not warn the user before overwriting files.
+            If [code]true[/code], the [code]EditorFileDialog[/code] will not warn the user before overwriting files.
             </summary>
         </member>
         <member name="M:Godot.EditorFileDialog.ClearFilters">
@@ -280,7 +280,7 @@
         <member name="T:Godot.EditorImportPlugin">
             <summary>
             EditorImportPlugins provide a way to extend the editor's resource import functionality. Use them to import resources from custom files or to provide alternatives to the editor's existing importers. Register your [EditorPlugin] with [method EditorPlugin.add_import_plugin].
-            EditorImportPlugins work by associating with specific file extensions and a resource type. See [method get_recognized_extension] and [method get_resource_type]). They may optionally specify some import presets that affect the import process. EditorImportPlugins are responsible for creating the resources and saving them in the [code].import[/code] directory.
+            EditorImportPlugins work by associating with specific file extensions and a resource type. See [method get_recognized_extensions] and [method get_resource_type]). They may optionally specify some import presets that affect the import process. EditorImportPlugins are responsible for creating the resources and saving them in the [code].import[/code] directory.
             Below is an example EditorImportPlugin that imports a [Mesh] from a file with the extension ".special" or ".spec":
             [codeblock]
             tool
@@ -301,7 +301,7 @@
             return "Default"
             func get_import_options(i):
             return [{"name": "my_option", "default_value": false}]
-            func import(source_file, save_path, options, r_platform_variants, r_gen_files):
+            func import(source_file, save_path, options, platform_variants, gen_files):
             var file = File.new()
             if file.open(source_file, File.READ) != OK:
             return FAILED
@@ -315,7 +315,7 @@
         </member>
         <member name="M:Godot.EditorImportPlugin.GetImportOptions(System.Int32)">
             <summary>
-            Get the options and default values for the preset at this index. Returns an Array of Dictionaries with the following keys: "name", "default_value", "property_hint" (optional), "hint_string" (optional), "usage" (optional).
+            Get the options and default values for the preset at this index. Returns an Array of Dictionaries with the following keys: [code]name[/code], [code]default_value[/code], [code]property_hint[/code] (optional), [code]hint_string[/code] (optional), [code]usage[/code] (optional).
             </summary>
         </member>
         <member name="M:Godot.EditorImportPlugin.GetImportOrder">
@@ -349,12 +349,12 @@
         </member>
         <member name="M:Godot.EditorImportPlugin.GetRecognizedExtensions">
             <summary>
-            Get the list of file extensions to associate with this loader (case insensitive). e.g. ["obj"].
+            Get the list of file extensions to associate with this loader (case insensitive). e.g. [code]["obj"][/code].
             </summary>
         </member>
         <member name="M:Godot.EditorImportPlugin.GetResourceType">
             <summary>
-            Get the Godot resource type associated with this loader. e.g. "Mesh" or "Animation".
+            Get the Godot resource type associated with this loader. e.g. [code]"Mesh"[/code] or [code]"Animation"[/code].
             </summary>
         </member>
         <member name="M:Godot.EditorImportPlugin.GetSaveExtension">
@@ -606,9 +606,17 @@
             Clear all the state and reset the object being edited to zero. This ensures your plugin does not keep editing a currently existing node, or a node from the wrong scene.
             </summary>
         </member>
+        <member name="M:Godot.EditorPlugin.DisablePlugin">
+            <summary>
+            </summary>
+        </member>
         <member name="M:Godot.EditorPlugin.Edit(Godot.Object)">
             <summary>
             This function is used for plugins that edit specific object types (nodes or resources). It requests the editor to edit the given object.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorPlugin.EnablePlugin">
+            <summary>
             </summary>
         </member>
         <member name="M:Godot.EditorPlugin.ForwardCanvasDrawOverViewport(Godot.Control)">
@@ -811,6 +819,14 @@
             <summary>
             </summary>
         </member>
+        <member name="M:Godot.EditorPlugin.AddSpatialGizmoPlugin(Godot.EditorSpatialGizmoPlugin)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorPlugin.RemoveSpatialGizmoPlugin(Godot.EditorSpatialGizmoPlugin)">
+            <summary>
+            </summary>
+        </member>
         <member name="M:Godot.EditorPlugin.AddInspectorPlugin(Godot.EditorInspectorPlugin)">
             <summary>
             </summary>
@@ -875,6 +891,10 @@
             </summary>
         </member>
         <member name="M:Godot.EditorProperty.GetTooltipText">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorProperty.EmitChanged(System.String,System.Object,System.String,System.Boolean)">
             <summary>
             </summary>
         </member>
@@ -1019,7 +1039,7 @@
             return scene # remember to return the imported scene
             func iterate(node):
             if node != null:
-            node.name = "modified_"+node.name
+            node.name = "modified_" + node.name
             for child in node.get_children():
             iterate(child)
             [/codeblock]
@@ -1202,7 +1222,7 @@
         </member>
         <member name="T:Godot.EditorSpatialGizmo">
             <summary>
-            Custom gizmo that is used for providing custom visualization and editing (handles) for 3D Spatial objects. These are created by [method EditorPlugin.create_spatial_gizmo].
+            Custom gizmo that is used for providing custom visualization and editing (handles) for 3D Spatial objects. See [EditorSpatialGizmoPlugin] for more information.
             </summary>
         </member>
         <member name="M:Godot.EditorSpatialGizmo.CommitHandle(System.Int32,System.Object,System.Boolean)">
@@ -1219,7 +1239,12 @@
         </member>
         <member name="M:Godot.EditorSpatialGizmo.GetHandleValue(System.Int32)">
             <summary>
-            Get actual value of a handle. This value can be anything and used for eventually undoing the motion when calling [method commit_handle]
+            Get actual value of a handle. This value can be anything and used for eventually undoing the motion when calling [method commit_handle].
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmo.IsHandleHighlighted(System.Int32)">
+            <summary>
+            Get whether a handle is highlighted or not.
             </summary>
         </member>
         <member name="M:Godot.EditorSpatialGizmo.Redraw">
@@ -1267,6 +1292,16 @@
             <summary>
             </summary>
         </member>
+        <member name="M:Godot.EditorSpatialGizmo.GetSpatialNode">
+            <summary>
+            Returns the Spatial node associated with this gizmo.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmo.GetPlugin">
+            <summary>
+            Return the [EditorSpatialGizmoPlugin] that owns this gizmo. It's useful to retrieve materials using [method EditorSpatialGizmoPlugin.get_material].
+            </summary>
+        </member>
         <member name="M:Godot.EditorSpatialGizmo.Clear">
             <summary>
             </summary>
@@ -1275,9 +1310,95 @@
             <summary>
             </summary>
         </member>
+        <member name="T:Godot.EditorSpatialGizmoPlugin">
+            <summary>
+            EditorSpatialGizmoPlugin allows you to define a new type of Gizmo. There are two main ways to do so: extending [EditorSpatialGizmoPlugin] for the simpler gizmos, or creating a new [EditorSpatialGizmo] type. See the tutorial in the documentation for more info.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.CanBeHidden">
+            <summary>
+            Override this method to define whether the gizmo can be hidden or not. Defaults to true.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.CommitHandle(Godot.EditorSpatialGizmo,System.Int32,System.Object,System.Boolean)">
+            <summary>
+            Override this method to commit gizmo handles. Called for this plugin's active gizmos.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.CreateGizmo(Godot.Spatial)">
+            <summary>
+            Override this method to return a custom [EditorSpatialGizmo] for the spatial nodes of your choice, return [code]null[/code] for the rest of nodes. (See also [method has_gizmo])
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.GetHandleName(Godot.EditorSpatialGizmo,System.Int32)">
+            <summary>
+            Override this method to provide gizmo's handle names. Called for this plugin's active gizmos.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.GetHandleValue(Godot.EditorSpatialGizmo,System.Int32)">
+            <summary>
+            Get actual value of a handle from gizmo. Called for this plugin's active gizmos.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.GetName">
+            <summary>
+            Override this method to provide the name that will appear in teh gizmo visibility menu.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.HasGizmo(Godot.Spatial)">
+            <summary>
+            Override this method to define which Spatial nodes have a gizmo from this plugin. Whenever a [Spatial] node is added to a scene this method is called, if it returns [code]true[/code] the node gets a generic [EditorSpatialGizmo] assigned and is added to this plugin's list of active gizmos.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.IsHandleHighlighted(Godot.EditorSpatialGizmo,System.Int32)">
+            <summary>
+            Get whether a handle is highlighted or not. Called for this plugin's active gizmos.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.IsSelectableWhenHidden">
+            <summary>
+            Override this method to define whether Spatial with this gizmo should be selecteble even when the gizmo is hidden.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.Redraw(Godot.EditorSpatialGizmo)">
+            <summary>
+            Callback to redraw the provided gizmo. Called for this plugin's active gizmos.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.SetHandle(Godot.EditorSpatialGizmo,System.Int32,Godot.Camera,Godot.Vector2)">
+            <summary>
+            Update the value of a handle after it has been updated. Called for this plugin's active gizmos.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.CreateMaterial(System.String,Godot.Color,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Creates an unshaded material with its variants (selected and/or editable) and adds them to the internal material list. They can then be accessed with [method get_material] and used in [method EditorSpatialGizmo.add_mesh] and [method EditorSpatialGizmo.add_lines]. Should not be overridden.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.CreateIconMaterial(System.String,Godot.Texture,System.Boolean,System.Nullable{Godot.Color})">
+            <summary>
+            Creates an icon material with its variants (selected and/or editable) and adds them to the internal material list. They can then be accessed with [method get_material] and used in [method EditorSpatialGizmo.add_unscaled_billboard]. Should not be overridden.
+            &lt;param name="color"&gt;If the param is null, then the default value is new Color(1, 1, 1, 1)&lt;/param&gt;
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.CreateHandleMaterial(System.String,System.Boolean)">
+            <summary>
+            Creates a handle material with its variants (selected and/or editable) and adds them to the internal material list. They can then be accessed with [method get_material] and used in [method EditorSpatialGizmo.add_handles]. Should not be overridden.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.AddMaterial(System.String,Godot.SpatialMaterial)">
+            <summary>
+            Adds a new material to the internal material list for the plugin. It can then be accessed with [method get_material]. Should not be overridden.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.GetMaterial(System.String,Godot.EditorSpatialGizmo)">
+            <summary>
+            Get material from the internal list of materials. If an [EditorSpatialGizmo] is provided it will try to get the corresponding variant (selected and/or editable).
+            </summary>
+        </member>
         <member name="T:Godot.ScriptCreateDialog">
             <summary>
-            The ScriptCreateDialog creates script files according to a given template for a given scripting language. The standard use is to configure its fields prior to calling a [method popup]() method.
+            The [code]ScriptCreateDialog[/code] creates script files according to a given template for a given scripting language. The standard use is to configure its fields prior to calling one of the [method Popup.popup] methods.
             [codeblock]
             func _ready():
             dialog.config("Node", "res://new_node.gd") # for in-engine types
