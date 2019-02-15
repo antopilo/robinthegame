@@ -159,7 +159,22 @@ public class Console : Control
 
                 root.ApplySettings();
                 break;
-            
+            case "Shake":
+                if (parameters.Length == 0)
+                    (Player.Camera as Camera).Shake(1f, 1f);
+                try
+                {
+                    if (parameters.Length == 1)
+                        (Player.Camera as Camera).Shake(float.Parse(parameters[0]), 1f);
+                    else if (parameters.Length == 2)
+                        (Player.Camera as Camera).Shake(float.Parse(parameters[0]), float.Parse(parameters[1]));
+                                   }
+                catch
+                {
+                    ConsoleBox.BbcodeText += "\n [color=red]The shake command must have 1 or 2 parameters. Shake [Amount] [Duration]";
+                }
+                break;
+
             // Toggle Vsync usage.
             case "VSYNC":
                 if (parameters[0] == "0")

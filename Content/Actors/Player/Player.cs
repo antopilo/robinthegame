@@ -6,7 +6,7 @@ public class Player : KinematicBody2D
 {
     public CollisionPolygon2D CollisionBox { get; private set; }
     public AnimatedSprite Sprite { get; private set; }
-    public Camera2D Camera { get; private set; }
+    public Camera Camera { get; private set; }
     public Arrow Arrow { get; set; }
     private Particles2D RunDust;
 
@@ -43,7 +43,7 @@ public class Player : KinematicBody2D
     public bool CanJump { get; private set; } = false;
     public bool ArrowExist { get; set; } = false;
     public bool IsCeilling { get; private set; } = false;
-    public Particles2D RunDust1 { get => RunDust; set => RunDust = value; }
+    public Particles2D RunDust1, WallJumpDust;
 
     private float DeltaTime = 0;
 
@@ -61,8 +61,9 @@ public class Player : KinematicBody2D
 
         CollisionBox = (CollisionPolygon2D)GetNode("Collision");
         Sprite = (AnimatedSprite)GetNode("AnimatedSprite");
-        Camera = (Camera2D)GetNode("Camera2D");
+        Camera = (Camera)GetNode("Camera2D");
         RunDust = (Particles2D)GetNode("Particles/RunDust");
+        WallJumpDust = (Particles2D)GetNode("Particles/WallJump");
     }
 
     
@@ -87,6 +88,7 @@ public class Player : KinematicBody2D
             {
                 WasOnGround = false;
                 WallJump();
+                WallJumpDust.Emitting = true;
             }
 
         if (e.IsActionReleased("jump") && Velocity.y < 0 && WasOnGround) // Tap jump
@@ -176,6 +178,7 @@ public class Player : KinematicBody2D
 
     private void Particles()
     {
+        WallJumpDust.Emitting = IsWallJumping;
         RunDust.Emitting = InputDirectionX != 0 && State == States.Ground;
     }
 
@@ -197,7 +200,6 @@ public class Player : KinematicBody2D
     private void UpdateState()
     {
         var CollisionCount = GetSlideCount() - 1;
-
         if (CollisionCount <= -1)
         {
             EnterAirState();
@@ -205,7 +207,6 @@ public class Player : KinematicBody2D
         }
 
         var Collision = GetSlideCollision(CollisionCount);
-
         var NormalGround = new Vector2(0, -1);
         var NormalLeft = new Vector2(1, 0);
         var NormalRight = new Vector2(-1, 0);
@@ -213,10 +214,8 @@ public class Player : KinematicBody2D
 
         if (Collision.Normal == NormalGround && State != States.Ground)
             EnterGroundState();
-
         else if (Collision.Normal == NormalLeft || Collision.Normal == NormalRight)
             EnterWallState(Collision.Normal == NormalLeft ? 1 : 0);
-
         else if (Collision.Normal == NormalCeiling)
             Velocity.y = 0;
     }
@@ -431,6 +430,7 @@ public class Player : KinematicBody2D
     {
         (GetParent() as GameController).Spawn(WithAnimation);
         Velocity = new Vector2();
+        Camera.Shake(3f, 0.05f);
     }
 
 
@@ -455,6 +455,7 @@ public class Player : KinematicBody2D
 
     private void _on_DisableInput_timeout()
     {
+
         CanControl = true;
         IsWallJumping = false;
     }

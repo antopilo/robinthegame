@@ -26,17 +26,10 @@ public class Level : Node2D
     List<Vector2> Spawns = new List<Vector2>(); // List of possible spawns.
 
     #region Entities
-    private PackedScene FallingPlatform;
-    private PackedScene Spike;
-    private PackedScene JumpPad;
-    private PackedScene Door;
-    private PackedScene Key;
-    private PackedScene Extender;
-    private PackedScene Spawn;
-    private PackedScene FallBlock;
-    private PackedScene JumpThroughPlatform; 
-	private PackedScene Coin;
-    private PackedScene DartShooter;
+    private PackedScene FallingPlatform, Spike, JumpPad,Door, Key,Extender,Spawn,FallBlock,JumpThroughPlatform,Coin,DartShooter, 
+        FallingBlock3x3, FallingBlock3x4, FallingBlock4x4, FallingBlock4x5, FallingBlock5x4;
+
+
     #endregion
 
     #region Layers
@@ -50,7 +43,6 @@ public class Level : Node2D
     GameController World;
     public override void _Ready()
     {
-
         World = GetNode("..") as GameController;
 
         // Get Layers
@@ -71,6 +63,11 @@ public class Level : Node2D
         JumpThroughPlatform = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Platforming/JumpThrough/JumpThrough.tscn") as PackedScene;
 		Coin = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Collectables/Coin/Coin.tscn") as PackedScene;
         DartShooter = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Hazards/DartShooter/DartShooter.tscn") as PackedScene;
+        FallingBlock3x3 = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Core/FallingBlock/FallingBlock3x3.tscn") as PackedScene;
+        FallingBlock3x4 = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Core/FallingBlock/FallingBlock3x4.tscn") as PackedScene;
+        FallingBlock4x4 = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Core/FallingBlock/FallingBlock4x4.tscn") as PackedScene;
+        FallingBlock4x5 = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Core/FallingBlock/FallingBlock4x5.tscn") as PackedScene;
+        FallingBlock5x4 = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Core/FallingBlock/FallingBlock5x4.tscn") as PackedScene;
 
         Player = GetNode("../Player") as Player;
         Entities = GetNode("objects");
@@ -163,15 +160,15 @@ public class Level : Node2D
     }
 
     /// <summary>
-    /// This loads all the entities of replace the fake tiles placeholder with real
-    /// Objects. It calls Place entities to place them.
+    /// This loads all the entities and replace the fake tiles placeholder with real
+    /// Objects. It calls Place entities to place them. pLoadSpawns
     /// </summary>
     public void LoadEntities(bool pLoadSpawns)
     {
+        GD.Print("Loading entities for : " + this.Name);
         foreach (Vector2 Tile in LayerEntities.GetUsedCells())
         {
             int Cell = LayerEntities.GetCell((int)Tile.x, (int)Tile.y);
-
             switch (Cell)
             {
                 case 0:
@@ -204,6 +201,21 @@ public class Level : Node2D
                 case 9:
                     PlaceEntity(Tile, "DartShooter", DartShooter);
                     break;
+                case 10:
+                    PlaceEntity(Tile, "FallingBlock3x3", FallingBlock3x3);
+                    break;
+                case 11:
+                    PlaceEntity(Tile, "FallingBlock3x4", FallingBlock3x4);
+                    break;
+                case 12:
+                    PlaceEntity(Tile, "FallingBlock4x4", FallingBlock4x4);
+                    break;
+                case 13:
+                    PlaceEntity(Tile, "FallingBlock4x5", FallingBlock4x5);
+                    break;
+                case 14:
+                    PlaceEntity(Tile, "FallingBlock5x4", FallingBlock5x4);
+                    break;
             }
         }
     }
@@ -220,7 +232,7 @@ public class Level : Node2D
         Node2D NewEntity = (Node2D)pEntity.Instance();
         NewEntity.Name = pName;
 
-        Entities.AddChild(NewEntity); // Add Entitiy to the world.
+        // Add Entitiy to the world.
 
         int X = (int)pPosition.x;
         int Y = (int)pPosition.y;
@@ -231,32 +243,37 @@ public class Level : Node2D
         if (Transposed && !LayerEntities.IsCellXFlipped(X, Y))
         {
             NewPosition = new Vector2(X, Y + 1);
-            (NewEntity).GlobalRotationDegrees = 270;
-            ((Node2D)NewEntity).GlobalPosition = LayerEntities.MapToWorld(NewPosition) + LevelPosition;
+            NewEntity.GlobalRotationDegrees = 270;
+            NewEntity.GlobalPosition = LayerEntities.MapToWorld(NewPosition) + LevelPosition;
         }
         else if (Transposed && LayerEntities.IsCellXFlipped(X, Y))
         {
             NewPosition = new Vector2(X + 1, Y);
-            ((Node2D)NewEntity).GlobalRotationDegrees = 90;
-            ((Node2D)NewEntity).GlobalPosition = LayerEntities.MapToWorld(NewPosition) + LevelPosition;
+            NewEntity.GlobalRotationDegrees = 90;
+            NewEntity.GlobalPosition = LayerEntities.MapToWorld(NewPosition) + LevelPosition;
         }
         else if (!Transposed && LayerEntities.IsCellYFlipped(X, Y))
         {
             NewPosition = new Vector2(X + 1, Y + 1);
-            ((Node2D)NewEntity).GlobalRotationDegrees = 180;
-            ((Node2D)NewEntity).GlobalPosition = LayerEntities.MapToWorld(NewPosition) + LevelPosition;
+            NewEntity.GlobalRotationDegrees = 180;
+            NewEntity.GlobalPosition = LayerEntities.MapToWorld(NewPosition) + LevelPosition;
         }
         else
         {
-            ((Node2D)NewEntity).GlobalPosition = LayerEntities.MapToWorld(pPosition) + LevelPosition;
+            NewEntity.GlobalPosition = LayerEntities.MapToWorld(pPosition) + LevelPosition;
         }
-        
+
+        Entities.AddChild(NewEntity);
+
         if (pName == "Spawn")
         {
-            SpawnPosition = NewEntity.GlobalPosition + LevelPosition;
+            SpawnPosition = NewEntity.GlobalPosition;
             NewEntity.AddToGroup("Spawn");
             Spawns.Add(SpawnPosition);
         }
+       
+
+        GD.Print("Placed new entity" + NewEntity);
     } 
     #endregion
 
@@ -269,7 +286,6 @@ public class Level : Node2D
     {
         // Decides the closest spawn.
         Spawn farthestSpawn = null;
-
         foreach (Node node in Entities.GetChildren())
         {
             if (node.IsInGroup("Spawn"))
@@ -314,23 +330,27 @@ public class Level : Node2D
     #region Loading
     public void Reload()
     {
-        EntitiesCleanUp(false);
-        Load();
+        foreach (Node ent in Entities.GetChildren())
+        {
+            if (ent.HasMethod("Reset"))
+                ent.Call("Reset");
+        }
+        
+        ChooseSpawn();
     }
     
     public void Unload()
     {
         EntitiesCleanUp(false);
-        ResetSpawns();
     }
 
     public void Load()
     {
-        EntitiesCleanUp(false);
+        Unload();
         LoadEntities(false);
         ChooseSpawn();
-        AutoTileBorders();
     }
+
 
     public void EntitiesCleanUp(bool pEverything)
     {
@@ -343,9 +363,10 @@ public class Level : Node2D
         {
             foreach (Node2D ent in Entities.GetChildren())
             {
-                GD.Print(ent.Name);
-                if (!(ent is Spawn || ent is MessageSender || ent is Key || ent is Door) )
-                    ent.Free();
+                if (!(ent is Spawn || ent is MessageSender || ent is Key || ent is Door))
+                {
+                    ent.QueueFree();
+                }   
             }
         }
     }

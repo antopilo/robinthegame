@@ -8,15 +8,8 @@ public class Camera : Camera2D
     public float Amount;
     public Timer _Timer;
 
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        Rng.Randomize();
-    }
-
     public override void _PhysicsProcess(float delta)
     {
-
         if (Shaking)
         {
             Rng.Randomize(); // Randomizing seed
@@ -25,15 +18,15 @@ public class Camera : Camera2D
             Rng.Randomize(); // Randomizing seed again
             float y = Rng.RandfRange(-Amount, Amount);
 
-            Offset += new Vector2(x, y);
+            Offset = new Vector2(x, y);
         }
     }
-        /// <summary>
-        /// Shake the camera
-        /// </summary>
-        /// <param name="amount">Force of the shaking</param>
-        /// <param name="time">Duration of the shaking</param>
-        public void Shake(float amount, float time)
+    /// <summary>
+    /// Shake the camera
+    /// </summary>
+    /// <param name="amount">Force of the shaking</param>
+    /// <param name="time">Duration of the shaking</param>
+    public void Shake(float amount, float time)
     {
         // Stopping current one if it is already shaking.
         if (Shaking)

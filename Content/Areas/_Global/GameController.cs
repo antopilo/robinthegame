@@ -29,9 +29,11 @@ public class GameController : Node2D
         MoveCamToRoom(CurrentRoom);
     }
 
+
     // Called Every frame.
     public override void _PhysicsProcess(float delta)
         => UpdateRoom();
+
 
     /// <summary>
     /// Loops through each level(Node that have the "level" tag), and determine in which room
@@ -52,36 +54,36 @@ public class GameController : Node2D
                 float y = Player.Position.y;
                 float xMin = Room.LevelPosition.x;
                 float yMin = Room.LevelPosition.y;
-                float xMax = Room.LevelPosition.x + Room.LevelSize.x;
-                float yMax = Room.LevelPosition.y + Room.LevelSize.y;
+                float xMax = xMin + Room.LevelSize.x;
+                float yMax = yMin + Room.LevelSize.y;
 
                 // If the Player is inside the level.
                 if ((x > xMin) && (y > yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
                 {
+                    // if the player enters a level from under, do a jump to gain a little bit of height.
                     if (y <= CurrentRoom.LevelPosition.y)
                         Player.Jump();
 
-                    Level oldLevel = CurrentRoom;
-                    oldLevel.Unload();
+                    ChangeRoom(Room);
 
-                    CurrentRoom = Room;
-                    CurrentRoom.Load();
-                    MoveCamToRoom(CurrentRoom);
-                    LevelInfo.UpdateInfo(CurrentRoom);
-                    GD.Print("STATUS: PLAYER ENTERED ROOM : " + CurrentRoom.Name);
+                    // Update info and moves the camera.
+                    
                 }
             }
         }
     }
 
+
+    /// <summary>
+    /// Tween the camera to a new Level. Setting the limits of the camera to the level size.
+    /// </summary>
+    /// <param name="pRoom">Target level.</param>
     private void MoveCamToRoom(Level pRoom)
     {
-        // This function smoothly moves the camera to a specified pRoom.
+        // Pausing the player.
         Player.SetPhysicsProcess(false);
 
-        Tween T;
-
-        // If there is no Tween node, then create one and use it.
+        Tween T;  // If there is no Tween node, then create one and use it.
         if (!HasNode("CameraAreaTween"))
         {
             T = new Tween();
@@ -94,26 +96,25 @@ public class GameController : Node2D
         {
             T = (Tween)GetNode("CameraAreaTween");
         }
-
         T.RemoveAll();
 
+        Vector2 NewCameraZoom = new Vector2(pRoom.LevelZoom, pRoom.LevelZoom); // Levels can have custom zoom.
+        Camera2D Camera = Player.Camera;
+        Vector2 CameraCenter = Camera.GetCameraScreenCenter();
+
+        // Setting the limit of the camera to the size of the level.
         float NewLimitLeft = pRoom.GlobalPosition.x;
         float NewLimitRight = pRoom.GlobalPosition.x + pRoom.LevelSize.x;
         float NewLimitTop = pRoom.GlobalPosition.y;
         float NewLimitBottom = pRoom.GlobalPosition.y + pRoom.LevelSize.y;
-
-        Vector2 NewCameraZoom = new Vector2(pRoom.LevelZoom, pRoom.LevelZoom); // Levels can have custom zoom.
-
-        Camera2D Camera = Player.Camera;
-        Vector2 CameraCenter = Camera.GetCameraScreenCenter();
 
         Camera.LimitRight = (int)(CameraCenter.x + GetViewport().Size.x / 2 * Camera.Zoom.x);
         Camera.LimitLeft = (int)(CameraCenter.x - GetViewport().Size.x / 2 * Camera.Zoom.x);
         Camera.LimitTop = (int)(CameraCenter.y - GetViewport().Size.y / 2 * Camera.Zoom.y);
         Camera.LimitBottom = (int)(CameraCenter.y + GetViewport().Size.y / 2 * Camera.Zoom.y);
 
+        // Transition settings.
         float Time = 0.4f;
-
         Tween.TransitionType Transition = Tween.TransitionType.Linear;
         Tween.EaseType Ease = Tween.EaseType.InOut;
 
@@ -124,9 +125,11 @@ public class GameController : Node2D
         T.InterpolateProperty(Camera, "zoom", Camera.Zoom, NewCameraZoom, 0.6f, Transition, Ease);
         T.Start();
 
-        if (Player.Arrow != null) // If an arrow was in the old room. Return it to the player.
+        // If there is an arrow in the level return it to Robin.
+        if (Player.Arrow != null)
             Player.Arrow.ReturnToPlayer();
     }
+
 
     /// <summary>
     /// The spawn is currently half done. For now Spawning the player means moving smoothly
@@ -138,7 +141,7 @@ public class GameController : Node2D
         SceneTransition TransitionPlayer = (SceneTransition)GetNode("../../../UI");
         Player.Alive = false;
         DeathCounter.Deaths++;
-        //CurrentRoom.Reload();
+        CurrentRoom.Reload();
 
         if (WithAnimation)
             TransitionPlayer.Fade();
@@ -150,6 +153,7 @@ public class GameController : Node2D
         Player.Alive = true;
     }
 
+
     public void _on_Tween_tween_completed(Godot.Object @object, KeyList @key)
     {
         Player.SetPhysicsProcess(true);
@@ -157,12 +161,18 @@ public class GameController : Node2D
         Player.Alive = true;
     }
 
+
     public void ChangeRoom(Level pRoom)
     {
         CurrentRoom = pRoom;
+        pRoom.Load();
         Spawn(false);
         MoveCamToRoom(CurrentRoom);
+        
+        LevelInfo.UpdateInfo(CurrentRoom);
+        GD.Print("STATUS: Player entered: " + CurrentRoom.Name);
     }
+
 
     /// <summary>
     /// Checks if the player has pItem in his inventory.

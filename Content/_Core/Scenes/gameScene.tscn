@@ -24,11 +24,16 @@ StartLevel = "debug"
 ] instance=ExtResource( 2 )]
 position = Vector2( 0, 0 )
 
+[node name="debug2" parent="." groups=[
+"level",
+] instance=ExtResource( 2 )]
+position = Vector2( 0, 184 )
+
 [node name="Player" parent="." groups=[
 "Player",
 ] instance=ExtResource( 3 )]
 pause_mode = 1
-position = Vector2( 399.994, -30.5855 )
+editor/display_folded = true
 z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

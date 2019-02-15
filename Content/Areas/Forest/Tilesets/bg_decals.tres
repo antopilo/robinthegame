@@ -195,4 +195,14 @@
 17/navigation_offset = Vector2( 0, 0 )
 17/shapes = [  ]
 17/z_index = 0
+18/name = "Rope"
+18/texture = ExtResource( 1 )
+18/tex_offset = Vector2( 0, 0 )
+18/modulate = Color( 1, 1, 1, 1 )
+18/region = Rect2( 136, 0, 8, 8 )
+18/tile_mode = 0
+18/occluder_offset = Vector2( 0, 0 )
+18/navigation_offset = Vector2( 0, 0 )
+18/shapes = [  ]
+18/z_index = 0
 

@@ -227,7 +227,7 @@ public class Arrow : KinematicBody2D
     private void _on_Tween_tween_completed(Object @object, NodePath key)
     {
         Weapon.CanShoot = true;
-        QueueFree();
+        CallDeferred("queue_free");
     }
 }
 

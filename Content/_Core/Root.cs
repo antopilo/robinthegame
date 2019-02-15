@@ -8,7 +8,7 @@ public class Root : Node2D
     public LevelInfo LevelInfo;
     public Settings settings = new Settings();
     public GameController GameController;
-    public Player Player;
+    public static Player Player;
     public Weapon Weapon;
 
     public override void _Ready()

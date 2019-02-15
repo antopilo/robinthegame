@@ -1,8 +1,13 @@
-[gd_resource type="TileSet" load_steps=4 format=2]
+[gd_resource type="TileSet" load_steps=9 format=2]
 
 [ext_resource path="res://Content/Art/Sprites/Entities/ent_global.png" type="Texture" id=1]
-[ext_resource path="res://Content/Art/Sprites/Entities/JumpPad/jumpPad1.png" type="Texture" id=2]
-[ext_resource path="res://Content/Art/Sprites/Entities/Spike/Spike.png" type="Texture" id=3]
+[ext_resource path="res://Content/Art/Sprites/Entities/FallingBlocks/3x3Grass.png" type="Texture" id=2]
+[ext_resource path="res://Content/Art/Sprites/Entities/FallingBlocks/3x4Grass.png" type="Texture" id=3]
+[ext_resource path="res://Content/Art/Sprites/Entities/FallingBlocks/4x4Grass.png" type="Texture" id=4]
+[ext_resource path="res://Content/Art/Sprites/Entities/FallingBlocks/4x5Grass.png" type="Texture" id=5]
+[ext_resource path="res://Content/Art/Sprites/Entities/FallingBlocks/5x4Grass.png" type="Texture" id=6]
+[ext_resource path="res://Content/Art/Sprites/Entities/JumpPad/jumpPad1.png" type="Texture" id=7]
+[ext_resource path="res://Content/Art/Sprites/Entities/Spike/Spike.png" type="Texture" id=8]
 
 [resource]
 
@@ -67,7 +72,7 @@
 5/shapes = [  ]
 5/z_index = 0
 6/name = "jumpPad1.png 6"
-6/texture = ExtResource( 2 )
+6/texture = ExtResource( 7 )
 6/tex_offset = Vector2( -8, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 0, 8, 16, 8 )
@@ -77,7 +82,7 @@
 6/shapes = [  ]
 6/z_index = 0
 7/name = "SpikeSingle.png 7"
-7/texture = ExtResource( 3 )
+7/texture = ExtResource( 8 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 0, 0, 8, 8 )
@@ -106,4 +111,54 @@
 9/navigation_offset = Vector2( 0, 0 )
 9/shapes = [  ]
 9/z_index = 0
+10/name = "3x3Grass.png 10"
+10/texture = ExtResource( 2 )
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 0, 0, 24, 24 )
+10/tile_mode = 0
+10/occluder_offset = Vector2( 0, 0 )
+10/navigation_offset = Vector2( 0, 0 )
+10/shapes = [  ]
+10/z_index = 0
+11/name = "3x4Grass.png 11"
+11/texture = ExtResource( 3 )
+11/tex_offset = Vector2( 0, 0 )
+11/modulate = Color( 1, 1, 1, 1 )
+11/region = Rect2( 0, 0, 24, 32 )
+11/tile_mode = 0
+11/occluder_offset = Vector2( 0, 0 )
+11/navigation_offset = Vector2( 0, 0 )
+11/shapes = [  ]
+11/z_index = 0
+12/name = "4x4Grass.png 12"
+12/texture = ExtResource( 4 )
+12/tex_offset = Vector2( 0, 0 )
+12/modulate = Color( 1, 1, 1, 1 )
+12/region = Rect2( 0, 0, 32, 32 )
+12/tile_mode = 0
+12/occluder_offset = Vector2( 0, 0 )
+12/navigation_offset = Vector2( 0, 0 )
+12/shapes = [  ]
+12/z_index = 0
+13/name = "4x5Grass.png 13"
+13/texture = ExtResource( 5 )
+13/tex_offset = Vector2( 0, 0 )
+13/modulate = Color( 1, 1, 1, 1 )
+13/region = Rect2( 0, 0, 32, 40 )
+13/tile_mode = 0
+13/occluder_offset = Vector2( 0, 0 )
+13/navigation_offset = Vector2( 0, 0 )
+13/shapes = [  ]
+13/z_index = 0
+14/name = "5x4Grass.png 14"
+14/texture = ExtResource( 6 )
+14/tex_offset = Vector2( 0, 0 )
+14/modulate = Color( 1, 1, 1, 1 )
+14/region = Rect2( 0, 0, 40, 32 )
+14/tile_mode = 0
+14/occluder_offset = Vector2( 0, 0 )
+14/navigation_offset = Vector2( 0, 0 )
+14/shapes = [  ]
+14/z_index = 0
 

@@ -5,17 +5,17 @@
 [ext_resource path="res://Content/Art/Sprites/Player/Idle/idle1.png" type="Texture" id=3]
 [ext_resource path="res://Content/Art/Sprites/Player/Idle/idle2.png" type="Texture" id=4]
 [ext_resource path="res://Content/Art/Sprites/Player/Idle/idle3.png" type="Texture" id=5]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=6]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=7]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=8]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=9]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=10]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=11]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=12]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=13]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=14]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=15]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling1.png" type="Texture" id=16]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling1.png" type="Texture" id=6]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=7]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=8]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=9]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=10]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=11]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=12]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=13]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=14]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=15]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=16]
 [ext_resource path="res://Content/Actors/Player/Arrow/Scripts/Weapon.cs" type="Script" id=17]
 [ext_resource path="res://Content/Art/Particles/Dust1/1.png" type="Texture" id=18]
 [ext_resource path="res://Content/Actors/Player/aura.png" type="Texture" id=19]
@@ -36,51 +36,50 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
+"name": "Jump",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
 "name": "Crouch",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "lookup",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "Running",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 12 ) ],
+"frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "Wall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
 "loop": false,
 "name": "falling",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 16 ) ],
-"loop": true,
-"name": "Jump",
-"speed": 0.0
 } ]
 
-[sub_resource type="Curve" id=6]
+[sub_resource type="Curve" id=3]
 
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.992733, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=7]
+[sub_resource type="CurveTexture" id=4]
 
-curve = SubResource( 6 )
+curve = SubResource( 3 )
 
 [sub_resource type="ParticlesMaterial" id=5]
 
 emission_shape = 1
 emission_sphere_radius = 1.86
-gravity = Vector3( 0, -12, 0 )
-scale = 0.75
+gravity = Vector3( 0, 0, 0 )
 scale_random = 1.0
-scale_curve = SubResource( 7 )
+scale_curve = SubResource( 4 )
 
 [node name="Player" type="KinematicBody2D"]
 collision/safe_margin = 0.001
@@ -110,6 +109,7 @@ script = ExtResource( 17 )
 position = Vector2( 0, 6 )
 
 [node name="RunDust" type="Particles2D" parent="Particles"]
+emitting = false
 amount = 30
 lifetime = 1.1
 randomness = 0.28
@@ -117,8 +117,15 @@ local_coords = false
 process_material = SubResource( 5 )
 texture = ExtResource( 18 )
 
+[node name="WallJump" type="Particles2D" parent="Particles"]
+amount = 30
+explosiveness = 0.13
+randomness = 0.28
+local_coords = false
+process_material = SubResource( 5 )
+texture = ExtResource( 18 )
+
 [node name="Raycasts" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Right" type="RayCast2D" parent="Raycasts"]
 position = Vector2( 0, -2 )

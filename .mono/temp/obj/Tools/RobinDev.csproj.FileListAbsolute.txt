@@ -58,3 +58,15 @@ C:\Users\Antoine\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CoreC
 C:\Users\Antoine\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CopyComplete
 C:\Users\Antoine\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.dll
 C:\Users\Antoine\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.pdb
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\bin\Tools\RobinDev.dll
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\bin\Tools\RobinDev.pdb
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.dll
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\bin\Tools\System.ServiceModel.Internals.dll
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\bin\Tools\System.Transactions.dll
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\bin\Tools\System.EnterpriseServices.dll
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.xml
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csprojAssemblyReference.cache
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CoreCompileInputs.cache
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CopyComplete
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.dll
+C:\Users\1780489\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.pdb
