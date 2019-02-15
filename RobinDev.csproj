@@ -11,8 +11,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <BaseIntermediateOutputPath>.mono\temp\obj</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)</IntermediateOutputPath>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,10 +56,12 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\Areas\_Global\Entities\Core\FallingBlock\FallingBlock3x3.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Core\MessageSender\MessageSender.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Hazards\DartShooter\DartShooter.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Hazards\DartShooter\Dart\Dart.cs" />
     <Compile Include="Content\UI\Scripts\DeathCount.cs" />
+    <Compile Include="Content\_Core\Camera.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Content\UI\Scripts\Console.cs" />
     <Compile Include="Content\UI\Scripts\Dialog.cs" />

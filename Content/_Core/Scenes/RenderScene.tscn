@@ -356,7 +356,7 @@ scroll_active = false
 scroll_following = true
 
 [node name="Console" type="Control" parent="UI"]
-editor/display_folded = true
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -152.0
