@@ -138,6 +138,8 @@ public class GameController : Node2D
     /// <param name="WithAnimation">If the transition animation is played or not.</param>
     public void Spawn(bool WithAnimation)
     {
+        if (!Player.Alive)
+            return;
         SceneTransition TransitionPlayer = (SceneTransition)GetNode("../../../UI");
         Player.Alive = false;
         DeathCounter.Deaths++;
@@ -164,9 +166,11 @@ public class GameController : Node2D
 
     public void ChangeRoom(Level pRoom)
     {
+
         CurrentRoom = pRoom;
-        pRoom.Load();
-        Spawn(false);
+        
+        CurrentRoom.Reload();
+        
         MoveCamToRoom(CurrentRoom);
         
         LevelInfo.UpdateInfo(CurrentRoom);

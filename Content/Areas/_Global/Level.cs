@@ -244,23 +244,23 @@ public class Level : Node2D
         {
             NewPosition = new Vector2(X, Y + 1);
             NewEntity.GlobalRotationDegrees = 270;
-            NewEntity.GlobalPosition = LayerEntities.MapToWorld(NewPosition) + LevelPosition;
+            NewEntity.Position = LayerEntities.MapToWorld(NewPosition);
         }
         else if (Transposed && LayerEntities.IsCellXFlipped(X, Y))
         {
             NewPosition = new Vector2(X + 1, Y);
             NewEntity.GlobalRotationDegrees = 90;
-            NewEntity.GlobalPosition = LayerEntities.MapToWorld(NewPosition) + LevelPosition;
+            NewEntity.Position = LayerEntities.MapToWorld(NewPosition);
         }
         else if (!Transposed && LayerEntities.IsCellYFlipped(X, Y))
         {
             NewPosition = new Vector2(X + 1, Y + 1);
             NewEntity.GlobalRotationDegrees = 180;
-            NewEntity.GlobalPosition = LayerEntities.MapToWorld(NewPosition) + LevelPosition;
+            NewEntity.Position = LayerEntities.MapToWorld(NewPosition);
         }
         else
         {
-            NewEntity.GlobalPosition = LayerEntities.MapToWorld(pPosition) + LevelPosition;
+            NewEntity.Position = LayerEntities.MapToWorld(pPosition);
         }
 
         Entities.AddChild(NewEntity);
@@ -271,9 +271,6 @@ public class Level : Node2D
             NewEntity.AddToGroup("Spawn");
             Spawns.Add(SpawnPosition);
         }
-       
-
-        GD.Print("Placed new entity" + NewEntity);
     } 
     #endregion
 
@@ -322,7 +319,6 @@ public class Level : Node2D
             return;
         ResetSpawns();
         SpawnPosition = pSpawn.GlobalPosition;
-        GD.Print("Spawned changed for: " + SpawnPosition.ToString());
     }
 
     #endregion
@@ -346,7 +342,6 @@ public class Level : Node2D
 
     public void Load()
     {
-        Unload();
         LoadEntities(false);
         ChooseSpawn();
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Player : KinematicBody2D
 {
-    public CollisionPolygon2D CollisionBox { get; private set; }
+    public CollisionShape2D CollisionBox { get; private set; }
     public AnimatedSprite Sprite { get; private set; }
     public Camera Camera { get; private set; }
     public Arrow Arrow { get; set; }
@@ -59,7 +59,7 @@ public class Player : KinematicBody2D
     {
         base._Ready();
 
-        CollisionBox = (CollisionPolygon2D)GetNode("Collision");
+        CollisionBox = (CollisionShape2D)GetNode("Collision");
         Sprite = (AnimatedSprite)GetNode("AnimatedSprite");
         Camera = (Camera)GetNode("Camera2D");
         RunDust = (Particles2D)GetNode("Particles/RunDust");

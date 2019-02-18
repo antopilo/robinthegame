@@ -4778,16 +4778,19 @@
         <member name="M:Godot.AnimationPlayer.Play(System.String,System.Single,System.Single,System.Boolean)">
             <summary>
             Play the animation with key [code]name[/code]. Custom speed and blend times can be set. If custom speed is negative (-1), 'from_end' being true can play the animation backwards.
+            If the animation has been paused by [code]stop(true)[/code] it will be resumed. Calling [code]play()[/code] without arguments will also resume the animation.
             </summary>
         </member>
         <member name="M:Godot.AnimationPlayer.PlayBackwards(System.String,System.Single)">
             <summary>
             Play the animation with key [code]name[/code] in reverse.
+            If the animation has been paused by [code]stop(true)[/code] it will be resumed backwards. Calling [code]play_backwards()[/code] without arguments will also resume the animation backwards.
             </summary>
         </member>
         <member name="M:Godot.AnimationPlayer.Stop(System.Boolean)">
             <summary>
-            Stop the currently playing animation. If [code]reset[/code] is [code]true[/code], the anim position is reset to [code]0[/code].
+            Stop the currently playing animation. If [code]reset[/code] is [code]true[/code], the animation position is reset to [code]0[/code] and the playback speed is reset to [code]1.0[/code].
+            If [code]reset[/code] is [code]false[/code], then calling [code]play()[/code] without arguments or [code]play("same_as_before")[/code] will resume the animation. Works the same for the [code]play_backwards()[/code] method.
             </summary>
         </member>
         <member name="M:Godot.AnimationPlayer.IsPlaying">
@@ -6396,7 +6399,7 @@
         </member>
         <member name="T:Godot.AudioBusLayout">
             <summary>
-            Stores position, muting, solo, bypass, effects, effect position, volume, and the connections between busses. See [AudioServer] for usage.
+            Stores position, muting, solo, bypass, effects, effect position, volume, and the connections between buses. See [AudioServer] for usage.
             </summary>
         </member>
         <member name="T:Godot.AudioEffect">
@@ -7038,12 +7041,12 @@
         </member>
         <member name="M:Godot.AudioServer.SetBusCount(System.Int32)">
             <summary>
-            Adds and removes busses to make the number of busses match [code]amount[/code].
+            Adds and removes buses to make the number of buses match [code]amount[/code].
             </summary>
         </member>
         <member name="M:Godot.AudioServer.GetBusCount">
             <summary>
-            Returns the number of available busses.
+            Returns the number of available buses.
             </summary>
         </member>
         <member name="M:Godot.AudioServer.RemoveBus(System.Int32)">
@@ -7227,7 +7230,7 @@
         </member>
         <member name="M:Godot.AudioServer.GenerateBusLayout">
             <summary>
-            Generates an [AudioBusLayout] using the available busses and effects.
+            Generates an [AudioBusLayout] using the available buses and effects.
             </summary>
         </member>
         <member name="T:Godot.AudioStream">
@@ -10059,12 +10062,12 @@
         </member>
         <member name="F:Godot.Control.GrowDirection.End">
             <summary>
-            The control wil grow to the right or bottom to make up if its minimum size is changed to be greater than its current size on the respective axis.
+            The control will grow to the right or bottom to make up if its minimum size is changed to be greater than its current size on the respective axis.
             </summary>
         </member>
         <member name="F:Godot.Control.GrowDirection.Both">
             <summary>
-            The control wil grow in both directions equally to make up if its minimum size is changed to be greater than its current size.
+            The control will grow in both directions equally to make up if its minimum size is changed to be greater than its current size.
             </summary>
         </member>
         <member name="F:Godot.Control.SizeFlags.Fill">
@@ -19809,9 +19812,17 @@
             Set the transform for a specific instance.
             </summary>
         </member>
+        <member name="M:Godot.MultiMesh.SetInstanceTransform2d(System.Int32,Godot.Transform2D)">
+            <summary>
+            </summary>
+        </member>
         <member name="M:Godot.MultiMesh.GetInstanceTransform(System.Int32)">
             <summary>
             Return the transform of a specific instance.
+            </summary>
+        </member>
+        <member name="M:Godot.MultiMesh.GetInstanceTransform2d(System.Int32)">
+            <summary>
             </summary>
         </member>
         <member name="M:Godot.MultiMesh.SetInstanceColor(System.Int32,Godot.Color)">
@@ -20923,7 +20934,12 @@
         </member>
         <member name="M:Godot.OptionButton.GetItemId(System.Int32)">
             <summary>
-            Return the ID of the item at index "idx".
+            Return the ID of the item at index [code]idx[/code].
+            </summary>
+        </member>
+        <member name="M:Godot.OptionButton.GetItemIndex(System.Int32)">
+            <summary>
+            Return the index of the item with the given [code]id[/code].
             </summary>
         </member>
         <member name="M:Godot.OptionButton.GetItemMetadata(System.Int32)">
@@ -20974,6 +20990,16 @@
         <member name="T:Godot.OS">
             <summary>
             Operating System functions. OS Wraps the most common functionality to communicate with the host Operating System, such as: mouse grabbing, mouse cursors, clipboard, video mode, date and time, timers, environment variables, execution of binaries, command line, etc.
+            </summary>
+        </member>
+        <member name="F:Godot.OS.VideoDriver.Gles2">
+            <summary>
+            The GLES2 rendering backend. It uses OpenGL ES 2.0 on mobile devices, OpenGL 2.1 on desktop platforms and WebGL 1.0 on the web.
+            </summary>
+        </member>
+        <member name="F:Godot.OS.VideoDriver.Gles3">
+            <summary>
+            The GLES3 rendering backend. It uses OpenGL ES 3.0 on mobile devices, OpenGL 3.3 on desktop platforms and WebGL 2.0 on the web.
             </summary>
         </member>
         <member name="F:Godot.OS.SystemDir.Desktop">
@@ -21247,10 +21273,17 @@
         </member>
         <member name="M:Godot.OS.GetVideoDriverCount">
             <summary>
+            Returns the number of video drivers supported on the current platform.
             </summary>
         </member>
-        <member name="M:Godot.OS.GetVideoDriverName(System.Int32)">
+        <member name="M:Godot.OS.GetVideoDriverName(Godot.OS.VideoDriver)">
             <summary>
+            Returns the name of the video driver matching the given [code]driver[/code] index. This index is a value from [enum OS.VideoDriver], and you can use [method get_current_video_driver] to get the current backend's index.
+            </summary>
+        </member>
+        <member name="M:Godot.OS.GetCurrentVideoDriver">
+            <summary>
+            Returns the currently used video driver, using one of the values from [enum OS.VideoDriver].
             </summary>
         </member>
         <member name="M:Godot.OS.GetAudioDriverCount">
@@ -33043,12 +33076,12 @@
         </member>
         <member name="M:Godot.TileMap.GetCell(System.Int32,System.Int32)">
             <summary>
-            Returns the tile index of the given cell.
+            Returns the tile index of the given cell. If no tile exists in the cell, returns [constant INVALID_CELL].
             </summary>
         </member>
         <member name="M:Godot.TileMap.GetCellv(Godot.Vector2)">
             <summary>
-            Returns the tile index of the cell given by a Vector2.
+            Returns the tile index of the cell given by a Vector2. If no tile exists in the cell, returns [constant INVALID_CELL].
             </summary>
         </member>
         <member name="M:Godot.TileMap.IsCellXFlipped(System.Int32,System.Int32)">

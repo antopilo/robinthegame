@@ -4,6 +4,7 @@ using System;
 public class FallingBlock3x3 : KinematicBody2D
 {
     private Vector2 Origin;
+    [Export] Vector2 Dimension = new Vector2(3,3);
 
     // Physics
     const float GRAVITY = 4;
@@ -22,16 +23,20 @@ public class FallingBlock3x3 : KinematicBody2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        GD.Print("yoyoyo " + Origin);
+        MakeCollision();
+
         Origin = Position; // Get start position for reset.
 
         // References
         KillZone = GetNode("KillZone") as Area2D;
         RayCast = GetNode("DownRaycast") as RayCast2D;
+
     }
 
     public override void _PhysicsProcess(float delta)
-    {
+    {   
+        // locking on the X axis.
+        Position = new Vector2(Origin.x, Position.y);
         if (Frozen)
             return;
 
@@ -48,12 +53,55 @@ public class FallingBlock3x3 : KinematicBody2D
         ApplyGravity(delta);
     }
 
+    // Make the collision in relation with the size of the falling block.
+    private void MakeCollision()
+    {
+        float safeMarginOffset = this.GetSafeMargin();
+
+        // Turning off tilemap collisions
+        var tm = GetNode("TileMap") as TileMap;
+        tm.SetCollisionLayerBit(0,false);
+        tm.SetCollisionMaskBit(0,false);
+
+        // Adding the collision.
+        var collisionShape = new CollisionShape2D()
+        {
+            Name = "Collision",
+            Position = new Vector2((Dimension.x * 8) / 2f , (Dimension.y * 8 ) / 2) ,
+            Shape = new RectangleShape2D()
+            {
+                Extents = new Vector2((Dimension.x * 8 - this.GetSafeMargin()) / 2 , (Dimension.y * 8 - this.GetSafeMargin()) / 2 )
+            }
+        };
+
+        // Adding killzone under the block.
+        var killZone = new Area2D()
+        {
+            Name = "KillZone",
+            Position = new Vector2((Dimension.x * 8) / 2 , (Dimension.y * 8))
+        };
+        killZone.AddChild(new CollisionShape2D()
+        {
+            Shape = new RectangleShape2D()
+            {
+                Extents = new Vector2((Dimension.x * 8 - this.GetSafeMargin()) / 2, 1)
+            }
+        });
+
+        killZone.Connect("body_entered", this, "_on_KillZone_body_entered");
+        killZone.Connect("body_exited", this, "_on_KillZone_body_exited");
+
+        AddChild(killZone);
+        AddChild(collisionShape);
+    }
+
+
     /// <summary>
     /// Check if the player passes under the block.
     /// </summary>
     private void CheckCast()
     {
-        if (RayCast.IsColliding() && (RayCast.GetCollider() is Player))
+        if (RayCast.IsColliding() && (RayCast.GetCollider() is Player) && (RayCast.GetCollider() as Player).Alive )
         {
             Triggered = true;
         }
@@ -65,16 +113,19 @@ public class FallingBlock3x3 : KinematicBody2D
     private void CheckTouch()
     {
         // Get collision
-        Collision = MoveAndCollide(Velocity);
+        Collision = MoveAndCollide(Velocity, false);
 
         if (Collision == null)
             return;
         
-        if (Collision.GetCollider() is Player)
+        if (Collision.GetCollider() is Player && (Collision.GetCollider() as Player).Alive)
         {
             Triggered = true;
         }
-        else if(Collision.Normal == new Vector2(0, -1) && !(Collision.GetCollider() is Spike))
+
+        // If it is a tile or a falling block that is frozen.
+        if(Triggered && Collision.Normal == new Vector2(0, -1) && (Collision.GetCollider() is TileMap || 
+            (Collision.GetCollider() is FallingBlock3x3 && (Collision.GetCollider() as FallingBlock3x3).Frozen)) )
         {
             Frozen = true;
             (Root.Player.Camera as Camera).Shake(2f, 0.05f);
@@ -92,14 +143,11 @@ public class FallingBlock3x3 : KinematicBody2D
         Player.Spawn(true);
     }
 
-
     // Resetting
     public void Reset()
     {
-        GD.Print("Resetted falling block at : " + Origin);
         Frozen = Triggered = false;
         Velocity = new Vector2();
-        GD.Print(Origin);
         Position = Origin;
         Player = null;
     }

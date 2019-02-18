@@ -23,7 +23,6 @@
 [ext_resource path="res://Content/_Core/Scenes/gameScene.tscn" type="PackedScene" id=21]
 
 [sub_resource type="DynamicFont" id=1]
-
 size = 32
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
@@ -34,19 +33,16 @@ extra_spacing_space = 1
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=2]
-
 size = 30
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 8 )
 
 [sub_resource type="StyleBoxFlat" id=3]
-
 bg_color = Color( 0.172549, 0.164706, 0.196078, 0.457059 )
 shadow_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="DynamicFont" id=4]
-
 size = 32
 outline_size = 2
 outline_color = Color( 1, 0, 0, 1 )
@@ -55,7 +51,6 @@ extra_spacing_space = 2
 font_data = ExtResource( 4 )
 
 [sub_resource type="Shader" id=5]
-
 code = "shader_type canvas_item;
 render_mode unshaded;
 
@@ -76,13 +71,11 @@ void fragment()
 }"
 
 [sub_resource type="ShaderMaterial" id=6]
-
 shader = SubResource( 5 )
 shader_param/cutoff = 1.0
 shader_param/mask = ExtResource( 15 )
 
 [sub_resource type="Animation" id=7]
-
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/cutoff")
 tracks/0/interp = 1
@@ -97,7 +90,6 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=8]
-
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/cutoff")
 tracks/0/interp = 1
@@ -112,12 +104,10 @@ tracks/0/keys = {
 }
 
 [sub_resource type="StyleBoxLine" id=9]
-
 color = Color( 1, 1, 1, 1 )
 thickness = 4
 
 [sub_resource type="DynamicFont" id=10]
-
 size = 32
 outline_size = 1
 outline_color = Color( 0.403922, 0.403922, 0.403922, 1 )
@@ -127,7 +117,6 @@ extra_spacing_space = 2
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=11]
-
 size = 32
 outline_size = 4
 outline_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )

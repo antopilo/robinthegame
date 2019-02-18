@@ -1342,7 +1342,7 @@
         </member>
         <member name="M:Godot.EditorSpatialGizmoPlugin.GetName">
             <summary>
-            Override this method to provide the name that will appear in teh gizmo visibility menu.
+            Override this method to provide the name that will appear in the gizmo visibility menu.
             </summary>
         </member>
         <member name="M:Godot.EditorSpatialGizmoPlugin.HasGizmo(Godot.Spatial)">
