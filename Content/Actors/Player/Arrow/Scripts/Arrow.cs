@@ -87,7 +87,6 @@ public class Arrow : KinematicBody2D
     /// It is just a random number that I guessed and it worked. We need to solve this asap
     /// because 1.33 is only valid for 1280x720 so it must be something in relation with
     /// screen resolution. Good luck.
-    /// TODO: Find the mysterious value in this equation.
     /// </summary>
     public void MouseControl()
     {

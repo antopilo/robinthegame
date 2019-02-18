@@ -34,7 +34,8 @@ public class FallingBlock3x3 : KinematicBody2D
     }
 
     public override void _PhysicsProcess(float delta)
-    {   
+    {
+        Update();
         // locking on the X axis.
         Position = new Vector2(Origin.x, Position.y);
         if (Frozen)
@@ -51,17 +52,31 @@ public class FallingBlock3x3 : KinematicBody2D
             return;
         
         ApplyGravity(delta);
+        MoveLocalY(Velocity.y);
+    }
+
+    public override void _Draw()
+    {
+        Color color;
+        if (Frozen && Triggered)
+            color = new Color(1, 0, 0);
+        else if (!Frozen && Triggered)
+            color = new Color(0, 1, 0);
+        else
+            color = new Color(0, 0 ,1);
+        DrawRect(new Rect2(new Vector2(0, 0), new Vector2(Dimension.x * 8, Dimension.y * 8)), color, true);
     }
 
     // Make the collision in relation with the size of the falling block.
     private void MakeCollision()
     {
-        float safeMarginOffset = this.GetSafeMargin();
+        float margin = this.GetSafeMargin();
 
         // Turning off tilemap collisions
         var tm = GetNode("TileMap") as TileMap;
         tm.SetCollisionLayerBit(0,false);
         tm.SetCollisionMaskBit(0,false);
+        tm.ShowBehindParent = true; 
 
         // Adding the collision.
         var collisionShape = new CollisionShape2D()
@@ -70,7 +85,7 @@ public class FallingBlock3x3 : KinematicBody2D
             Position = new Vector2((Dimension.x * 8) / 2f , (Dimension.y * 8 ) / 2) ,
             Shape = new RectangleShape2D()
             {
-                Extents = new Vector2((Dimension.x * 8 - this.GetSafeMargin()) / 2 , (Dimension.y * 8 - this.GetSafeMargin()) / 2 )
+                Extents = new Vector2((Dimension.x * 8 - (margin * 2)) / 2 , ((Dimension.y * 8) - (GetSafeMargin() * 2)) / 2 )
             }
         };
 
@@ -113,7 +128,7 @@ public class FallingBlock3x3 : KinematicBody2D
     private void CheckTouch()
     {
         // Get collision
-        Collision = MoveAndCollide(Velocity, false);
+        Collision = MoveAndCollide(Velocity, true, true, true);
 
         if (Collision == null)
             return;
