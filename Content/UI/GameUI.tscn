@@ -1,0 +1,692 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://Content/UI/Scripts/SceneTransition.cs" type="Script" id=1]
+[ext_resource path="res://Content/UI/Scripts/LevelInfo.cs" type="Script" id=2]
+[ext_resource path="res://Content/UI/Fonts/Minecraft.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Content/Art/UI/Icons/Skull.png" type="Texture" id=4]
+[ext_resource path="res://Content/UI/Scripts/DeathCount.cs" type="Script" id=5]
+[ext_resource path="res://Content/Art/UI/Icons/SkullHidef50.png" type="Texture" id=6]
+[ext_resource path="res://Content/UI/Fonts/Renogare-Regular.otf" type="DynamicFontData" id=7]
+[ext_resource path="res://Content/UI/Scripts/Dialog.cs" type="Script" id=8]
+[ext_resource path="res://Content/Art/UI/Panels/Dialog9patch.png" type="Texture" id=9]
+[ext_resource path="res://Content/UI/Fonts/Pixeled.tres" type="DynamicFont" id=10]
+[ext_resource path="res://Content/UI/Fonts/Renogare.tres" type="DynamicFont" id=11]
+[ext_resource path="res://Content/UI/Scripts/Console.cs" type="Script" id=12]
+[ext_resource path="res://Content/UI/Fonts/PixelFont.tres" type="DynamicFont" id=13]
+[ext_resource path="res://Content/UI/Transitions/pokemask2.png" type="Texture" id=14]
+[ext_resource path="res://Content/UI/Scripts/PauseMenu.cs" type="Script" id=15]
+[ext_resource path="res://Content/UI/Scripts/Options.cs" type="Script" id=16]
+[ext_resource path="res://Content/Audio/UI/TheLibrarybyMTC_UI_Alert_01.wav" type="AudioStream" id=17]
+[ext_resource path="res://Content/Audio/UI/TheLibrarybyMTC_UI_Droplet_06.wav" type="AudioStream" id=18]
+[ext_resource path="res://Content/Audio/UI/TheLibrarybyMTC_UI_GlassTicks_25.wav" type="AudioStream" id=19]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 4
+extra_spacing_space = 1
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.172549, 0.164706, 0.196078, 0.457059 )
+shadow_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+outline_size = 2
+outline_color = Color( 1, 0, 0, 1 )
+extra_spacing_char = 2
+extra_spacing_space = 2
+font_data = ExtResource( 3 )
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float cutoff: hint_range(0.0, 1.0);
+uniform sampler2D mask : hint_albedo;
+
+void fragment()
+{
+	float value = texture(mask, UV).r;
+	if (value < cutoff)
+	{
+		COLOR  = vec4(COLOR.rgb, 0.0);
+	}
+	else
+	{
+		COLOR  = vec4(COLOR.rgb, 1.0);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+shader_param/cutoff = 1.0
+shader_param/mask = ExtResource( 14 )
+
+[sub_resource type="Animation" id=7]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0, 1.0 ]
+}
+
+[sub_resource type="StyleBoxLine" id=9]
+color = Color( 1, 1, 1, 1 )
+thickness = 4
+
+[sub_resource type="DynamicFont" id=10]
+size = 32
+outline_size = 1
+outline_color = Color( 0.403922, 0.403922, 0.403922, 1 )
+use_filter = true
+extra_spacing_char = 2
+extra_spacing_space = 2
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 32
+outline_size = 4
+outline_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+extra_spacing_char = 2
+extra_spacing_space = 2
+font_data = ExtResource( 3 )
+
+[node name="UI" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[node name="LevelInfo" type="Control" parent="."]
+editor/display_folded = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="LevelInfo"]
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelInfo"]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_top = 75
+custom_constants/margin_bottom = 900
+
+[node name="Info" type="Control" parent="LevelInfo/MarginContainer"]
+margin_top = 75.0
+margin_right = 1920.0
+margin_bottom = 180.0
+rect_pivot_offset = Vector2( 0, 57 )
+
+[node name="Bg" type="ColorRect" parent="LevelInfo/MarginContainer/Info"]
+margin_right = 1922.0
+margin_bottom = 114.0
+rect_pivot_offset = Vector2( 0, 50 )
+rect_clip_content = true
+color = Color( 0.12549, 0.12549, 0.12549, 0.447059 )
+
+[node name="VSplit" type="VBoxContainer" parent="LevelInfo/MarginContainer/Info"]
+margin_right = 1922.0
+margin_bottom = 114.0
+grow_vertical = 0
+custom_constants/separation = 15
+alignment = 1
+
+[node name="LevelName" type="Label" parent="LevelInfo/MarginContainer/Info/VSplit"]
+margin_top = 33.0
+margin_right = 1922.0
+margin_bottom = 65.0
+custom_fonts/font = SubResource( 1 )
+text = "..."
+align = 1
+
+[node name="Difficulty" type="HBoxContainer" parent="LevelInfo/MarginContainer/Info/VSplit"]
+margin_top = 80.0
+margin_right = 1922.0
+margin_bottom = 80.0
+custom_constants/separation = 15
+alignment = 1
+
+[node name="Skull1" type="Control" parent="LevelInfo/MarginContainer/Info/VSplit/Difficulty"]
+editor/display_folded = true
+visible = false
+margin_left = 945.0
+margin_right = 977.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="1" type="TextureRect" parent="LevelInfo/MarginContainer/Info/VSplit/Difficulty/Skull1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Skull2" type="Control" parent="LevelInfo/MarginContainer/Info/VSplit/Difficulty"]
+editor/display_folded = true
+visible = false
+margin_left = 968.0
+margin_right = 1000.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="2" type="TextureRect" parent="LevelInfo/MarginContainer/Info/VSplit/Difficulty/Skull2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="Skull3" type="Control" parent="LevelInfo/MarginContainer/Info/VSplit/Difficulty"]
+editor/display_folded = true
+visible = false
+margin_left = 992.0
+margin_right = 1024.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+
+[node name="3" type="TextureRect" parent="LevelInfo/MarginContainer/Info/VSplit/Difficulty/Skull3"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="DeathCount" type="Control" parent="."]
+editor/display_folded = true
+margin_left = 1719.0
+margin_top = 33.0
+margin_right = 1940.0
+margin_bottom = 94.0
+grow_horizontal = 2
+script = ExtResource( 5 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DeathCount"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+custom_constants/separation = 9
+
+[node name="TextureRect" type="TextureRect" parent="DeathCount/HBoxContainer"]
+margin_right = 78.0
+margin_bottom = 61.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="Count" type="Label" parent="DeathCount/HBoxContainer"]
+margin_left = 87.0
+margin_right = 243.0
+margin_bottom = 61.0
+rect_min_size = Vector2( 75, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 2 )
+text = "x999"
+valign = 1
+
+[node name="Dialog" type="Control" parent="."]
+editor/display_folded = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -411.0
+margin_top = -499.0
+margin_right = 410.0
+margin_bottom = -243.0
+script = ExtResource( 8 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Dialog"]
+modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 24, 24 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Timer" type="Timer" parent="Dialog"]
+
+[node name="Tween" type="Tween" parent="Dialog"]
+
+[node name="SkipLabel" type="Label" parent="Dialog"]
+margin_left = 534.0
+margin_top = 221.0
+margin_right = 836.0
+margin_bottom = 255.0
+custom_fonts/font = ExtResource( 10 )
+text = "Press A to continue..."
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Dialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Middle" type="MarginContainer" parent="Dialog/HBoxContainer"]
+margin_right = 821.0
+margin_bottom = 256.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 30
+custom_constants/margin_top = 30
+custom_constants/margin_left = 30
+custom_constants/margin_bottom = 30
+
+[node name="Text" type="RichTextLabel" parent="Dialog/HBoxContainer/Middle"]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 791.0
+margin_bottom = 226.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/normal_font = ExtResource( 11 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+meta_underlined = false
+tab_size = 0
+scroll_active = false
+scroll_following = true
+
+[node name="Console" type="Control" parent="."]
+editor/display_folded = true
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -152.0
+margin_right = 522.0
+margin_bottom = 1.0
+script = ExtResource( 12 )
+
+[node name="LineEdit" type="LineEdit" parent="Console"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -240.0
+margin_top = -27.0
+margin_right = 242.0
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+context_menu_enabled = false
+placeholder_text = "cmd"
+placeholder_alpha = 1.0
+caret_blink = true
+
+[node name="ConsoleBox" type="RichTextLabel" parent="Console"]
+margin_left = 21.0
+margin_top = -927.0
+margin_right = 503.0
+margin_bottom = 51.0
+grow_vertical = 0
+custom_styles/normal = SubResource( 3 )
+custom_fonts/normal_font = ExtResource( 13 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+bbcode_enabled = true
+scroll_active = false
+scroll_following = true
+
+[node name="Fps" type="Label" parent="Console"]
+margin_left = 1783.0
+margin_top = -926.0
+margin_right = 1922.0
+margin_bottom = -859.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+custom_constants/shadow_offset_x = -6
+custom_constants/shadow_as_outline = 6
+text = "60
+"
+align = 2
+uppercase = true
+
+[node name="Transition" type="ColorRect" parent="."]
+pause_mode = 2
+editor/display_folded = true
+material = SubResource( 6 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -34.0
+margin_top = -30.0
+margin_right = 36.0
+margin_bottom = 30.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Transition"]
+pause_mode = 2
+anims/FadeIn = SubResource( 7 )
+anims/FadeOut = SubResource( 8 )
+
+[node name="PauseMenu" type="Control" parent="."]
+pause_mode = 2
+editor/display_folded = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 541.0
+margin_top = 238.0
+margin_right = -542.0
+margin_bottom = -238.0
+script = ExtResource( 15 )
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.85098 )
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 25
+custom_constants/margin_top = 25
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/MarginContainer"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 812.0
+margin_bottom = 579.0
+custom_constants/separation = 50
+
+[node name="Main" type="VBoxContainer" parent="PauseMenu/MarginContainer/HBoxContainer"]
+margin_right = 787.0
+margin_bottom = 554.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Resume" type="Button" parent="PauseMenu/MarginContainer/HBoxContainer/Main"]
+margin_top = 167.0
+margin_right = 787.0
+margin_bottom = 207.0
+rect_min_size = Vector2( 0, 40 )
+focus_neighbour_bottom = NodePath("../Options")
+mouse_default_cursor_shape = 2
+custom_styles/pressed = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
+text = "Resume"
+flat = true
+
+[node name="Options" type="Button" parent="PauseMenu/MarginContainer/HBoxContainer/Main"]
+margin_top = 257.0
+margin_right = 787.0
+margin_bottom = 297.0
+rect_min_size = Vector2( 0, 40 )
+focus_neighbour_top = NodePath("../Resume")
+focus_neighbour_right = NodePath("../../Options/Resolution/Resolution")
+focus_neighbour_bottom = NodePath("../Quit")
+mouse_default_cursor_shape = 2
+custom_styles/pressed = SubResource( 9 )
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
+text = "Options"
+flat = true
+
+[node name="Quit" type="Button" parent="PauseMenu/MarginContainer/HBoxContainer/Main"]
+margin_top = 347.0
+margin_right = 787.0
+margin_bottom = 387.0
+rect_min_size = Vector2( 0, 40 )
+mouse_default_cursor_shape = 2
+custom_styles/pressed = SubResource( 9 )
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
+text = "Quit"
+flat = true
+
+[node name="Options" type="VBoxContainer" parent="PauseMenu/MarginContainer/HBoxContainer"]
+editor/display_folded = true
+visible = false
+margin_left = 385.0
+margin_right = 787.0
+margin_bottom = 570.0
+custom_constants/separation = 50
+alignment = 1
+script = ExtResource( 16 )
+
+[node name="Resolution" type="HBoxContainer" parent="PauseMenu/MarginContainer/HBoxContainer/Options"]
+margin_top = 40.0
+margin_right = 402.0
+margin_bottom = 80.0
+
+[node name="Label" type="Label" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Resolution"]
+margin_top = 4.0
+margin_right = 200.0
+margin_bottom = 36.0
+custom_fonts/font = SubResource( 11 )
+text = "Resolution :"
+
+[node name="Resolution" type="Button" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Resolution"]
+margin_left = 204.0
+margin_right = 402.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Apply/Apply")
+focus_neighbour_bottom = NodePath("../../Fullscreen/Fullscreen")
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
+text = "1280 x 720"
+flat = true
+align = 0
+
+[node name="Fullscreen" type="HBoxContainer" parent="PauseMenu/MarginContainer/HBoxContainer/Options"]
+margin_top = 130.0
+margin_right = 402.0
+margin_bottom = 170.0
+
+[node name="Label" type="Label" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Fullscreen"]
+margin_top = 4.0
+margin_right = 200.0
+margin_bottom = 36.0
+custom_fonts/font = SubResource( 11 )
+text = "Fullscreen :"
+
+[node name="Fullscreen" type="Button" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Fullscreen"]
+margin_left = 204.0
+margin_right = 304.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Resolution/Resolution")
+focus_neighbour_bottom = NodePath("../../Vsync/Vsync")
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
+text = "False"
+flat = true
+align = 0
+
+[node name="Vsync" type="HBoxContainer" parent="PauseMenu/MarginContainer/HBoxContainer/Options"]
+margin_top = 220.0
+margin_right = 402.0
+margin_bottom = 260.0
+
+[node name="Label" type="Label" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Vsync"]
+margin_top = 4.0
+margin_right = 128.0
+margin_bottom = 36.0
+custom_fonts/font = SubResource( 11 )
+text = "Vsync :"
+
+[node name="Vsync" type="Button" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Vsync"]
+margin_left = 132.0
+margin_right = 232.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Fullscreen/Fullscreen")
+focus_neighbour_bottom = NodePath("../../Fps/Fps")
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
+text = "False"
+flat = true
+align = 0
+
+[node name="Fps" type="HBoxContainer" parent="PauseMenu/MarginContainer/HBoxContainer/Options"]
+margin_top = 310.0
+margin_right = 402.0
+margin_bottom = 350.0
+
+[node name="Label" type="Label" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Fps"]
+margin_top = 4.0
+margin_right = 162.0
+margin_bottom = 36.0
+custom_fonts/font = SubResource( 11 )
+text = "Fps max:"
+
+[node name="Fps" type="Button" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Fps"]
+margin_left = 166.0
+margin_right = 218.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Vsync/Vsync")
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
+text = "60"
+flat = true
+align = 0
+
+[node name="Controller" type="HBoxContainer" parent="PauseMenu/MarginContainer/HBoxContainer/Options"]
+margin_top = 400.0
+margin_right = 402.0
+margin_bottom = 440.0
+
+[node name="Label" type="Label" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Controller"]
+margin_top = 4.0
+margin_right = 182.0
+margin_bottom = 36.0
+custom_fonts/font = SubResource( 11 )
+text = "Controller:"
+
+[node name="Controller" type="Button" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Controller"]
+margin_left = 186.0
+margin_right = 286.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Fps/Fps")
+focus_neighbour_bottom = NodePath("../../Apply/Apply")
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
+text = "False"
+flat = true
+align = 0
+
+[node name="Apply" type="HBoxContainer" parent="PauseMenu/MarginContainer/HBoxContainer/Options"]
+margin_top = 490.0
+margin_right = 402.0
+margin_bottom = 530.0
+
+[node name="Apply" type="Button" parent="PauseMenu/MarginContainer/HBoxContainer/Options/Apply"]
+margin_right = 262.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+focus_neighbour_left = NodePath("../../../Main/Options")
+focus_neighbour_top = NodePath("../../Controller/Controller")
+focus_neighbour_bottom = NodePath("../../Resolution/Resolution")
+mouse_default_cursor_shape = 2
+custom_fonts/font = SubResource( 11 )
+custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
+text = "Apply changes"
+flat = true
+align = 0
+
+[node name="SFX" type="Node" parent="PauseMenu"]
+
+[node name="Open" type="AudioStreamPlayer" parent="PauseMenu/SFX"]
+stream = ExtResource( 17 )
+
+[node name="Close" type="AudioStreamPlayer" parent="PauseMenu/SFX"]
+stream = ExtResource( 18 )
+
+[node name="Move" type="AudioStreamPlayer" parent="PauseMenu/SFX"]
+stream = ExtResource( 19 )
+
+[node name="Select" type="AudioStreamPlayer" parent="PauseMenu/SFX"]
+stream = ExtResource( 19 )
+
+[connection signal="tween_completed" from="LevelInfo/Tween" to="LevelInfo" method="_on_Tween_tween_completed"]
+[connection signal="timeout" from="Dialog/Timer" to="Dialog" method="_on_Timer_timeout"]
+[connection signal="text_entered" from="Console/LineEdit" to="Console" method="_on_LineEdit_text_entered"]
+[connection signal="focus_entered" from="PauseMenu/MarginContainer/HBoxContainer/Main/Resume" to="PauseMenu" method="_OnSelectionChange"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Main/Resume" to="PauseMenu" method="Unpause"]
+[connection signal="focus_entered" from="PauseMenu/MarginContainer/HBoxContainer/Main/Options" to="PauseMenu" method="_OnSelectionChange"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Main/Options" to="PauseMenu" method="ToggleOption"]
+[connection signal="focus_entered" from="PauseMenu/MarginContainer/HBoxContainer/Main/Quit" to="PauseMenu" method="_OnSelectionChange"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Main/Quit" to="PauseMenu" method="Quit"]
+[connection signal="focus_entered" from="PauseMenu/MarginContainer/HBoxContainer/Options/Resolution/Resolution" to="PauseMenu" method="_OnSelectionChange"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Options/Resolution/Resolution" to="PauseMenu" method="_on_Resolution_pressed"]
+[connection signal="focus_entered" from="PauseMenu/MarginContainer/HBoxContainer/Options/Fullscreen/Fullscreen" to="PauseMenu" method="_OnSelectionChange"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Options/Fullscreen/Fullscreen" to="PauseMenu" method="_on_Fullscreen_pressed"]
+[connection signal="focus_entered" from="PauseMenu/MarginContainer/HBoxContainer/Options/Vsync/Vsync" to="PauseMenu" method="_OnSelectionChange"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Options/Vsync/Vsync" to="PauseMenu" method="_on_Vsync_pressed"]
+[connection signal="focus_entered" from="PauseMenu/MarginContainer/HBoxContainer/Options/Fps/Fps" to="PauseMenu" method="_OnSelectionChange"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Options/Fps/Fps" to="PauseMenu" method="_on_Fps_pressed"]
+[connection signal="focus_entered" from="PauseMenu/MarginContainer/HBoxContainer/Options/Controller/Controller" to="PauseMenu" method="_OnSelectionChange"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Options/Controller/Controller" to="PauseMenu" method="_on_Controller_pressed"]
+[connection signal="focus_entered" from="PauseMenu/MarginContainer/HBoxContainer/Options/Apply/Apply" to="PauseMenu" method="_OnSelectionChange"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Options/Apply/Apply" to="PauseMenu" method="_on_Apply_pressed"]

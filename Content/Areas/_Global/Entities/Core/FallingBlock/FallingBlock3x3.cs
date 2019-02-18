@@ -64,6 +64,7 @@ public class FallingBlock3x3 : KinematicBody2D
             color = new Color(0, 1, 0);
         else
             color = new Color(0, 0 ,1);
+
         DrawRect(new Rect2(new Vector2(0, 0), new Vector2(Dimension.x * 8, Dimension.y * 8)), color, true);
     }
 
