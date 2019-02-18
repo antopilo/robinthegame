@@ -30,7 +30,6 @@ public class Door : Node2D
             if((Player.Following[Player.Following.Count - 1] as Key).Used == false)
             {
                 Opened = true;
-                Collision.Disabled = true;
                 (Player.Following[Player.Following.Count - 1] as Key).T.StopAll();
                 (Player.Following[Player.Following.Count - 1] as Key).Used = true;
                 (Player.Following[Player.Following.Count - 1] as Key).MoveTo(this);

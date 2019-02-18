@@ -11,10 +11,8 @@ public class Arrow : KinematicBody2D
     private Player Player;
     private GameController World;
     private Tween T;
-
-    // Fuel
-    float Fuel = 100f;
-    float FuelCost = 0.1f;
+    private float Fuel = 100f;
+    private float FuelCost = 0.1f;
 
     // Settings n States
     public bool ControllerMode = false;
@@ -22,16 +20,18 @@ public class Arrow : KinematicBody2D
     private bool Frozen = false;
     private bool MovingBack = false;
     private bool CanDash = true;
-
-    private float Speed = 0.5f;
-    private Vector2 Direction;
+    private float Speed = 0.75f;
     private float Angle;
+    private Vector2 Direction;
     private Vector2 LastDirection;
     private Vector2 FreezePosition;
-   
+    private Vector2 ColliderOffset;
+    private Object Collider;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        Name = "Arrow";
         Weapon = GetNode("../Player/Weapon") as Weapon;
         Player = GetNode("../Player") as Player;
         World = GetNode("..") as GameController;
@@ -41,8 +41,6 @@ public class Arrow : KinematicBody2D
         Weapon.CanShoot = false ;
         Player.ArrowExist = true;
         Player.Arrow = this;
-
-        Name = "Arrow";
     }
     public override void _Input(InputEvent @event)
     {
@@ -77,10 +75,19 @@ public class Arrow : KinematicBody2D
                 IsControlled = false;
             Fuel -= FuelCost;
         }
+        if (Frozen)
+        {
+            FollowCollider();
+        }
+
         ApplyGravity();
         CheckCollision();
+
+        if (Collider != null)
+            FollowCollider();
     }
 
+    #region Controls
     /// <summary>
     /// When using the mouse, the arrow follows the mouse position.
     /// This is an algorithm that is yet to be solved because I dont know what 1.33 is.
@@ -92,7 +99,7 @@ public class Arrow : KinematicBody2D
     {
         Vector2 Mouse = GetGlobalMousePosition();
         Vector2 Center = Player.Camera.GetCameraScreenCenter();
-		Vector2 Offset = Center - (GetViewportRect().Size / 2f);
+        Vector2 Offset = Center - (GetViewportRect().Size / 2f);
         float StretchFactor = OS.WindowSize.x / 320;
 
         LookAt((Mouse / StretchFactor) + Offset * ((OS.WindowSize.x - 320f) / OS.WindowSize.x));
@@ -111,50 +118,42 @@ public class Arrow : KinematicBody2D
             LastDirection = Direction;
     }
 
+    #endregion
+
+    #region Physics
     /// <summary>
     /// This method is triggered when the arrow hit something. It then decide what angle
     /// should the arrow be depending on the angle of the surface. it Snaps at every 90 degrees.
     /// </summary>
     public void CheckCollision()
     {
-        KinematicCollision2D Collision = MoveAndCollide(GlobalTransform.x * Speed);
-
+        KinematicCollision2D Collision = MoveAndCollide(GlobalTransform.x * Speed, false, true);
+        
         if (!Frozen && Collision != null)
         {
             Vector2 NormalFloor = new Vector2(0, 1);
             Vector2 NormalCeiling = new Vector2(0, -1);
             Vector2 NormalWallR = new Vector2(1, 0);
             Vector2 NormalWallL = new Vector2(-1, 0);
+            Collider = Collision.GetCollider();
 
             if (Collision.Normal == NormalFloor || Collision.Normal == NormalCeiling)
-            {
-                if (GlobalRotationDegrees > -180 && GlobalRotationDegrees < 0)
-                    GlobalRotationDegrees = -90;
-                else
-                    GlobalRotationDegrees = 90;
-            }
+                GlobalRotationDegrees = GlobalRotationDegrees > -180 && GlobalRotationDegrees < 0 ? -90 : 90;
             else if (Collision.Normal == NormalWallL || Collision.Normal == NormalWallR)
-            {
-                if (GlobalRotationDegrees > -90 && GlobalRotationDegrees < 90)
-                    GlobalRotationDegrees = 0;
-                else
-                    GlobalRotationDegrees = 180;
-            }
+                GlobalRotationDegrees = (GlobalRotationDegrees > -90 && GlobalRotationDegrees < 90) ? 0 : 180;
+            else
+                GlobalRotation =  Mathf.Stepify(Collision.Normal.Angle(), 90);
 
             FreezeArrow();
         }
         // If the arrow leaves the level screen. return to player.
-        else if (Position.x <= World.CurrentRoom.LevelPosition.x || 
-                Position.y <= World.CurrentRoom.LevelPosition.y ||
-                Position.x >= (World.CurrentRoom.LevelPosition.x + World.CurrentRoom.LevelSize.x) ||
-                Position.y >= (World.CurrentRoom.LevelPosition.y + World.CurrentRoom.LevelSize.y))
-        {
+        else if (Position.x <= World.CurrentRoom.LevelPosition.x ||
+        Position.y <= World.CurrentRoom.LevelPosition.y ||
+        Position.x >= (World.CurrentRoom.LevelPosition.x + World.CurrentRoom.LevelSize.x) ||
+        Position.y >= (World.CurrentRoom.LevelPosition.y + World.CurrentRoom.LevelSize.y))
             ReturnToPlayer();
-        }
         else if (Frozen)
-        {
             Position = FreezePosition;
-        }  
     }
 
     /// <summary>
@@ -168,11 +167,14 @@ public class Arrow : KinematicBody2D
         Frozen = true;
         CanDash = false;
 
+        ColliderOffset = ((Collider as Node2D).GlobalPosition - GlobalPosition);
+
         (GetNode("Particles2D") as Particles2D).Emitting = false;
     }
 
     /// <summary>
-    /// Slowly Moves the arrow to the player using a Tween.
+    /// Slowly Moves the arrow to the player using a Tween
+    /// TODO: Make scaling scale from the distance between the player and the arrow(currentPos).
     /// </summary>
     public void ReturnToPlayer()
     {
@@ -180,7 +182,6 @@ public class Arrow : KinematicBody2D
 
         T.FollowProperty(this, "global_position", GlobalPosition, Player, "global_position", Time,
             Tween.TransitionType.Quint, Tween.EaseType.In);
-
         T.InterpolateProperty(this, "scale", Scale, new Vector2(), Time,
             Tween.TransitionType.Expo, Tween.EaseType.In);
 
@@ -189,9 +190,19 @@ public class Arrow : KinematicBody2D
         Player.ArrowExist = true;
         MovingBack = true;
         SetCollisionLayerBit(0, false);
+    } 
+    #endregion
+
+
+    private void FollowCollider()
+    {
+        GlobalPosition = (Collider as Node2D).GlobalPosition - ColliderOffset;
+        if (Collider is FallingBlock3x3 && (Collider as FallingBlock3x3).Triggered && (!(Collider as FallingBlock3x3).Frozen) && GlobalRotationDegrees == -90)
+            ReturnToPlayer();
     }
 
-   public void ApplyGravity()
+
+    public void ApplyGravity()
     {
         if(Fuel <= 0)
         {

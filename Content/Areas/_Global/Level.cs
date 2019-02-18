@@ -7,23 +7,19 @@ public class Level : Node2D
 	// IF the level is smaller than the screen reset the size to those values.
     const int MIN_WIDTH = 320; 
     const int MIN_HEIGHT = 180;
-    [Export] public string LevelName = "Somewhere Unknown...";
-    [Export] public int LevelDifficulty = 0;
-
-    // Tiles are 8x8 pixels
     const int TileSize = 8;
 
-    public Vector2 LevelRect; // True size
-    public Vector2 LevelSize;  // Size to fit in the screen. half a tile shorter on the Y axis.
-    public Vector2 LevelPosition; // Position in the World
-
-    private Node Entities;
-    private Player Player;
-
+    [Export] public string LevelName = "Somewhere Unknown...";
+    [Export] public int LevelDifficulty = 0;
     [Export] public float LevelZoom = 1;
 
     public Vector2 SpawnPosition = new Vector2(); // Current spawn of the player.
-    List<Vector2> Spawns = new List<Vector2>(); // List of possible spawns.
+    public Vector2 LevelRect; // True size
+    public Vector2 LevelSize;  // Size to fit in the screen. half a tile shorter on the Y axis.
+    public Vector2 LevelPosition; // Position in the World
+    private Node Entities;
+    private Player Player;
+    private List<Vector2> Spawns = new List<Vector2>(); // List of possible spawns.
 
     #region Entities
     private PackedScene FallingPlatform, Spike, JumpPad,Door, Key,Extender,Spawn,FallBlock,JumpThroughPlatform,Coin,DartShooter, 
@@ -101,8 +97,6 @@ public class Level : Node2D
     /// <summary>
     /// This methods Change each tiles that are on the border of the level to autotile with the level next to it.
     /// This gives a better look and makes the levels feel more connected.
-    /// I KNOW THIS IS VERY POOR CODE BUT IT WORKS.
-    /// 
     ///     x   x   x
     ///     x   x   x
     ///     x   x   x 
@@ -110,9 +104,7 @@ public class Level : Node2D
     public void AutoTileBorders()
     {
         Random rnd = new Random();
-
         foreach (Vector2 Tile in LayerSolid.GetUsedCells())
-        {
             if (Tile.x == 0 || Tile.y == 0 || Tile.x == LevelRect.x - 1 || Tile.y == LevelRect.y - 1)
             {
                 bool right = false;
@@ -121,17 +113,12 @@ public class Level : Node2D
                 bool top = false;
 
                 // Check if there is a tile next to the current one. Checks all side.
-                if (Tile.x != LevelRect.x - 1 && LayerSolid.GetCell((int)Tile.x + 1, (int)Tile.y) == -1)
-                    right = true;
-                if (Tile.x != 0 && LayerSolid.GetCell((int)Tile.x - 1, (int)Tile.y) == -1)
-                    left = true;
-                if (Tile.y != LevelRect.y - 1 && LayerSolid.GetCell((int)Tile.x, (int)Tile.y + 1) == -1)
-                    bottom = true;
-                if (Tile.y != 0 && LayerSolid.GetCell((int)Tile.x, (int)Tile.y - 1) == -1)
-                    top = true;
+                right = (Tile.x != LevelRect.x - 1 && LayerSolid.GetCell((int)Tile.x + 1, (int)Tile.y) == -1);
+                left = (Tile.x != 0 && LayerSolid.GetCell((int)Tile.x - 1, (int)Tile.y) == -1);
+                bottom = (Tile.y != LevelRect.y - 1 && LayerSolid.GetCell((int)Tile.x, (int)Tile.y + 1) == -1);
+                top = (Tile.y != 0 && LayerSolid.GetCell((int)Tile.x, (int)Tile.y - 1) == -1);
 
                 var autoTiling = new Vector2();
-
                 if (!right && left && !bottom && top)       // Top left
                     autoTiling.y = 0;
                 else if (!right && !left && !bottom && top) // Top
@@ -156,7 +143,6 @@ public class Level : Node2D
                 LayerSolid.SetCell((int)Tile.x, (int)Tile.y, LayerSolid.GetCellv(Tile),
                             false, false, false, autoTiling); // Update tile.
             }
-        }
     }
 
     /// <summary>
@@ -231,12 +217,11 @@ public class Level : Node2D
     {
         Node2D NewEntity = (Node2D)pEntity.Instance();
         NewEntity.Name = pName;
-
+        Vector2 NewPosition = new Vector2();
         // Add Entitiy to the world.
 
         int X = (int)pPosition.x;
         int Y = (int)pPosition.y;
-        Vector2 NewPosition = new Vector2();
         bool Transposed = LayerEntities.IsCellTransposed(X, Y);
 
         // Handles the Rotation of the tile and Transpose it to the Ent.
@@ -288,15 +273,14 @@ public class Level : Node2D
             if (node.IsInGroup("Spawn"))
             {
                 Spawn s = node as Spawn;
+
                 if (farthestSpawn == null)
                     farthestSpawn = s;
                 
                 var distanceFromPlayer = Mathf.Abs((Player.GlobalPosition - s.GlobalPosition).Length());
                 var currentFromPlayer = Mathf.Abs((Player.GlobalPosition - SpawnPosition).Length());
                 if (distanceFromPlayer <= currentFromPlayer)
-                {
                     farthestSpawn = s;
-                }
             }
         }
         ChangeSpawn(farthestSpawn);
@@ -340,6 +324,7 @@ public class Level : Node2D
         EntitiesCleanUp(false);
     }
 
+
     public void Load()
     {
         LoadEntities(false);
@@ -359,9 +344,7 @@ public class Level : Node2D
             foreach (Node2D ent in Entities.GetChildren())
             {
                 if (!(ent is Spawn || ent is MessageSender || ent is Key || ent is Door))
-                {
-                    ent.QueueFree();
-                }   
+                    ent.QueueFree();   
             }
         }
     }

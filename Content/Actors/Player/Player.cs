@@ -123,7 +123,7 @@ public class Player : KinematicBody2D
     private void GetInput()
     {
         // Input disabling
-        if (!CanControl)
+        if (!CanControl || !Alive)
         {
             InputDirectionX = 0;
             InputDirectionY = 0;

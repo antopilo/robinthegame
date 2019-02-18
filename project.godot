@@ -125,5 +125,5 @@ common/enable_object_picking=false
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/2d/use_pixel_snap=true
-environment/default_clear_color=Color( 0.321569, 0.698039, 0.827451, 1 )
+environment/default_clear_color=Color( 0.211765, 0.756863, 0.996078, 1 )
 environment/default_environment="res://default_env.tres"

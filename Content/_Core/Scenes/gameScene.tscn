@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/GameController.cs" type="Script" id=1]
-[ext_resource path="res://Content/Areas/_Global/Levels/StreeWalljump.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Content/Areas/_Global/Levels/test.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Content/Areas/_Global/Levels/0.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Content/Actors/Player/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Content/_Core/Camera.cs" type="Script" id=6]
-[ext_resource path="res://Content/Areas/Forest/Background/clouds.png" type="Texture" id=7]
-[ext_resource path="res://Content/Areas/Forest/Background/mountains.png" type="Texture" id=8]
-[ext_resource path="res://Content/Areas/Forest/Background/trees.png" type="Texture" id=9]
-[ext_resource path="res://Content/Areas/Forest/Background/trees2.png" type="Texture" id=10]
+[ext_resource path="res://Content/Areas/Forest/Levels/MainHub.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Content/Areas/_Global/Levels/StreeWalljump.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Content/Areas/_Global/Levels/test.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Content/Areas/_Global/Levels/0.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Content/Actors/Player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Content/_Core/Camera.cs" type="Script" id=7]
+[ext_resource path="res://Content/Areas/Forest/Background/clouds.png" type="Texture" id=8]
+[ext_resource path="res://Content/Areas/Forest/Background/mountains.png" type="Texture" id=9]
+[ext_resource path="res://Content/Areas/Forest/Background/trees.png" type="Texture" id=10]
+[ext_resource path="res://Content/Areas/Forest/Background/trees2.png" type="Texture" id=11]
 
 [node name="World" type="Node2D"]
 pause_mode = 2
@@ -21,26 +22,30 @@ __meta__ = {
 }
 StartLevel = "debug"
 
-[node name="hard" parent="." groups=[
+[node name="MainHub" parent="." groups=[
 "level",
 ] instance=ExtResource( 2 )]
+position = Vector2( 968, -248 )
+
+[node name="hard" parent="." groups=[
+"level",
+] instance=ExtResource( 3 )]
 position = Vector2( 648, -96 )
 
 [node name="debug" parent="." groups=[
 "level",
-] instance=ExtResource( 3 )]
+] instance=ExtResource( 4 )]
 position = Vector2( 0, 0 )
 
 [node name="test" parent="." groups=[
 "level",
-] instance=ExtResource( 4 )]
+] instance=ExtResource( 5 )]
 position = Vector2( 328, 0 )
 
 [node name="Player" parent="." groups=[
 "Player",
-] instance=ExtResource( 5 )]
+] instance=ExtResource( 6 )]
 pause_mode = 1
-editor/display_folded = true
 position = Vector2( 56, 160 )
 z_index = 1
 
@@ -57,49 +62,52 @@ drag_margin_left = 0.3
 drag_margin_top = 0.3
 drag_margin_right = 0.3
 drag_margin_bottom = 0.3
-editor_draw_screen = false
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Player/Camera2D"]
 scroll_ignore_camera_zoom = true
 
 [node name="far" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
 editor/display_folded = true
+visible = false
 motion_scale = Vector2( 0.025, 0.01 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/far"]
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="mid" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
 editor/display_folded = true
+visible = false
 motion_scale = Vector2( 0.03, 0.03 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="Sprite2" type="Sprite" parent="Player/Camera2D/ParallaxBackground/mid"]
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 780, 175 )
 
 [node name="close" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
 editor/display_folded = true
+visible = false
 motion_scale = Vector2( 0.1, 0.1 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/close"]
 position = Vector2( 160, 96 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 region_enabled = true
 region_rect = Rect2( -19, 39, 1011, 141 )
 
 [node name="close2" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
 editor/display_folded = true
+visible = false
 motion_scale = Vector2( 0.4, 0 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/close2"]
-position = Vector2( 160, 96 )
-texture = ExtResource( 10 )
+position = Vector2( 159.693, 96.3074 )
+texture = ExtResource( 11 )
 region_enabled = true
-region_rect = Rect2( 3, 35, 768, 141 )
+region_rect = Rect2( 3, 19.5, 768, 156.5 )
 

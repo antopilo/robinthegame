@@ -3,7 +3,7 @@
     "x": 1600.0,
     "y": 900.0
   },
-  "Fullscreen": false,
+  "Fullscreen": true,
   "Borderless": false,
   "Vsync": true,
   "Controller": false,

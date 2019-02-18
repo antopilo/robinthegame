@@ -28,3 +28,6 @@ render_target_update_mode = 3
 
 [node name="World" parent="Game/Viewport" instance=ExtResource( 3 )]
 
+[connection signal="animation_finished" from="UI/Transition/AnimationPlayer" to="Game/Viewport/World" method="_on_AnimationPlayer_animation_finished"]
+
+[editable path="UI"]

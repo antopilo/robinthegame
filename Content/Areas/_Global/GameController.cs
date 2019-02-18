@@ -50,12 +50,9 @@ public class GameController : Node2D
             {
                 Room = (Level)level;
 
-                float x = Player.Position.x;
-                float y = Player.Position.y;
-                float xMin = Room.LevelPosition.x;
-                float yMin = Room.LevelPosition.y;
-                float xMax = xMin + Room.LevelSize.x;
-                float yMax = yMin + Room.LevelSize.y;
+                float x = Player.Position.x, y = Player.Position.y;
+                float xMin = Room.LevelPosition.x, yMin = Room.LevelPosition.y;
+                float xMax = xMin + Room.LevelSize.x, yMax = yMin + Room.LevelSize.y;
 
                 // If the Player is inside the level.
                 if ((x > xMin) && (y > yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
@@ -140,19 +137,25 @@ public class GameController : Node2D
     {
         if (!Player.Alive)
             return;
-        SceneTransition TransitionPlayer = (SceneTransition)GetNode("../../../UI");
+
         Player.Alive = false;
+        Player.CanControl = false;
+
         DeathCounter.Deaths++;
+
         CurrentRoom.Reload();
 
         if (WithAnimation)
+        {
+            var TransitionPlayer = (SceneTransition)GetNode("../../../UI");
             TransitionPlayer.Fade();
+        }
+            
 
         if (CurrentRoom.SpawnPosition == new Vector2())
             CurrentRoom.ChooseSpawn();
 
         Player.GlobalPosition = CurrentRoom.SpawnPosition;
-        Player.Alive = true;
     }
 
 
@@ -166,15 +169,11 @@ public class GameController : Node2D
 
     public void ChangeRoom(Level pRoom)
     {
-
         CurrentRoom = pRoom;
         
         CurrentRoom.Reload();
-        
         MoveCamToRoom(CurrentRoom);
-        
         LevelInfo.UpdateInfo(CurrentRoom);
-        GD.Print("STATUS: Player entered: " + CurrentRoom.Name);
     }
 
 
@@ -188,8 +187,17 @@ public class GameController : Node2D
         foreach (var item in Player.Following)
             if (item == pItem)
                 return true;
-
         return false;
     }
-
+	
+	
+	private void _on_AnimationPlayer_animation_finished(string anim_name)
+	{
+        GD.Print("Transition finished");
+        Player.Alive = true;
+        Player.CanControl = true;
+	}
 }
+
+
+

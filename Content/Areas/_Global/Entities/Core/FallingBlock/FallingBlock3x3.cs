@@ -10,8 +10,8 @@ public class FallingBlock3x3 : KinematicBody2D
     const float GRAVITY = 4;
     private Vector2 Velocity = new Vector2();
 
-    private bool Frozen = false;
-    private bool Triggered = false;
+    public bool Frozen = false;
+    public bool Triggered = false;
     private bool CollidingWithPlayer = false;
 
     // References
@@ -71,7 +71,7 @@ public class FallingBlock3x3 : KinematicBody2D
     // Make the collision in relation with the size of the falling block.
     private void MakeCollision()
     {
-        float margin = this.GetSafeMargin();
+        float margin = GetSafeMargin();
 
         // Turning off tilemap collisions
         var tm = GetNode("TileMap") as TileMap;
@@ -100,7 +100,7 @@ public class FallingBlock3x3 : KinematicBody2D
         {
             Shape = new RectangleShape2D()
             {
-                Extents = new Vector2((Dimension.x * 8 - this.GetSafeMargin()) / 2, 1)
+                Extents = new Vector2((Dimension.x * 8 - (margin * 2)) / 2, 1)
             }
         });
 
@@ -134,10 +134,8 @@ public class FallingBlock3x3 : KinematicBody2D
         if (Collision == null)
             return;
         
-        if (Collision.GetCollider() is Player && (Collision.GetCollider() as Player).Alive)
-        {
+        if((Collision.GetCollider() is Player && (Collision.GetCollider() as Player).Alive))
             Triggered = true;
-        }
 
         // If it is a tile or a falling block that is frozen.
         if(Triggered && Collision.Normal == new Vector2(0, -1) && (Collision.GetCollider() is TileMap || 
