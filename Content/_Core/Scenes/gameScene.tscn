@@ -46,11 +46,13 @@ position = Vector2( 648, -184 )
 "level",
 ] instance=ExtResource( 4 )]
 position = Vector2( 0, 0 )
+LevelName = "Unknown road A"
 
 [node name="test" parent="." groups=[
 "level",
 ] instance=ExtResource( 5 )]
 position = Vector2( 328, 0 )
+LevelName = ""
 
 [node name="Player" parent="." groups=[
 "Player",

@@ -9,12 +9,7 @@ public class LevelInfo : Control
 
     private Label LevelName;
     private Node Difficulty;
-
-    #region Skull
-    private Control Skull1;
-    private Control Skull2;
-    private Control Skull3;
-    #endregion
+    private Control Skull1, Skull2, Skull3;
     public override void _Ready()
     {
         Tween = GetNode("Tween") as Tween;
@@ -31,15 +26,11 @@ public class LevelInfo : Control
     
     public void UpdateInfo(Level pLevel)
     {
-        //Tween.StopAll();
+        if (pLevel.LevelName == "")
+            return;
 
-        Tween.InterpolateProperty(this as CanvasItem, "modulate", new Color(1, 1, 1, 0), new Color(1, 1, 1, 1),
-            2f, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
-        Tween.InterpolateProperty(Scale, "rect_scale", new Vector2(1, 0) , new Vector2(1, 1),
-            0.5f, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
-
+        Tween.StopAll();
         LevelName.Text = pLevel.LevelName;
-
         switch (pLevel.LevelDifficulty)
         {
             case 1:
@@ -62,9 +53,9 @@ public class LevelInfo : Control
                 Skull2.Visible = false;
                 Skull3.Visible = false;
                 break;
-
         }
-
+        Tween.InterpolateProperty(this as CanvasItem, "modulate", new Color(1, 1, 1, 0), new Color(1, 1, 1, 1),
+            2f, Tween.TransitionType.Quad, Tween.EaseType.InOut);
         Tween.Start();
     }
 
@@ -72,12 +63,8 @@ public class LevelInfo : Control
     {
         if((this as CanvasItem).Modulate == new Color(1, 1, 1, 1))
         {
-            
             Tween.InterpolateProperty(this as CanvasItem, "modulate", new Color(1, 1, 1, 1), new Color(1, 1, 1, 0),
-                2f, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
-            Tween.InterpolateProperty(Scale, "rect_scale", new Vector2(1, 1), new Vector2(1, 0),
-                0.5f, Tween.TransitionType.Linear, Tween.EaseType.OutIn);
-
+                2f, Tween.TransitionType.Quad, Tween.EaseType.InOut);
             Tween.Start();
         }
         
