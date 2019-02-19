@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Level.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/bg_tile.tres" type="TileSet" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_tile.tres" type="TileSet" id=4]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/entities.tres" type="TileSet" id=5]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_decals.tres" type="TileSet" id=6]
-[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Content/Lights/GodRays.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=8]
 
 [node name="1" type="Node2D" groups=[
 "level",
@@ -60,7 +61,25 @@ format = 1
 
 [node name="objects" type="Node2D" parent="."]
 
-[node name="DebugDraw" parent="." instance=ExtResource( 7 )]
+[node name="GodRays" parent="objects" instance=ExtResource( 7 )]
+position = Vector2( 1.9502, -0.182449 )
+
+[node name="GodRays2" parent="objects" instance=ExtResource( 7 )]
+position = Vector2( 66.3163, 1.86092 )
+
+[node name="GodRays3" parent="objects" instance=ExtResource( 7 )]
+position = Vector2( 126.255, 1.86092 )
+
+[node name="GodRays4" parent="objects" instance=ExtResource( 7 )]
+position = Vector2( 173.934, 0.498676 )
+
+[node name="GodRays5" parent="objects" instance=ExtResource( 7 )]
+position = Vector2( 223.656, 0.498676 )
+
+[node name="GodRays6" parent="objects" instance=ExtResource( 7 )]
+position = Vector2( 223.656, 0.498676 )
+
+[node name="DebugDraw" parent="." instance=ExtResource( 8 )]
 corner_size = 5
 line_size = 5
 expand_color = Color( 1, 1, 1, 1 )

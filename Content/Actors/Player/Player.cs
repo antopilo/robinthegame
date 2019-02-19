@@ -53,7 +53,6 @@ public class Player : KinematicBody2D
 
     public List<Node2D> Following = new List<Node2D>(); // List of following entities.
 
-
     // Init.
     public override void _Ready()
     {
@@ -65,7 +64,6 @@ public class Player : KinematicBody2D
         RunDust = (Particles2D)GetNode("Particles/RunDust");
         WallJumpDust = (Particles2D)GetNode("Particles/WallJump");
     }
-
     
     // Jumping.
     public override void _Input(InputEvent e)
@@ -74,7 +72,7 @@ public class Player : KinematicBody2D
             return;
 
         if (e.IsActionPressed("jump") && CanControl)
-            if (State == States.Ground || DeltaTime <= NextJumpTime && CanJump)
+            if (State == States.Ground || (DeltaTime <= NextJumpTime && CanJump))
             {
                 CanJump = false;
                 WasOnGround = true;
@@ -98,7 +96,6 @@ public class Player : KinematicBody2D
             Velocity.y /= 1.75f;
     }
 
-
     // Main loop.
     public override void _PhysicsProcess(float delta)
     {
@@ -116,7 +113,6 @@ public class Player : KinematicBody2D
         DeltaTime += delta;
         FootStepTimer += delta;
     }
-
 
     /// <summary>
     /// Update the direction of the player with the input.
@@ -178,13 +174,11 @@ public class Player : KinematicBody2D
         }
     }
 
-
     private void Particles()
     {
         WallJumpDust.Emitting = IsWallJumping;
         RunDust.Emitting = InputDirectionX != 0 && State == States.Ground;
     }
-
 
     private void Sounds(float delta)
     {
@@ -194,7 +188,6 @@ public class Player : KinematicBody2D
             FootStepTimer = 0;
         }
     }
-
 
     #region States
     /// <summary>
@@ -274,7 +267,6 @@ public class Player : KinematicBody2D
     }
     #endregion
 
-
     #region Physics
     /// <summary>
     /// Pretty much just adds the acceleration. 
@@ -329,7 +321,6 @@ public class Player : KinematicBody2D
         CanWallJump = (Left.IsColliding() || Right.IsColliding()) || State == States.Wall;
     }
 
-
     /// <summary>
     /// Normal jump
     /// </summary>
@@ -339,7 +330,6 @@ public class Player : KinematicBody2D
         Velocity.y = -JUMP_FORCE;
     }
 
-
     /// <summary>
     /// Crouch jump
     /// </summary>
@@ -348,7 +338,6 @@ public class Player : KinematicBody2D
         CurrentMaxSpeed = MAX_SPEED;
         Velocity.y = -SUPER_JUMP_FORCE;
     }
-
 
     /// <summary>
     /// Wall jump
@@ -363,7 +352,6 @@ public class Player : KinematicBody2D
         (GetNode("Timers/DisableInput") as Timer).Start();
 
         var CollisionCount = GetSlideCount() - 1;
-
         if (CollisionCount > -1)
         {
             var Collision = GetSlideCollision(CollisionCount);
@@ -383,7 +371,6 @@ public class Player : KinematicBody2D
         {
             var RayLeft = GetNode("Raycasts/Left") as RayCast2D;
             var RayRight = GetNode("Raycasts/Right") as RayCast2D;
-
             if (RayLeft.IsColliding())
             {
                 JumpDirection = 1;
@@ -399,7 +386,6 @@ public class Player : KinematicBody2D
         Velocity.x = WALL_JUMP_FORCE * JumpDirection;
         Velocity.y = -WALL_JUMP_HEIGHT;
     }
-
 
     /// <summary>
     /// Boost the player in a specified direction.
@@ -417,7 +403,6 @@ public class Player : KinematicBody2D
             CurrentMaxSpeed = MAX_AIR_SPEED;
             CanControl = false;
             (GetNode("Timers/DisableInput") as Timer).Start();
-
         }
         else if (pDirection.y != 0)
         {
@@ -427,14 +412,12 @@ public class Player : KinematicBody2D
         WasOnGround = false;
     }
 
-
     public void Spawn(bool WithAnimation)
     {
         (GetParent() as GameController).Spawn(WithAnimation);
         Velocity = new Vector2();
         Camera.Shake(3f, 0.05f);
     }
-
 
     /// <summary>
     /// Check every frame if there is an arrow and get it as a reference.
@@ -453,7 +436,6 @@ public class Player : KinematicBody2D
         }
     }
     #endregion
-
 
     private void _on_DisableInput_timeout()
     {

@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Content/Art/FX/Lights/RayGradient.png" type="Texture" id=1]
+
+[node name="GodRays" type="Node2D"]
+position = Vector2( 3.8842, -1.22937 )
+
+[node name="Light2D2" type="Light2D" parent="."]
+position = Vector2( -3.97855, 1.16226 )
+rotation = 3.14159
+scale = Vector2( 4.2, 1 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, 64 )
+texture_scale = 5.0
+shadow_enabled = true
+shadow_color = Color( 0.368627, 0.368627, 0.368627, 0 )
+shadow_buffer_size = 2043
+shadow_filter = 1
+shadow_filter_smooth = 2.9
+
