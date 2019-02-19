@@ -62,7 +62,7 @@ public class Console : Control
         if(@event.IsActionPressed("Reload"))
             GameController.CurrentRoom.Reload();
 
-        if (@event.IsActionPressed("Respawn"))
+        if (@event.IsActionPressed("Respawn") && !Visible)
             GameController.Spawn(true);
 
     }

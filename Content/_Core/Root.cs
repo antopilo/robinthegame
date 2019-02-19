@@ -7,6 +7,7 @@ public class Root : Node2D
 {
     public LevelInfo LevelInfo;
     public Settings settings = new Settings();
+    public static Console Console;
     public GameController GameController;
     public static Player Player;
     public Weapon Weapon;
@@ -14,6 +15,7 @@ public class Root : Node2D
     public override void _Ready()
     {
         // Get node
+        Console = GetNode("UI/Console") as Console;
         GameController = GetNode("Game/Viewport/World") as GameController;
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;

@@ -70,6 +70,9 @@ public class Player : KinematicBody2D
     // Jumping.
     public override void _Input(InputEvent e)
     {
+        if (Root.Console.Visible)
+            return;
+
         if (e.IsActionPressed("jump") && CanControl)
             if (State == States.Ground || DeltaTime <= NextJumpTime && CanJump)
             {
@@ -123,7 +126,7 @@ public class Player : KinematicBody2D
     private void GetInput()
     {
         // Input disabling
-        if (!CanControl || !Alive)
+        if (!CanControl || !Alive || Root.Console.Visible)
         {
             InputDirectionX = 0;
             InputDirectionY = 0;
@@ -131,14 +134,14 @@ public class Player : KinematicBody2D
         }
 
         // Horizontal Inputs
-        if (Input.IsActionPressed("ui_left"))
+        if (Godot.Input.IsActionPressed("Left"))
         {
             Sprite.Play("Running");
             Sprite.FlipH = true;
             InputDirectionX = -1;
             LastDirectionX = -1;
         }
-        else if (Input.IsActionPressed("ui_right"))
+        else if (Godot.Input.IsActionPressed("Right"))
         {
             Sprite.Play("Running");
             Sprite.FlipH = false;
@@ -154,13 +157,13 @@ public class Player : KinematicBody2D
         }
 
         // Looking up
-        if (Input.IsActionPressed("ui_up"))
+        if (Godot.Input.IsActionPressed("Up"))
             InputDirectionY = -1;
         else
             InputDirectionY = 0;
 
         // Crouching
-        if (Input.IsActionPressed("ui_down") && State == States.Ground)
+        if (Godot.Input.IsActionPressed("Down") && State == States.Ground)
         {
             IsCrouching = true;
             InputDirectionY = 1;

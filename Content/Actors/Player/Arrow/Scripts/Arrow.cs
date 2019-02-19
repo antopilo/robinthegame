@@ -108,7 +108,7 @@ public class Arrow : KinematicBody2D
     public void JoyStickControl()
     {
         // Get angle of the joystick and transpose it to the arrow.
-        Direction = new Vector2(Input.GetJoyAxis(0, (int)JoystickList.Axis2), Input.GetJoyAxis(0, (int)JoystickList.Axis3));
+        Direction = new Vector2(Godot.Input.GetJoyAxis(0, (int)JoystickList.Axis2), Godot.Input.GetJoyAxis(0, (int)JoystickList.Axis3));
         Angle = Direction.Angle();
 
         // If the joystick is in neutral position. Angle = last angle of the Joystick.

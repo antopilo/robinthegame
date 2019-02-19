@@ -22,6 +22,9 @@ public class LevelInfo : Control
         Skull1 = GetNode("MarginContainer/Info/VSplit/Difficulty/Skull1") as Control;
         Skull2 = GetNode("MarginContainer/Info/VSplit/Difficulty/Skull2") as Control;
         Skull3 = GetNode("MarginContainer/Info/VSplit/Difficulty/Skull3") as Control;
+
+        (this as CanvasItem).Modulate = new Color(1, 1, 1, 0);
+        LevelName.Text = "";
     }
     
     public void UpdateInfo(Level pLevel)
