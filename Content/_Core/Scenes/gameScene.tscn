@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/GameController.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Levels/MainHub.tscn" type="PackedScene" id=2]
@@ -11,6 +11,16 @@
 [ext_resource path="res://Content/Areas/Forest/Background/mountains.png" type="Texture" id=9]
 [ext_resource path="res://Content/Areas/Forest/Background/trees.png" type="Texture" id=10]
 [ext_resource path="res://Content/Areas/Forest/Background/trees2.png" type="Texture" id=11]
+[ext_resource path="res://Content/Areas/Forest/Levels/2.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Content/Areas/Forest/Levels/1.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Content/Areas/Forest/Levels/3.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Content/Areas/Forest/Levels/8.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Content/Areas/Forest/Levels/7.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Content/Areas/Forest/Levels/6.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Content/Areas/Forest/Levels/5.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Content/Areas/Forest/Levels/4.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Content/Areas/Forest/Levels/10.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Content/Areas/Forest/Levels/9.tscn" type="PackedScene" id=21]
 
 [node name="World" type="Node2D"]
 pause_mode = 2
@@ -25,12 +35,12 @@ StartLevel = "debug"
 [node name="MainHub" parent="." groups=[
 "level",
 ] instance=ExtResource( 2 )]
-position = Vector2( 968, -248 )
+position = Vector2( 3368, -256 )
 
 [node name="hard" parent="." groups=[
 "level",
 ] instance=ExtResource( 3 )]
-position = Vector2( 648, -96 )
+position = Vector2( 648, -184 )
 
 [node name="debug" parent="." groups=[
 "level",
@@ -68,46 +78,91 @@ script = ExtResource( 7 )
 scroll_ignore_camera_zoom = true
 
 [node name="far" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
-editor/display_folded = true
-visible = false
 motion_scale = Vector2( 0.025, 0.01 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/far"]
+position = Vector2( -8, 8 )
 texture = ExtResource( 8 )
 
 [node name="mid" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
-editor/display_folded = true
-visible = false
 motion_scale = Vector2( 0.03, 0.03 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="Sprite2" type="Sprite" parent="Player/Camera2D/ParallaxBackground/mid"]
+position = Vector2( 8, 24 )
 texture = ExtResource( 9 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 780, 175 )
 
 [node name="close" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
-editor/display_folded = true
-visible = false
+position = Vector2( -8, -45.6926 )
 motion_scale = Vector2( 0.1, 0.1 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/close"]
-position = Vector2( 160, 96 )
+position = Vector2( 160, 45.6926 )
+scale = Vector2( 1.04228, 0.73527 )
 texture = ExtResource( 10 )
 region_enabled = true
 region_rect = Rect2( -19, 39, 1011, 141 )
 
 [node name="close2" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
-editor/display_folded = true
-visible = false
+position = Vector2( -8, -45.6926 )
 motion_scale = Vector2( 0.4, 0 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/close2"]
-position = Vector2( 159.693, 96.3074 )
+position = Vector2( 160, 69.6926 )
 texture = ExtResource( 11 )
 region_enabled = true
 region_rect = Rect2( 3, 19.5, 768, 156.5 )
+
+[node name="2" parent="." groups=[
+"level",
+] instance=ExtResource( 12 )]
+position = Vector2( 1296, -152 )
+
+[node name="1" parent="." instance=ExtResource( 13 )]
+position = Vector2( 976, -112 )
+
+[node name="3" parent="." groups=[
+"level",
+] instance=ExtResource( 14 )]
+position = Vector2( 1296, -336 )
+
+[node name="7" parent="." groups=[
+"level",
+] instance=ExtResource( 15 )]
+position = Vector2( 2256, -152 )
+
+[node name="6" parent="." groups=[
+"level",
+] instance=ExtResource( 16 )]
+position = Vector2( 1000, -696 )
+
+[node name="4b" parent="." groups=[
+"level",
+] instance=ExtResource( 17 )]
+position = Vector2( 1616, -464 )
+
+[node name="5" parent="." groups=[
+"level",
+] instance=ExtResource( 18 )]
+position = Vector2( 1936, -520 )
+
+[node name="4" parent="." groups=[
+"level",
+] instance=ExtResource( 19 )]
+position = Vector2( 1616, -152 )
+
+[node name="9" parent="." groups=[
+"level",
+] instance=ExtResource( 20 )]
+position = Vector2( 2752, 32 )
+
+[node name="8" parent="." groups=[
+"level",
+] instance=ExtResource( 21 )]
+position = Vector2( 2752, -152 )
 

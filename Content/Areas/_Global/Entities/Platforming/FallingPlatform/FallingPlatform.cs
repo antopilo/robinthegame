@@ -66,7 +66,6 @@ public class FallingPlatform : Node2D
             Sprite.RotationDegrees = Mathf.Cos(DeltaTime * SHAKE_LENGTH) * SHAKE_AMPLITUDE;
             DeltaTime += delta;
         }
-
  
     }
 
@@ -141,6 +140,7 @@ public class FallingPlatform : Node2D
     {
         State = PlatformStates.Ready;
         DetectionZone.CallDeferred("set_monitoring", true);
+        Collision.Disabled = false;
     }
 
     /// <summary>

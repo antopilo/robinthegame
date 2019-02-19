@@ -214,10 +214,10 @@ public class Player : KinematicBody2D
 
         if (Collision.Normal == NormalGround && State != States.Ground)
             EnterGroundState();
-        else if (Collision.Normal == NormalLeft || Collision.Normal == NormalRight)
+        if (Collision.Normal == NormalLeft || Collision.Normal == NormalRight)
             EnterWallState(Collision.Normal == NormalLeft ? 1 : 0);
-        else if (Collision.Normal == NormalCeiling)
-            Velocity.y = 0;
+        if (Collision.Normal == NormalCeiling)
+            Velocity.y = -Velocity.y / 4;
     }
 
 
@@ -323,7 +323,6 @@ public class Player : KinematicBody2D
     {
         var Left = (RayCast2D)GetNode("Raycasts/Left");
         var Right = (RayCast2D)GetNode("Raycasts/Right");
-
         CanWallJump = (Left.IsColliding() || Right.IsColliding()) || State == States.Wall;
     }
 
