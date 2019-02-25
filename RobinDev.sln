@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobinDev", "RobinDev.csproj", "{D5CBD116-30A3-441C-81EE-E33498F95460}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobinDev", "RobinDev.csproj", "{11BC23E1-1DB7-4C63-893B-0BDD832748D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	Tools|Any CPU = Tools|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D5CBD116-30A3-441C-81EE-E33498F95460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5CBD116-30A3-441C-81EE-E33498F95460}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5CBD116-30A3-441C-81EE-E33498F95460}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5CBD116-30A3-441C-81EE-E33498F95460}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5CBD116-30A3-441C-81EE-E33498F95460}.Tools|Any CPU.ActiveCfg = Tools|Any CPU
-		{D5CBD116-30A3-441C-81EE-E33498F95460}.Tools|Any CPU.Build.0 = Tools|Any CPU
+		{11BC23E1-1DB7-4C63-893B-0BDD832748D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11BC23E1-1DB7-4C63-893B-0BDD832748D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11BC23E1-1DB7-4C63-893B-0BDD832748D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11BC23E1-1DB7-4C63-893B-0BDD832748D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11BC23E1-1DB7-4C63-893B-0BDD832748D9}.Tools|Any CPU.ActiveCfg = Tools|Any CPU
+		{11BC23E1-1DB7-4C63-893B-0BDD832748D9}.Tools|Any CPU.Build.0 = Tools|Any CPU
 	EndGlobalSection
 EndGlobal

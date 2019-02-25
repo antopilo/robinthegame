@@ -34,3 +34,12 @@ F:\Desktop\robinthegame3.1\.mono\temp\obj\Debug\RobinDev.csproj.CoreCompileInput
 F:\Desktop\robinthegame3.1\.mono\temp\obj\Debug\RobinDev.csproj.CopyComplete
 F:\Desktop\robinthegame3.1\.mono\temp\obj\Debug\RobinDev.dll
 F:\Desktop\robinthegame3.1\.mono\temp\obj\Debug\RobinDev.pdb
+C:\Users\Antoine\Desktop\robinthegame\.mono\temp\bin\Debug\RobinDev.dll
+C:\Users\Antoine\Desktop\robinthegame\.mono\temp\bin\Debug\RobinDev.pdb
+C:\Users\Antoine\Desktop\robinthegame\.mono\temp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Antoine\Desktop\robinthegame\.mono\temp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Antoine\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.csprojAssemblyReference.cache
+C:\Users\Antoine\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.csproj.CoreCompileInputs.cache
+C:\Users\Antoine\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.csproj.CopyComplete
+C:\Users\Antoine\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.dll
+C:\Users\Antoine\Desktop\robinthegame\.mono\temp\obj\Debug\RobinDev.pdb

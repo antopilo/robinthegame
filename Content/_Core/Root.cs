@@ -11,6 +11,7 @@ public class Root : Node2D
     public GameController GameController;
     public static Player Player;
     public Weapon Weapon;
+    public static ViewportContainer GameContainer;
 
     public override void _Ready()
     {
@@ -19,7 +20,7 @@ public class Root : Node2D
         GameController = GetNode("Game/Viewport/World") as GameController;
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;
-
+        GameContainer = GetNode("Game") as ViewportContainer;
         LoadSettings();
         ApplySettings();
     }

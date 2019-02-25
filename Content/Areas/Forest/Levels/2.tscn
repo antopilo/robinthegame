@@ -75,6 +75,7 @@ tile_data = PoolIntArray( 14, 8, 2, 15, 8, 65538, 17, 8, 2, 18, 8, 65538, 21, 8,
 [node name="objects" type="Node2D" parent="."]
 
 [node name="GodRays" parent="objects" instance=ExtResource( 7 )]
+visible = false
 position = Vector2( 31.1116, 1.62852 )
 rotation = -3.14159
 
@@ -86,7 +87,6 @@ shadow_gradient_length = 0.1
 shadow_filter_smooth = 0.0
 
 [node name="DebugDraw" parent="." instance=ExtResource( 8 )]
-visible = false
 corner_size = 5
 line_size = 5
 expand_color = Color( 1, 1, 1, 1 )

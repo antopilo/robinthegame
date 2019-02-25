@@ -1,88 +1,71 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Content/Actors/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Content/Actors/Player/Arrow/Scripts/Weapon.cs" type="Script" id=2]
-[ext_resource path="res://Content/Art/Particles/Dust1/1.png" type="Texture" id=3]
-[ext_resource path="res://Content/Actors/Player/aura.png" type="Texture" id=4]
-[ext_resource path="res://Content/Audio/SFX/footstep.wav" type="AudioStream" id=5]
-[ext_resource path="res://Content/Audio/SFX/386645__jalastram__sfx-jump-17.wav" type="AudioStream" id=6]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/idle.png" type="Texture" id=7]
-[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle1.png" type="Texture" id=8]
-[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle2.png" type="Texture" id=9]
-[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle3.png" type="Texture" id=10]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling1.png" type="Texture" id=11]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=12]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=13]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=14]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=15]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=16]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=17]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=18]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=19]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=20]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=21]
+[ext_resource path="res://Content/Actors/Player/aura.png" type="Texture" id=3]
+[ext_resource path="res://Content/Audio/SFX/footstep.wav" type="AudioStream" id=4]
+[ext_resource path="res://Content/Audio/SFX/386645__jalastram__sfx-jump-17.wav" type="AudioStream" id=5]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/idle.png" type="Texture" id=6]
+[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle1.png" type="Texture" id=7]
+[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle2.png" type="Texture" id=8]
+[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle3.png" type="Texture" id=9]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling1.png" type="Texture" id=10]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=11]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=12]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=13]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=14]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=15]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=16]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=17]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=18]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=19]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 6 )
 
-[sub_resource type="Curve" id=2]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.992733, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=3]
-curve = SubResource( 2 )
-
-[sub_resource type="ParticlesMaterial" id=4]
-emission_shape = 1
-emission_sphere_radius = 1.86
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 6.71
-angular_velocity = 1.0
-scale_random = 1.0
-scale_curve = SubResource( 3 )
-
-[sub_resource type="CanvasItemMaterial" id=5]
+[sub_resource type="CanvasItemMaterial" id=2]
 light_mode = 1
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "idle",
 "speed": 3.0
 }, {
-"frames": [ ExtResource( 11 ) ],
+"frames": [ ExtResource( 10 ) ],
 "loop": true,
 "name": "Jump",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 12 ) ],
-"loop": true,
-"name": "lookup",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": false,
-"name": "falling",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 16 ) ],
-"loop": true,
-"name": "Crouch",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
 "loop": true,
 "name": "Running",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 21 ) ],
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "lookup",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "Wall",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
+"loop": false,
+"name": "falling",
+"speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 8, 2 )
 
 [node name="Player" type="KinematicBody2D"]
@@ -108,19 +91,13 @@ position = Vector2( 0, 6 )
 emitting = false
 amount = 30
 lifetime = 1.1
-randomness = 0.28
 local_coords = false
-process_material = SubResource( 4 )
-texture = ExtResource( 3 )
 
 [node name="WallJump" type="Particles2D" parent="Particles"]
 emitting = false
-amount = 30
 explosiveness = 0.13
 randomness = 0.28
 local_coords = false
-process_material = SubResource( 4 )
-texture = ExtResource( 3 )
 
 [node name="Raycasts" type="Node2D" parent="."]
 editor/display_folded = true
@@ -146,7 +123,7 @@ collision_mask = 2
 [node name="Light" type="Light2D" parent="."]
 visible = false
 position = Vector2( 0.0375233, -1.96248 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 texture_scale = 1.5
 color = Color( 0.133333, 0.133333, 0.133333, 0.603922 )
 energy = 1.2
@@ -164,28 +141,29 @@ wait_time = 0.25
 [node name="Timer" type="Timer" parent="Timers"]
 
 [node name="SFX" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Footstep" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 5 )
+stream = ExtResource( 4 )
 volume_db = -13.468
 pitch_scale = 2.5
 
 [node name="Jump" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 6 )
+stream = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-material = SubResource( 5 )
+material = SubResource( 2 )
 position = Vector2( 0, -2 )
-frames = SubResource( 6 )
+frames = SubResource( 3 )
 animation = "idle"
 frame = 1
 playing = true
 
-[node name="InteractionZone" type="Area2D" parent="."]
+[node name="InteractionRange" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRange"]
 position = Vector2( 0, 4 )
-shape = SubResource( 7 )
+shape = SubResource( 4 )
 
 [connection signal="timeout" from="Timers/DisableInput" to="." method="_on_DisableInput_timeout"]
+[connection signal="area_entered" from="InteractionRange" to="." method="_on_InteractionRange_area_entered"]
+[connection signal="area_exited" from="InteractionRange" to="." method="_on_InteractionRange_area_exited"]

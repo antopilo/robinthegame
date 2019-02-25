@@ -9489,7 +9489,7 @@
         </member>
         <member name="P:Godot.CollisionPolygon.Polygon">
             <summary>
-            Array of vertices which define the polygon.
+            Array of vertices which define the polygon. Note that the returned value is a copy of the original. Methods which mutate the size or properties of the return value will not impact the original polygon. To change properties of the polygon, assign it to a temporary variable and make changes before reassigning the [code]polygon[/code] member.
             </summary>
         </member>
         <member name="T:Godot.CollisionPolygon2D">
@@ -9514,7 +9514,7 @@
         </member>
         <member name="P:Godot.CollisionPolygon2D.Polygon">
             <summary>
-            The polygon's list of vertices. The final point will be connected to the first.
+            The polygon's list of vertices. The final point will be connected to the first. The returned value is a clone of the PoolVector2Array, not a reference.
             </summary>
         </member>
         <member name="P:Godot.CollisionPolygon2D.Disabled">
@@ -9865,7 +9865,7 @@
             [b]User Interface nodes and input[/b]
             Godot sends input events to the scene's root node first, by calling [method Node._input]. [method Node._input] forwards the event down the node tree to the nodes under the mouse cursor, or on keyboard focus. To do so, it calls [method MainLoop._input_event]. Call [method accept_event] so no other node receives the event. Once you accepted an input, it becomes handled so [method Node._unhandled_input] will not process it.
             Only one [code]Control[/code] node can be in keyboard focus. Only the node in focus will receive keyboard events. To get the focus, call [method grab_focus]. [code]Control[/code] nodes lose focus when another node grabs it, or if you hide the node in focus.
-            Set [member mouse_filter] to MOUSE_FILTER_IGNORE to tell a [code]Control[/code] node to ignore mouse or touch events. You'll need it if you place an icon on top of a button.
+            Set [member mouse_filter] to [constant MOUSE_FILTER_IGNORE] to tell a [code]Control[/code] node to ignore mouse or touch events. You'll need it if you place an icon on top of a button.
             [Theme] resources change the Control's appearance. If you change the [Theme] on a [code]Control[/code] node, it affects all of its children. To override some of the theme's parameters, call one of the [code]add_*_override[/code] methods, like [method add_font_override]. You can override the theme with the inspector.
             </summary>
         </member>
@@ -10271,7 +10271,7 @@
         </member>
         <member name="P:Godot.Control.HintTooltip">
             <summary>
-            Changes the tooltip text. The tooltip appears when the user's mouse cursor stays idle over this control for a few moments.
+            Changes the tooltip text. The tooltip appears when the user's mouse cursor stays idle over this control for a few moments, provided that the [member mouse_filter] property is not [constant MOUSE_FILTER_IGNORE].
             </summary>
         </member>
         <member name="P:Godot.Control.FocusNeighbourLeft">
@@ -12673,9 +12673,17 @@
             "major"    - Holds the major version number as an int
             "minor"    - Holds the minor version number as an int
             "patch"    - Holds the patch version number as an int
+            "hex"      - Holds the full version number encoded as an hexadecimal int with one byte (2 places) per number (see example below)
             "status"   - Holds the status (e.g. "beta", "rc1", "rc2", ... "stable") as a String
             "build"    - Holds the build name (e.g. "custom-build") as a String
             "string"   - major + minor + patch + status + build in a single String
+            The "hex" value is encoded as follows, from left to right: one byte for the major, one byte for the minor, one byte for the patch version. For example, "3.1.12" would be [code]0x03010C[/code]. Note that it's still an int internally, and printing it will give you its decimal representation, which is not particularly meaningful. Use hexadecimal literals for easy version comparisons from code:
+            [codeblock]
+            if Engine.get_version_info().hex &gt;= 0x030200:
+            # do things specific to version 3.2 or later
+            else:
+            # do things specific to versions before 3.2
+            [/codeblock]
             </summary>
         </member>
         <member name="M:Godot.Engine.GetAuthorInfo">
@@ -13416,7 +13424,7 @@
         </member>
         <member name="M:Godot.File.EofReached">
             <summary>
-            Returns [code]true[/code] if the file cursor has reached the end of the file.
+            Returns [code]true[/code] if the file cursor has read past the end of the file. Note that this function will still return [code]false[/code] while at the end of the file and only activates when reading past it. This can be confusing but it conforms to how low level file access works in all operating systems. There is always [method get_len] and [method get_position] to implement a custom logic.
             </summary>
         </member>
         <member name="M:Godot.File.Get8">
@@ -18079,7 +18087,7 @@
         <member name="T:Godot.Label">
             <summary>
             Label displays plain text on the screen. It gives you control over the horizontal and vertical alignment, and can wrap the text inside the node's bounding rectangle. It doesn't support bold, italics or other formatting. For that, use [RichTextLabel] instead.
-            Note that contrarily to most other [Control]s, Label's [member Control.mouse_filter] defaults to MOUSE_FILTER_IGNORE (i.e. it doesn't react to mouse input events).
+            Note that contrarily to most other [Control]s, Label's [member Control.mouse_filter] defaults to MOUSE_FILTER_IGNORE (i.e. it doesn't react to mouse input events). This implies that a label won't display any configured [member Control.hint_tooltip], unless you change its mouse filter.
             </summary>
         </member>
         <member name="F:Godot.Label.AlignEnum.Left">
@@ -20391,7 +20399,7 @@
         </member>
         <member name="M:Godot.NetworkedMultiplayerENet.CreateClient(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            Create client that connects to a server at [code]address[/code] using specified [code]port[/code]. The given address needs to be either a fully qualified domain nome (e.g. [code]www.example.com[/code]) or an IP address in IPv4 or IPv6 format (e.g. [code]192.168.1.1[/code]). The [code]port[/code] is the port the server is listening on. The [code]in_bandwidth[/code] and [code]out_bandwidth[/code] parameters can be used to limit the incoming and outgoing bandwidth to the given number of bytes per second. The default of 0 means unlimited bandwidth. Note that ENet will strategically drop packets on specific sides of a connection between peers to ensure the peer's bandwidth is not overwhelmed. The bandwidth parameters also determine the window size of a connection which limits the amount of reliable packets that may be in transit at any given time. Returns [code]OK[/code] if a client was created, [code]ERR_ALREADY_IN_USE[/code] if this NetworkedMultiplayerEnet instance already has an open connection (in which case you need to call [method close_connection] first) or [code]ERR_CANT_CREATE[/code] if the client could not be created. If [code]client_port[/code] is specified, the client will also listen to the given port, this is useful in some NAT traversal technique.
+            Create client that connects to a server at [code]address[/code] using specified [code]port[/code]. The given address needs to be either a fully qualified domain name (e.g. [code]www.example.com[/code]) or an IP address in IPv4 or IPv6 format (e.g. [code]192.168.1.1[/code]). The [code]port[/code] is the port the server is listening on. The [code]in_bandwidth[/code] and [code]out_bandwidth[/code] parameters can be used to limit the incoming and outgoing bandwidth to the given number of bytes per second. The default of 0 means unlimited bandwidth. Note that ENet will strategically drop packets on specific sides of a connection between peers to ensure the peer's bandwidth is not overwhelmed. The bandwidth parameters also determine the window size of a connection which limits the amount of reliable packets that may be in transit at any given time. Returns [code]OK[/code] if a client was created, [code]ERR_ALREADY_IN_USE[/code] if this NetworkedMultiplayerEnet instance already has an open connection (in which case you need to call [method close_connection] first) or [code]ERR_CANT_CREATE[/code] if the client could not be created. If [code]client_port[/code] is specified, the client will also listen to the given port, this is useful in some NAT traversal technique.
             </summary>
         </member>
         <member name="M:Godot.NetworkedMultiplayerENet.CloseConnection(System.Int32)">
@@ -20758,7 +20766,7 @@
         </member>
         <member name="P:Godot.OccluderPolygon2D.Polygon">
             <summary>
-            A [Vector2] array with the index for polygon's vertices positions.
+            A [Vector2] array with the index for polygon's vertices positions. Note that the returned value is a copy of the underlying array, rather than a reference.
             </summary>
         </member>
         <member name="T:Godot.OmniLight">
@@ -23386,6 +23394,10 @@
             Constant to set/get the default solver bias for all physics constraints. A solver bias is a factor controlling how much two objects "rebound", after violating a constraint, to avoid leaving them in that state because of numerical imprecision.
             </summary>
         </member>
+        <member name="F:Godot.Physics2DServer.SpaceParameter.TestMotionMinContactDepth">
+            <summary>
+            </summary>
+        </member>
         <member name="F:Godot.Physics2DServer.JointType.Pin">
             <summary>
             Constant to create pin joints.
@@ -24661,6 +24673,10 @@
             Constant to set/get the default solver bias for all physics constraints. A solver bias is a factor controlling how much two objects "rebound", after violating a constraint, to avoid leaving them in that state because of numerical imprecision.
             </summary>
         </member>
+        <member name="F:Godot.PhysicsServer.SpaceParameter.TestMotionMinContactDepth">
+            <summary>
+            </summary>
+        </member>
         <member name="F:Godot.PhysicsServer.ConeTwistJointParam.SwingSpan">
             <summary>
             Swing is rotation from side to side, around the axis perpendicular to the twist axis.
@@ -25851,7 +25867,7 @@
         </member>
         <member name="P:Godot.Polygon2D.Polygon">
             <summary>
-            The polygon's list of vertices. The final point will be connected to the first.
+            The polygon's list of vertices. The final point will be connected to the first. Note that this returns a copy of the [PoolVector2Array] rather than a reference.
             </summary>
         </member>
         <member name="P:Godot.Polygon2D.Uv">
@@ -26560,6 +26576,7 @@
         </member>
         <member name="P:Godot.RandomNumberGenerator.Seed">
             <summary>
+            The seed used by the random number generator. A given seed will give a reproducible sequence of pseudo-random numbers.
             </summary>
         </member>
         <member name="M:Godot.RandomNumberGenerator.Randi">
@@ -26579,7 +26596,7 @@
         </member>
         <member name="M:Godot.RandomNumberGenerator.RandiRange(System.Int32,System.Int32)">
             <summary>
-            Generates pseudo-random 32-bit signed integer between [code]from[/code] and [code]to[/code](inclusive).
+            Generates pseudo-random 32-bit signed integer between [code]from[/code] and [code]to[/code] (inclusive).
             </summary>
         </member>
         <member name="M:Godot.RandomNumberGenerator.Randomize">
@@ -27175,7 +27192,7 @@
         </member>
         <member name="T:Godot.Resource">
             <summary>
-            Resource is the base class for all resource types. Resources are primarily data containers. They are reference counted and freed when no longer in use. They are also loaded only once from disk, and further attempts to load the resource will return the same reference (all this in contrast to a [Node], which is not reference counted and can be instanced from disk as many times as desired). Resources can be saved externally on disk or bundled into another object, such as a [Node] or another resource.
+            Resource is the base class for all resource types, serving primarily as data containers. They are reference counted and freed when no longer in use. They are also loaded only once from disk, and further attempts to load the resource will return the same reference (all this in contrast to a [Node], which is not reference counted and can be instanced from disk as many times as desired). Resources can be saved externally on disk or bundled into another object, such as a [Node] or another resource.
             </summary>
         </member>
         <member name="P:Godot.Resource.ResourceLocalToScene">
@@ -27184,10 +27201,12 @@
         </member>
         <member name="P:Godot.Resource.ResourcePath">
             <summary>
+            The path to the resource. In case it has its own file, it will return its filepath. If it's tied to the scene, it will return the scene's path, followed by the resource's index.
             </summary>
         </member>
         <member name="P:Godot.Resource.ResourceName">
             <summary>
+            The name of the resource. This is an optional identifier.
             </summary>
         </member>
         <member name="M:Godot.Resource._SetupLocalToScene">
@@ -27196,12 +27215,12 @@
         </member>
         <member name="M:Godot.Resource.TakeOverPath(System.String)">
             <summary>
-            Set the path of the resource. Differs from set_path(), if another [code]Resource[/code] exists with "path" it over-takes it, instead of failing.
+            Sets the path of the resource. Differs from [code]set_path()[/code], if another [code]Resource[/code] exists with "path" it over-takes it, instead of failing.
             </summary>
         </member>
         <member name="M:Godot.Resource.GetRid">
             <summary>
-            Return the RID of the resource (or an empty RID). Many resources (such as [Texture], [Mesh], etc) are high level abstractions of resources stored in a server, so this function will return the original RID.
+            Returns the RID of the resource (or an empty RID). Many resources (such as [Texture], [Mesh], etc) are high level abstractions of resources stored in a server, so this function will return the original RID.
             </summary>
         </member>
         <member name="M:Godot.Resource.GetLocalScene">
@@ -27214,6 +27233,7 @@
         </member>
         <member name="M:Godot.Resource.Duplicate(System.Boolean)">
             <summary>
+            Duplicates the resource, returning a new resource. By default, sub-resources are shared between resource copies for efficiency, this can be changed by passing [code]true[/code] to the [code]subresources[/code] argument.
             </summary>
         </member>
         <member name="T:Godot.ResourceFormatLoader">
@@ -31223,18 +31243,28 @@
         </member>
         <member name="P:Godot.StyleBox.ContentMarginLeft">
             <summary>
+            The left margin for the contents of this style box.	Increasing this value reduces the space available to the contents from the left.
+            Refer to [member content_margin_bottom] for extra considerations.
             </summary>
         </member>
         <member name="P:Godot.StyleBox.ContentMarginRight">
             <summary>
+            The right margin for the contents of this style box. Increasing this value reduces the space available to the contents from the right.
+            Refer to [member content_margin_bottom] for extra considerations.
             </summary>
         </member>
         <member name="P:Godot.StyleBox.ContentMarginTop">
             <summary>
+            The top margin for the contents of this style box. Increasing this value reduces the space available to the contents from the top.
+            Refer to [member content_margin_bottom] for extra considerations.
             </summary>
         </member>
         <member name="P:Godot.StyleBox.ContentMarginBottom">
             <summary>
+            The bottom margin for the contents of this style box. Increasing this value reduces the space available to the contents from the bottom.
+            If this value is negative, it is ignored and a child-specific margin is used instead. For example for [StyleBoxFlat] the border thickness (if any) is used instead.
+            It is up to the code using this style box to decide what these contents are: for example, a [Button] respects this content margin for the textual contents of the button.
+            [method get_margin] should be used to fetch this value as consumer instead of reading these properties directly. This is because it correctly respects negative values and the fallback mentioned above.
             </summary>
         </member>
         <member name="M:Godot.StyleBox.TestMask(Godot.Vector2,Godot.Rect2)">
@@ -31244,7 +31274,8 @@
         </member>
         <member name="M:Godot.StyleBox.GetMargin(Godot.Margin)">
             <summary>
-            Return the offset of margin "margin" (see MARGIN_* enum).
+            Return the content margin offset for the specified margin
+            Positive values reduce size inwards, unlike [Control]'s margin values.
             </summary>
         </member>
         <member name="M:Godot.StyleBox.GetMinimumSize">
@@ -31464,46 +31495,66 @@
         </member>
         <member name="P:Godot.StyleBoxTexture.Texture">
             <summary>
+            The texture to use when drawing this style box.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.NormalMap">
             <summary>
+            The normal map to use when drawing this style box.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.RegionRect">
             <summary>
+            Species a sub region of the texture to use.
+            This is equivalent to first wrapping the texture in an [AtlasTexture] with the same region.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.MarginLeft">
             <summary>
+            Increases the left margin of the 3x3 texture box.
+            A higher value means more of the source texture is considered to be part of the left border of the 3x3 box.
+            This is also the value used as fallback for [member StyleBox.content_margin_left] if it is negative.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.MarginRight">
             <summary>
+            Increases the right margin of the 3x3 texture box.
+            A higher value means more of the source texture is considered to be part of the right border of the 3x3 box.
+            This is also the value used as fallback for [member StyleBox.content_margin_right] if it is negative.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.MarginTop">
             <summary>
+            Increases the top margin of the 3x3 texture box.
+            A higher value means more of the source texture is considered to be part of the top border of the 3x3 box.
+            This is also the value used as fallback for [member StyleBox.content_margin_top] if it is negative.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.MarginBottom">
             <summary>
+            Increases the bottom margin of the 3x3 texture box.
+            A higher value means more of the source texture is considered to be part of the bottom border of the 3x3 box.
+            This is also the value used as fallback for [member StyleBox.content_margin_bottom] if it is negative.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.ExpandMarginLeft">
             <summary>
+            Expands the left margin of this style box when drawing, causing it be drawn larger than requested.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.ExpandMarginRight">
             <summary>
+            Expands the right margin of this style box when drawing, causing it be drawn larger than requested.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.ExpandMarginTop">
             <summary>
+            Expands the top margin of this style box when drawing, causing it be drawn larger than requested.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.ExpandMarginBottom">
             <summary>
+            Expands the bottom margin of this style box when drawing, causing it be drawn larger than requested.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.AxisStretchHorizontal">
@@ -31516,6 +31567,7 @@
         </member>
         <member name="P:Godot.StyleBoxTexture.ModulateColor">
             <summary>
+            Modulates the color of the texture when this style box is drawn.
             </summary>
         </member>
         <member name="P:Godot.StyleBoxTexture.DrawCenter">
@@ -34519,19 +34571,19 @@
             Common behavior is to create an action, then add do/undo calls to functions or property changes, then committing the action.
             Here's an example on how to add an action to Godot editor's own 'undoredo':
             [codeblock]
-            var undoredo = get_undo_redo() # method of EditorPlugin
+            var undo_redo = get_undo_redo() # Method of EditorPlugin.
             func do_something():
-            pass # put your code here
+            pass # Put your code here.
             func undo_something():
-            pass # put here the code that reverts what's done by "do_something()"
+            pass # Put here the code that reverts what's done by "do_something()".
             func _on_MyButton_pressed():
             var node = get_node("MyNode2D")
-            undoredo.create_action("Move the node")
-            undoredo.add_do_method(self, "do_something")
-            undoredo.add_undo_method(self, "undo_something")
-            undoredo.add_do_property(node, "position", Vector2(100,100))
-            undoredo.add_undo_property(node, "position", node.position)
-            undoredo.commit_action()
+            undo_redo.create_action("Move the node")
+            undo_redo.add_do_method(self, "do_something")
+            undo_redo.add_undo_method(self, "undo_something")
+            undo_redo.add_do_property(node, "position", Vector2(100,100))
+            undo_redo.add_undo_property(node, "position", node.position)
+            undo_redo.commit_action()
             [/codeblock]
             [method create_action], [method add_do_method], [method add_undo_method], [method add_do_property], [method add_undo_property], and [method commit_action] should be called one after the other, like in the example. Not doing so could lead to crashes.
             If you don't need to register a method you can leave [method add_do_method] and [method add_undo_method] out, and so it goes for properties. You can register more than one method/property.
@@ -34539,19 +34591,23 @@
         </member>
         <member name="F:Godot.UndoRedo.MergeMode.Disable">
             <summary>
+            Makes [code]do[/code]/[code]undo[/code] operations stay in separate actions.
             </summary>
         </member>
         <member name="F:Godot.UndoRedo.MergeMode.Ends">
             <summary>
+            Makes so that the action's [code]do[/code] operation is from the first action created and the [code]undo[/code] operation is from the last subsequent action with the same name.
             </summary>
         </member>
         <member name="F:Godot.UndoRedo.MergeMode.All">
             <summary>
+            Makes subsequent actions with the same name be merged into one.
             </summary>
         </member>
         <member name="M:Godot.UndoRedo.CreateAction(System.String,Godot.UndoRedo.MergeMode)">
             <summary>
             Create a new action. After this is called, do all your calls to [method add_do_method], [method add_undo_method], [method add_do_property], and [method add_undo_property], then commit the action with [method commit_action].
+            The way actions are merged is dictated by the [code]merge_mode[/code] argument. See [enum MergeMode] for details.
             </summary>
         </member>
         <member name="M:Godot.UndoRedo.CommitAction">

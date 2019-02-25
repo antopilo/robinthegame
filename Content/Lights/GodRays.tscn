@@ -9,6 +9,7 @@ position = Vector2( 3.8842, -1.22937 )
 position = Vector2( -3.97855, 1.16226 )
 rotation = 3.14159
 scale = Vector2( 4.2, 1 )
+enabled = false
 texture = ExtResource( 1 )
 offset = Vector2( 0, 64 )
 texture_scale = 5.0

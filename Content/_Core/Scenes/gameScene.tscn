@@ -57,10 +57,10 @@ LevelName = ""
 [node name="2" parent="." groups=[
 "level",
 ] instance=ExtResource( 6 )]
-position = Vector2( 1296, -152 )
+position = Vector2( 1304, -153.229 )
 
 [node name="1" parent="." instance=ExtResource( 7 )]
-position = Vector2( 976, -112 )
+position = Vector2( 979.521, -112 )
 
 [node name="3" parent="." groups=[
 "level",
@@ -106,12 +106,12 @@ position = Vector2( 2752, -152 )
 "Player",
 ] instance=ExtResource( 16 )]
 pause_mode = 1
-editor/display_folded = true
 position = Vector2( 56, 160 )
 z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 pause_mode = 2
+position = Vector2( -26.8477, 5.72165 )
 scale = Vector2( 0.25, 0.25 )
 current = true
 limit_left = 0

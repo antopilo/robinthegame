@@ -51,7 +51,9 @@ public class Player : KinematicBody2D
     [Export] float FootStepRate = 0f;
     float FootStepTimer = 0;
 
+    public bool CanInteract = false;
     public List<Node2D> Following = new List<Node2D>(); // List of following entities.
+    private List<Node2D> InteractableObject = new List<Node2D>(99); // List of objects rdy to interact close-by
 
     // Init.
     public override void _Ready()
@@ -309,7 +311,6 @@ public class Player : KinematicBody2D
     }
     #endregion
 
-
     #region Abilities
     /// <summary>
     /// Decide if the player can Wall jump or not.
@@ -437,6 +438,56 @@ public class Player : KinematicBody2D
     }
     #endregion
 
+    #region Interaction
+
+    // This gets the list of all objects with the 
+    private void GetInteractable()
+	{
+        if (!CanInteract)
+            return;
+
+        // Ordering them
+        if (InteractableObject.Count > 0)
+        {
+            var closest = InteractableObject[0];
+            var closestDistance = (closest.GlobalPosition - GlobalPosition).Length(); // Distance du joueur
+            for (int i = 0; i < InteractableObject.Count; i++)
+            {
+                var currentDistance = (InteractableObject[i].GlobalPosition - this.GlobalPosition).Length();
+                if (currentDistance < closestDistance) // Compare si il y en a un plus proche que le present
+                    closest = InteractableObject[i] as Node2D;
+            }
+
+            // Swaping the closest with the first of the list
+            var temp = InteractableObject[0];
+            var idx = InteractableObject.IndexOf(closest);
+            InteractableObject[0] = closest;
+            InteractableObject[idx] = temp;
+        }
+
+        // Interacts with the object
+		if(Input.IsActionJustPressed("ui_interact") && InteractableObject.Count > 0)
+		{
+			if( (InteractableObject[0] as Node2D).HasMethod("Interact") )
+			    InteractableObject[0].Call("Interact");
+		}
+    } 
+
+    // Detection of interactable objects
+    private void _on_InteractionRange_area_entered(object area)
+    {
+        var parent = (area as Area2D).GetParent() as Node2D;
+        if(parent.HasMethod("Interact"))
+            InteractableObject.Insert(0, ((area as Area2D).GetParent() as Node2D));
+    }
+
+    private void _on_InteractionRange_area_exited(object area)
+    {
+        var parent = (area as Area2D).GetParent() as Node2D;
+        if(parent.HasMethod("Interact"))
+            InteractableObject.Remove((area as Area2D).GetParent() as Node2D);
+    } 
+    #endregion
     private void _on_DisableInput_timeout()
     {
 

@@ -11,16 +11,15 @@ export(int, 5) var line_size = 3
 export(Color, RGBA) var expand_color = ColorN("green", 1)
 export(Color, RGBA) var minimum_color = ColorN("red", 1)
 
-
-
 func _process(_delta):
+	pass
 	if Engine.editor_hint:
 		if has_node("../Layers/fg_tile") && get_node("../Layers/fg_tile") != null:
 			update()
 		else:
 			print("Error the debug renderer cant find fg_tile in:", get_node("../").name)
 		
-
+		
 		if !has_node("LevelName"):
 			var lbl = Label.new()
 			lbl.add_font_override("normal", load("res://Content/UI/Fonts/Pixeled.tres"))
@@ -30,6 +29,7 @@ func _process(_delta):
 		else:
 			$LevelName.text = get_node("../").name
 			$LevelName.add_font_override("normal", load("res://Content/UI/Fonts/Pixeled.tres"))
+		pass
 	else:
 		self.queue_free()
 	
@@ -85,4 +85,3 @@ func _draw():
 		draw_circle(Vector2(rect.size.x, 0), corner_size, expand_color)
 		draw_circle(Vector2(0, rect.size.y), corner_size, expand_color)
 		draw_circle(Vector2(rect.size.x, rect.size.y), corner_size, expand_color)
-		
