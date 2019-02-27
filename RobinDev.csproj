@@ -54,11 +54,13 @@
   <ItemGroup>
     <Compile Include="Content\Areas\_Global\Entities\Core\FallingBlock\FallingBlock3x3.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Core\MessageSender\MessageSender.cs" />
+    <Compile Include="Content\Areas\_Global\Entities\DungeonDoor\DungeonDoor.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Entity.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Hazards\DartShooter\DartShooter.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Hazards\DartShooter\Dart\Dart.cs" />
     <Compile Include="Content\UI\Scripts\DeathCount.cs" />
     <Compile Include="Content\_Core\Camera.cs" />
+    <Compile Include="Content\_Core\Singletons\SceneSwitcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Content\UI\Scripts\Console.cs" />
     <Compile Include="Content\UI\Scripts\Dialog.cs" />

@@ -9,17 +9,17 @@
 [ext_resource path="res://Content/Art/Sprites/Player/Idle/idle1.png" type="Texture" id=7]
 [ext_resource path="res://Content/Art/Sprites/Player/Idle/idle2.png" type="Texture" id=8]
 [ext_resource path="res://Content/Art/Sprites/Player/Idle/idle3.png" type="Texture" id=9]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling1.png" type="Texture" id=10]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=11]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=12]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=13]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=14]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=15]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=16]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=17]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=18]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=19]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=20]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=10]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=11]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=12]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=13]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=14]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=15]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=16]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=17]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=18]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=19]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling1.png" type="Texture" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 6 )
@@ -34,35 +34,35 @@ animations = [ {
 "name": "idle",
 "speed": 3.0
 }, {
-"frames": [ ExtResource( 10 ) ],
-"loop": true,
-"name": "Jump",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "Running",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 15 ) ],
+"frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "lookup",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 16 ) ],
+"frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "Wall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 17 ) ],
+"frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "Crouch",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
+"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ],
 "loop": false,
 "name": "falling",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 0.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]
@@ -155,7 +155,7 @@ material = SubResource( 2 )
 position = Vector2( 0, -2 )
 frames = SubResource( 3 )
 animation = "idle"
-frame = 1
+frame = 2
 playing = true
 
 [node name="InteractionRange" type="Area2D" parent="."]

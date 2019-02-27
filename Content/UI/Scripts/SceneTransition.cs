@@ -6,7 +6,8 @@ public class SceneTransition : CanvasLayer
     private Control InteractionSprite;
     private AnimationPlayer InteractionAnim;
     private string CurrentAnim = "Inactive";
-
+    private bool AnimationPlayed = false;
+    private string LastAnimationPlayer = "";
     public override void _Ready()
     {
         InteractionAnim = (AnimationPlayer)GetNode("Transition/AnimationPlayer");
@@ -31,16 +32,14 @@ public class SceneTransition : CanvasLayer
         var uiPosition = player.GlobalPosition - Offset + heightOffset;
         var scale = Root.GameContainer.StretchShrink;
 
-        InteractionSprite.RectPosition = (uiPosition * new Vector2((float)scale, (float)scale));        
-
+        InteractionSprite.RectPosition = (uiPosition * new Vector2((float)scale, (float)scale));
+        
         // Anim
-        if(player.CanInteract && CurrentAnim != "Active" )
+        if(player.CanInteract && CurrentAnim != "Active"){
             InteractionAnim.CurrentAnimation = CurrentAnim = "Active";
+        }
         else if(!player.CanInteract && CurrentAnim != "Inactive")
             InteractionAnim.CurrentAnimation = CurrentAnim = "Inactive";
-        
-        if(Input.IsActionJustPressed("Interact"))
-            player.CanInteract = !player.CanInteract;
     }
 }
 

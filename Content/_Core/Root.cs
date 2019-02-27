@@ -8,15 +8,19 @@ public class Root : Node2D
     public LevelInfo LevelInfo;
     public Settings settings = new Settings();
     public static Console Console;
-    public GameController GameController;
+    public static GameController GameController;
     public static Player Player;
-    public Weapon Weapon;
+    public static Weapon Weapon;
+    public static SceneSwitcher SceneSwitcher;
+    public static Viewport Viewport;
     public static ViewportContainer GameContainer;
 
     public override void _Ready()
     {
         // Get node
         Console = GetNode("UI/Console") as Console;
+        Viewport = GetNode("Game/Viewport") as Viewport;
+        //SceneSwitcher = GetNode("Game/")
         GameController = GetNode("Game/Viewport/World") as GameController;
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;
@@ -60,8 +64,6 @@ public class Root : Node2D
         Weapon.ControllerMode = settings.Controller;
         Engine.TargetFps = settings.MaxFps;
     }
-
-
 }
 
 

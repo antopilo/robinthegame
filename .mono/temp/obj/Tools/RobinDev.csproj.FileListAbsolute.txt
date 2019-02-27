@@ -62,3 +62,4 @@ C:\Users\1780489\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CopyC
 C:\Users\1780489\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.dll
 C:\Users\1780489\Desktop\robinthegame\.mono\temp\obj\Tools\RobinDev.pdb
 C:\Users\Antoine\Desktop\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.pdb
+F:\Desktop\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.pdb

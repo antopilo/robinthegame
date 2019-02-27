@@ -111,6 +111,7 @@ public class Player : KinematicBody2D
         MoveAndSlide(Velocity);
         ApplyGravity();
         GetArrow();
+        GetInteractable();
 
         DeltaTime += delta;
         FootStepTimer += delta;
@@ -443,11 +444,9 @@ public class Player : KinematicBody2D
     // This gets the list of all objects with the 
     private void GetInteractable()
 	{
-        if (!CanInteract)
-            return;
-
+        CanInteract = InteractableObject.Count > 0;
         // Ordering them
-        if (InteractableObject.Count > 0)
+        if (CanInteract)
         {
             var closest = InteractableObject[0];
             var closestDistance = (closest.GlobalPosition - GlobalPosition).Length(); // Distance du joueur
@@ -466,7 +465,7 @@ public class Player : KinematicBody2D
         }
 
         // Interacts with the object
-		if(Input.IsActionJustPressed("ui_interact") && InteractableObject.Count > 0)
+        if(Input.IsActionJustPressed("Interact") && CanInteract)
 		{
 			if( (InteractableObject[0] as Node2D).HasMethod("Interact") )
 			    InteractableObject[0].Call("Interact");
@@ -484,8 +483,9 @@ public class Player : KinematicBody2D
     private void _on_InteractionRange_area_exited(object area)
     {
         var parent = (area as Area2D).GetParent() as Node2D;
-        if(parent.HasMethod("Interact"))
+        if(parent.HasMethod("Interact")){
             InteractableObject.Remove((area as Area2D).GetParent() as Node2D);
+        }
     } 
     #endregion
     private void _on_DisableInput_timeout()

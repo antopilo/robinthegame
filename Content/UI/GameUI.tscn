@@ -131,9 +131,9 @@ custom_constants/margin_top = 75
 custom_constants/margin_bottom = 900
 
 [node name="Info" type="Control" parent="LevelInfo/MarginContainer"]
-margin_top = 100.0
+margin_top = 75.0
 margin_right = 1920.0
-margin_bottom = 205.0
+margin_bottom = 180.0
 rect_pivot_offset = Vector2( 0, 57 )
 
 [node name="Bg" type="ColorRect" parent="LevelInfo/MarginContainer/Info"]

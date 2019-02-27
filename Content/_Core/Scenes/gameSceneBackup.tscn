@@ -25,6 +25,7 @@
 
 [node name="World" type="Node2D"]
 pause_mode = 2
+editor/display_folded = true
 show_behind_parent = true
 script = ExtResource( 1 )
 __meta__ = {
