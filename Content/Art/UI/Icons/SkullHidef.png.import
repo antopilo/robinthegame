@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/SkullHidef.png-6bbf8a72e9dcf50236062045d1307a08.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

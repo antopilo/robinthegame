@@ -1263,7 +1263,7 @@
             Add lines to the gizmo (as sets of 2 points), with a given material. The lines are used for visualizing the gizmo. Call this function during [method redraw].
             </summary>
         </member>
-        <member name="M:Godot.EditorSpatialGizmo.AddMesh(Godot.ArrayMesh,System.Boolean,Godot.RID)">
+        <member name="M:Godot.EditorSpatialGizmo.AddMesh(Godot.ArrayMesh,System.Boolean,Godot.RID,Godot.Material)">
             <summary>
             &lt;param name="skeleton"&gt;If the param is null, then the default value is new RID()&lt;/param&gt;
             </summary>
@@ -1343,6 +1343,10 @@
         <member name="M:Godot.EditorSpatialGizmoPlugin.GetName">
             <summary>
             Override this method to provide the name that will appear in the gizmo visibility menu.
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.GetPriority">
+            <summary>
             </summary>
         </member>
         <member name="M:Godot.EditorSpatialGizmoPlugin.HasGizmo(Godot.Spatial)">

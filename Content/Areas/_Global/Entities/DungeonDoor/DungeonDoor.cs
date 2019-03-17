@@ -17,7 +17,7 @@ public class DungeonDoor : Node2D
         if(DestinationWorld == null)
             return;
 
-        SceneSwitcher.ChangeWorld();
+        // SceneSwitcher.ChangeWorld();
         GD.Print("Door activated!");
     }
 }

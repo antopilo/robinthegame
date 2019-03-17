@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Level.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/bg_tile.tres" type="TileSet" id=2]
@@ -6,7 +6,9 @@
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_tile.tres" type="TileSet" id=4]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/entities.tres" type="TileSet" id=5]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_decals.tres" type="TileSet" id=6]
-[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Puzzle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Trigger.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=9]
 
 [node name="Debub" type="Node2D"]
 show_behind_parent = true
@@ -55,7 +57,19 @@ format = 1
 
 [node name="objects" type="Node2D" parent="."]
 
-[node name="DebugDraw" parent="." instance=ExtResource( 7 )]
+[node name="Puzzle" parent="objects" instance=ExtResource( 7 )]
+position = Vector2( 160, 112 )
+
+[node name="Trigger" parent="objects/Puzzle" instance=ExtResource( 8 )]
+position = Vector2( -24, 24 )
+
+[node name="Trigger2" parent="objects/Puzzle" instance=ExtResource( 8 )]
+position = Vector2( 0, 24 )
+
+[node name="Trigger3" parent="objects/Puzzle" instance=ExtResource( 8 )]
+position = Vector2( 24, 24 )
+
+[node name="DebugDraw" parent="." instance=ExtResource( 9 )]
 expand_color = Color( 1, 0, 0, 1 )
 minimum_color = Color( 1, 0, 0, 1 )
 

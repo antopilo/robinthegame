@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/gr_spiralMask.png-7245cd5bb783588e7f3191a9f8ae68a5.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

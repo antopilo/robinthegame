@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/Dialog9patch.png-c2cb337e280bebe6c9329b37b7dac06e.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

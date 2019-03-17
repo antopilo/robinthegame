@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/DungeonEntrance.png-987fe623a305901948c8f79d29b6f7b0.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

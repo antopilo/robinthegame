@@ -25,8 +25,8 @@
 
 [node name="World" type="Node2D"]
 pause_mode = 2
-editor/display_folded = true
 show_behind_parent = true
+position = Vector2( 24, 8 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ],
@@ -64,7 +64,7 @@ LevelName = ""
 [node name="2" parent="." groups=[
 "level",
 ] instance=ExtResource( 7 )]
-position = Vector2( 1295.96, -137.229 )
+position = Vector2( 1288, -136 )
 
 [node name="1" parent="." instance=ExtResource( 8 )]
 position = Vector2( 971.483, -96 )
@@ -72,7 +72,7 @@ position = Vector2( 971.483, -96 )
 [node name="3" parent="." groups=[
 "level",
 ] instance=ExtResource( 9 )]
-position = Vector2( 1287.96, -320 )
+position = Vector2( 1280, -320 )
 
 [node name="7" parent="." groups=[
 "level",
@@ -87,17 +87,17 @@ position = Vector2( 991.962, -680 )
 [node name="4b" parent="." groups=[
 "level",
 ] instance=ExtResource( 12 )]
-position = Vector2( 1607.96, -448 )
+position = Vector2( 1615.96, -448 )
 
 [node name="5" parent="." groups=[
 "level",
 ] instance=ExtResource( 13 )]
-position = Vector2( 1927.96, -504 )
+position = Vector2( 1928, -504 )
 
 [node name="4" parent="." groups=[
 "level",
 ] instance=ExtResource( 14 )]
-position = Vector2( 1607.96, -136 )
+position = Vector2( 1608, -136 )
 
 [node name="9" parent="." groups=[
 "level",

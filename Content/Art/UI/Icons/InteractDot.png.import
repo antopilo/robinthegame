@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/InteractDot.png-16e335d9f1768d350f3c523783184aa9.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

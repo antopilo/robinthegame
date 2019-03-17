@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/gr_pond.png-c6eb9e288c4498a5192623e4481289a5.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

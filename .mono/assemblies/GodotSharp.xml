@@ -4,6 +4,24 @@
         <name>GodotSharp</name>
     </assembly>
     <members>
+        <member name="P:Godot.Basis.x">
+            <summary>
+            Returns the basis matrix’s x vector.
+            This is equivalent to <see cref="P:Godot.Basis.Column0"/>.
+            </summary>
+        </member>
+        <member name="P:Godot.Basis.y">
+            <summary>
+            Returns the basis matrix’s y vector.
+            This is equivalent to <see cref="P:Godot.Basis.Column1"/>.
+            </summary>
+        </member>
+        <member name="P:Godot.Basis.z">
+            <summary>
+            Returns the basis matrix’s z vector.
+            This is equivalent to <see cref="P:Godot.Basis.Column2"/>.
+            </summary>
+        </member>
         <member name="T:Godot.Node">
             <summary>
             Nodes are Godot's building blocks. They can be assigned as the child of another node, resulting in a tree arrangement. A given node can contain any number of nodes as children with the requirement that all siblings (direct children of a node) should have unique names.
@@ -4829,12 +4847,12 @@
         </member>
         <member name="M:Godot.AnimationPlayer.Seek(System.Single,System.Boolean)">
             <summary>
-            Seek the animation to the [code]seconds[/code] point in time (in seconds). If [code]update[/code] is [code]true[/code], the animation updates too, otherwise it updates at process time.
+            Seek the animation to the [code]seconds[/code] point in time (in seconds). If [code]update[/code] is [code]true[/code], the animation updates too, otherwise it updates at process time. Events between the current frame and [code]seconds[/code] are skipped.
             </summary>
         </member>
         <member name="M:Godot.AnimationPlayer.Advance(System.Single)">
             <summary>
-            Shifts position in the animation timeline. Delta is the time in seconds to shift.
+            Shifts position in the animation timeline. Delta is the time in seconds to shift. Events between the current frame and [code]delta[/code] are handled.
             </summary>
         </member>
         <member name="F:Godot.AnimationTree.AnimationProcessMode.Physics">
@@ -5256,7 +5274,7 @@
         </member>
         <member name="M:Godot.AnimationTreePlayer.Advance(System.Single)">
             <summary>
-            Shifts position in the animation timeline. Delta is the time in seconds to shift.
+            Shifts position in the animation timeline. Delta is the time in seconds to shift. Events between the current frame and [code]delta[/code] are handled.
             </summary>
         </member>
         <member name="M:Godot.AnimationTreePlayer.Reset">
@@ -5780,11 +5798,6 @@
         <member name="M:Godot.ArrayMesh.SurfaceGetName(System.Int32)">
             <summary>
             Get the name assigned to this surface.
-            </summary>
-        </member>
-        <member name="M:Godot.ArrayMesh.CenterGeometry">
-            <summary>
-            Centers the geometry.
             </summary>
         </member>
         <member name="M:Godot.ArrayMesh.RegenNormalmaps">
@@ -7670,6 +7683,8 @@
         </member>
         <member name="M:Godot.AudioStreamSample.SaveToWav(System.String)">
             <summary>
+            Saves the AudioStreamSample as a WAV file to [code]path[/code]. Samples with IMA ADPCM format can't be saved.
+            Note that a [code].wav[/code] extension is automatically appended to [code]path[/code] if it is missing.
             </summary>
         </member>
         <member name="T:Godot.BackBufferCopy">
@@ -10980,6 +10995,7 @@
         </member>
         <member name="P:Godot.CPUParticles.ColorRamp">
             <summary>
+            Each particle's vertex color will vary along this [GradientTexture].
             </summary>
         </member>
         <member name="P:Godot.CPUParticles.HueVariation">
@@ -13700,7 +13716,7 @@
         </member>
         <member name="T:Godot.Font">
             <summary>
-            Font contains a unicode compatible character set, as well as the ability to draw it with variable width, ascent, descent and kerning. For creating fonts from TTF files (or other font formats), see the editor support for fonts. TODO check wikipedia for graph of ascent/baseline/descent/height/etc.
+            Font contains a unicode compatible character set, as well as the ability to draw it with variable width, ascent, descent and kerning. For creating fonts from TTF files (or other font formats), see the editor support for fonts.
             </summary>
         </member>
         <member name="M:Godot.Font.Draw(Godot.RID,Godot.Vector2,System.String,System.Nullable{Godot.Color},System.Int32,System.Nullable{Godot.Color})">
@@ -16905,6 +16921,11 @@
             Feeds an [InputEvent] to the game. Can be used to artificially trigger input events from code.
             </summary>
         </member>
+        <member name="M:Godot.Input.SetUseAccumulatedInput(System.Boolean)">
+            <summary>
+            Whether to accumulate similar input events sent by the operating system. Defaults to [code]true[/code].
+            </summary>
+        </member>
         <member name="T:Godot.InputEvent">
             <summary>
             Base class of all sort of input event. See [method Node._input].
@@ -16956,6 +16977,10 @@
         <member name="M:Godot.InputEvent.IsActionType">
             <summary>
             Returns [code]true[/code] if this input event's type is one of the [code]InputEvent[/code] constants.
+            </summary>
+        </member>
+        <member name="M:Godot.InputEvent.Accumulate(Godot.InputEvent)">
+            <summary>
             </summary>
         </member>
         <member name="M:Godot.InputEvent.XformedBy(Godot.Transform2D,System.Nullable{Godot.Vector2})">
@@ -17826,7 +17851,7 @@
             If the body is at least this close to another body, this body will consider them to be colliding.
             </summary>
         </member>
-        <member name="M:Godot.KinematicBody.MoveAndCollide(Godot.Vector3,System.Boolean,System.Boolean)">
+        <member name="M:Godot.KinematicBody.MoveAndCollide(Godot.Vector3,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Moves the body along the vector [code]rel_vec[/code]. The body will stop if it collides. Returns a [KinematicCollision], which contains information about the collision.
             If [code]test_only[/code] is [code]true[/code], the body does not move but the would-be collision information is given.
@@ -17837,7 +17862,7 @@
             Moves the body along a vector. If the body collides with another, it will slide along the other body rather than stop immediately. If the other body is a [code]KinematicBody[/code] or [RigidBody], it will also be affected by the motion of the other body. You can use this to make moving or rotating platforms, or to make nodes push other nodes.
             [code]linear_velocity[/code] is the velocity vector (typically meters per second). Unlike in [method move_and_collide], you should [i]not[/i] multiply it by [code]delta[/code] — the physics engine handles applying the velocity.
             [code]floor_normal[/code] is the up direction, used to determine what is a wall and what is a floor or a ceiling. If set to the default value of [code]Vector3(0, 0, 0)[/code], everything is considered a wall. This is useful for topdown games.
-            [i]TODO: Update for new stop_on_slode argument.[/i] If the body is standing on a slope and the horizontal speed (relative to the floor's speed) goes below [code]slope_stop_min_velocity[/code], the body will stop completely. This prevents the body from sliding down slopes when you include gravity in [code]linear_velocity[/code]. When set to lower values, the body will not be able to stand still on steep slopes.
+            If the body is standing on a slope and the horizontal speed (relative to the floor's speed) goes below [code]slope_stop_min_velocity[/code], the body will stop completely. This prevents the body from sliding down slopes when you include gravity in [code]linear_velocity[/code]. When set to lower values, the body will not be able to stand still on steep slopes.
             If the body collides, it will change direction a maximum of [code]max_slides[/code] times before it stops.
             [code]floor_max_angle[/code] is the maximum angle (in radians) where a slope is still considered a floor (or a ceiling), rather than a wall. The default value equals 45 degrees.
             Returns the movement that remained when the body stopped. To get more detailed information about collisions that occurred, use [method get_slide_collision].
@@ -17900,7 +17925,7 @@
         </member>
         <member name="P:Godot.KinematicBody2D.Motion__syncToPhysics">
             <summary>
-            If [code]true[/code], the body's movement will be synchronized to the physics frame. This is useful when animating movement via [AnimationPlayer], for example on moving platforms.
+            If [code]true[/code], the body's movement will be synchronized to the physics frame. This is useful when animating movement via [AnimationPlayer], for example on moving platforms. Do [b]not[/b] use together with [method move_and_slide] or [method move_and_collide] functions.
             </summary>
         </member>
         <member name="M:Godot.KinematicBody2D.MoveAndCollide(Godot.Vector2,System.Boolean,System.Boolean,System.Boolean)">
@@ -17913,7 +17938,7 @@
             Moves the body along a vector. If the body collides with another, it will slide along the other body rather than stop immediately. If the other body is a [code]KinematicBody2D[/code] or [RigidBody2D], it will also be affected by the motion of the other body. You can use this to make moving or rotating platforms, or to make nodes push other nodes.
             [code]linear_velocity[/code] is the velocity vector in pixels per second. Unlike in [method move_and_collide], you should [i]not[/i] multiply it by [code]delta[/code] — the physics engine handles applying the velocity.
             [code]floor_normal[/code] is the up direction, used to determine what is a wall and what is a floor or a ceiling. If set to the default value of [code]Vector2(0, 0)[/code], everything is considered a wall. This is useful for topdown games.
-            [i]TODO: Update for stop_on_slope argument.[/i] If the body is standing on a slope and the horizontal speed (relative to the floor's speed) goes below [code]slope_stop_min_velocity[/code], the body will stop completely. This prevents the body from sliding down slopes when you include gravity in [code]linear_velocity[/code]. When set to lower values, the body will not be able to stand still on steep slopes.
+            If the body is standing on a slope and the horizontal speed (relative to the floor's speed) goes below [code]slope_stop_min_velocity[/code], the body will stop completely. This prevents the body from sliding down slopes when you include gravity in [code]linear_velocity[/code]. When set to lower values, the body will not be able to stand still on steep slopes.
             If the body collides, it will change direction a maximum of [code]max_slides[/code] times before it stops.
             [code]floor_max_angle[/code] is the maximum angle (in radians) where a slope is still considered a floor (or a ceiling), rather than a wall. The default value equals 45 degrees.
             Returns the [code]linear_velocity[/code] vector, rotated and/or scaled if a slide collision occurred. To get more detailed information about collisions that occurred, use [method get_slide_collision].
@@ -19836,6 +19861,7 @@
         <member name="M:Godot.MultiMesh.SetInstanceColor(System.Int32,Godot.Color)">
             <summary>
             Set the color of a specific instance.
+            For the color to take effect, ensure that [member color_format] is non-[code]null[/code] on the [code]MultiMesh[/code] and [member SpatialMaterial.vertex_color_use_as_albedo] is [code]true[/code] on the material.
             </summary>
         </member>
         <member name="M:Godot.MultiMesh.GetInstanceColor(System.Int32)">
@@ -20727,6 +20753,10 @@
         <member name="P:Godot.NoiseTexture.AsNormalmap">
             <summary>
             If true, the resulting texture contains a normal map created from the original noise interpreted as a bump map.
+            </summary>
+        </member>
+        <member name="P:Godot.NoiseTexture.BumpStrength">
+            <summary>
             </summary>
         </member>
         <member name="P:Godot.NoiseTexture.Noise">
@@ -21766,6 +21796,11 @@
         <member name="M:Godot.OS.GetPowerPercentLeft">
             <summary>
             Returns the amount of battery left in the device as a percentage.
+            </summary>
+        </member>
+        <member name="M:Godot.OS.RequestPermission(System.String)">
+            <summary>
+            At the moment this function is only used by [code]AudioDriverOpenSL[/code] to request permission for [code]RECORD_AUDIO[/code] on Android.
             </summary>
         </member>
         <member name="P:Godot.PackedDataContainer.__Data___">
@@ -28053,26 +28088,6 @@
             Returns a list of the bodies colliding with this one. Use [member contacts_reported] to set the maximum number reported. You must also set [member contact_monitor] to [code]true[/code]. Note that the result of this test is not immediate after moving objects. For performance, list of collisions is updated once per frame and before the physics step. Consider using signals instead.
             </summary>
         </member>
-        <member name="P:Godot.RootMotionView.AnimationPath">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Godot.RootMotionView.Color">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Godot.RootMotionView.CellSize">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Godot.RootMotionView.Radius">
-            <summary>
-            </summary>
-        </member>
-        <member name="P:Godot.RootMotionView.ZeroY">
-            <summary>
-            </summary>
-        </member>
         <member name="T:Godot.SceneState">
             <summary>
             Maintains a list of resources, nodes, exported, and overridden properties, and built-in scripts associated with a scene.
@@ -28343,6 +28358,13 @@
         <member name="M:Godot.SceneTree.CreateTimer(System.Single,System.Boolean)">
             <summary>
             Returns a [SceneTreeTimer] which will [signal SceneTreeTimer.timeout] after the given time in seconds elapsed in this SceneTree. If [code]pause_mode_process[/code] is set to false, pausing the SceneTree will also pause the timer.
+            Commonly used to create a one-shot delay timer as in the following example:
+            [codeblock]
+            func some_function():
+            print("start")
+            yield(get_tree().create_timer(1.0), "timeout")
+            print("end")
+            [/codeblock]
             </summary>
         </member>
         <member name="M:Godot.SceneTree.GetNodeCount">
@@ -28444,8 +28466,21 @@
             Returns the sender's peer ID for the most recently received RPC call.
             </summary>
         </member>
+        <member name="T:Godot.SceneTreeTimer">
+            <summary>
+            A one-shot timer managed by the scene tree, which emits [signal timeout] on completion. See also [method SceneTree.create_timer].
+            As opposed to [Timer], it does not require the instantiation of a node. Commonly used to create a one-shot delay timer as in the following example:
+            [codeblock]
+            func some_function():
+            print("start")
+            yield(get_tree().create_timer(1.0), "timeout")
+            print("end")
+            [/codeblock]
+            </summary>
+        </member>
         <member name="P:Godot.SceneTreeTimer.TimeLeft">
             <summary>
+            The time remaining.
             </summary>
         </member>
         <member name="T:Godot.Script">
@@ -28510,7 +28545,7 @@
         </member>
         <member name="T:Godot.ScrollContainer">
             <summary>
-            A ScrollContainer node with a [Control] child and scrollbar child ([HScrollBar], [VScrollBar], or both) will only draw the Control within the ScrollContainer area. Scrollbars will automatically be drawn at the right (for vertical) or bottom (for horizontal) and will enable dragging to move the viewable Control (and its children) within the ScrollContainer. Scrollbars will also automatically resize the grabber based on the minimum_size of the Control relative to the ScrollContainer. Works great with a [Panel] control. You can set EXPAND on children size flags, so they will upscale to ScrollContainer size if ScrollContainer size is bigger (scroll is invisible for chosen dimension).
+            A ScrollContainer node meant to contain a [Control] child. ScrollContainers will automatically create a scrollbar child ([HScrollBar], [VScrollBar], or both) when needed and will only draw the Control within the ScrollContainer area. Scrollbars will automatically be drawn at the right (for vertical) or bottom (for horizontal) and will enable dragging to move the viewable Control (and its children) within the ScrollContainer. Scrollbars will also automatically resize the grabber based on the minimum_size of the Control relative to the ScrollContainer. Works great with a [Panel] control. You can set EXPAND on children size flags, so they will upscale to ScrollContainer size if ScrollContainer size is bigger (scroll is invisible for chosen dimension).
             </summary>
         </member>
         <member name="P:Godot.ScrollContainer.ScrollHorizontalEnabled">
@@ -28723,6 +28758,10 @@
             </summary>
         </member>
         <member name="F:Godot.Skeleton.NotificationUpdateSkeleton">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:Godot.Skeleton.BonesInWorldTransform">
             <summary>
             </summary>
         </member>
@@ -30502,7 +30541,7 @@
         </member>
         <member name="T:Godot.SpotLight">
             <summary>
-            A SpotLight light is a type of [Light] node that emits lights in a specific direction, in the shape of a cone. The light is attenuated through the distance and this attenuation can be configured by changing the energy, radius and attenuation parameters of [Light]. TODO: Image of a spotlight.
+            A SpotLight light is a type of [Light] node that emits lights in a specific direction, in the shape of a cone. The light is attenuated through the distance and this attenuation can be configured by changing the energy, radius and attenuation parameters of [Light].
             </summary>
         </member>
         <member name="P:Godot.SpotLight.SpotRange">
@@ -34345,7 +34384,7 @@
             Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
             tween.start()
             [/codeblock]
-            Many methods require a property name, such as "position" above. You can find the correct property name by hovering over the property in the Inspector.
+            Many methods require a property name, such as "position" above. You can find the correct property name by hovering over the property in the Inspector. You can also provide the components of a property directly by using "property:component" (eg. [code]position:x[/code]), where it would only apply to that particular component.
             Many of the methods accept [code]trans_type[/code] and [code]ease_type[/code]. The first accepts an [enum TransitionType] constant, and refers to the way the timing of the animation is handled (see [code]http://easings.net/[/code] for some examples). The second accepts an [enum EaseType] constant, and controls the where [code]trans_type[/code] is applied to the interpolation (in the beginning, the end, or both). If you don't know which transition and easing to pick, you can try different [enum TransitionType] constants with [code]EASE_IN_OUT[/code], and use the one that looks best.
             </summary>
         </member>
@@ -34613,6 +34652,10 @@
         <member name="M:Godot.UndoRedo.CommitAction">
             <summary>
             Commit the action. All 'do' methods/properties are called/set when this function is called.
+            </summary>
+        </member>
+        <member name="M:Godot.UndoRedo.IsCommitingAction">
+            <summary>
             </summary>
         </member>
         <member name="M:Godot.UndoRedo.AddDoMethod(Godot.Object,System.String,System.Object[])">
@@ -35566,7 +35609,11 @@
         </member>
         <member name="M:Godot.Viewport.GetTexture">
             <summary>
-            Returns the viewport's texture.
+            Returns the viewport's texture. Note that due to the way OpenGL works, the resulting [ViewportTexture] is flipped vertically. You can use [method Image.flip_y] on the result of [method Texture.get_data] to flip it back, for example:
+            [codeblock]
+            var img = get_viewport().get_texture().get_data()
+            img.flip_y()
+            [/codeblock]
             </summary>
         </member>
         <member name="M:Godot.Viewport.GetViewportRid">

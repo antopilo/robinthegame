@@ -28,7 +28,7 @@ public class SceneSwitcher : Node
         //}
     }
 
-    public static void SaveWorld()
+    public void SaveWorld()
     {
         SetOwners(CurrentWorld);
 
@@ -41,7 +41,7 @@ public class SceneSwitcher : Node
 
     // This makes sure that everynode contained in the Currentlevel gets saved
     // in the packed scene level. See EnterDebugMode() for more.
-    private static void SetOwners(Node pNode)
+    private void SetOwners(Node pNode)
     {
         foreach(Node node in pNode.GetChildren() )
         {

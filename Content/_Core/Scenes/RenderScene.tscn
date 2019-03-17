@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Content/_Core/Root.cs" type="Script" id=1]
 [ext_resource path="res://Content/UI/GameUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Content/Art/UI/Icons/InteractDot.png" type="Texture" id=3]
-[ext_resource path="res://Content/_Core/Scenes/DungeonTest.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Content/_Core/Singletons/SceneSwitcher.cs" type="Script" id=5]
+[ext_resource path="res://Content/_Core/Scenes/gameSceneBackup.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Active"
@@ -105,9 +104,6 @@ debug_draw = 3
 render_target_update_mode = 3
 
 [node name="World" parent="Game/Viewport" instance=ExtResource( 4 )]
-
-[node name="SceneSwitcher" type="Node2D" parent="Game/Viewport"]
-script = ExtResource( 5 )
 
 [connection signal="animation_changed" from="UI/InteractionFeedback/AnimationPlayer" to="UI" method="_on_AnimationPlayer_animation_changed"]
 
