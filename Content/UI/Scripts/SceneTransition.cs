@@ -10,9 +10,10 @@ public class SceneTransition : CanvasLayer
     private string LastAnimationPlayer = "";
     public override void _Ready()
     {
-        InteractionAnim = (AnimationPlayer)GetNode("Transition/AnimationPlayer");
+        AnimPlayer = (AnimationPlayer)GetNode("Transition/AnimationPlayer");
         InteractionSprite = (Control)GetNode("InteractionFeedback");
         InteractionAnim = (AnimationPlayer)GetNode("InteractionFeedback/AnimationPlayer");
+        
     }
         
     public override void _Process(float delta){
@@ -21,7 +22,10 @@ public class SceneTransition : CanvasLayer
     }
     // Call this when you want to trigger the transition animation.
 	public void Fade()
-	    =>  AnimPlayer.Play("FadeOut");
+    {   
+	    AnimPlayer.Play("FadeOut");
+        GetTree().Paused = true;
+    }
 	
     public void GetPositionFromPlayer()
     {
@@ -41,7 +45,16 @@ public class SceneTransition : CanvasLayer
         else if(!player.CanInteract && CurrentAnim != "Inactive")
             InteractionAnim.CurrentAnimation = CurrentAnim = "Inactive";
     }
+
+    private void _on_AnimationPlayer_animation_finished(string anim_name)
+    {
+        GetTree().Paused = false;
+        Root.Player.Alive = true;
+        Root.Player.CanControl = true;
+    }
 }
+
+
 
 
 

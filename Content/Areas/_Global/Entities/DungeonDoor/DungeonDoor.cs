@@ -3,21 +3,16 @@ using System;
 
 public class DungeonDoor : Node2D
 {
-    [Export] public PackedScene DestinationWorld;
+    [Export] public PackedScene DestinationWorld = ResourceLoader.Load("res://Content/Areas/Worlds/ForestWorld.tscn") as PackedScene;
+
+    private PackedScene World;
+    private SceneSwitcher SceneSwitcher;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        if(DestinationWorld == null)
-            GD.PrintErr(this.Name + " Dungeon door without a destination world!");
+        
     }
 
-    public void Interact()
-    {
-        if(DestinationWorld == null)
-            return;
-
-        // SceneSwitcher.ChangeWorld();
-        GD.Print("Door activated!");
-    }
+    public void Interact() => Root.SceneSwitcher.ChangeWorld(DestinationWorld);
 }

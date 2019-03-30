@@ -55,7 +55,7 @@ public class GameController : Node2D
                 float xMax = xMin + Room.LevelSize.x, yMax = yMin + Room.LevelSize.y;
 
                 // If the Player is inside the level.
-                if ((x > xMin) && (y > yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
+                if ((x >= xMin) && (y >= yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
                 {
                     // if the player enters a level from under, do a jump to gain a little bit of height.
                     if (y <= CurrentRoom.LevelPosition.y)

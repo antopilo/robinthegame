@@ -71,5 +71,4 @@ DestinationWorld = ExtResource( 8 )
 
 [node name="DebugDraw" parent="." instance=ExtResource( 9 )]
 expand_color = Color( 1, 0, 0, 1 )
-minimum_color = Color( 1, 0, 0, 1 )
 

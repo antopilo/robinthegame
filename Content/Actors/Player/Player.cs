@@ -101,6 +101,8 @@ public class Player : KinematicBody2D
     // Main loop.
     public override void _PhysicsProcess(float delta)
     {
+        GetReference();
+
         GetInput();
         UpdateVelocity();
         UpdateState();
@@ -115,6 +117,12 @@ public class Player : KinematicBody2D
 
         DeltaTime += delta;
         FootStepTimer += delta;
+    }
+
+    private void GetReference()
+    {
+        if(Camera is null) 
+            Camera = GetNode("Camera2D") as Camera;
     }
 
     /// <summary>

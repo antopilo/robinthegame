@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class SceneSwitcher : Node
 {
     public static GameController CurrentWorld;
+
     public static Dictionary<string, PackedScene> LoadedWorld = new Dictionary<string, PackedScene>();
+    public static PackedScene LastWorld;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -13,19 +15,15 @@ public class SceneSwitcher : Node
         CurrentWorld = Root.GameController;
     }
 
-    public static void ChangeWorld()
+    public void ChangeWorld(PackedScene pWorld)
     {
-        //if(!LoadedWorld.ContainsKey(destination.GetName()))
-        //{
-        //    GameController newWorld = destination.Instance() as GameController;
-        //    SaveWorld();
-        //    CurrentWorld.QueueFree();
-        //    Root.Viewport.AddChild(newWorld);
-        //    CurrentWorld = newWorld;
+        GD.Print("Door activated!");
+        Root.Viewport.GetChild(0).QueueFree();
+        GameController newWorldScene = pWorld.Instance() as GameController;
+        Root.Viewport.AddChild(newWorldScene);
+        Root.SceneTransition.Fade();
+        Root.Player.Camera.Position = new Vector2();
 
-        //    Root.Player = Root.GameController.GetNode("Player") as Player;
-        //    Root.Weapon = Root.Player.GetNode("Weapon") as Weapon;
-        //}
     }
 
     public void SaveWorld()

@@ -13,6 +13,8 @@ font_data = ExtResource( 2 )
 script = ExtResource( 1 )
 corner_size = 1
 line_size = 2
+expand_color = Color( 0, 1, 0, 1 )
+minimum_color = Color( 1, 0, 0, 1 )
 
 [node name="LevelName" type="Label" parent="."]
 anchor_right = 1.0

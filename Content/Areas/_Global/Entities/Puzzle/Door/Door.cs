@@ -7,7 +7,7 @@ public class Door : Node2D
     CollisionShape2D Collision;
     public Sprite Sprite;
 
-    const int DETECTION_RANGE = 30;
+    const int DETECTION_RANGE = 45;
     float Distance;
     bool Opened = false;
 
@@ -41,7 +41,8 @@ public class Door : Node2D
     public void Open()
     {
         Tween t = GetNode("Tween") as Tween;
-        t.InterpolateProperty(GetNode("sprDoor"), "scale", new Vector2(1, 1), new Vector2(0, 0), 2f, Tween.TransitionType.Elastic, Tween.EaseType.InOut, 0);
+        t.InterpolateProperty(GetNode("sprDoor"), "scale", new Vector2(1, 1), new Vector2(0, 0), 1f, Tween.TransitionType.Elastic, Tween.EaseType.InOut, 0);
+        (GetNode("collision/box") as CollisionShape2D).Disabled = true; 
         t.Start();
     }
 

@@ -4,39 +4,23 @@
 [ext_resource path="res://Content/Art/Sprites/Entities/ent_global.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
 extents = Vector2( 12, 12 )
 
 [node name="door" type="Node2D"]
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
 [node name="sprDoor" type="Sprite" parent="."]
 position = Vector2( 12, 12 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 24, 24 )
-_sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="collision" type="StaticBody2D" parent="."]
 position = Vector2( 12, 12 )
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-physics_material_override = null
 
 [node name="box" type="CollisionShape2D" parent="collision"]
 shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
 
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
