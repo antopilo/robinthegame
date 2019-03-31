@@ -10,11 +10,15 @@ public class Puzzle : Node2D
     private Color DebugColor = new Color(0, 0, 1);
 
     public List<Trigger> Triggers = new List<Trigger>();
-    public bool Solved = false;
+    public bool Solved = false, Done = false;
+    [Export] Node2D DoorPuzzle;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        if(this.HasNode("Target"))
+            DoorPuzzle = GetNode("Target") as Node2D;
+
         foreach(var trigger in GetChildren())
         {
             if(trigger is Trigger){
@@ -26,6 +30,9 @@ public class Puzzle : Node2D
     public override void _PhysicsProcess(float delta)
     {
 
+        if(Solved && !Done)
+            Trigger();
+
         if(Solved)
             return;
         
@@ -35,13 +42,14 @@ public class Puzzle : Node2D
                 return;
         }
 
-        
+        Solved = true;
+    
         DebugColor = Green;
-        Update();
     }
-
-    public override void _Draw()
+    private void Trigger()
     {
-        DrawRect(new Rect2(0,0,8,8), DebugColor);
+        if(DoorPuzzle != null && DoorPuzzle is DoorPuzzle)
+            (DoorPuzzle as DoorPuzzle).Open();
+        Done = true;
     }
 }

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Entities/Core/FallingBlock/FallingBlock3x3.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_tile.tres" type="TileSet" id=2]
+[ext_resource path="res://Content/Audio/SFX/Environnement/Impact/RockImpact.wav" type="AudioStream" id=3]
 
 [node name="FallingBlock3x4" type="KinematicBody2D"]
 collision_layer = 3
@@ -19,4 +20,9 @@ tile_set = ExtResource( 2 )
 cell_size = Vector2( 8, 8 )
 format = 1
 tile_data = PoolIntArray( 0, 2, 0, 1, 2, 65536, 2, 2, 131073, 65536, 2, 196611, 65537, 2, 262144, 65538, 2, 327682, 131072, 2, 196609, 131073, 2, 262144, 131074, 2, 327683, 196608, 2, 393218, 196609, 2, 458752, 196610, 2, 524291 )
+
+[node name="Impact" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -11.316
+pitch_scale = 2.0
 

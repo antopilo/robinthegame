@@ -23,6 +23,7 @@ public class SceneSwitcher : Node
         Root.Viewport.AddChild(newWorldScene);
         Root.SceneTransition.Fade();
         Root.Player.Camera.Position = new Vector2();
+        newWorldScene.Spawn(true);
 
     }
 

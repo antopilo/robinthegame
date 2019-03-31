@@ -41,4 +41,23 @@
 1/navigation_offset = Vector2( 0, 0 )
 1/shapes = [  ]
 1/z_index = 0
+2/name = "bg_tile.png 2"
+2/texture = ExtResource( 1 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 0, 72, 32, 72 )
+2/tile_mode = 1
+2/autotile/bitmask_mode = 0
+2/autotile/bitmask_flags = [ Vector2( 0, 0 ), 256, Vector2( 0, 1 ), 320, Vector2( 0, 2 ), 64, Vector2( 0, 3 ), 260, Vector2( 0, 4 ), 325, Vector2( 0, 5 ), 65, Vector2( 0, 6 ), 4, Vector2( 0, 7 ), 5, Vector2( 0, 8 ), 1, Vector2( 1, 0 ), 256, Vector2( 1, 1 ), 320, Vector2( 1, 2 ), 64, Vector2( 1, 3 ), 260, Vector2( 1, 4 ), 325, Vector2( 1, 5 ), 65, Vector2( 1, 6 ), 4, Vector2( 1, 7 ), 5, Vector2( 1, 8 ), 1, Vector2( 2, 0 ), 256, Vector2( 2, 1 ), 320, Vector2( 2, 2 ), 64, Vector2( 2, 3 ), 260, Vector2( 2, 4 ), 325, Vector2( 2, 5 ), 65, Vector2( 2, 6 ), 4, Vector2( 2, 7 ), 5, Vector2( 2, 8 ), 1, Vector2( 3, 0 ), 256, Vector2( 3, 1 ), 320, Vector2( 3, 2 ), 64, Vector2( 3, 3 ), 260, Vector2( 3, 4 ), 325, Vector2( 3, 5 ), 65, Vector2( 3, 6 ), 4, Vector2( 3, 7 ), 5, Vector2( 3, 8 ), 1 ]
+2/autotile/icon_coordinate = Vector2( 0, 4 )
+2/autotile/tile_size = Vector2( 8, 8 )
+2/autotile/spacing = 0
+2/autotile/occluder_map = [  ]
+2/autotile/navpoly_map = [  ]
+2/autotile/priority_map = [  ]
+2/autotile/z_index_map = [  ]
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shapes = [  ]
+2/z_index = 0
 

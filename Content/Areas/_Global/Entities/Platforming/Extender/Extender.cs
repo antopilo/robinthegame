@@ -42,6 +42,3 @@ public class Extender : Node2D
         Spr.Play();
     }
 }
-
-
-

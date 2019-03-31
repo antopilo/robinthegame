@@ -1,9 +1,26 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Trigger.cs" type="Script" id=1]
+[ext_resource path="res://Content/Art/Sprites/Entities/Lever/lever4.png" type="Texture" id=2]
+[ext_resource path="res://Content/Art/Sprites/Entities/Lever/lever3.png" type="Texture" id=3]
+[ext_resource path="res://Content/Art/Sprites/Entities/Lever/lever2.png" type="Texture" id=4]
+[ext_resource path="res://Content/Art/Sprites/Entities/Lever/lever1.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 8.0
+radius = 20.3961
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "Up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "Down",
+"speed": 5.0
+} ]
 
 [node name="Trigger" type="Node2D"]
 script = ExtResource( 1 )
@@ -13,4 +30,11 @@ position = Vector2( 4, 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
 shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+animation = "Up"
+frame = 3
+playing = true
+centered = false
 

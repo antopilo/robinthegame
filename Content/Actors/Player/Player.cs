@@ -475,7 +475,7 @@ public class Player : KinematicBody2D
         // Interacts with the object
         if(Input.IsActionJustPressed("Interact") && CanInteract)
 		{
-			if( (InteractableObject[0] as Node2D).HasMethod("Interact") )
+			if( (InteractableObject[0] as Node2D).HasMethod("Interact"))
 			    InteractableObject[0].Call("Interact");
 		}
     } 

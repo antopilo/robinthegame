@@ -143,6 +143,10 @@ public class FallingBlock3x3 : KinematicBody2D
         {
             Frozen = true;
             (Root.Player.Camera as Camera).Shake(2f, 0.05f);
+            if(HasNode("Impact"))
+                (GetNode("Impact") as AudioStreamPlayer).Play(0);
+
+
         }
     }
 

@@ -6,17 +6,17 @@ public class FallingPlatform : Node2D
 {
     public Rect2 Box;
     // Movement
-    [Export] const float FALL_DISTANCE = 300;
-    [Export] const int FALL_TIME = 4;
-    [Export] const int READY_CD = 1;
+    [Export] float FALL_DISTANCE = 300;
+    [Export] int FALL_TIME = 4;
+    [Export] int READY_CD = 1;
     private Vector2 InitialPosition = new Vector2();
     private Color InitialColor;
 
     // Shake
-    const int SHAKE_AMPLITUDE = 25;
-    const int SHAKE_LENGTH = 20;
-    [Export] const float SHAKE_TIME = 0.5f;
-    [Export] const int SpawnDelay = 5;
+    [Export] int SHAKE_AMPLITUDE = 25;
+    [Export] int SHAKE_LENGTH = 20;
+    [Export] float SHAKE_TIME = 0.5f;
+    [Export] int SpawnDelay = 5;
 
     // Refs
     private Sprite Sprite;
