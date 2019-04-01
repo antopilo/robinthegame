@@ -25,21 +25,49 @@ public class GameController : Node2D
         DialogController = GetNode("../../../UI/Dialog") as Dialog;
         DeathCounter = GetNode("../../../UI/DeathCount") as DeathCount;
 
-        Spawn(false);
+        //Spawn(false);
         MoveCamToRoom(CurrentRoom);
     }
-
 
     // Called Every frame.
     public override void _PhysicsProcess(float delta)
         => UpdateRoom();
-
 
     /// <summary>
     /// Loops through each level(Node that have the "level" tag), and determine in which room
     /// is the player located.
     /// </summary>
     private void UpdateRoom()
+    {
+        if (!Player.Alive)
+            return;
+        Level Room;
+
+        // Loops through each Room in the world. They decide which one is the Player in.
+        foreach (Node level in GetChildren())
+        {
+            if (level.IsInGroup("level"))
+            {
+                Room = (Level)level;
+
+                float x = Player.Position.x, y = Player.Position.y;
+                float xMin = Room.LevelPosition.x, yMin = Room.LevelPosition.y;
+                float xMax = xMin + Room.LevelSize.x, yMax = yMin + Room.LevelSize.y;
+
+                // If the Player is inside the level.
+                if ((x >= xMin) && (y >= yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
+                {   
+                    // if the player enters a level from under, do a jump to gain a little bit of height.
+                    if (y <= CurrentRoom.LevelPosition.y)
+                        Player.Jump();
+                    ChangeRoom(Room);
+                }
+            }
+        }
+    }
+
+    // Finds which room the player is in.
+    public Level FindRoom()
     {
         Level Room;
 
@@ -56,20 +84,43 @@ public class GameController : Node2D
 
                 // If the Player is inside the level.
                 if ((x >= xMin) && (y >= yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
-                {
-                    // if the player enters a level from under, do a jump to gain a little bit of height.
-                    if (y <= CurrentRoom.LevelPosition.y)
-                        Player.Jump();
-
-                    ChangeRoom(Room);
-
-                    // Update info and moves the camera.
-                    
-                }
+                    return (Level)Room;
             }
         }
+        // Return if the player is not inside a level.
+        return null;
     }
 
+    // Instantly snap the camera to a specified room.
+    public void SnapCamToRoom(Level pRoom)
+    {
+        Tween T;  // If there is no Tween node, then create one and use it.
+        if (!HasNode("CameraAreaTween"))
+        {
+            T = new Tween();
+            T.Name = "CameraAreaTween";
+            AddChild(T);
+
+            T.Connect("tween_completed", this, "_on_Tween_tween_completed");
+        }
+        else
+        {
+            T = (Tween)GetNode("CameraAreaTween");
+        }
+        T.StopAll();
+        T.RemoveAll();
+
+        Camera2D Camera = Player.Camera;
+        Camera.GlobalPosition = pRoom.GlobalPosition;
+        Camera.LimitLeft = (int)pRoom.GlobalPosition.x;
+        Camera.LimitRight = (int)pRoom.GlobalPosition.x + (int)pRoom.LevelSize.x;
+        Camera.LimitTop = (int)pRoom.GlobalPosition.y;
+        Camera.LimitBottom = (int)pRoom.GlobalPosition.y + (int)pRoom.LevelSize.y;
+
+        Player.CanControl = true;
+        Player.Alive = true;
+        Player.SetPhysicsProcess(true);
+    }
 
     /// <summary>
     /// Tween the camera to a new Level. Setting the limits of the camera to the level size.
@@ -111,7 +162,7 @@ public class GameController : Node2D
         Camera.LimitBottom = (int)(CameraCenter.y + GetViewport().Size.y / 2 * Camera.Zoom.y);
 
         // Transition settings.
-        float Time = 0.4f;
+        float Time = 0.25f;
         Tween.TransitionType Transition = Tween.TransitionType.Linear;
         Tween.EaseType Ease = Tween.EaseType.InOut;
 

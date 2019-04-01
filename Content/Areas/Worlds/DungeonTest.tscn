@@ -72,7 +72,7 @@ visible = false
 expand_color = Color( 1, 0, 0, 1 )
 
 [node name="Player" parent="." instance=ExtResource( 10 )]
-position = Vector2( 280, 120 )
+position = Vector2( 272, 118 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 pause_mode = 2

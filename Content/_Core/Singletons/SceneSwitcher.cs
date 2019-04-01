@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 public class SceneSwitcher : Node
@@ -14,6 +13,8 @@ public class SceneSwitcher : Node
         CurrentWorld = Root.GameController;
     }
 
+    // Load a world a place the player in it to a specified Waypoint
+    // NOTE: Waypoint a placed under Waypoint/NameofWaypoint along with levels into a world.
     public void ChangeWorld(PackedScene pWorld, string Waypoint)
     {
         // Delete old world.
@@ -24,18 +25,18 @@ public class SceneSwitcher : Node
         Root.Viewport.AddChild(newWorldScene);
 
         // Transition
-        Root.Player.Camera.Position = new Vector2();
         Root.SceneTransition.Fade();
-
-        newWorldScene.Spawn(true);
 
         if (Waypoint != "" && newWorldScene.HasNode("Waypoint/" + Waypoint))
         {
-            GD.Print("Waypoint found! - " + Waypoint);
-            Root.Player.GlobalPosition = (newWorldScene.GetNode("Waypoint/" + Waypoint) as Position2D).GlobalPosition;
+           (newWorldScene.GetNode("Player") as Player).GlobalPosition = (newWorldScene.GetNode("Waypoint/" + Waypoint) as Position2D).GlobalPosition;
+            newWorldScene.SnapCamToRoom(newWorldScene.FindRoom());
+            newWorldScene.CurrentRoom = newWorldScene.FindRoom();
         }
     }
 
+
+    // Save the current wolrd into its own resource.
     public void SaveWorld()
     {
         SetOwners(CurrentWorld);

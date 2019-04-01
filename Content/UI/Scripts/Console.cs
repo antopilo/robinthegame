@@ -225,11 +225,11 @@ public class Console : Control
                     return;
 
                 string DestinationLevel = parameters[0].ToLower();
-                Level Level = GameController.GetNode(DestinationLevel) as Level;
+                Level Level = Root.GameController.GetNode(DestinationLevel) as Level;
 
                 if(Level != null && Level.IsInGroup("level"))
                 {
-                   GameController.ChangeRoom(Level);
+                    GameController.ChangeRoom(Level);
                     GameController.Spawn(true);
                 }
                 break;
@@ -249,7 +249,7 @@ public class Console : Control
                 if (parameters.Length == 2)
                 {
                     var y = parameters[1].ToFloat();
-                    Player.MoveLocalY(y * 8);
+                    Root.Player.MoveLocalY(y * 8);
                 }
                 else if (parameters.Length > 2)
                 {
@@ -259,7 +259,7 @@ public class Console : Control
 
                 var x = parameters[0].ToFloat();
 
-                Player.MoveLocalX(x * 8);
+                Root.Player.MoveLocalX(x * 8);
                 break;
 
             case "HELP":

@@ -44,12 +44,15 @@ LevelName = ""
 [node name="2" parent="." groups=[
 "level",
 ] instance=ExtResource( 4 )]
-position = Vector2( 639.962, -184 )
+position = Vector2( 640, -184 )
+LevelName = ""
 
 [node name="2b" parent="." groups=[
 "level",
 ] instance=ExtResource( 5 )]
 position = Vector2( 320, -224 )
+LevelName = "Dungeon I"
+LevelDifficulty = 2
 
 [node name="3" parent="." instance=ExtResource( 6 )]
 position = Vector2( 968, -112 )
@@ -97,33 +100,27 @@ position = Vector2( 3360, -256 )
 [node name="Waypoint" type="Node2D" parent="."]
 
 [node name="2b" type="Position2D" parent="Waypoint"]
-position = Vector2( 464.117, -106.083 )
+position = Vector2( 464, -104 )
+scale = Vector2( 0.8, 0.8 )
 
 [node name="Player" parent="." groups=[
 "Player",
 ] instance=ExtResource( 15 )]
 pause_mode = 1
-editor/display_folded = true
-position = Vector2( 64, 134 )
+position = Vector2( 64, 136 )
 z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 pause_mode = 2
+editor/display_folded = true
 scale = Vector2( 0.25, 0.25 )
 current = true
-limit_left = 0
-limit_top = 0
-limit_right = 0
-limit_bottom = 0
 limit_smoothed = true
 drag_margin_left = 0.3
 drag_margin_top = 0.3
 drag_margin_right = 0.3
 drag_margin_bottom = 0.3
 script = ExtResource( 16 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Player/Camera2D"]
 scroll_ignore_camera_zoom = true
