@@ -53,8 +53,8 @@ public class Player : KinematicBody2D
 
     public bool CanInteract = false;
     public List<Node2D> Following = new List<Node2D>(); // List of following entities.
-    private List<Node2D> InteractableObject = new List<Node2D>(99); // List of objects rdy to interact close-by
-
+    public List<Node2D> InteractableObject = new List<Node2D>(99); // List of objects rdy to interact close-by
+    
     // Init.
     public override void _Ready()
     {
@@ -480,14 +480,24 @@ public class Player : KinematicBody2D
 		}
     } 
 
+    public void RemoveFromInteraction(Node2D pObject){
+        if(InteractableObject.Contains(pObject))
+            InteractableObject.Remove(pObject);
+    }
+
     // Detection of interactable objects
     private void _on_InteractionRange_area_entered(object area)
     {
         var parent = (area as Area2D).GetParent() as Node2D;
-        if(parent.HasMethod("Interact"))
+        if(parent.HasMethod("Interact")){
+            if((parent.Get("CanInteract") as bool?) == false)
+                return;
             InteractableObject.Insert(0, ((area as Area2D).GetParent() as Node2D));
+        }
+            
     }
 
+   
     private void _on_InteractionRange_area_exited(object area)
     {
         var parent = (area as Area2D).GetParent() as Node2D;

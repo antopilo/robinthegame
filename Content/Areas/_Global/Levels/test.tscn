@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Level.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/bg_tile.tres" type="TileSet" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Door/DoorPuzzle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Trigger.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Content/Actors/Npc/Blacksmith.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 1, 1, 1, 0.215686, 1, 1, 1, 0 )
@@ -133,4 +134,7 @@ position = Vector2( -8, 0 )
 [node name="DebugDraw" parent="." instance=ExtResource( 11 )]
 visible = false
 expand_color = Color( 1, 0, 0, 1 )
+
+[node name="Blacksmith" parent="." instance=ExtResource( 12 )]
+position = Vector2( 248, 144 )
 

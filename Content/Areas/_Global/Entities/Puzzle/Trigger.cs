@@ -5,7 +5,7 @@ public class Trigger : Node2D
 {
     public bool Triggered = false;
     public bool CanTrigger = true;
-
+    public Vector2 InteractionOffset = new Vector2(8, 8);
     private AnimatedSprite AnimatedSprite;
 
     // private Color Green = new Color(0, 1, 0);

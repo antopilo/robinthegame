@@ -15,7 +15,7 @@ public class Root : Node2D
     public static SceneSwitcher SceneSwitcher;
     public static Viewport Viewport;
     public static ViewportContainer GameContainer;
-
+    public static Dialog Dialog;
     public override void _Ready()
     {
         // Get node
@@ -28,6 +28,7 @@ public class Root : Node2D
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;
         GameContainer = GetNode("Game") as ViewportContainer;
+        Dialog = GetNode("UI/Dialog") as Dialog;
         LoadSettings();
         ApplySettings();
     }
