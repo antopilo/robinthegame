@@ -7,6 +7,7 @@ public class DungeonDoor : Node2D
 
     private PackedScene World;
     private SceneSwitcher SceneSwitcher;
+    [Export] string Waypoint = "";
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -14,5 +15,8 @@ public class DungeonDoor : Node2D
         
     }
 
-    public void Interact() => Root.SceneSwitcher.ChangeWorld(DestinationWorld);
+    public void Interact()
+    {
+        Root.SceneSwitcher.ChangeWorld(DestinationWorld, Waypoint);
+    }
 }

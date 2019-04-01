@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class SceneSwitcher : Node
 {
     public static GameController CurrentWorld;
-
     public static Dictionary<string, PackedScene> LoadedWorld = new Dictionary<string, PackedScene>();
     public static PackedScene LastWorld;
 
@@ -15,16 +14,26 @@ public class SceneSwitcher : Node
         CurrentWorld = Root.GameController;
     }
 
-    public void ChangeWorld(PackedScene pWorld)
+    public void ChangeWorld(PackedScene pWorld, string Waypoint)
     {
-        GD.Print("Door activated!");
+        // Delete old world.
         Root.Viewport.GetChild(0).QueueFree();
+
+        // Add new World.
         GameController newWorldScene = pWorld.Instance() as GameController;
         Root.Viewport.AddChild(newWorldScene);
-        Root.SceneTransition.Fade();
+
+        // Transition
         Root.Player.Camera.Position = new Vector2();
+        Root.SceneTransition.Fade();
+
         newWorldScene.Spawn(true);
 
+        if (Waypoint != "" && newWorldScene.HasNode("Waypoint/" + Waypoint))
+        {
+            GD.Print("Waypoint found! - " + Waypoint);
+            Root.Player.GlobalPosition = (newWorldScene.GetNode("Waypoint/" + Waypoint) as Position2D).GlobalPosition;
+        }
     }
 
     public void SaveWorld()

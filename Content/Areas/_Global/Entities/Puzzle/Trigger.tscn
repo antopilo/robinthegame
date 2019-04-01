@@ -26,7 +26,7 @@ animations = [ {
 script = ExtResource( 1 )
 
 [node name="InteractionZone" type="Area2D" parent="."]
-position = Vector2( 4, 4 )
+position = Vector2( 8.07677, 6.75458 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
 shape = SubResource( 1 )

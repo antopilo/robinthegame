@@ -55,18 +55,18 @@ public class FallingBlock3x3 : KinematicBody2D
         MoveLocalY(Velocity.y);
     }
 
-    public override void _Draw()
-    {
-        Color color;
-        if (Frozen && Triggered)
-            color = new Color(1, 0, 0);
-        else if (!Frozen && Triggered)
-            color = new Color(0, 1, 0);
-        else
-            color = new Color(0, 0 ,1);
+    //public override void _Draw()
+    //{
+    //    Color color;
+    //    if (Frozen && Triggered)
+    //        color = new Color(1, 0, 0);
+    //    else if (!Frozen && Triggered)
+    //        color = new Color(0, 1, 0);
+    //    else
+    //        color = new Color(0, 0 ,1);
 
-        DrawRect(new Rect2(new Vector2(0, 0), new Vector2(Dimension.x * 8, Dimension.y * 8)), color, true);
-    }
+    //    DrawRect(new Rect2(new Vector2(0, 0), new Vector2(Dimension.x * 8, Dimension.y * 8)), color, true);
+    //}
 
     // Make the collision in relation with the size of the falling block.
     private void MakeCollision()

@@ -94,10 +94,16 @@ position = Vector2( 2744, -153 )
 ] instance=ExtResource( 14 )]
 position = Vector2( 3360, -256 )
 
+[node name="Waypoint" type="Node2D" parent="."]
+
+[node name="2b" type="Position2D" parent="Waypoint"]
+position = Vector2( 464.117, -106.083 )
+
 [node name="Player" parent="." groups=[
 "Player",
 ] instance=ExtResource( 15 )]
 pause_mode = 1
+editor/display_folded = true
 position = Vector2( 64, 134 )
 z_index = 1
 

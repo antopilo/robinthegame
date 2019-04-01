@@ -29,6 +29,7 @@ public class Blacksmith : Node2D
             Root.SceneTransition.NpcSay(this, Dialogs[TalkCount]);
         else
             Root.SceneTransition.NpcSay(this, Default);
+
         TalkCount++;
     }
 }

@@ -109,8 +109,8 @@ public class SceneTransition : CanvasLayer
         var uiPosition = player.GlobalPosition - Offset + heightOffset;
         var scale = Root.GameContainer.StretchShrink;
         var position = (uiPosition * new Vector2((float)scale, (float)scale));
+        var newtext = textScene.Instance() as SpeechTextDissapearing;
 
-        SpeechTextDissapearing newtext = textScene.Instance() as SpeechTextDissapearing;
         newtext.text = pMessage;
         newtext.Name = "SpeechText";
         newtext.RectPosition = position - new Vector2(0, 32);
