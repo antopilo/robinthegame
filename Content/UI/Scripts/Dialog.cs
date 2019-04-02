@@ -36,7 +36,7 @@ public class Dialog : Control
         }
         else if(Frozen && Ended && Input.IsActionJustPressed("Interact"))
         {
-            GetTree().Paused = false;
+            Root.Player.CanControl = true;
             Root.Player.CanInteract = true;
             Frozen = false;
             Visible = false;
@@ -59,16 +59,19 @@ public class Dialog : Control
         Frozen = true;
         Ended = false;
         Visible = true;
-        GetTree().Paused = true;
+        //GetTree().Paused = true;
+        Root.Player.CanControl = false;
 
         Text.Clear();
+
 
         Text.PercentVisible = 0f;
         Text.Text = pMessage;
 
         float AnimationLength = pMessage.Length / Speed + 0.25f; // Consistent speed per letter.
-        GD.Print("text reveal length : " + AnimationLength);
         T.StopAll();
+        T.InterpolateProperty(this, "modulate", new Color(1,1,1,0),
+            new Color(1,1,1,1), 0.25f, Tween.TransitionType.Linear, Tween.EaseType.Out);
         T.InterpolateProperty(Text, "percent_visible", 0f,
             1f, AnimationLength, Tween.TransitionType.Linear, Tween.EaseType.Out);
         T.Start();

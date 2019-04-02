@@ -91,16 +91,14 @@ public class FallingPlatform : Node2D
     /// <param name="body"></param>
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
-        if (!(body is Player))
+        if(State != PlatformStates.Ready || !(body is Player))
             return;
 
-        if((body as Player).Velocity.y >= 0)
+        var player = (body as Player);
+        if(player.Velocity.y >= 0) // Activate shaking process and Timer.
         {
-            // Activate shaking process and Timer.
-            DetectionZone.CallDeferred("set_monitoring", false);
             State = PlatformStates.Shaking;
             ShakeTimer.Start();
-
         }   
     }
 
@@ -109,8 +107,6 @@ public class FallingPlatform : Node2D
     /// </summary>
     private void _on_RespawnCooldown_timeout()
     {
-        State = PlatformStates.Up;
-
         // Slowly Tween back to original position and opacity.
         Tween.InterpolateProperty(Sprite, "scale", new Vector2(), new Vector2(1, 1), 2f, Tween.TransitionType.Elastic, Tween.EaseType.Out);
 
@@ -128,10 +124,6 @@ public class FallingPlatform : Node2D
             ReadyCd.Start();
             Collision.Disabled = false;
         }
-        else if(State == PlatformStates.Down)
-        {
-            State = PlatformStates.Up;
-        }
 
         Sprite.GlobalRotationDegrees = 0;
     }
@@ -139,8 +131,25 @@ public class FallingPlatform : Node2D
     private void _on_ReadyCooldown_timeout()
     {
         State = PlatformStates.Ready;
-        DetectionZone.CallDeferred("set_monitoring", true);
         Collision.Disabled = false;
+    }
+
+    public void Reset()
+    {
+        if(State == PlatformStates.Ready)
+            return;
+
+        // Slowly Tween back to original position and opacity.
+        Tween.RemoveAll();
+        Tween.InterpolateProperty(Sprite, "scale", new Vector2(), new Vector2(1, 1), 2f, Tween.TransitionType.Elastic, Tween.EaseType.Out);
+        Tween.Start();
+        
+        DetectionZone.CallDeferred("set_monitoring", true);
+        State = PlatformStates.Ready;
+        Sprite.RotationDegrees = 0;
+        Collision.Disabled = false;
+        Platform.Position = InitialPosition;
+        Platform.Modulate = InitialColor;
     }
 
     /// <summary>

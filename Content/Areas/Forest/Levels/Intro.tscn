@@ -74,7 +74,8 @@ format = 1
 [node name="objects" type="Node2D" parent="."]
 
 [node name="NarratorTrigger" parent="objects" instance=ExtResource( 7 )]
-Message = PoolStringArray( "", "" )
+Message = "I need to crouch jump."
+ShowOnce = false
 
 [node name="DebugDraw" parent="." instance=ExtResource( 8 )]
 expand_color = Color( 1, 0, 0, 1 )

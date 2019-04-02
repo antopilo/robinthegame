@@ -2,15 +2,18 @@ using Godot;
 
 public class SceneTransition : CanvasLayer
 {
+    public bool SceneChangeReady = false;
+    public AnimationPlayer InteractionAnim;
+
     private AnimationPlayer AnimPlayer;
     private Control InteractionSprite;
-    public AnimationPlayer InteractionAnim;
     private string CurrentAnim = "Inactive";
     private bool AnimationPlayed = false;
     private string LastAnimationPlayer = "";
     private Vector2 LastOrbPosition = new Vector2();
     private PackedScene textScene;
     private Tween Tween;
+    
 
     private SpeechTextDissapearing LastText = null;
 
@@ -32,6 +35,11 @@ public class SceneTransition : CanvasLayer
     {   
 	    AnimPlayer.Play("FadeOut");
         GetTree().Paused = true;
+    }
+
+    public void FadeIn()
+    {
+        AnimPlayer.Play("FadeIn");
     }
 	
     // Move the interaction orb to the closest interactable object.
@@ -123,6 +131,17 @@ public class SceneTransition : CanvasLayer
     // When the transition stops, start the game.
     private void _on_AnimationPlayer_animation_finished(string anim_name)
     {
+        // If the animation is triggered while changing scene.
+        if(anim_name == "FadeIn")
+        {
+            SceneChangeReady = true;
+            AnimPlayer.Play("Out");
+            return;
+        }
+        if(anim_name == "Out"){
+            return;
+        }
+
         GetTree().Paused = false;
         Root.Player.Alive = true;
         Root.Player.CanControl = true;

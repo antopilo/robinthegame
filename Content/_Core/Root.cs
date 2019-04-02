@@ -11,11 +11,12 @@ public class Root : Node2D
     public static GameController GameController;
     public static Player Player;
     public static Weapon Weapon;
+    public static Dialog Dialog;
     public static SceneTransition SceneTransition;
     public static SceneSwitcher SceneSwitcher;
     public static Viewport Viewport;
     public static ViewportContainer GameContainer;
-    public static Dialog Dialog;
+
     public override void _Ready()
     {
         // Get node
@@ -28,7 +29,7 @@ public class Root : Node2D
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;
         GameContainer = GetNode("Game") as ViewportContainer;
-        Dialog = GetNode("UI/Dialog") as Dialog;
+        Dialog = (Dialog)GetNode("UI/Dialog");
         LoadSettings();
         ApplySettings();
     }
@@ -36,7 +37,9 @@ public class Root : Node2D
     public override void  _Process(float delta){
         Console = GetNode("UI/Console") as Console;
         Viewport = GetNode("Game/Viewport") as Viewport;
+        
         //SceneSwitcher = GetNode("Game/")
+        Dialog = (Dialog)GetNode("UI/Dialog");
         GameController = GetNode("Game/Viewport").GetChild(0) as GameController;
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;

@@ -6,6 +6,6 @@
   "Fullscreen": true,
   "Borderless": false,
   "Vsync": true,
-  "Controller": false,
+  "Controller": true,
   "MaxFps": 120
 }

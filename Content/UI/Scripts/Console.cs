@@ -8,11 +8,10 @@ public class Console : Control
 
     private Label FpsLabel;
     private LineEdit ConsoleInput;
-    private GameController GameController;
+   
     private Dialog DialogBox;
     private RichTextLabel ConsoleBox;
-    private Player Player;
-    private Weapon Weapon;
+
 
     private string LastCommand = "";
     private string[] Commands = { "QUIT", "SHOWGRID", "SPAWN", "CONTROLLER", "WINDOW",
@@ -26,12 +25,9 @@ public class Console : Control
 
         FpsLabel = GetNode("Fps") as Label;
         ConsoleInput = GetNode("LineEdit") as LineEdit;
-        GameController = GetNode("../../Game/Viewport/World") as GameController;
         DialogBox = GetNode("../Dialog") as Dialog;
         ConsoleBox = GetNode("ConsoleBox") as RichTextLabel;
-        Player = GameController.GetNode("Player") as Player;
-        Weapon = Player.GetNode("Weapon") as Weapon;
-		Player.CanControl = true;
+   
     }
 
     public override void _Input(InputEvent @event)
@@ -45,13 +41,13 @@ public class Console : Control
             {
                 ConsoleInput.GrabFocus();
                 ConsoleInput.Clear();
-                Player.CanControl = false;
+                Root.Player.CanControl = false;
             }
             else // Hide
             {
                 ConsoleInput.ReleaseFocus();
                 ConsoleInput.Clear();
-                Player.CanControl = true;
+                Root.Player.CanControl = true;
             }
         }
 
@@ -60,10 +56,10 @@ public class Console : Control
             ConsoleInput.Text = LastCommand;
 
         if(@event.IsActionPressed("Reload"))
-            GameController.CurrentRoom.Reload();
+            Root.GameController.CurrentRoom.Reload();
 
         if (@event.IsActionPressed("Respawn") && !Visible)
-            GameController.Spawn(true);
+            Root.GameController.Spawn(true);
 
     }
 
@@ -92,25 +88,25 @@ public class Console : Control
                 break;
 
             case "SHOWGRID":
-                GameController.ShowGrid = !GameController.ShowGrid;
-                GameController.CurrentRoom.Update();
+                Root.GameController.ShowGrid = !Root.GameController.ShowGrid;
+                Root.GameController.CurrentRoom.Update();
                 break;
 
             case "SPAWN":
             case "RESPAWN":
-                GameController.Spawn(true);
+                Root.GameController.Spawn(true);
                 break;
 
             // Toggle Controller mode ON or OFF
             case "CONTROLLER": 
-                Toggle = !Weapon.ControllerMode;
+                Toggle = !Root.Weapon.ControllerMode;
                 
                 if(parameters.Length == 0)
-                    Weapon.ControllerMode = !Weapon.ControllerMode;
+                    Root.Weapon.ControllerMode = !Root.Weapon.ControllerMode;
                 else if(parameters[0] == "1")
-                    Weapon.ControllerMode = true;
+                    Root.Weapon.ControllerMode = true;
                 else if(parameters[0] == "0")
-                    Weapon.ControllerMode = false;
+                    Root.Weapon.ControllerMode = false;
                 break;
 
             // Set the Window Size.
@@ -161,13 +157,13 @@ public class Console : Control
                 break;
             case "SHAKE":
                 if (parameters.Length == 0)
-                    (Player.Camera as Camera).Shake(1f, 1f);
+                    (Root.Player.Camera as Camera).Shake(1f, 1f);
                 try
                 {
                     if (parameters.Length == 1)
-                        (Player.Camera as Camera).Shake(float.Parse(parameters[0]), 1f);
+                        (Root.Player.Camera as Camera).Shake(float.Parse(parameters[0]), 1f);
                     else if (parameters.Length == 2)
-                        (Player.Camera as Camera).Shake(float.Parse(parameters[0]), float.Parse(parameters[1]));
+                        (Root.Player.Camera as Camera).Shake(float.Parse(parameters[0]), float.Parse(parameters[1]));
                                    }
                 catch
                 {
@@ -229,16 +225,16 @@ public class Console : Control
 
                 if(Level != null && Level.IsInGroup("level"))
                 {
-                    GameController.ChangeRoom(Level);
-                    GameController.Spawn(true);
+                    Root.GameController.ChangeRoom(Level);
+                    Root.GameController.Spawn(true);
                 }
                 break;
 
             case "RELOAD":
-                GameController.CurrentRoom.Reload();
+                Root.GameController.CurrentRoom.Reload();
                 break;
             case "SETSPAWN":
-                GameController.CurrentRoom.SpawnPosition = GameController.Player.Position;
+                Root.GameController.CurrentRoom.SpawnPosition = Root.GameController.Player.Position;
                
                 break;
             // Move the player X Y Tile.

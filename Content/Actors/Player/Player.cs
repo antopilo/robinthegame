@@ -98,6 +98,11 @@ public class Player : KinematicBody2D
             Velocity.y /= 1.75f;
     }
 
+    public void ResetInput()
+    {
+        InputDirectionX = 0;
+        InputDirectionY = 0;
+    }
     // Main loop.
     public override void _PhysicsProcess(float delta)
     {

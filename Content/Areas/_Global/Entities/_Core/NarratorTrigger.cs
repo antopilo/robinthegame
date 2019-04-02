@@ -3,7 +3,7 @@ using System;
 
 public class NarratorTrigger : Area2D
 {
-    [Export] private string[] Message;
+    [Export] private string Message;
     [Export] private bool ShowOnce = true;
     private bool Showed = false;
 
@@ -17,7 +17,7 @@ public class NarratorTrigger : Area2D
             if(ShowOnce)
                 Showed = true;
 
-            //Root.Dialog.ShowMessage(Message);
+            Root.Dialog.ShowMessage(Message);
         }
     }
 }
