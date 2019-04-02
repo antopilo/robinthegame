@@ -37,11 +37,11 @@ public class Root : Node2D
     public override void  _Process(float delta){
         Console = GetNode("UI/Console") as Console;
         Viewport = GetNode("Game/Viewport") as Viewport;
-        
         //SceneSwitcher = GetNode("Game/")
         Dialog = (Dialog)GetNode("UI/Dialog");
         GameController = GetNode("Game/Viewport").GetChild(0) as GameController;
         Player = GameController.GetNode("Player") as Player;
+
         Weapon = Player.GetNode("Weapon") as Weapon;
         GameContainer = GetNode("Game") as ViewportContainer;
     }

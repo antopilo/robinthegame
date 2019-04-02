@@ -3,14 +3,15 @@ using System;
 
 public class DungeonDoor : Node2D
 {
-    [Export] public PackedScene DestinationWorld = ResourceLoader.Load("res://Content/Areas/Worlds/ForestWorld.tscn") as PackedScene;
+    [Export] public PackedScene DestinationWorld; // World to load
+    [Export] public string Waypoint = ""; // Waypoint in world.
 
     private PackedScene World;
     private SceneSwitcher SceneSwitcher;
-    [Export] string Waypoint = "";
 
     public void Interact()
     {
+        Root.Player.RemoveFromInteraction(this);
         Root.SceneSwitcher.ChangeWorld(DestinationWorld, Waypoint);
     }
 }

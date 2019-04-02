@@ -108,7 +108,6 @@ public class Console : Control
                 else if(parameters[0] == "0")
                     Root.Weapon.ControllerMode = false;
                 break;
-
             // Set the Window Size.
             case "WINDOW":
                 if (parameters.Length == 0)

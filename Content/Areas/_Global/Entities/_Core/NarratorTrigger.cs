@@ -3,7 +3,7 @@ using System;
 
 public class NarratorTrigger : Area2D
 {
-    [Export] private string Message;
+    [Export(PropertyHint.MultilineText)] private string Message;
     [Export] private bool ShowOnce = true;
     private bool Showed = false;
 

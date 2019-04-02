@@ -98,9 +98,6 @@ public class Level : Node2D
     /// <summary>
     /// This methods Change each tiles that are on the border of the level to autotile with the level next to it.
     /// This gives a better look and makes the levels feel more connected.
-    ///     x   x   x
-    ///     x   x   x
-    ///     x   x   x 
     /// </summary>
     public void AutoTileBorders()
     {
@@ -152,7 +149,6 @@ public class Level : Node2D
     /// </summary>
     public void LoadEntities(bool pLoadSpawns)
     {
-        GD.Print("Loading entities for : " + this.Name);
         foreach (Vector2 Tile in LayerEntities.GetUsedCells())
         {
             int Cell = LayerEntities.GetCell((int)Tile.x, (int)Tile.y);

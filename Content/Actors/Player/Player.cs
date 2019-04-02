@@ -54,7 +54,7 @@ public class Player : KinematicBody2D
     public bool CanInteract = false;
     public List<Node2D> Following = new List<Node2D>(); // List of following entities.
     public List<Node2D> InteractableObject = new List<Node2D>(99); // List of objects rdy to interact close-by
-    
+
     // Init.
     public override void _Ready()
     {
@@ -66,7 +66,7 @@ public class Player : KinematicBody2D
         RunDust = (Particles2D)GetNode("Particles/RunDust");
         WallJumpDust = (Particles2D)GetNode("Particles/WallJump");
     }
-    
+
     // Jumping.
     public override void _Input(InputEvent e)
     {
@@ -100,8 +100,16 @@ public class Player : KinematicBody2D
 
     public void ResetInput()
     {
+        Velocity = new Vector2();
+        Sprite.Animation = "idle";
         InputDirectionX = 0;
         InputDirectionY = 0;
+    }
+
+    public Vector2 GetInputv()
+    {
+        GD.Print(new Vector2(InputDirectionX, InputDirectionY));
+        return new Vector2(InputDirectionX, InputDirectionY);
     }
     // Main loop.
     public override void _PhysicsProcess(float delta)
