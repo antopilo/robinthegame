@@ -33,7 +33,7 @@ public class Player : KinematicBody2D
     private int InputDirectionX = 0;
     private int InputDirectionY = 0; // For later use maybe.
 
-    public States State { get; private set; }
+    public States State { get; set; }
 
     public bool Alive = true;
     public bool IsCrouching { get; private set; } = false;
@@ -114,16 +114,23 @@ public class Player : KinematicBody2D
     // Main loop.
     public override void _PhysicsProcess(float delta)
     {
+        CollisionBox.Disabled = State == States.Ghost;
+        Modulate = State == States.Ghost ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1); 
         GetReference();
-
         GetInput();
         UpdateVelocity();
-        UpdateState();
-        CanWalljump();
+
+        if(State != States.Ghost)
+        {
+            UpdateState();
+            CanWalljump();
+        }
+            
         SpeedLimits();
         Sounds(delta); // Handles player sounds
         Particles(); // Handles player particles
         MoveAndSlide(Velocity);
+
         ApplyGravity();
         GetArrow();
         GetInteractable();
@@ -136,6 +143,11 @@ public class Player : KinematicBody2D
     {
         if(Camera is null) 
             Camera = GetNode("Camera2D") as Camera;
+    }
+
+    public void GhostMode()
+    {
+        CollisionBox.Disabled = true;
     }
 
     /// <summary>
@@ -178,18 +190,19 @@ public class Player : KinematicBody2D
 
         // Looking up
         if (Godot.Input.IsActionPressed("Up"))
-            InputDirectionY = -1;
-        else
-            InputDirectionY = 0;
-
-        // Crouching
-        if (Godot.Input.IsActionPressed("Down") && State == States.Ground)
         {
-            IsCrouching = true;
+            InputDirectionY = -1;
+        }
+        else if (Godot.Input.IsActionPressed("Down"))
+        {
             InputDirectionY = 1;
 
-            if (InputDirectionX == 0)
+            if (InputDirectionX == 0 && State == States.Ground)
+            {
+                IsCrouching = true;
                 Sprite.Play("Crouch");
+            }
+                
         }
         else
         {
@@ -296,13 +309,18 @@ public class Player : KinematicBody2D
     /// Pretty much just adds the acceleration. 
     /// </summary>
     private void UpdateVelocity()
-        => Velocity.x += InputDirectionX * ACCELERATION;
+    {
+        
+        Velocity.x += InputDirectionX * ACCELERATION;
+        if (State == States.Ghost)
+            Velocity.y += InputDirectionY * ACCELERATION;
+    }
     /// <summary>
     /// Apply Constant force on the player. if the player is on the ground. Stop the gravity.
     /// </summary>
     private void ApplyGravity()
     {
-        if (State == States.Ground)
+        if (State == States.Ground || State == States.Ghost)
             GravityMult = 0;
         else
             GravityMult = 1;
@@ -322,11 +340,16 @@ public class Player : KinematicBody2D
         if (Mathf.Abs(Velocity.x) > CurrentMaxSpeed)
             Velocity.x = MAX_SPEED * Mathf.Sign(Velocity.x);
 
-        if (Mathf.Abs(Velocity.y) > MAX_FALL_SPEED)
+        if (Mathf.Abs(Velocity.y) > MAX_FALL_SPEED && State != States.Ghost)
             Velocity.y = MAX_FALL_SPEED * Mathf.Sign(Velocity.y);
-
+        if (State == States.Ghost && Mathf.Abs(Velocity.y) > CurrentMaxSpeed)
+            Velocity.y = MAX_SPEED * Mathf.Sign(Velocity.y);
         if (InputDirectionX == 0 && CanControl)
             Velocity.x -= DECELERATION * Mathf.Sign(Velocity.x);
+
+        // Ghost mode
+        if (State == States.Ghost && InputDirectionY == 0 && CanControl)
+            Velocity.y -= DECELERATION * Mathf.Sign(Velocity.y);
 
         if (Mathf.Abs(Velocity.x) < 10 && InputDirectionX == 0)
             Velocity.x = 0;

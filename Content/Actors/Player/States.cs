@@ -2,5 +2,6 @@
 {
     Air,
     Ground,
-    Wall
+    Wall,
+    Ghost
 }

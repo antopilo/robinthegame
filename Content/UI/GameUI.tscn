@@ -30,20 +30,20 @@ font_data = ExtResource( 7 )
 size = 29
 font_data = ExtResource( 9 )
 
-[sub_resource type="DynamicFont" id=17]
+[sub_resource type="DynamicFont" id=3]
 size = 40
 use_filter = true
 font_data = ExtResource( 9 )
 
-[sub_resource type="DynamicFont" id=18]
+[sub_resource type="DynamicFont" id=4]
 size = 25
 font_data = ExtResource( 9 )
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.172549, 0.164706, 0.196078, 0.457059 )
 shadow_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=6]
 size = 32
 outline_size = 2
 outline_color = Color( 1, 0, 0, 1 )
@@ -51,13 +51,13 @@ extra_spacing_char = 2
 extra_spacing_space = 2
 font_data = ExtResource( 11 )
 
-[sub_resource type="StyleBoxLine" id=19]
+[sub_resource type="StyleBoxLine" id=7]
 content_margin_top = 0.0
 content_margin_bottom = 6.0
 color = Color( 1, 1, 1, 1 )
 thickness = 5
 
-[sub_resource type="StyleBoxLine" id=6]
+[sub_resource type="StyleBoxLine" id=8]
 color = Color( 1, 1, 1, 1 )
 thickness = 4
 
@@ -459,7 +459,7 @@ grow_vertical = 0
 rect_pivot_offset = Vector2( 1420.02, -385.013 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 3 )
 align = 1
 autowrap = true
 
@@ -483,7 +483,7 @@ margin_left = -240.444
 margin_top = -19.075
 margin_right = 241.556
 margin_bottom = 20.925
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 context_menu_enabled = false
 placeholder_text = "cmd"
@@ -496,8 +496,8 @@ margin_top = -927.0
 margin_right = 503.0
 margin_bottom = 51.0
 grow_vertical = 0
-custom_styles/normal = SubResource( 4 )
-custom_fonts/normal_font = SubResource( 18 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/normal_font = SubResource( 4 )
 custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2
 bbcode_enabled = true
@@ -509,7 +509,7 @@ margin_left = 1783.0
 margin_top = -926.0
 margin_right = 1922.0
 margin_bottom = -859.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 1, 1, 0, 1 )
 custom_constants/shadow_offset_x = -6
 custom_constants/shadow_as_outline = 6
@@ -520,6 +520,8 @@ uppercase = true
 
 [node name="PauseMenu" type="Control" parent="."]
 pause_mode = 2
+editor/display_folded = true
+visible = false
 material = ExtResource( 12 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -563,8 +565,8 @@ margin_bottom = 258.0
 rect_min_size = Vector2( 0, 40 )
 focus_neighbour_bottom = NodePath("../Options")
 mouse_default_cursor_shape = 2
-custom_styles/hover = SubResource( 19 )
-custom_styles/pressed = SubResource( 6 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
 custom_fonts/font = ExtResource( 3 )
 text = "Resume"
 flat = true
@@ -578,8 +580,8 @@ focus_neighbour_top = NodePath("../Resume")
 focus_neighbour_right = NodePath("../../Options/Resolution/Resolution")
 focus_neighbour_bottom = NodePath("../Quit")
 mouse_default_cursor_shape = 2
-custom_styles/hover = SubResource( 19 )
-custom_styles/pressed = SubResource( 6 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 text = "Options"
@@ -591,8 +593,8 @@ margin_right = 920.0
 margin_bottom = 486.0
 rect_min_size = Vector2( 0, 40 )
 mouse_default_cursor_shape = 2
-custom_styles/hover = SubResource( 19 )
-custom_styles/pressed = SubResource( 6 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
 custom_fonts/font = ExtResource( 3 )
 custom_colors/font_color_hover = Color( 0.239216, 0.239216, 0.239216, 1 )
 text = "Quit"

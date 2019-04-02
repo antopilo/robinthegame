@@ -67,6 +67,7 @@
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Trigger.cs" />
     <Compile Include="Content\Areas\_Global\Entities\_Core\NarratorTrigger.cs" />
     <Compile Include="Content\UI\Dialog\SpeechTextDissapearing.cs" />
+    <Compile Include="Content\UI\MainMenu.cs" />
     <Compile Include="Content\UI\Scripts\DeathCount.cs" />
     <Compile Include="Content\_Core\Camera.cs" />
     <Compile Include="Content\_Core\Singletons\SceneSwitcher.cs" />

@@ -20,6 +20,15 @@ public class Camera : Camera2D
 
             Offset = new Vector2(x, y);
         }
+
+        if(Root.Player.State == States.Ghost)
+        {
+            LimitTop = -999999;
+            LimitRight = 999999;
+            LimitLeft = -999999;
+            LimitBottom = 999999;
+        }
+
     }
     /// <summary>
     /// Shake the camera

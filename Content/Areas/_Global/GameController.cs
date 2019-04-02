@@ -31,7 +31,10 @@ public class GameController : Node2D
 
     // Called Every frame.
     public override void _PhysicsProcess(float delta)
-        => UpdateRoom();
+    {
+        if (Root.Player.State != States.Ghost) UpdateRoom();
+    }
+       
 
     /// <summary>
     /// Loops through each level(Node that have the "level" tag), and determine in which room

@@ -96,7 +96,19 @@ public class Console : Control
             case "RESPAWN":
                 Root.GameController.Spawn(true);
                 break;
-
+            case "GHOST":
+                if(Root.Player.State == States.Ghost)
+                {
+                    Root.Player.State = States.Air;
+                    Root.Player.Alive = true;
+                }
+                    
+                else
+                {
+                    Root.Player.State = States.Ghost;
+                }
+                    
+                break;
             // Toggle Controller mode ON or OFF
             case "CONTROLLER": 
                 Toggle = !Root.Weapon.ControllerMode;
