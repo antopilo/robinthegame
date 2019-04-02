@@ -46,7 +46,7 @@ public class GameController : Node2D
         // Loops through each Room in the world. They decide which one is the Player in.
         foreach (Node level in GetChildren())
         {
-            if (level.IsInGroup("level"))
+            if (level is Level)
             {
                 Room = (Level)level;
 
@@ -67,24 +67,22 @@ public class GameController : Node2D
     }
 
     // Finds which room the player is in.
-    public Level FindRoom()
+    public Level FindRoom(Vector2 pPosition)
     {
         Level Room;
 
         // Loops through each Room in the world. They decide which one is the Player in.
         foreach (Node level in GetChildren())
         {
-            if (level.IsInGroup("level"))
+            if (level is Level)
             {
                 Room = (Level)level;
-
-                float x = Player.Position.x, y = Player.Position.y;
+                float x = pPosition.x, y = pPosition.y;
                 float xMin = Room.LevelPosition.x, yMin = Room.LevelPosition.y;
                 float xMax = xMin + Room.LevelSize.x, yMax = yMin + Room.LevelSize.y;
-
                 // If the Player is inside the level.
-                if ((x >= xMin) && (y >= yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
-                    return (Level)Room;
+                if ((x >= xMin) && (y >= yMin) && (x < xMax) && (y < yMax))
+                    return (Level)level;
             }
         }
         // Return if the player is not inside a level.
@@ -100,7 +98,6 @@ public class GameController : Node2D
             T = new Tween();
             T.Name = "CameraAreaTween";
             AddChild(T);
-
             T.Connect("tween_completed", this, "_on_Tween_tween_completed");
         }
         else
@@ -191,11 +188,8 @@ public class GameController : Node2D
 
         Player.Alive = false;
         Player.CanControl = false;
-
         DeathCounter.Deaths++;
-
         CurrentRoom.Reload();
-
         if (WithAnimation)
         {
             var TransitionPlayer = (SceneTransition)GetNode("../../../UI");

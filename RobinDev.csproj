@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content\Actors\Blacksmith.cs" />
+    <Compile Include="Content\Areas\_Global\Entities\Collectables\Chest\Chest.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Core\FallingBlock\FallingBlock3x3.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Core\MessageSender\MessageSender.cs" />
     <Compile Include="Content\Areas\_Global\Entities\DungeonDoor\DungeonDoor.cs" />
@@ -62,7 +63,9 @@
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Bell\Bell.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Door\DoorPuzzle.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Puzzle.cs" />
+    <Compile Include="Content\Areas\_Global\Entities\Puzzle\SecretTiles.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Trigger.cs" />
+    <Compile Include="Content\Areas\_Global\Entities\_Core\NarratorTrigger.cs" />
     <Compile Include="Content\UI\Dialog\SpeechTextDissapearing.cs" />
     <Compile Include="Content\UI\Scripts\DeathCount.cs" />
     <Compile Include="Content\_Core\Camera.cs" />

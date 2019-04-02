@@ -29,9 +29,12 @@ public class SceneSwitcher : Node
 
         if (Waypoint != "" && newWorldScene.HasNode("Waypoint/" + Waypoint))
         {
-           (newWorldScene.GetNode("Player") as Player).GlobalPosition = (newWorldScene.GetNode("Waypoint/" + Waypoint) as Position2D).GlobalPosition;
-            newWorldScene.SnapCamToRoom(newWorldScene.FindRoom());
-            newWorldScene.CurrentRoom = newWorldScene.FindRoom();
+            var destination = (newWorldScene.GetNode("Waypoint/" + Waypoint) as Position2D).GlobalPosition;
+            (newWorldScene.GetNode("Player") as Player).GlobalPosition = destination;
+            var newRoom = newWorldScene.FindRoom(destination);
+            GD.Print(newRoom);
+            newWorldScene.SnapCamToRoom(newWorldScene.FindRoom(destination));
+            newWorldScene.CurrentRoom = newWorldScene.FindRoom(destination);
         }
     }
 

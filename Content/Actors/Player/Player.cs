@@ -476,7 +476,11 @@ public class Player : KinematicBody2D
         if(Input.IsActionJustPressed("Interact") && CanInteract)
 		{
 			if( (InteractableObject[0] as Node2D).HasMethod("Interact"))
-			    InteractableObject[0].Call("Interact");
+            {
+                try{
+			        InteractableObject[0].Call("Interact");
+                }catch{}
+            }
 		}
     } 
 
@@ -494,10 +498,9 @@ public class Player : KinematicBody2D
                 return;
             InteractableObject.Insert(0, ((area as Area2D).GetParent() as Node2D));
         }
-            
     }
-
    
+
     private void _on_InteractionRange_area_exited(object area)
     {
         var parent = (area as Area2D).GetParent() as Node2D;
@@ -513,7 +516,3 @@ public class Player : KinematicBody2D
         IsWallJumping = false;
     }
 }
-
-
-
-

@@ -12,7 +12,7 @@ public class Dart : Node2D
 
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
-        if (body is Player && (body as Player).Velocity.y > 0 && body.GlobalPosition.y <= this.GlobalPosition.y)
+        if (body is Player && (body as Player).Velocity.y > 0 && body.GlobalPosition.y > this.GlobalPosition.y)
             (body as Player).SuperJump();
         else if (body is Player)
             (body as Player).Spawn(true);

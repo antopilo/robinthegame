@@ -37,9 +37,10 @@ public class Level : Node2D
     #endregion
 
     GameController World;
+
     public override void _Ready()
     {
-        World = GetNode("..") as GameController;
+        World = (GameController)GetParent();
 
         // Get Layers
         LayerSolid = GetNode("Layers/fg_tile") as TileMap;

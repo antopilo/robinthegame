@@ -42,6 +42,7 @@ public class Dialog : Control
             Visible = false;
             SkipLabel.Visible = false;
             Opened = false;
+            
         }
     }
 
@@ -72,6 +73,8 @@ public class Dialog : Control
             1f, AnimationLength, Tween.TransitionType.Linear, Tween.EaseType.Out);
         T.Start();
     }
+
+    
 
     private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
     {

@@ -333,7 +333,6 @@ texture = ExtResource( 4 )
 expand = true
 
 [node name="DeathCount" type="Control" parent="."]
-editor/display_folded = true
 margin_left = 1719.0
 margin_top = 33.0
 margin_right = 1940.0

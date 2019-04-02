@@ -131,7 +131,6 @@ position = Vector2( -28.7647, 0.323532 )
 position = Vector2( -4.76466, 0.323532 )
 
 [node name="DebugDraw" parent="." instance=ExtResource( 11 )]
-visible = false
 expand_color = Color( 1, 0, 0, 1 )
 
 [node name="Blacksmith" parent="." instance=ExtResource( 12 )]

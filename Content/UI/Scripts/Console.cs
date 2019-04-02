@@ -159,7 +159,7 @@ public class Console : Control
 
                 root.ApplySettings();
                 break;
-            case "Shake":
+            case "SHAKE":
                 if (parameters.Length == 0)
                     (Player.Camera as Camera).Shake(1f, 1f);
                 try
