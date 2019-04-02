@@ -217,6 +217,9 @@ public class GameController : Node2D
 
     public void ChangeRoom(Level pRoom)
     {
+        if (pRoom is null)
+            return;
+
         CurrentRoom = pRoom;
         
         CurrentRoom.Reload();

@@ -15,6 +15,7 @@ public class Dialog : Control
     private bool Ended = false;
     public bool Opened = false;
     private float time = 0;
+    private float NextDissapear = 0f;
 
     public override void _Ready()
     {
@@ -30,10 +31,14 @@ public class Dialog : Control
     {
         RectSize = new Vector2(RectSize.x, Container.RectSize.y);
         time += delta;
-        //if(time < 0.5)
-        //    return;
 
-        if(Frozen && !Ended && Input.IsActionJustPressed("Interact"))
+        if(time > NextDissapear && Opened && !Frozen)
+        {
+            HideDialog();
+        }
+            
+
+        if(Frozen && !Ended && Input.IsActionJustPressed("Interact") && time > NextDissapear)
         {
             T.RemoveAll();
             this.Modulate = new Color(1, 1, 1, 1);
@@ -41,13 +46,9 @@ public class Dialog : Control
             Text.PercentVisible = 100;
             Ended = true;
         }
-        else if(Frozen && Ended && Input.IsActionJustPressed("Interact"))
+        else if(Frozen && Ended && Input.IsActionJustPressed("Interact") && time > NextDissapear)
         {
-            Root.Player.CanControl = true;
-            Root.Player.CanInteract = true;
-            Frozen = false;
-            Visible = false;
-            Opened = false;
+            HideDialog();
         }
     }
 
@@ -57,9 +58,7 @@ public class Dialog : Control
     /// <param name="pMessage"></param>
     public void ShowMessage(string pMessage)
     {
-        
-
-        time = 0;
+        NextDissapear = -1;
         SkipLabel.Modulate = new Color(1, 1, 1, 0);
         Root.Player.CanInteract = false;
         
@@ -89,17 +88,58 @@ public class Dialog : Control
         T.Start();
     }
 
-    
+    public void ShowMessage(string pMessage, float pDuration)
+    {
+        time = 0;
+        SkipLabel.Modulate = new Color(1, 1, 1, 0);
+        NextDissapear = pDuration;
+        Opened = true;
+        Frozen = false;
+        Ended = false;
+        Visible = true;
+
+        //GetTree().Paused = true;
+        Text.PercentVisible = 0f;
+        Text.Text = pMessage;
+
+        // Resizing
+        Text.RectSize = new Vector2(Text.RectSize.x, Text.RectMinSize.y);
+        RectSize = new Vector2(RectSize.x, RectMinSize.y);
+        Background.RectSize = new Vector2(RectSize.x, RectSize.y);
+
+        float AnimationLength = pMessage.Split(' ').Length * 0.18f; // Consistent speed per letter.
+
+        T.StopAll();
+        T.InterpolateProperty(this, "modulate", new Color(1, 1, 1, 0),
+            new Color(1, 1, 1, 1), 0.25f, Tween.TransitionType.Linear, Tween.EaseType.Out);
+        T.InterpolateProperty(Text, "percent_visible", 0f,
+            1f, AnimationLength, Tween.TransitionType.Linear, Tween.EaseType.Out);
+        T.Start();
+    }
+
+
+    private void HideDialog()
+    {
+        
+        Root.Player.CanControl = true;
+        Root.Player.CanInteract = true;
+        Frozen = false;
+        Opened = false;
+
+        T.StopAll();
+        T.InterpolateProperty(this, "modulate", new Color(1, 1, 1, 1),
+            new Color(1, 1, 1, 0), 0.25f, Tween.TransitionType.Linear, Tween.EaseType.Out);
+        T.Start();
+    }
 
     private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
     {
-        if(!Ended && @object == Text)
+        if(Opened && !Ended && @object == Text && time > NextDissapear)
         {
             T.InterpolateProperty(SkipLabel, "modulate", new Color(1, 1, 1, 0), new Color(1, 1, 1, 1), 0.25f,
                 Tween.TransitionType.Linear, Tween.EaseType.In);
             T.Start();
             Ended = true;
-        
         }
     }
 }

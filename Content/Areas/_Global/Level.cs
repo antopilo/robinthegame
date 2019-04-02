@@ -88,7 +88,6 @@ public class Level : Node2D
         // If ShowGrid is true, Display rectangle on each tile of current level.
         if (World.ShowGrid && World.CurrentRoom == this)
         {
-            // Tiles
             foreach (Vector2 item in LayerSolid.GetUsedCells())
                 DrawRect(new Rect2(LayerSolid.MapToWorld(item), new Vector2(8, 8)), new Color(1, 0, 0), false);
         }

@@ -40,6 +40,10 @@ public class SceneSwitcher : Node
                 newWorldScene.SnapCamToRoom(newRoom);
                 newWorldScene.CurrentRoom = newRoom;
             }
+            else
+            {
+                newWorldScene.Spawn(true);
+            }
         }
     }
 
@@ -48,6 +52,9 @@ public class SceneSwitcher : Node
     // NOTE: Waypoint a placed under Waypoint/NameofWaypoint along with levels into a world.
     public void ChangeWorld(PackedScene pWorld, string Waypoint)
     {
+        if (pWorld is null)
+            return;
+
         QueuedWorld = pWorld;
         QueuedWaypoint = Waypoint;
         Root.SceneTransition.FadeIn();

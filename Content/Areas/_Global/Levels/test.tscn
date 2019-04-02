@@ -39,7 +39,6 @@ damping_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 
 [node name="Debug" type="Node2D"]
-show_behind_parent = true
 script = ExtResource( 1 )
 LevelName = "Rename me!"
 

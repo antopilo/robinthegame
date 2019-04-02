@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public class Console : Control
@@ -8,15 +9,15 @@ public class Console : Control
 
     private Label FpsLabel;
     private LineEdit ConsoleInput;
-   
+    private string WorldPath = "res://Content/Areas/Worlds/";
     private Dialog DialogBox;
     private RichTextLabel ConsoleBox;
 
 
     private string LastCommand = "";
-    private string[] Commands = { "QUIT", "SHOWGRID", "SPAWN", "CONTROLLER", "WINDOW",
+    private string[] Commands = { "QUIT", "SHOWGRID", "SPAWN | RESPAWN", "CONTROLLER", "WINDOW",
                                   "FULLSCREEN", "VSYNC", "BORDERLESS", "SAY", "TP",
-                                  "MOVE", "HELP" };
+                                  "MOVE", "HELP", "SHAKE", "LOAD", "LW", "GHOST" , "RELOAD" , "HELP", "CLEAR" };
     
     public override void _Ready()
     {
@@ -76,11 +77,11 @@ public class Console : Control
         // Parse the command.
         var input = new_text.ToUpper().Split(" ");
         var command = input[0];
-        var parameters = input.Skip(1).ToArray();
+        var parameters = new_text.Split(" ").Skip(1).ToArray();
 
         LastCommand = new_text;
         ConsoleInput.Clear();
-
+        ConsoleBox.BbcodeText += "\n " + new_text + "\n";
         switch (command)
         {
             case "QUIT":
@@ -88,31 +89,105 @@ public class Console : Control
                 break;
 
             case "SHOWGRID":
+                
                 Root.GameController.ShowGrid = !Root.GameController.ShowGrid;
+                Root.Dialog.ShowMessage("GRID: " + Root.GameController.ShowGrid, 2f);
                 Root.GameController.CurrentRoom.Update();
                 break;
 
+            case "LW":
+                List<string> worlds = new List<string>();
+
+                Directory folder = new Directory();
+                folder.Open(WorldPath);
+                folder.ListDirBegin();
+                while (true)
+                {
+                    var file = folder.GetNext();
+                    if (file == "")
+                        break;
+                    else
+                        worlds.Add(file);
+                }
+
+                ConsoleBox.BbcodeText += "List of available worlds: \n";
+                int idx = 0;
+                foreach (var world in worlds)
+                {
+                    if (world == "." || world == "..")
+                        continue;
+                    ConsoleBox.BbcodeText += idx + ". " + world + "\n";
+                    idx++;
+                }
+                break;
+            case "LOAD":
+                
+                if (parameters.Length == 0)
+                {
+                    ConsoleBox.BbcodeText += "[color=red] Syntax: load [worldname] [waypoint]";
+                    return;
+                }
+                var worldscene = ResourceLoader.Load(WorldPath + parameters[0] + ".tscn") as PackedScene;
+                if(worldscene == null)
+                {
+                    ConsoleBox.BbcodeText += "[color=red] ERROR: " + parameters[0] + " couldn't be loaded.";
+                    return;
+                }
+                if (parameters.Length == 1)
+                    Root.SceneSwitcher.ChangeWorld(worldscene , "");
+                else
+                    Root.SceneSwitcher.ChangeWorld(worldscene, parameters[1]);
+
+                Visible = false;
+                ConsoleInput.ReleaseFocus();
+                break;
+
+            case "WP":
+            case "WAYPOINT":
+                if(parameters.Length == 0)
+                {
+                    ConsoleBox.BbcodeText += "Here are all the waypoints found: \n";
+                    var num = 0;
+                    foreach (Node2D wp in Root.GameController.GetNode("Waypoint").GetChildren())
+                    {
+                        ConsoleBox.BbcodeText += num + ". " + wp.Name + "\n";
+                    }
+                    break;
+                }
+                else
+                {
+                    if(!Root.GameController.HasNode("Waypoint/" + parameters[0]))
+                    {
+                        ConsoleBox.BbcodeText += "ERROR: Can't find waypoint " + parameters[0];
+                        break;
+                    }
+                    Root.Player.GlobalPosition = ((Position2D)Root.GameController.GetNode("Waypoint/" + parameters[0])).GlobalPosition;
+                }
+                break;
             case "SPAWN":
             case "RESPAWN":
+                Root.Dialog.ShowMessage("Respawned", 2f);
                 Root.GameController.Spawn(true);
                 break;
             case "GHOST":
                 if(Root.Player.State == States.Ghost)
                 {
                     Root.Player.State = States.Air;
+                    Root.GameController.ChangeRoom(Root.GameController.FindRoom(Root.Player.GlobalPosition));
+                    Root.Player.Camera.GlobalPosition = Root.Player.GlobalPosition;
+                    Root.Dialog.ShowMessage("Ghost mode deactivated", 2f);
                     Root.Player.Alive = true;
-                }
-                    
+                } 
                 else
                 {
+                    Root.Dialog.ShowMessage("Ghost mode activated", 2f);
+                    Root.Player.Camera.GlobalPosition = Root.Player.GlobalPosition;
                     Root.Player.State = States.Ghost;
                 }
                     
                 break;
             // Toggle Controller mode ON or OFF
             case "CONTROLLER": 
-                Toggle = !Root.Weapon.ControllerMode;
-                
                 if(parameters.Length == 0)
                     Root.Weapon.ControllerMode = !Root.Weapon.ControllerMode;
                 else if(parameters[0] == "1")
@@ -153,7 +228,9 @@ public class Console : Control
                 }
                 root.ApplySettings();
                 break;
-
+            case "CLEAR":
+                ConsoleBox.BbcodeText = "";
+                break;
             // Fullscreen
             case "FULLSCREEN":
                 if (parameters.Length == 0)
@@ -178,7 +255,7 @@ public class Console : Control
                                    }
                 catch
                 {
-                    ConsoleBox.BbcodeText += "\n [color=red]The shake command must have 1 or 2 parameters. Shake [Amount] [Duration]";
+                    ConsoleBox.BbcodeText += "\n [color=red]The shake command must have 1 or 2 parameters. \n Shake [Amount] [Duration]";
                 }
                 break;
 
@@ -196,6 +273,7 @@ public class Console : Control
 
                 root.settings.MaxFps = parameters[0].ToInt();
                 root.ApplySettings();
+                Root.Dialog.ShowMessage("Max fps set to " + root.settings.MaxFps, 2f);
                 break;
             
             // Make the borderless
@@ -237,16 +315,18 @@ public class Console : Control
                 if(Level != null && Level.IsInGroup("level"))
                 {
                     Root.GameController.ChangeRoom(Level);
+                    Root.Dialog.ShowMessage("Teleported to " + Level.Name, 2f);
                     Root.GameController.Spawn(true);
                 }
                 break;
 
             case "RELOAD":
                 Root.GameController.CurrentRoom.Reload();
+                Root.Dialog.ShowMessage("Level reloaded", 2f);
                 break;
             case "SETSPAWN":
                 Root.GameController.CurrentRoom.SpawnPosition = Root.GameController.Player.Position;
-               
+                Root.Dialog.ShowMessage("Spawn set at " + Root.GameController.Player.GlobalPosition, 2f);
                 break;
             // Move the player X Y Tile.
             case "MOVE":
@@ -281,7 +361,7 @@ public class Console : Control
                 return;
         }
 
-        ConsoleBox.BbcodeText += "\n " + new_text;
+        
     }
 }
 

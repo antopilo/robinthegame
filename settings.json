@@ -7,5 +7,5 @@
   "Borderless": false,
   "Vsync": true,
   "Controller": true,
-  "MaxFps": 120
+  "MaxFps": 60
 }

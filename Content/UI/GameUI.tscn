@@ -403,7 +403,7 @@ valign = 1
 
 [node name="Dialog" type="Control" parent="."]
 pause_mode = 2
-editor/display_folded = true
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 margin_bottom = 115.0
 rect_min_size = Vector2( 0, 115 )
@@ -464,7 +464,6 @@ align = 1
 autowrap = true
 
 [node name="Console" type="Control" parent="."]
-editor/display_folded = true
 visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -498,8 +497,9 @@ margin_bottom = 51.0
 grow_vertical = 0
 custom_styles/normal = SubResource( 5 )
 custom_fonts/normal_font = SubResource( 4 )
-custom_constants/shadow_offset_x = 2
-custom_constants/shadow_offset_y = 2
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.352941 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
 bbcode_enabled = true
 scroll_active = false
 scroll_following = true
@@ -862,6 +862,52 @@ align = 1
 valign = 1
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="NoteBook" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TabContainer" type="TabContainer" parent="NoteBook"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+tab_align = 0
+
+[node name="Tabs" type="Tabs" parent="NoteBook/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+tab_align = 0
+
+[node name="Tabs2" type="Tabs" parent="NoteBook/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Tabs3" type="Tabs" parent="NoteBook/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Tabs4" type="Tabs" parent="NoteBook/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [connection signal="tween_completed" from="LevelInfo/Tween" to="LevelInfo" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Dialog/Timer" to="Dialog" method="_on_Timer_timeout"]
