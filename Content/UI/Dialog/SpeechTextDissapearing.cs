@@ -3,14 +3,16 @@ using System;
 
 public class SpeechTextDissapearing : Control
 {
+    private Vector2 InitialPositon;
+
+
     public string text = "";
     private Label Label;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        
-
+        InitialPositon = GetGlobalPosition();
         var tween = (Tween)GetNode("Tween");
         Label = (Label)GetNode("Label");
         Label.Text = text;
@@ -22,5 +24,10 @@ public class SpeechTextDissapearing : Control
         tween.InterpolateProperty(this, "modulate", new Color(1,1,1,1), new Color(1,1,1,0),
             text.Length - (text.Length / 1.25f), Tween.TransitionType.Linear, Tween.EaseType.In);
         tween.Start();
+    }
+
+    public override void _Process(float delta)
+    {
+        
     }
 }

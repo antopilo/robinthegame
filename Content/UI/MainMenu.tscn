@@ -61,6 +61,7 @@ emission_box_extents = Vector3( 25, 200, 1 )
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 148.76
+angular_velocity = 8.46376e+027
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 19.83
@@ -84,7 +85,7 @@ frame_3/delay_sec = 0.0
 frame_4/texture = ExtResource( 9 )
 frame_4/delay_sec = 0.0
 
-[sub_resource type="ParticlesMaterial" id=17]
+[sub_resource type="ParticlesMaterial" id=7]
 emission_shape = 2
 emission_box_extents = Vector3( 25, 200, 1 )
 flag_disable_z = true
@@ -100,15 +101,15 @@ angle_random = 1.0
 scale = 8.0
 scale_random = 0.45
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=8]
 size = 100
 font_data = ExtResource( 15 )
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=9]
 size = 50
 font_data = ExtResource( 15 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=10]
 size = 35
 font_data = ExtResource( 15 )
 
@@ -229,7 +230,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=17]
 tracks/0/type = "value"
 tracks/0/path = NodePath("ColorRect:color")
 tracks/0/interp = 1
@@ -290,8 +291,7 @@ process_material = SubResource( 3 )
 texture = ExtResource( 4 )
 
 [node name="Birbs3" type="Particles2D" parent="BG"]
-visible = false
-position = Vector2( -234.485, 463.159 )
+position = Vector2( -404.742, 292.902 )
 amount = 14
 lifetime = 20.0
 preprocess = 68.18
@@ -313,7 +313,7 @@ region_enabled = true
 region_rect = Rect2( 14, 20, 1432, 236 )
 
 [node name="Sprite3" type="Sprite" parent="BG"]
-position = Vector2( -224.162, 891.6 )
+position = Vector2( -409.224, 899.002 )
 scale = Vector2( 5, 5 )
 texture = ExtResource( 12 )
 region_enabled = true
@@ -336,7 +336,7 @@ lifetime = 20.0
 preprocess = 118.25
 explosiveness = 0.27
 randomness = 0.39
-process_material = SubResource( 17 )
+process_material = SubResource( 7 )
 texture = ExtResource( 14 )
 
 [node name="Birbs2" type="Particles2D" parent="BG"]
@@ -375,7 +375,7 @@ margin_bottom = 181.0
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
 margin_right = 920.0
 margin_bottom = 115.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Robin"
 align = 1
@@ -390,7 +390,7 @@ margin_bottom = 119.0
 margin_top = 123.0
 margin_right = 920.0
 margin_bottom = 181.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Chapter 1"
 align = 1
@@ -411,7 +411,7 @@ margin_bottom = 647.0
 margin_right = 920.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 200, 50 )
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Play"
 flat = true
@@ -422,7 +422,7 @@ margin_right = 920.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 200, 50 )
 custom_styles/focus = SubResource( 11 )
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Options"
 flat = true
@@ -433,7 +433,7 @@ margin_right = 920.0
 margin_bottom = 158.0
 rect_min_size = Vector2( 200, 50 )
 custom_styles/focus = SubResource( 11 )
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Quit"
 flat = true
@@ -449,8 +449,6 @@ pause_mode = 2
 material = SubResource( 13 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 1.05261
-margin_bottom = 1.05261
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -478,7 +476,7 @@ align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Fadeout = SubResource( 10 )
+anims/Fadeout = SubResource( 17 )
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="animation_finished" from="Transition/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

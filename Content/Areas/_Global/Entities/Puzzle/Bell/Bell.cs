@@ -20,12 +20,16 @@ public class Bell : Node2D
         InteractTimer = GetNode("Timer") as Timer;
     }
 
+    public override void _Process(float delta)
+    {
+        if (playing)
+            playing = false;
+    }
     public void Interact()
     {
         if(!CanInteract)
             return;
         (GetNode("InteractionZone/CollisionShape2D") as CollisionShape2D).Disabled = true;
-        GD.Print("The bell has been rung!");
         Audio.Playing = true;
         AnimPlayer.Play("Ring");
         playing = true;
@@ -35,10 +39,13 @@ public class Bell : Node2D
 
     private void _on_Timer_timeout()
     {
-        playing = false;
         CanInteract = true;
-        GD.Print("The bell is ready!");
         (GetNode("InteractionZone/CollisionShape2D") as CollisionShape2D).Disabled = false;
+    }
+
+    public bool IsPlaying()
+    {
+        return playing;
     }
 }
 

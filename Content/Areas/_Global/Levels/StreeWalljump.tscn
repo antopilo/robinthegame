@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Level.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/bg_tile.tres" type="TileSet" id=2]
@@ -6,8 +6,9 @@
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_tile.tres" type="TileSet" id=4]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/entities.tres" type="TileSet" id=5]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_decals.tres" type="TileSet" id=6]
-[ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Bell/Bell.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Bell/SongPuzzle.cs" type="Script" id=7]
+[ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Bell/Bell.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=9]
 
 [node name="hard" type="Node2D"]
 show_behind_parent = true
@@ -57,9 +58,22 @@ tile_data = PoolIntArray( 983070, 8, 65538, 1048600, 8, 65538, 1048601, 8, 65536
 
 [node name="objects" type="Node2D" parent="."]
 
-[node name="Bell" parent="objects" instance=ExtResource( 7 )]
-position = Vector2( 224, 96 )
+[node name="SongPuzzle" type="Node2D" parent="objects"]
+position = Vector2( 216, 72 )
+script = ExtResource( 7 )
+GoodSong = PoolIntArray( 0, 1, 2, 0 )
 
-[node name="DebugDraw" parent="." instance=ExtResource( 8 )]
+[node name="Bell" parent="objects/SongPuzzle" instance=ExtResource( 8 )]
+position = Vector2( -40, 52 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Bell2" parent="objects/SongPuzzle" instance=ExtResource( 8 )]
+position = Vector2( 0, 24 )
+
+[node name="Bell3" parent="objects/SongPuzzle" instance=ExtResource( 8 )]
+position = Vector2( 64, 40 )
+scale = Vector2( 0.679995, 0.679995 )
+
+[node name="DebugDraw" parent="." instance=ExtResource( 9 )]
 expand_color = Color( 1, 0, 0, 1 )
 
