@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Level.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/bg_tile.tres" type="TileSet" id=2]
@@ -7,8 +7,10 @@
 [ext_resource path="res://Content/Areas/Forest/Tilesets/entities.tres" type="TileSet" id=5]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_decals.tres" type="TileSet" id=6]
 [ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Bell/SongPuzzle.cs" type="Script" id=7]
-[ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Bell/Bell.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Bell/BellHigh.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Bell/BellLow.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Bell/BellMid.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=11]
 
 [node name="hard" type="Node2D"]
 show_behind_parent = true
@@ -63,17 +65,17 @@ position = Vector2( 216, 72 )
 script = ExtResource( 7 )
 GoodSong = PoolIntArray( 0, 1, 2, 0 )
 
-[node name="Bell" parent="objects/SongPuzzle" instance=ExtResource( 8 )]
-position = Vector2( -40, 52 )
-scale = Vector2( 0.5, 0.5 )
+[node name="Bell1" parent="objects/SongPuzzle" instance=ExtResource( 8 )]
+position = Vector2( -41.7075, 49.6518 )
+scale = Vector2( 0.550026, 0.550026 )
 
-[node name="Bell2" parent="objects/SongPuzzle" instance=ExtResource( 8 )]
-position = Vector2( 0, 24 )
+[node name="Bell2" parent="objects/SongPuzzle" instance=ExtResource( 9 )]
+position = Vector2( 8, 24 )
 
-[node name="Bell3" parent="objects/SongPuzzle" instance=ExtResource( 8 )]
-position = Vector2( 64, 40 )
+[node name="Bell3" parent="objects/SongPuzzle" instance=ExtResource( 10 )]
+position = Vector2( 64, 39.8334 )
 scale = Vector2( 0.679995, 0.679995 )
 
-[node name="DebugDraw" parent="." instance=ExtResource( 9 )]
+[node name="DebugDraw" parent="." instance=ExtResource( 11 )]
 expand_color = Color( 1, 0, 0, 1 )
 

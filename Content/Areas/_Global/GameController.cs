@@ -5,13 +5,17 @@ public class GameController : Node2D
 {
     public Level CurrentRoom;
     public bool ShowGrid = false;
-
+    private Player Player;
+    private LevelInfo LevelInfo;
     [Export] private string StartLevel = "0";
     [Export] private Color BackgroundColor;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        LevelInfo = (LevelInfo)GetNode("../../../UI/LevelInfo");
+        Player = (Player)GetNode("Player");
+        Root.Player = Player;
         if (BackgroundColor != null)
             VisualServer.SetDefaultClearColor(BackgroundColor);
 
@@ -32,7 +36,7 @@ public class GameController : Node2D
     /// </summary>
     private void UpdateRoom()
     {
-        if (!Root.Player.Alive)
+        if (!Player.Alive)
             return;
         Level Room;
 
@@ -43,7 +47,7 @@ public class GameController : Node2D
             {
                 Room = (Level)level;
 
-                float x = Root.Player.Position.x, y = Root.Player.Position.y;
+                float x = Player.Position.x, y = Player.Position.y;
                 float xMin = Room.LevelPosition.x, yMin = Room.LevelPosition.y;
                 float xMax = xMin + Room.LevelSize.x, yMax = yMin + Room.LevelSize.y;
 
@@ -119,7 +123,7 @@ public class GameController : Node2D
     private void MoveCamToRoom(Level pRoom)
     {
         // Pausing the player.
-        Root.Player.SetPhysicsProcess(false);
+        Player.SetPhysicsProcess(false);
 
         Tween T;  // If there is no Tween node, then create one and use it.
         if (!HasNode("CameraAreaTween"))
@@ -137,7 +141,7 @@ public class GameController : Node2D
         T.RemoveAll();
 
         Vector2 NewCameraZoom = new Vector2(pRoom.LevelZoom, pRoom.LevelZoom); // Levels can have custom zoom.
-        Camera2D Camera = Root.Player.Camera;
+        Camera2D Camera = Player.Camera;
         Vector2 CameraCenter = Camera.GetCameraScreenCenter();
 
         // Setting the limit of the camera to the size of the level.
@@ -164,8 +168,8 @@ public class GameController : Node2D
         T.Start();
 
         // If there is an arrow in the level return it to Robin.
-        if (Root.Player.Arrow != null)
-            Root.Player.Arrow.ReturnToPlayer();
+        if (Player.Arrow != null)
+            Player.Arrow.ReturnToPlayer();
     }
 
 
@@ -213,7 +217,7 @@ public class GameController : Node2D
         
         CurrentRoom.Reload();
         MoveCamToRoom(CurrentRoom);
-        Root.LevelInfo.UpdateInfo(CurrentRoom);
+        LevelInfo.UpdateInfo(CurrentRoom);
     }
 
 

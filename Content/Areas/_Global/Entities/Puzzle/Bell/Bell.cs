@@ -8,6 +8,7 @@ public class Bell : Node2D
     private Sprite BellSprite, Frame;
     private AudioStreamPlayer Audio;
     public bool CanInteract = true;
+    [Export] float InteractDelay = 1f;
     private Timer InteractTimer;
 
     // Called when the node enters the scene tree for the first time.
@@ -18,6 +19,7 @@ public class Bell : Node2D
         Frame = GetNode("Frame") as Sprite;
         Audio = GetNode("AudioStreamPlayer") as AudioStreamPlayer;
         InteractTimer = GetNode("Timer") as Timer;
+        InteractTimer.WaitTime = InteractDelay;
     }
 
     public override void _Process(float delta)

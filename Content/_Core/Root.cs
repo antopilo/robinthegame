@@ -24,6 +24,7 @@ public class Root : Control
         Console = GetNode("UI/Console") as Console;
         SceneTransition = GetNode("UI") as SceneTransition;
         Viewport = GetNode("Game/Viewport") as Viewport;
+        LevelInfo = (LevelInfo)GetNode("UI/LevelInfo");
         SceneSwitcher = GetNode("/root/SceneSwitcher") as SceneSwitcher;
         GameController = GetNode("Game/Viewport/World") as GameController;
         Player = GameController.GetNode("Player") as Player;
@@ -38,6 +39,7 @@ public class Root : Control
     public override void  _Process(float delta){
         Console = GetNode("UI/Console") as Console;
         Viewport = GetNode("Game/Viewport") as Viewport;
+        LevelInfo = (LevelInfo)GetNode("UI/LevelInfo");
         //SceneSwitcher = GetNode("Game/")
         Dialog = (Dialog)GetNode("UI/Dialog");
         GameController = GetNode("Game/Viewport").GetChild(0) as GameController;

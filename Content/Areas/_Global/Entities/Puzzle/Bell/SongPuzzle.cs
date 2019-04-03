@@ -4,13 +4,21 @@ using System.Collections.Generic;
 
 public class SongPuzzle : Node2D
 {
+    [Export] int[] GoodSong = new int[4];
+    
+    public List<Bell> Bells = new List<Bell>();
+    private List<int> CurrentSong;
     public bool Completed = false;
 
-    [Export] private int[] GoodSong = new int[4];
-    private List<Bell> Bells = new List<Bell>();
-    private List<int> CurrentSong;
+    // Playback
+    [Export] private float PlaybackRate = 0.5f;
+    private float PlaybackInitialDelay = 2f;
+    private float DeltaTime = 0f;
+    private float NextRing = 0f;
+    private int PlaybackCurrent = 0;
+    private bool PlaybackDone = false;
 
-    // Debug
+    // Debugging
     private Color Green = new Color(0, 1, 0);
     private Color Red = new Color(1, 0, 0);
     private Color Blue = new Color(0, 0, 1);
@@ -29,23 +37,35 @@ public class SongPuzzle : Node2D
 
     public override void _Process(float delta)
     {
-        Update();
-
-        if (Completed)
+        if(PlaybackDone)
             return;
 
+        DeltaTime += delta;
+
+        Update();
+
+        
+        if (Completed && DeltaTime >= NextRing){
+            Playback();
+            return;
+        }
+
+        if(Completed) return;
         ScanBell();
         ScanTune();
     }
 
+    // Verify if the puzzle is possible.
     private void VerifyPossible()
     {
         foreach (int note in GoodSong)
         {
             if (note > Bells.Count - 1)
-                GD.PrintErr("SONG NOT POSSIBLE");
+                GD.PrintErr("SONG NOTE POSSIBLe");
         }
     }
+
+    // Check if a bell is being played.
     private void ScanBell()
     {
         for (int i = 0; i < Bells.Count; i++)
@@ -53,6 +73,7 @@ public class SongPuzzle : Node2D
                 CurrentSong.Add(i);
     }
 
+    // Puzzle condition.
     private void ScanTune()
     {
         if (CurrentSong.Count == 0)
@@ -70,15 +91,30 @@ public class SongPuzzle : Node2D
                 idx = 0;
                 return;
             }
+
             idx++;
         }
+        
         CompletePuzzle();
     }
 
-    
     public void CompletePuzzle()
     {
         Completed = true;
+        NextRing = DeltaTime + PlaybackInitialDelay;
+    }
+
+    private void Playback()
+    {
+        if(PlaybackCurrent == GoodSong.Length - 1)
+        {
+            Bells[GoodSong[PlaybackCurrent]].Interact();
+            PlaybackDone = true;
+            return;
+        }
+        Bells[GoodSong[PlaybackCurrent]].Interact();
+        NextRing = DeltaTime + PlaybackRate;
+        PlaybackCurrent++;
     }
 
     public override void _Draw()
