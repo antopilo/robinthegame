@@ -49,6 +49,7 @@ public class Dialog : Control
         else if(Frozen && Ended && Input.IsActionJustPressed("Interact") && time > NextDissapear)
         {
             HideDialog();
+            Root.Player.CanInteract = true;
         }
     }
 
@@ -122,7 +123,7 @@ public class Dialog : Control
     {
         
         Root.Player.CanControl = true;
-        Root.Player.CanInteract = true;
+        
         Frozen = false;
         Opened = false;
 

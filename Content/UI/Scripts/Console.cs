@@ -18,7 +18,8 @@ public class Console : Control
     private string[] Commands = { "QUIT", "SHOWGRID", "SPAWN | RESPAWN", "CONTROLLER", "WINDOW",
                                   "FULLSCREEN", "VSYNC", "BORDERLESS", "SAY", "TP",
                                   "MOVE", "HELP", "SHAKE", "LOAD", "LW", "GHOST" , "RELOAD" , "HELP", "CLEAR" };
-    
+    private List<string> cache = new List<string>();
+
     public override void _Ready()
     {
         // Get Node references.
@@ -28,7 +29,6 @@ public class Console : Control
         ConsoleInput = GetNode("LineEdit") as LineEdit;
         DialogBox = GetNode("../Dialog") as Dialog;
         ConsoleBox = GetNode("ConsoleBox") as RichTextLabel;
-   
     }
 
     public override void _Input(InputEvent @event)
@@ -87,41 +87,52 @@ public class Console : Control
             case "QUIT":
                 GetTree().Quit();
                 break;
-
             case "SHOWGRID":
-                
                 Root.GameController.ShowGrid = !Root.GameController.ShowGrid;
                 Root.Dialog.ShowMessage("GRID: " + Root.GameController.ShowGrid, 2f);
                 Root.GameController.CurrentRoom.Update();
                 break;
-
             case "LW":
-                List<string> worlds = new List<string>();
-
-                Directory folder = new Directory();
-                folder.Open(WorldPath);
-                folder.ListDirBegin();
-                while (true)
+                if(parameters.Length == 0)
                 {
-                    var file = folder.GetNext();
-                    if (file == "")
-                        break;
-                    else
-                        worlds.Add(file);
-                }
+                    List<string> worlds = new List<string>();
+                    Directory folder = new Directory();
+                    folder.Open(WorldPath);
+                    folder.ListDirBegin();
+                    while (true)
+                    {
+                        var file = folder.GetNext();
+                        if (file == "")
+                            break;
+                        else
+                            worlds.Add(file);
+                    }
 
-                ConsoleBox.BbcodeText += "List of available worlds: \n";
-                int idx = 0;
-                foreach (var world in worlds)
-                {
-                    if (world == "." || world == "..")
-                        continue;
-                    ConsoleBox.BbcodeText += idx + ". " + world + "\n";
-                    idx++;
+                    cache.Clear();
+                    ConsoleBox.BbcodeText += "List of available worlds: \n";
+                    int idx = 0;
+                    foreach (var world in worlds)
+                    {
+                        if (world == "." || world == "..")
+                            continue;
+                        ConsoleBox.BbcodeText += idx + ". " + world + "\n";
+                        cache.Add(world);
+                        idx++;
+                    }
                 }
+                else
+                {
+                    var scene = ResourceLoader.Load(WorldPath + cache[int.Parse(parameters[0].ToString())]) as PackedScene;
+                    if (scene == null)
+                    {
+                        ConsoleBox.BbcodeText += "[color=red] ERROR: " + cache[int.Parse(parameters[0].ToString())] + " couldn't be loaded.";
+                        return;
+                    }
+                    Root.SceneSwitcher.ChangeWorld(scene, "");
+                }
+                
                 break;
             case "LOAD":
-                
                 if (parameters.Length == 0)
                 {
                     ConsoleBox.BbcodeText += "[color=red] Syntax: load [worldname] [waypoint]";
@@ -141,7 +152,18 @@ public class Console : Control
                 Visible = false;
                 ConsoleInput.ReleaseFocus();
                 break;
-
+            case "LEVELS":
+                cache.Clear();
+                ConsoleBox.BbcodeText += "List of available worlds: \n";
+                int i = 0;
+                foreach (var level in Root.GameController.GetChildren())
+                {
+                    if (!(level is Level))
+                        continue;
+                    ConsoleBox.BbcodeText += i + ". " + (level as Level).Name + "\n";
+                    i++;
+                }
+                break;
             case "WP":
             case "WAYPOINT":
                 if(parameters.Length == 0)
@@ -203,7 +225,6 @@ public class Console : Control
                     root.ApplySettings();
                     break;
                 }
-                   
                     
                 switch (parameters[0])
                 {
@@ -312,7 +333,7 @@ public class Console : Control
                 string DestinationLevel = parameters[0].ToLower();
                 Level Level = Root.GameController.GetNode(DestinationLevel) as Level;
 
-                if(Level != null && Level.IsInGroup("level"))
+                if(Level != null && Level is Level)
                 {
                     Root.GameController.ChangeRoom(Level);
                     Root.Dialog.ShowMessage("Teleported to " + Level.Name, 2f);
@@ -326,7 +347,7 @@ public class Console : Control
                 break;
             case "SETSPAWN":
                 Root.GameController.CurrentRoom.SpawnPosition = Root.GameController.Player.Position;
-                Root.Dialog.ShowMessage("Spawn set at " + Root.GameController.Player.GlobalPosition, 2f);
+                Root.Dialog.ShowMessage("Spawn set at " + Root.GameController.CurrentRoom.SpawnPosition, 2f);
                 break;
             // Move the player X Y Tile.
             case "MOVE":

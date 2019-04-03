@@ -71,16 +71,16 @@ public class PauseMenu : Control
     }
 
     private void Quit()
-        => GetTree().Quit();
+        => GetTree().ChangeSceneTo((PackedScene)ResourceLoader.Load("res://Content/UI/MainMenu.tscn"));
 
     // SETTINGS HERE
-    
     public void _on_Resolution_pressed()
     {
         if (CurrentResolution < PossibleResolution.Length - 1)
             CurrentResolution += 1;
         else
             CurrentResolution = 0;
+
         (GetNode("SFX/Select") as AudioStreamPlayer).Play();
         root.settings.Resolution = PossibleResolution[CurrentResolution];
         (GetNode("MarginContainer/HBoxContainer/Options/Resolution/Resolution") as Button).Text = PossibleResolution[CurrentResolution].x.ToString() + " x " + PossibleResolution[CurrentResolution].y.ToString();
@@ -98,7 +98,6 @@ public class PauseMenu : Control
 
     private void _on_Apply_pressed()
     {
-
         (GetNode("SFX/Close") as AudioStreamPlayer).Play();
         root.SaveSettings();
         root.ApplySettings();

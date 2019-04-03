@@ -36,8 +36,6 @@ hue_variation_random = 0.85
 [node name="Dart" type="Node2D"]
 pause_mode = 1
 script = ExtResource( 1 )
-_sections_unfolded = [ "Pause", "Transform" ]
-Speed = 1.0
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -4, 0 )

@@ -19,6 +19,7 @@ public class Blacksmith : Node2D
 
     public void Interact()
     {
+
         if(TalkCount >= MaxTalk - 1){
             CanInteract = false;
             Root.Player.RemoveFromInteraction(this);
@@ -26,9 +27,9 @@ public class Blacksmith : Node2D
         }
             
         if(TalkCount < Dialogs.Length - 1 )
-            Root.SceneTransition.NpcSay(this, Dialogs[TalkCount]);
+            Root.Dialog.ShowMessage(Dialogs[TalkCount]);
         else
-            Root.SceneTransition.NpcSay(this, Default);
+            Root.Dialog.ShowMessage(Default);
 
         TalkCount++;
     }

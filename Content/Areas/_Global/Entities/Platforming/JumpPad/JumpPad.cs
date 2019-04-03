@@ -43,18 +43,18 @@ public class JumpPad : Node2D
         // If its a player and there is no arrow. JUMP!
         if (body is Player && !ArrowPresent)
         {
-            // The Jumppad methos takes a direction as params.
+            // The Jumppad method takes a direction as param.
             // The direction is defined by the angle of the jumppad.
             switch (RotationDegrees)
             {
                 case 0.0f:
-                    Direction = new Vector2(0, -1); // UP
+                    Direction = new Vector2(0, -1);// ^
                     break;
                 case 90.0f:
                     Direction = new Vector2(1, 0); // ->
                     break;
                 case 180.0f:
-                    Direction = new Vector2(0, 1); // V
+                    Direction = new Vector2(0, 1); // v
                     break;
                 case 270.0f:
                     Direction = new Vector2(-1, 0); // <-

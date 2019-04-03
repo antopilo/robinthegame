@@ -42,7 +42,18 @@ public class SceneSwitcher : Node
             }
             else
             {
-                newWorldScene.Spawn(true);
+                if(newWorldScene.HasNode("Waypoint") && newWorldScene.GetNode("Waypoint").GetChildCount() > 0)
+                {
+                    var destination = (newWorldScene.GetNode("Waypoint").GetChild(0) as Node2D).GlobalPosition;
+                    var newRoom = newWorldScene.FindRoom(destination);
+                    (newWorldScene.GetNode("Player") as Player).GlobalPosition = destination;
+                    newWorldScene.SnapCamToRoom(newRoom);
+                    newWorldScene.CurrentRoom = newRoom;
+                }
+                else
+                {
+                    newWorldScene.Spawn(false);
+                } 
             }
         }
     }
@@ -55,6 +66,7 @@ public class SceneSwitcher : Node
         if (pWorld is null)
             return;
 
+        Root.Player.CanControl = false;
         QueuedWorld = pWorld;
         QueuedWaypoint = Waypoint;
         Root.SceneTransition.FadeIn();

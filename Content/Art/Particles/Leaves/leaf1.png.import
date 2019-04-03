@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/trees.png-291f74b6256f3049b9176768aae73454.stex"
+path="res://.import/leaf1.png-840dc22239b72f85b98966687028fd4e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Content/Areas/Forest/Background/trees.png"
-dest_files=[ "res://.import/trees.png-291f74b6256f3049b9176768aae73454.stex" ]
+source_file="res://Content/Art/Particles/Leaves/leaf1.png"
+dest_files=[ "res://.import/leaf1.png-840dc22239b72f85b98966687028fd4e.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=2
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

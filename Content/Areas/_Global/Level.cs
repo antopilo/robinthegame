@@ -312,7 +312,7 @@ public class Level : Node2D
                 ent.Call("Reset");
         }
         
-        ChooseSpawn();
+        //ChooseSpawn();
     }
     
     public void Unload()

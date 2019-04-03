@@ -16,23 +16,22 @@ public class GameController : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        Root = GetNode("../../..") as Root;
-        Player = GetNode("Player") as Player;
-        CurrentRoom = GetNode(StartLevel) as Level;
-
         //UI
         LevelInfo = GetNode("../../../UI/LevelInfo") as LevelInfo;
         DialogController = GetNode("../../../UI/Dialog") as Dialog;
         DeathCounter = GetNode("../../../UI/DeathCount") as DeathCount;
 
-        //Spawn(false);
-        MoveCamToRoom(CurrentRoom);
+        Root = GetNode("../../..") as Root;
+        Player = GetNode("Player") as Player;
+        ChangeRoom(GetNode(StartLevel) as Level);
+
     }
 
     // Called Every frame.
     public override void _PhysicsProcess(float delta)
     {
-        if (Root.Player.State != States.Ghost) UpdateRoom();
+        if (Root.Player.State != States.Ghost)
+            UpdateRoom();
     }
        
 
@@ -199,7 +198,6 @@ public class GameController : Node2D
             TransitionPlayer.Fade();
         }
             
-
         if (CurrentRoom.SpawnPosition == new Vector2())
             CurrentRoom.ChooseSpawn();
 

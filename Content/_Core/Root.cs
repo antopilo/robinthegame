@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 
-public class Root : Node2D
+public class Root : Control
 {
     public LevelInfo LevelInfo;
     public Settings settings = new Settings();
@@ -20,7 +20,6 @@ public class Root : Node2D
     public override void _Ready()
     {
         // Get node
-
         Console = GetNode("UI/Console") as Console;
         SceneTransition = GetNode("UI") as SceneTransition;
         Viewport = GetNode("Game/Viewport") as Viewport;

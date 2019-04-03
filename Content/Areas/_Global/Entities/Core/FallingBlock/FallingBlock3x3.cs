@@ -143,6 +143,7 @@ public class FallingBlock3x3 : KinematicBody2D
         {
             Frozen = true;
             (Root.Player.Camera as Camera).Shake(2f, 0.05f);
+            this.GlobalPosition = new Vector2(Mathf.Stepify(GlobalPosition.x, 8), Mathf.Stepify(GlobalPosition.y, 8));
             if(HasNode("Impact"))
                 (GetNode("Impact") as AudioStreamPlayer).Play(0);
 

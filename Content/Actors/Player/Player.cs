@@ -10,6 +10,8 @@ public class Player : KinematicBody2D
     public Arrow Arrow { get; set; }
     private Particles2D RunDust;
 
+    public Vector2 FeetPosition => GlobalPosition + new Vector2(0, 4);
+
     private const int GRAVITY = 4;
     private const int ACCELERATION = 5;
     private const int DECELERATION = 4;

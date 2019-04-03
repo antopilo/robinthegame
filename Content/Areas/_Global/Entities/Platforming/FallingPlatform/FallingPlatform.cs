@@ -118,18 +118,21 @@ public class FallingPlatform : Node2D
 
     private void _on_TweenElevator_tween_completed(Godot.Object @object, NodePath key)
     {
+
         if (State == PlatformStates.Up)
         {
             ReadyCd.WaitTime = READY_CD;
             ReadyCd.Start();
             Collision.Disabled = false;
         }
-
+        else if (State == PlatformStates.Down)
+            State = PlatformStates.Up;
         Sprite.GlobalRotationDegrees = 0;
     }
 
     private void _on_ReadyCooldown_timeout()
     {
+       
         State = PlatformStates.Ready;
         Collision.Disabled = false;
     }

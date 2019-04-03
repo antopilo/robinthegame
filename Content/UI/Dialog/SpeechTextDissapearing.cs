@@ -15,7 +15,7 @@ public class SpeechTextDissapearing : Control
         Label = (Label)GetNode("Label");
         Label.Text = text;
         Label.RectPosition -= new Vector2(Label.RectSize.x / 2, 0);
-        GD.Print("Label offset: " + Label.RectSize.x / 2);
+
         // Fadeout
         tween.InterpolateProperty(this, "rect_position", RectPosition, RectPosition + new Vector2(0, -25),
             5, Tween.TransitionType.Expo, Tween.EaseType.Out);
@@ -23,6 +23,4 @@ public class SpeechTextDissapearing : Control
             text.Length - (text.Length / 1.25f), Tween.TransitionType.Linear, Tween.EaseType.In);
         tween.Start();
     }
-
-
 }

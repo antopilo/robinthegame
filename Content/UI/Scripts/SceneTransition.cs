@@ -24,6 +24,8 @@ public class SceneTransition : CanvasLayer
         InteractionAnim = (AnimationPlayer)GetNode("InteractionFeedback/AnimationPlayer");
         textScene = ResourceLoader.Load("res://Content/Actors/SpeechText.tscn") as PackedScene;
         Tween = (Tween)GetNode("Tween");
+
+        AnimPlayer.Play("Out");
     }
         
     public override void _Process(float delta){
@@ -134,6 +136,7 @@ public class SceneTransition : CanvasLayer
         // If the animation is triggered while changing scene.
         if(anim_name == "FadeIn")
         {
+            GD.Print("Switcher Ready!");
             SceneChangeReady = true;
             AnimPlayer.Play("Out");
             return;
@@ -147,8 +150,4 @@ public class SceneTransition : CanvasLayer
         Root.Player.CanControl = true;
     }
 }
-
-
-
-
 
