@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Level.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/bg_tile.tres" type="TileSet" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_tile.tres" type="TileSet" id=4]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/entities.tres" type="TileSet" id=5]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_decals.tres" type="TileSet" id=6]
-[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Content/Areas/_Global/Entities/_Core/WorldTrigger.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=8]
 
 [node name="MineFall" type="Node2D"]
 show_behind_parent = true
@@ -65,6 +66,12 @@ format = 1
 
 [node name="objects" type="Node2D" parent="."]
 
-[node name="DebugDraw" parent="." instance=ExtResource( 7 )]
+[node name="WorldTrigger" parent="objects" instance=ExtResource( 7 )]
+position = Vector2( 37.175, 193.044 )
+scale = Vector2( 3.80008, 1 )
+Destination = "Mines"
+Waypoint = "Start"
+
+[node name="DebugDraw" parent="." instance=ExtResource( 8 )]
 expand_color = Color( 1, 0, 0, 1 )
 

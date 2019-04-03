@@ -346,18 +346,18 @@ public class Console : Control
                 Root.Dialog.ShowMessage("Level reloaded", 2f);
                 break;
             case "SETSPAWN":
-                Root.GameController.CurrentRoom.SpawnPosition = Root.GameController.Player.Position;
+                Root.GameController.CurrentRoom.SpawnPosition = Root.Player.Position;
                 Root.Dialog.ShowMessage("Spawn set at " + Root.GameController.CurrentRoom.SpawnPosition, 2f);
                 break;
             // Move the player X Y Tile.
             case "MOVE":
-
                 if (parameters.Length == 0)
                     return;
                 if (parameters.Length == 2)
                 {
                     var y = parameters[1].ToFloat();
                     Root.Player.MoveLocalY(y * 8);
+                    DialogBox.ShowMessage("Moved player Y: " + y + " tiles ");
                 }
                 else if (parameters.Length > 2)
                 {
@@ -368,6 +368,7 @@ public class Console : Control
                 var x = parameters[0].ToFloat();
 
                 Root.Player.MoveLocalX(x * 8);
+                DialogBox.ShowMessage("Moved player X: " + x + " tiles ");
                 break;
 
             case "HELP":

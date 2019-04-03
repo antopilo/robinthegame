@@ -340,8 +340,7 @@ process_material = SubResource( 7 )
 texture = ExtResource( 14 )
 
 [node name="Birbs2" type="Particles2D" parent="BG"]
-visible = false
-position = Vector2( 1788.83, 462.71 )
+position = Vector2( 1824.2, 491.373 )
 rotation = -3.14159
 scale = Vector2( 1, -1 )
 amount = 14

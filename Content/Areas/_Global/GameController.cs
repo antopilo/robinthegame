@@ -1,30 +1,21 @@
+
 using Godot;
 
 public class GameController : Node2D
 {
-    [Export] string StartLevel = "0";
-
-    public LevelInfo LevelInfo;
-    public Root Root;
-    public Player Player;
     public Level CurrentRoom;
-    public Dialog DialogController;
-    public DeathCount DeathCounter;
-
     public bool ShowGrid = false;
+
+    [Export] private string StartLevel = "0";
+    [Export] private Color BackgroundColor;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        //UI
-        LevelInfo = GetNode("../../../UI/LevelInfo") as LevelInfo;
-        DialogController = GetNode("../../../UI/Dialog") as Dialog;
-        DeathCounter = GetNode("../../../UI/DeathCount") as DeathCount;
+        if (BackgroundColor != null)
+            VisualServer.SetDefaultClearColor(BackgroundColor);
 
-        Root = GetNode("../../..") as Root;
-        Player = GetNode("Player") as Player;
         ChangeRoom(GetNode(StartLevel) as Level);
-
     }
 
     // Called Every frame.
@@ -41,7 +32,7 @@ public class GameController : Node2D
     /// </summary>
     private void UpdateRoom()
     {
-        if (!Player.Alive)
+        if (!Root.Player.Alive)
             return;
         Level Room;
 
@@ -52,7 +43,7 @@ public class GameController : Node2D
             {
                 Room = (Level)level;
 
-                float x = Player.Position.x, y = Player.Position.y;
+                float x = Root.Player.Position.x, y = Root.Player.Position.y;
                 float xMin = Room.LevelPosition.x, yMin = Room.LevelPosition.y;
                 float xMax = xMin + Room.LevelSize.x, yMax = yMin + Room.LevelSize.y;
 
@@ -61,7 +52,7 @@ public class GameController : Node2D
                 {   
                     // if the player enters a level from under, do a jump to gain a little bit of height.
                     if (y <= CurrentRoom.LevelPosition.y)
-                        Player.Jump();
+                        Root.Player.Jump();
                     ChangeRoom(Room);
                 }
             }
@@ -109,16 +100,16 @@ public class GameController : Node2D
         T.StopAll();
         T.RemoveAll();
 
-        Camera2D Camera = Player.Camera;
+        Camera2D Camera = Root.Player.Camera;
         Camera.GlobalPosition = pRoom.GlobalPosition;
         Camera.LimitLeft = (int)pRoom.GlobalPosition.x;
         Camera.LimitRight = (int)pRoom.GlobalPosition.x + (int)pRoom.LevelSize.x;
         Camera.LimitTop = (int)pRoom.GlobalPosition.y;
         Camera.LimitBottom = (int)pRoom.GlobalPosition.y + (int)pRoom.LevelSize.y;
 
-        Player.CanControl = true;
-        Player.Alive = true;
-        Player.SetPhysicsProcess(true);
+        Root.Player.CanControl = true;
+        Root.Player.Alive = true;
+        Root.Player.SetPhysicsProcess(true);
     }
 
     /// <summary>
@@ -128,7 +119,7 @@ public class GameController : Node2D
     private void MoveCamToRoom(Level pRoom)
     {
         // Pausing the player.
-        Player.SetPhysicsProcess(false);
+        Root.Player.SetPhysicsProcess(false);
 
         Tween T;  // If there is no Tween node, then create one and use it.
         if (!HasNode("CameraAreaTween"))
@@ -146,7 +137,7 @@ public class GameController : Node2D
         T.RemoveAll();
 
         Vector2 NewCameraZoom = new Vector2(pRoom.LevelZoom, pRoom.LevelZoom); // Levels can have custom zoom.
-        Camera2D Camera = Player.Camera;
+        Camera2D Camera = Root.Player.Camera;
         Vector2 CameraCenter = Camera.GetCameraScreenCenter();
 
         // Setting the limit of the camera to the size of the level.
@@ -173,8 +164,8 @@ public class GameController : Node2D
         T.Start();
 
         // If there is an arrow in the level return it to Robin.
-        if (Player.Arrow != null)
-            Player.Arrow.ReturnToPlayer();
+        if (Root.Player.Arrow != null)
+            Root.Player.Arrow.ReturnToPlayer();
     }
 
 
@@ -185,12 +176,12 @@ public class GameController : Node2D
     /// <param name="WithAnimation">If the transition animation is played or not.</param>
     public void Spawn(bool WithAnimation)
     {
-        if (!Player.Alive)
+        if (!Root.Player.Alive)
             return;
 
-        Player.Alive = false;
-        Player.CanControl = false;
-        DeathCounter.Deaths++;
+        Root.Player.Alive = false;
+        Root.Player.CanControl = false;
+        Root.DeathCount.Deaths++;
         CurrentRoom.Reload();
         if (WithAnimation)
         {
@@ -201,15 +192,15 @@ public class GameController : Node2D
         if (CurrentRoom.SpawnPosition == new Vector2())
             CurrentRoom.ChooseSpawn();
 
-        Player.GlobalPosition = CurrentRoom.SpawnPosition;
+        Root.Player.GlobalPosition = CurrentRoom.SpawnPosition;
     }
 
 
     public void _on_Tween_tween_completed(Godot.Object @object, KeyList @key)
     {
-        Player.SetPhysicsProcess(true);
-        Player.CanControl = true;
-        Player.Alive = true;
+        Root.Player.SetPhysicsProcess(true);
+        Root.Player.CanControl = true;
+        Root.Player.Alive = true;
     }
 
 
@@ -222,7 +213,7 @@ public class GameController : Node2D
         
         CurrentRoom.Reload();
         MoveCamToRoom(CurrentRoom);
-        LevelInfo.UpdateInfo(CurrentRoom);
+        Root.LevelInfo.UpdateInfo(CurrentRoom);
     }
 
 
@@ -233,7 +224,7 @@ public class GameController : Node2D
     /// <returns></returns>
     public bool PlayerHas(Node2D pItem)
     {
-        foreach (var item in Player.Following)
+        foreach (var item in Root.Player.Following)
             if (item == pItem)
                 return true;
         return false;
@@ -243,8 +234,8 @@ public class GameController : Node2D
 	private void _on_AnimationPlayer_animation_finished(string anim_name)
 	{
         GD.Print("Transition finished");
-        Player.Alive = true;
-        Player.CanControl = true;
+        Root.Player.Alive = true;
+        Root.Player.CanControl = true;
 	}
 }
 

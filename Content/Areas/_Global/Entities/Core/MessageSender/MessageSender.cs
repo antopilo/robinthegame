@@ -20,7 +20,7 @@ public class MessageSender : Node2D
     public override void _Process(float delta)
     {
         if(CanInteract && Input.IsActionJustPressed("interact"))
-            World.DialogController.ShowMessage(Message.ToUpper());
+            Root.Dialog.ShowMessage(Message.ToUpper());
         Mark.Visible = CanInteract && triggered;
     }
 
@@ -30,7 +30,7 @@ public class MessageSender : Node2D
         {
             if (!triggered)
             {
-                World.DialogController.ShowMessage(Message.ToUpper());
+                Root.Dialog.ShowMessage(Message.ToUpper());
                 triggered = true;
             }
             CanInteract = true;

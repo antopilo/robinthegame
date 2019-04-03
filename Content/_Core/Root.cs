@@ -5,9 +5,10 @@ using Newtonsoft.Json;
 
 public class Root : Control
 {
-    public LevelInfo LevelInfo;
+    public static LevelInfo LevelInfo;
     public Settings settings = new Settings();
     public static Console Console;
+    public static DeathCount DeathCount;
     public static GameController GameController;
     public static Player Player;
     public static Weapon Weapon;
@@ -29,6 +30,7 @@ public class Root : Control
         Weapon = Player.GetNode("Weapon") as Weapon;
         GameContainer = GetNode("Game") as ViewportContainer;
         Dialog = (Dialog)GetNode("UI/Dialog");
+
         LoadSettings();
         ApplySettings();
     }

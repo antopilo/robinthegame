@@ -1,5 +1,6 @@
 using Godot;
 
+public enum ArrowType { Normal, Magic, Guided, Teleport, Distraction}
 public class Arrow : KinematicBody2D
 {
     const float MAX_FUEL = 100f;
@@ -8,8 +9,6 @@ public class Arrow : KinematicBody2D
     
     // Nodes
     public Weapon Weapon;
-    private Player Player;
-    private GameController World;
     private Tween T;
     private float Fuel = 100f;
     private float FuelCost = 0.1f;
@@ -32,15 +31,12 @@ public class Arrow : KinematicBody2D
     public override void _Ready()
     {
         Name = "Arrow";
-        Weapon = GetNode("../Player/Weapon") as Weapon;
-        Player = GetNode("../Player") as Player;
-        World = GetNode("..") as GameController;
         T = GetNode("Tween") as Tween;
 
-        LastDirection = new Vector2(Player.LastDirectionX, 0);
+        LastDirection = new Vector2(Root.Player.LastDirectionX, 0);
         Weapon.CanShoot = false ;
-        Player.ArrowExist = true;
-        Player.Arrow = this;
+        Root.Player.ArrowExist = true;
+        Root.Player.Arrow = this;
     }
     public override void _Input(InputEvent @event)
     {
@@ -54,7 +50,7 @@ public class Arrow : KinematicBody2D
     {
         if (MovingBack) // If the arrow is returning to the player. Return.
         {
-            LookAt(Player.GlobalPosition);
+            LookAt(Root.Player.GlobalPosition);
             return;
         }
 
@@ -98,7 +94,7 @@ public class Arrow : KinematicBody2D
     public void MouseControl()
     {
         Vector2 Mouse = GetGlobalMousePosition();
-        Vector2 Center = Player.Camera.GetCameraScreenCenter();
+        Vector2 Center = Root.Player.Camera.GetCameraScreenCenter();
         Vector2 Offset = Center - (GetViewportRect().Size / 2f);
         float StretchFactor = OS.WindowSize.x / 320;
 
@@ -147,10 +143,10 @@ public class Arrow : KinematicBody2D
             FreezeArrow();
         }
         // If the arrow leaves the level screen. return to player.
-        else if (Position.x <= World.CurrentRoom.LevelPosition.x ||
-        Position.y <= World.CurrentRoom.LevelPosition.y ||
-        Position.x >= (World.CurrentRoom.LevelPosition.x + World.CurrentRoom.LevelSize.x) ||
-        Position.y >= (World.CurrentRoom.LevelPosition.y + World.CurrentRoom.LevelSize.y))
+        else if (Position.x <= Root.GameController.CurrentRoom.LevelPosition.x ||
+        Position.y <= Root.GameController.CurrentRoom.LevelPosition.y ||
+        Position.x >= (Root.GameController.CurrentRoom.LevelPosition.x + Root.GameController.CurrentRoom.LevelSize.x) ||
+        Position.y >= (Root.GameController.CurrentRoom.LevelPosition.y + Root.GameController.CurrentRoom.LevelSize.y))
             ReturnToPlayer();
         else if (Frozen)
             Position = FreezePosition;
@@ -178,16 +174,16 @@ public class Arrow : KinematicBody2D
     /// </summary>
     public void ReturnToPlayer()
     {
-        float Time = (Position - Player.Position).Length() / 300; // This is to have a constant speed.
+        float Time = (Position - Root.Player.Position).Length() / 300; // This is to have a constant speed.
 
-        T.FollowProperty(this, "global_position", GlobalPosition, Player, "global_position", Time,
+        T.FollowProperty(this, "global_position", GlobalPosition, Root.Player, "global_position", Time,
             Tween.TransitionType.Quint, Tween.EaseType.In);
         T.InterpolateProperty(this, "scale", Scale, new Vector2(), Time,
             Tween.TransitionType.Expo, Tween.EaseType.In);
 
         T.Start();
 
-        Player.ArrowExist = true;
+        Root.Player.ArrowExist = true;
         MovingBack = true;
         SetCollisionLayerBit(0, false);
     } 

@@ -11,6 +11,7 @@ public class Player : KinematicBody2D
     private Particles2D RunDust;
 
     public Vector2 FeetPosition => GlobalPosition + new Vector2(0, 4);
+    public Vector2 Inputv => new Vector2(InputDirectionX, InputDirectionY);
 
     private const int GRAVITY = 4;
     private const int ACCELERATION = 5;
@@ -108,11 +109,7 @@ public class Player : KinematicBody2D
         InputDirectionY = 0;
     }
 
-    public Vector2 GetInputv()
-    {
-        GD.Print(new Vector2(InputDirectionX, InputDirectionY));
-        return new Vector2(InputDirectionX, InputDirectionY);
-    }
+   
     // Main loop.
     public override void _PhysicsProcess(float delta)
     {

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=327 format=2]
+[gd_resource type="TileSet" load_steps=326 format=2]
 
 [ext_resource path="res://Content/Art/Tilesets/fg_tile.png" type="Texture" id=1]
 
@@ -973,8 +973,6 @@ points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
 
 [sub_resource type="ConvexPolygonShape2D" id=324]
 points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
-
-[sub_resource type="CSharpScript" id=325]
 
 [resource]
 0/name = "Grass"
@@ -2387,5 +2385,4 @@ points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 5/z_index = 0
-script = SubResource( 325 )
 

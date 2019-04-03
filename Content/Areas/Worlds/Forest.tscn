@@ -42,6 +42,7 @@ __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
 StartLevel = "intro"
+BackgroundColor = Color( 0.211765, 0.756863, 0.996078, 1 )
 
 [node name="Filler" type="Node2D" parent="."]
 editor/display_folded = true

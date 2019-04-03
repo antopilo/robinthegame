@@ -4,11 +4,13 @@ using System.Collections.Generic;
 
 public class SongPuzzle : Node2D
 {
-    [Export] int[] GoodSong = new int[4];
-    public List<Bell> Bells = new List<Bell>();
-    private List<int> CurrentSong;
     public bool Completed = false;
 
+    [Export] private int[] GoodSong = new int[4];
+    private List<Bell> Bells = new List<Bell>();
+    private List<int> CurrentSong;
+
+    // Debug
     private Color Green = new Color(0, 1, 0);
     private Color Red = new Color(1, 0, 0);
     private Color Blue = new Color(0, 0, 1);
@@ -20,9 +22,7 @@ public class SongPuzzle : Node2D
         CurrentSong = new List<int>(99);
 
         foreach (var bell in GetChildren())
-        {
             Bells.Add(bell as Bell);
-        }
 
         VerifyPossible();
     }
@@ -43,7 +43,7 @@ public class SongPuzzle : Node2D
         foreach (int note in GoodSong)
         {
             if (note > Bells.Count - 1)
-                GD.PrintErr("SONG NOTE POSSIBLe");
+                GD.PrintErr("SONG NOT POSSIBLE");
         }
     }
     private void ScanBell()
@@ -72,7 +72,6 @@ public class SongPuzzle : Node2D
             }
             idx++;
         }
-        
         CompletePuzzle();
     }
 
