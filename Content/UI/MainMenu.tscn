@@ -15,7 +15,7 @@
 [ext_resource path="res://Content/Lights/GodRays.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Content/Art/Particles/Leaves/leaf1.png" type="Texture" id=14]
 [ext_resource path="res://Content/UI/Fonts/LinLibertine_aS.ttf" type="DynamicFontData" id=15]
-[ext_resource path="res://Content/UI/Transitions/curtain.png" type="Texture" id=16]
+[ext_resource path="res://Content/UI/Transitions/Radial.png" type="Texture" id=16]
 [ext_resource path="res://Content/UI/Fonts/LinuxLibertine.tres" type="DynamicFont" id=17]
 
 [sub_resource type="Gradient" id=1]
@@ -247,6 +247,10 @@ tracks/0/keys = {
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource( 1 )
 
 [node name="BG" type="Node2D" parent="."]
@@ -345,6 +349,7 @@ rotation = -3.14159
 scale = Vector2( 1, -1 )
 amount = 14
 lifetime = 20.0
+preprocess = 45.16
 process_material = SubResource( 5 )
 texture = SubResource( 6 )
 
@@ -446,13 +451,16 @@ color = Color( 1, 1, 1, 0 )
 [node name="Transition" type="ColorRect" parent="."]
 pause_mode = 2
 material = SubResource( 13 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -38.8644
-margin_top = -2.27209
-margin_right = -38.8644
-margin_bottom = -2.27209
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -1320.0
+margin_top = -1260.0
+margin_right = 1180.0
+margin_bottom = 1240.0
 rect_scale = Vector2( 1.04259, 1 )
+rect_pivot_offset = Vector2( 7.47473, -1.18402 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

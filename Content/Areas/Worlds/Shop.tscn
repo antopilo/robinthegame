@@ -15,7 +15,7 @@
 [ext_resource path="res://Content/Actors/Player/Player.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Content/_Core/Camera.cs" type="Script" id=14]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 52 )
 
 [node name="Shop" type="Node2D"]
@@ -130,24 +130,22 @@ visible = false
 position = Vector2( -16, 76 )
 script = ExtResource( 11 )
 Destination = "Forest"
-Waypoint = "village"
+Waypoint = "village2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="0/objects/WorldTrigger"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="DebugDraw" parent="0" instance=ExtResource( 12 )]
 visible = false
 expand_color = Color( 0.0901961, 0.890196, 0.607843, 1 )
 
 [node name="Waypoint" type="Node2D" parent="."]
-visible = false
 
 [node name="Start" type="Position2D" parent="Waypoint"]
 position = Vector2( 40, 120 )
 
 [node name="Player" parent="." instance=ExtResource( 13 )]
 editor/display_folded = true
-visible = false
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 pause_mode = 2

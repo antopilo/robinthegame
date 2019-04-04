@@ -13,10 +13,13 @@ public class Level : Node2D
     [Export] public int LevelDifficulty = 0;
     [Export] public float LevelZoom = 1;
 
+    public GameController World;
     public Vector2 SpawnPosition = new Vector2(); // Current spawn of the player.
     public Vector2 LevelRect; // True size
     public Vector2 LevelSize;  // Size to fit in the screen. half a tile shorter on the Y axis.
     public Vector2 LevelPosition; // Position in the World
+    
+
     private Node Entities;
     private Player Player;
     private List<Vector2> Spawns = new List<Vector2>(); // List of possible spawns.
@@ -36,7 +39,7 @@ public class Level : Node2D
     TileMap LayerBgDecals;
     #endregion
 
-    GameController World;
+    
 
     public override void _Ready()
     {
@@ -72,6 +75,8 @@ public class Level : Node2D
         LevelRect = LayerSolid.GetUsedRect().Size;
         LevelSize = new Vector2(LevelRect.x * TileSize, (LevelRect.y - 0.5f) * TileSize);
         LevelPosition = GlobalPosition;
+
+        RemoveBlockAnchor();
 		
         LoadEntities(true);
         ChooseSpawn();
@@ -140,6 +145,14 @@ public class Level : Node2D
                 LayerSolid.SetCell((int)Tile.x, (int)Tile.y, LayerSolid.GetCellv(Tile),
                             false, false, false, autoTiling); // Update tile.
             }
+    }
+
+    // Remove Top left tile if its only used as an anchor.
+    private void RemoveBlockAnchor()
+    {
+        bool lonely = LayerSolid.GetCell(1, 0) == -1 && LayerSolid.GetCell(0, 1) == -1;
+        if (LayerSolid.GetCell(0, 0) != -1 && lonely)
+            LayerSolid.SetCell(0, 0, -1);
     }
 
     /// <summary>

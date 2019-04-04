@@ -5,8 +5,13 @@ public class GameController : Node2D
 {
     public Level CurrentRoom;
     public bool ShowGrid = false;
+
     private Player Player;
     private LevelInfo LevelInfo;
+
+    private bool IsSpawning = false;
+    private Tween Tween;
+
     [Export] private string StartLevel = "0";
     [Export] private Color BackgroundColor;
 
@@ -16,15 +21,49 @@ public class GameController : Node2D
         LevelInfo = (LevelInfo)GetNode("../../../UI/LevelInfo");
         Player = (Player)GetNode("Player");
         Root.Player = Player;
+
         if (BackgroundColor != null)
             VisualServer.SetDefaultClearColor(BackgroundColor);
 
+        SnapCamToRoom(GetNode(StartLevel) as Level);
         ChangeRoom(GetNode(StartLevel) as Level);
+
+        Tween = new Tween();
+        Tween.Name = "CameraAreaTween";
+        AddChild(Tween);
+        Tween.Connect("tween_completed", this, "_on_Tween_tween_completed");
     }
 
     // Called Every frame.
     public override void _PhysicsProcess(float delta)
     {
+        if(IsSpawning && Root.SceneTransition.SceneChangeReady)
+        {
+            Root.Dialog.ShowMessage("Player Spawned", 1f);
+            IsSpawning = false;
+            Root.Player.GlobalPosition = CurrentRoom.SpawnPosition;
+            Root.Player.Alive = true;
+            Root.Player.CanControl = true;
+            Root.SceneTransition.SceneChangeReady = false;
+            Root.SceneTransition.MoveToPlayer();
+            Tween T;
+            if (!HasNode("Tween"))
+            {
+                T = new Tween();
+                T.Name = "Tween";
+                AddChild(T);
+                
+            }
+            else
+            {
+                T = (Tween)GetNode("Tween");
+            }
+            T.RemoveAll();
+            T.InterpolateProperty(Player, "scale", new Vector2(0, 0), new Vector2(1, 1), 0.5f,
+                Tween.TransitionType.Expo, Tween.EaseType.In);
+            T.Start();
+        }
+
         if (Root.Player.State != States.Ghost)
             UpdateRoom();
     }
@@ -101,11 +140,9 @@ public class GameController : Node2D
         {
             T = (Tween)GetNode("CameraAreaTween");
         }
-        T.StopAll();
         T.RemoveAll();
 
         Camera2D Camera = Root.Player.Camera;
-        Camera.GlobalPosition = pRoom.GlobalPosition;
         Camera.LimitLeft = (int)pRoom.GlobalPosition.x;
         Camera.LimitRight = (int)pRoom.GlobalPosition.x + (int)pRoom.LevelSize.x;
         Camera.LimitTop = (int)pRoom.GlobalPosition.y;
@@ -158,7 +195,7 @@ public class GameController : Node2D
         // Transition settings.
         float Time = 0.25f;
         Tween.TransitionType Transition = Tween.TransitionType.Linear;
-        Tween.EaseType Ease = Tween.EaseType.InOut;
+        Tween.EaseType Ease = Tween.EaseType.Out;
 
         T.InterpolateProperty(Camera, "limit_right", Camera.LimitRight, NewLimitRight, Time, Transition, Ease);
         T.InterpolateProperty(Camera, "limit_left", Camera.LimitLeft, NewLimitLeft, Time, Transition, Ease);
@@ -186,17 +223,34 @@ public class GameController : Node2D
         Root.Player.Alive = false;
         Root.Player.CanControl = false;
         Root.DeathCount.Deaths++;
-        CurrentRoom.Reload();
+        
         if (WithAnimation)
-        {
-            var TransitionPlayer = (SceneTransition)GetNode("../../../UI");
-            TransitionPlayer.Fade();
-        }
-            
+            Root.SceneTransition.FadeIn();
+
+        IsSpawning = true;
+        CurrentRoom.Reload();
+
         if (CurrentRoom.SpawnPosition == new Vector2())
             CurrentRoom.ChooseSpawn();
 
-        Root.Player.GlobalPosition = CurrentRoom.SpawnPosition;
+        Tween T;  // If there is no Tween node, then create one and use it.
+        if (!HasNode("Tween"))
+        {
+            T = new Tween();
+            T.Name = "Tween";
+            AddChild(T);
+            
+        }
+        else
+        {
+            T = (Tween)GetNode("Tween");
+        }
+        T.RemoveAll();
+        T.InterpolateProperty(Player, "scale", new Vector2(1, 1), new Vector2(0, 0), 0.2f,
+            Tween.TransitionType.Expo, Tween.EaseType.In);
+        T.Start();
+
+        Root.SceneTransition.MoveToPlayer();
     }
 
 

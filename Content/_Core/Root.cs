@@ -31,6 +31,7 @@ public class Root : Control
         Weapon = Player.GetNode("Weapon") as Weapon;
         GameContainer = GetNode("Game") as ViewportContainer;
         Dialog = (Dialog)GetNode("UI/Dialog");
+        DeathCount = (DeathCount)GetNode("UI/DeathCount");
 
         LoadSettings();
         ApplySettings();
@@ -40,7 +41,7 @@ public class Root : Control
         Console = GetNode("UI/Console") as Console;
         Viewport = GetNode("Game/Viewport") as Viewport;
         LevelInfo = (LevelInfo)GetNode("UI/LevelInfo");
-        //SceneSwitcher = GetNode("Game/")
+        DeathCount = (DeathCount)GetNode("UI/DeathCount");
         Dialog = (Dialog)GetNode("UI/Dialog");
         GameController = GetNode("Game/Viewport").GetChild(0) as GameController;
         Player = GameController.GetNode("Player") as Player;

@@ -13,12 +13,13 @@ public class SceneTransition : CanvasLayer
     private Vector2 LastOrbPosition = new Vector2();
     private PackedScene textScene;
     private Tween Tween;
-    
+    private ColorRect TransitionRect;
 
     private SpeechTextDissapearing LastText = null;
 
     public override void _Ready()
     {
+        TransitionRect = (ColorRect)GetNode("Transition");
         AnimPlayer = (AnimationPlayer)GetNode("Transition/AnimationPlayer");
         InteractionSprite = (Control)GetNode("InteractionFeedback");
         InteractionAnim = (AnimationPlayer)GetNode("InteractionFeedback/AnimationPlayer");
@@ -44,10 +45,27 @@ public class SceneTransition : CanvasLayer
         AnimPlayer.Play("FadeIn");
     }
 	
+    public void MoveToPlayer()
+    {
+        var player = Root.Player;
+        var camera = Root.Player.Camera;
+        var heightOffset = new Vector2(0, -16);
+        var Offset = camera.GetCameraScreenCenter() - (camera.GetViewportRect().Size / 2f);
+        Vector2 uiPosition = player.GlobalPosition - Offset + heightOffset;
+        uiPosition = player.GlobalPosition - Offset + heightOffset;
+        var scale = Root.GameContainer.StretchShrink;
+
+        TransitionRect.RectPosition = (uiPosition * new Vector2(scale, scale)) - new Vector2(2000, 2000) ;
+    }
+
+    public void MoveToCenter()
+    {
+        TransitionRect.RectPosition = new Vector2(-1040, -1460);
+    }
+
     // Move the interaction orb to the closest interactable object.
     public void GetPositionFromPlayer()
     {
-        
         var player = Root.Player;   
         var camera = Root.Player.Camera;
         var heightOffset = new Vector2(0, -16);
@@ -74,7 +92,6 @@ public class SceneTransition : CanvasLayer
             }
         }
        
-        
         // Anim
         if(player.CanInteract && CurrentAnim != "Active"){
             InteractionAnim.CurrentAnimation = CurrentAnim = "Active";
@@ -142,6 +159,7 @@ public class SceneTransition : CanvasLayer
             return;
         }
         if(anim_name == "Out"){
+            MoveToCenter();
             return;
         }
 

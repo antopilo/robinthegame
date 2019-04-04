@@ -18,7 +18,7 @@
 [ext_resource path="res://Content/Audio/UI/TheLibrarybyMTC_UI_Droplet_06.wav" type="AudioStream" id=16]
 [ext_resource path="res://Content/Audio/UI/TheLibrarybyMTC_UI_GlassTicks_25.wav" type="AudioStream" id=17]
 [ext_resource path="res://Content/Art/UI/Icons/InteractDot.png" type="Texture" id=18]
-[ext_resource path="res://Content/UI/Transitions/curtain.png" type="Texture" id=19]
+[ext_resource path="res://Content/UI/Transitions/Radial.png" type="Texture" id=19]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -137,10 +137,11 @@ void fragment()
 
 [sub_resource type="ShaderMaterial" id=12]
 shader = SubResource( 11 )
-shader_param/cutoff = 1.0
+shader_param/cutoff = 0.0
 shader_param/mask = ExtResource( 19 )
 
 [sub_resource type="Animation" id=13]
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/cutoff")
 tracks/0/interp = 1
@@ -148,10 +149,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.4, 0.5, 0.55, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 1.0, 0.0 ]
+"values": [ 1.0, 0.05, 0.05, 0.07, 0.0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:modulate")
@@ -796,11 +797,15 @@ anims/Inactive = SubResource( 10 )
 [node name="Transition" type="ColorRect" parent="."]
 pause_mode = 2
 material = SubResource( 12 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -15.409
-margin_right = -11.4091
-rect_scale = Vector2( 1.02, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2032.0
+margin_top = -1956.0
+margin_right = 1968.0
+margin_bottom = 2044.0
+rect_pivot_offset = Vector2( 2000, 2000 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -813,7 +818,6 @@ anims/FadeOut = SubResource( 14 )
 anims/Out = SubResource( 15 )
 
 [node name="Label" type="Label" parent="Transition"]
-modulate = Color( 1, 1, 1, 0 )
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -863,6 +867,7 @@ valign = 1
 [node name="Tween" type="Tween" parent="."]
 
 [node name="NoteBook" type="Control" parent="."]
+editor/display_folded = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
