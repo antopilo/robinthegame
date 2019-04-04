@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class SongPuzzle : Node2D
 {
     [Export] int[] GoodSong = new int[4];
-    
+    [Export] float[] NoteTiming = new float[4];
+
     public List<Bell> Bells = new List<Bell>();
     private List<int> CurrentSong;
     public bool Completed = false;
 
     // Playback
-    [Export] private float PlaybackRate = 0.5f;
     private float PlaybackInitialDelay = 2f;
     private float DeltaTime = 0f;
     private float NextRing = 0f;
@@ -28,7 +28,6 @@ public class SongPuzzle : Node2D
     public override void _Ready()
     {
         CurrentSong = new List<int>(99);
-
         foreach (var bell in GetChildren())
             Bells.Add(bell as Bell);
 
@@ -44,7 +43,6 @@ public class SongPuzzle : Node2D
 
         Update();
 
-        
         if (Completed && DeltaTime >= NextRing){
             Playback();
             return;
@@ -113,7 +111,7 @@ public class SongPuzzle : Node2D
             return;
         }
         Bells[GoodSong[PlaybackCurrent]].Interact();
-        NextRing = DeltaTime + PlaybackRate;
+        NextRing = DeltaTime + NoteTiming[PlaybackCurrent];
         PlaybackCurrent++;
     }
 

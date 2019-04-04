@@ -27,16 +27,21 @@ public class Bell : Node2D
         if (playing)
             playing = false;
     }
-    public void Interact()
+    public void Ring()
     {
-        if(!CanInteract)
-            return;
         (GetNode("InteractionZone/CollisionShape2D") as CollisionShape2D).Disabled = true;
         Audio.Playing = true;
+        AnimPlayer.Stop(true);
         AnimPlayer.Play("Ring");
         playing = true;
         CanInteract = false;
         InteractTimer.Start();
+    }
+    public void Interact()
+    {
+        if(!CanInteract)
+            return;
+        Ring();
     }
 
     private void _on_Timer_timeout()

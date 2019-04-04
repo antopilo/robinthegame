@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=326 format=2]
+[gd_resource type="TileSet" load_steps=327 format=2]
 
 [ext_resource path="res://Content/Art/Tilesets/fg_tile.png" type="Texture" id=1]
+[ext_resource path="res://Content/Art/Tilesets/Water1.png" type="Texture" id=2]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 0, 0, 0, 8, 8, 8, 8, 0 )
@@ -2385,4 +2386,20 @@ points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 5/z_index = 0
+6/name = "Water1.png 6"
+6/texture = ExtResource( 2 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 0, 0, 16, 8 )
+6/tile_mode = 2
+6/autotile/icon_coordinate = Vector2( 0, 0 )
+6/autotile/tile_size = Vector2( 8, 8 )
+6/autotile/spacing = 0
+6/autotile/occluder_map = [  ]
+6/autotile/navpoly_map = [  ]
+6/autotile/z_index_map = [  ]
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shapes = [  ]
+6/z_index = 0
 

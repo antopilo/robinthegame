@@ -64,6 +64,7 @@ tile_data = PoolIntArray( 983070, 8, 65538, 1048600, 8, 65538, 1048601, 8, 65536
 position = Vector2( 216, 72 )
 script = ExtResource( 7 )
 GoodSong = PoolIntArray( 0, 1, 2, 0 )
+NoteTiming = PoolRealArray( 0.5, 0.2, 0.5, 1 )
 
 [node name="Bell1" parent="objects/SongPuzzle" instance=ExtResource( 8 )]
 position = Vector2( -41.7075, 49.6518 )
