@@ -48,6 +48,9 @@ public class Root : Control
 
         Weapon = Player.GetNode("Weapon") as Weapon;
         GameContainer = GetNode("Game") as ViewportContainer;
+
+        if(Input.IsActionJustPressed("Screenshot"))
+            Screenshot();
     }
 
     public void LoadSettings()
@@ -63,6 +66,18 @@ public class Root : Control
         Settings LoadedSettings = JsonConvert.DeserializeObject<Settings>(file);
         settings = LoadedSettings;
 	}
+
+    public static void Screenshot()
+    {
+        var img = Viewport.GetViewport().GetTexture().GetData();
+        Root.Console.Visible = false;
+        img.FlipY();
+        var path = "Screenshot/" + OS.GetDate()["year"] + "-" + OS.GetDate()["month"] + "-" + OS.GetDate()["day"] +
+            "_" + OS.GetTime()["hour"] + "-" + OS.GetTime()["minute"] + "-" + OS.GetTime()["second"] + ".png";
+        img.Resize(1920, 1080, Image.Interpolation.Nearest);
+        img.SavePng(path);
+        Root.Dialog.ShowMessage("Screenshot saved at: " + path);
+    }
 
     public void SaveSettings()
     {

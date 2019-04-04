@@ -45,6 +45,7 @@ StartLevel = "intro"
 BackgroundColor = Color( 0.211765, 0.756863, 0.996078, 1 )
 
 [node name="Filler" type="Node2D" parent="."]
+editor/display_folded = true
 show_behind_parent = true
 position = Vector2( 3032, 32 )
 
@@ -101,6 +102,7 @@ format = 1
 expand_color = Color( 1, 0, 0, 1 )
 
 [node name="Filler2" type="Node2D" parent="."]
+editor/display_folded = true
 show_behind_parent = true
 position = Vector2( 320, -16 )
 script = ExtResource( 8 )

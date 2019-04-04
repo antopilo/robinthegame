@@ -152,6 +152,10 @@ public class Console : Control
                 Visible = false;
                 ConsoleInput.ReleaseFocus();
                 break;
+            case "SC":
+            case "SCREENSHOT":
+                Root.Screenshot();
+                break;
             case "LEVELS":
                 cache.Clear();
                 ConsoleBox.BbcodeText += "List of available worlds: \n";

@@ -15,6 +15,7 @@ script = ExtResource( 1 )
 LevelName = "Chapter 1"
 
 [node name="Layers" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="bg_tile" type="TileMap" parent="Layers"]
 show_behind_parent = true

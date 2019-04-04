@@ -5,7 +5,7 @@
   },
   "Fullscreen": false,
   "Borderless": false,
-  "Vsync": true,
+  "Vsync": false,
   "Controller": false,
-  "MaxFps": -1
+  "MaxFps": 200
 }

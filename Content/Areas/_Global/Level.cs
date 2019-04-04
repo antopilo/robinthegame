@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Level : Node2D
 {
-	// IF the level is smaller than the screen reset the size to those values.
+	// If the level is smaller than the screen reset the size to those values.
     const int MIN_WIDTH = 320; 
     const int MIN_HEIGHT = 180;
     const int TileSize = 8;
@@ -19,10 +19,11 @@ public class Level : Node2D
     public Vector2 LevelSize;  // Size to fit in the screen. half a tile shorter on the Y axis.
     public Vector2 LevelPosition; // Position in the World
     
-
     private Node Entities;
     private Player Player;
     private List<Vector2> Spawns = new List<Vector2>(); // List of possible spawns.
+
+    private const int RenderDistance = 1000;
 
     #region Entities
     private PackedScene FallingPlatform, Spike, JumpPad,Door, Key,Extender,Spawn,FallBlock,JumpThroughPlatform,Coin,DartShooter, 
@@ -40,7 +41,6 @@ public class Level : Node2D
     #endregion
 
     
-
     public override void _Ready()
     {
         World = (GameController)GetParent();
@@ -83,6 +83,8 @@ public class Level : Node2D
         AutoTileBorders();
 		
         LayerEntities.Visible = false;
+
+        AddChild((new VisibilityEnabler2D()));
     }
 
     /// <summary>
@@ -147,6 +149,12 @@ public class Level : Node2D
             }
     }
 
+    public override void _Process(float delta)
+    {
+        var distance = (this.GlobalPosition - Player.GlobalPosition).Length();
+        this.Visible = (Root.GameController.CurrentRoom != this && distance > RenderDistance) ? false : true;
+    }    
+    
     // Remove Top left tile if its only used as an anchor.
     private void RemoveBlockAnchor()
     {
