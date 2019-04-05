@@ -71,6 +71,10 @@
     <Compile Include="Content\UI\Dialog\SpeechTextDissapearing.cs" />
     <Compile Include="Content\UI\MainMenu.cs" />
     <Compile Include="Content\UI\Scripts\DeathCount.cs" />
+    <Compile Include="Content\UI\Scripts\Inventory\Inventory.cs" />
+    <Compile Include="Content\UI\Scripts\Inventory\InventoryItem.cs" />
+    <Compile Include="Content\UI\Scripts\Inventory\ItemData.cs" />
+    <Compile Include="Content\UI\Scripts\Menu\TabNavigation.cs" />
     <Compile Include="Content\_Core\Camera.cs" />
     <Compile Include="Content\_Core\Singletons\SceneSwitcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

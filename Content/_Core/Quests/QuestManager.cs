@@ -22,7 +22,6 @@ public class QuestManager : Node2D
         AllQuest.Add(GetNode("Next") as Quest);
         AllQuest.Add(GetNode("GetKey") as Quest);
         AllQuest.Add(GetNode("OpenDoor") as Quest);
-
     }
     public override void _Process(float delta)
     {

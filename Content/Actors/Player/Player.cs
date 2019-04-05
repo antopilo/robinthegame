@@ -534,7 +534,6 @@ public class Player : KinematicBody2D
             InteractableObject.Insert(0, ((area as Area2D).GetParent() as Node2D));
         }
     }
-   
 
     private void _on_InteractionRange_area_exited(object area)
     {
@@ -546,7 +545,6 @@ public class Player : KinematicBody2D
     #endregion
     private void _on_DisableInput_timeout()
     {
-
         CanControl = true;
         IsWallJumping = false;
     }

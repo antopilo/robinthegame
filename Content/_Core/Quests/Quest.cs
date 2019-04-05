@@ -8,7 +8,7 @@ public class Quest : Node
 {
     #region Properties
     [Export] public string QuestName = "Unknown Quest";
-    [Export(PropertyHint.Range,"0,50")] public int Experience;
+    [Export(PropertyHint.Range,"0, 50")] public int Experience;
     [Export] public QuestType Type = QuestType.GoTo;
 
     [Export] public NodePath Destination;

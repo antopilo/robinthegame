@@ -1,0 +1,44 @@
+[
+  {
+    "ItemName": "Skull",
+    "Description": "This is a very normal skull full of dust and blood.",
+    "Amount": 2,
+    "IconPath": "res://icon.png"
+  },
+  {
+    "ItemName": "Coal",
+    "Description": "A not so valuable piece of coal. It might be useful for someone else.",
+    "Amount": 1,
+    "IconPath": "res://icon.png"
+  },
+  {
+    "ItemName": "Key",
+    "Description": "A not so valuable piece of coal. It might be useful for someone else.",
+    "Amount": 6,
+    "IconPath": "res://icon.png"
+  },
+  {
+    "ItemName": "Gold",
+    "Description": "Your money",
+    "Amount": 999,
+    "IconPath": "res://icon.png"
+  },
+  {
+    "ItemName": "Bugs",
+    "Description": "A good snack that some would like, but not you.",
+    "Amount": 4,
+    "IconPath": "res://icon.png"
+  },
+  {
+    "ItemName": "Lever",
+    "Description": "A lever.",
+    "Amount": 1,
+    "IconPath": "res://icon.png"
+  },
+  {
+    "ItemName": "Magic arrow",
+    "Description": "cool arrow.",
+    "Amount": 1,
+    "IconPath": "res://icon.png"
+  }
+]
