@@ -26,17 +26,19 @@ public class Arrow : KinematicBody2D
     private Vector2 FreezePosition;
     private Vector2 ColliderOffset;
     private Object Collider;
+    private Player Player;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         Name = "Arrow";
         T = GetNode("Tween") as Tween;
-
-        LastDirection = new Vector2(Root.Player.LastDirectionX, 0);
+        Player = Root.Player;
+        Weapon = Player.GetNode("Weapon") as Weapon;
+        this.LastDirection = new Vector2(1, 0);
         Weapon.CanShoot = false ;
-        Root.Player.ArrowExist = true;
-        Root.Player.Arrow = this;
+        Player.ArrowExist = true;
+        Player.Arrow = this;
     }
     public override void _Input(InputEvent @event)
     {

@@ -363,6 +363,7 @@ scale = Vector2( 0.8, 0.8 )
 "Player",
 ] instance=ExtResource( 27 )]
 pause_mode = 1
+editor/display_folded = true
 position = Vector2( -1112.57, -181.964 )
 z_index = 1
 

@@ -71,7 +71,7 @@ public class PauseMenu : Control
     }
 
     private void Quit()
-        => GetTree().ChangeSceneTo((PackedScene)ResourceLoader.Load("res://Content/UI/MainMenu.tscn"));
+        => GetTree().ChangeScene("res://Content/UI/MainMenu.tscn");
 
     // SETTINGS HERE
     public void _on_Resolution_pressed()

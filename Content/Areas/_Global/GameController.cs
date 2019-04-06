@@ -225,7 +225,27 @@ public class GameController : Node2D
         Root.DeathCount.Deaths++;
         
         if (WithAnimation)
+        {
             Root.SceneTransition.FadeIn();
+
+            Tween T;  // If there is no Tween node, then create one and use it.
+            if (!HasNode("Tween"))
+            {
+                T = new Tween();
+                T.Name = "Tween";
+                AddChild(T);
+
+            }
+            else
+            {
+                T = (Tween)GetNode("Tween");
+            }
+            T.RemoveAll();
+            T.InterpolateProperty(Player, "scale", new Vector2(1, 1), new Vector2(0, 0), 0.2f,
+                Tween.TransitionType.Expo, Tween.EaseType.In);
+            T.Start();
+        }
+            
 
         IsSpawning = true;
         CurrentRoom.Reload();
@@ -233,22 +253,7 @@ public class GameController : Node2D
         if (CurrentRoom.SpawnPosition == new Vector2())
             CurrentRoom.ChooseSpawn();
 
-        Tween T;  // If there is no Tween node, then create one and use it.
-        if (!HasNode("Tween"))
-        {
-            T = new Tween();
-            T.Name = "Tween";
-            AddChild(T);
-            
-        }
-        else
-        {
-            T = (Tween)GetNode("Tween");
-        }
-        T.RemoveAll();
-        T.InterpolateProperty(Player, "scale", new Vector2(1, 1), new Vector2(0, 0), 0.2f,
-            Tween.TransitionType.Expo, Tween.EaseType.In);
-        T.Start();
+        
 
         Root.SceneTransition.MoveToPlayer();
     }

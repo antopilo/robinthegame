@@ -13,6 +13,7 @@ public class Player : KinematicBody2D
     public Vector2 FeetPosition => GlobalPosition + new Vector2(0, 4);
     public Vector2 Inputv => new Vector2(InputDirectionX, InputDirectionY);
 
+    public Weapon Weapon;
     private const int GRAVITY = 4;
     private const int ACCELERATION = 5;
     private const int DECELERATION = 4;
@@ -61,7 +62,7 @@ public class Player : KinematicBody2D
     // Init.
     public override void _Ready()
     {
-        base._Ready();
+        Weapon = GetNode("Weapon") as Weapon;
 
         CollisionBox = (CollisionShape2D)GetNode("Collision");
         Sprite = (AnimatedSprite)GetNode("AnimatedSprite");

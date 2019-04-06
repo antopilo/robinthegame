@@ -11,7 +11,7 @@ public class Console : Control
     private LineEdit ConsoleInput;
     private string WorldPath = "res://Content/Areas/Worlds/";
     private Dialog DialogBox;
-    private RichTextLabel ConsoleBox;
+    private static RichTextLabel ConsoleBox;
 
 
     private string LastCommand = "";
@@ -55,9 +55,6 @@ public class Console : Control
         // Press up for the previous command.
         if (@event.IsActionPressed("ui_up"))
             ConsoleInput.Text = LastCommand;
-
-        if(@event.IsActionPressed("Reload"))
-            Root.GameController.CurrentRoom.Reload();
 
         if (@event.IsActionPressed("Respawn") && !Visible)
             Root.GameController.Spawn(true);
@@ -336,12 +333,13 @@ public class Console : Control
 
                 string DestinationLevel = parameters[0].ToLower();
                 Level Level = Root.GameController.GetNode(DestinationLevel) as Level;
-
                 if(Level != null && Level is Level)
                 {
                     Root.GameController.ChangeRoom(Level);
                     Root.Dialog.ShowMessage("Teleported to " + Level.Name, 2f);
-                    Root.GameController.Spawn(true);
+                    Root.Player.GlobalPosition = Level.GlobalPosition;
+                    Level.ChooseSpawn();
+                    Root.GameController.Spawn(false);
                 }
                 break;
 
@@ -388,6 +386,11 @@ public class Console : Control
         }
 
         
+    }
+
+    public static void Log(string message)
+    {
+        ConsoleBox.BbcodeText += message + "\n";
     }
 }
 

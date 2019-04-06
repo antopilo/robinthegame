@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Content/UI/Scripts/SceneTransition.cs" type="Script" id=1]
 [ext_resource path="res://Content/UI/Scripts/LevelInfo.cs" type="Script" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://Content/Art/UI/Icons/InteractDot.png" type="Texture" id=18]
 [ext_resource path="res://Content/UI/Transitions/Radial.png" type="Texture" id=19]
 [ext_resource path="res://Content/UI/Utilities.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Content/UI/Utilities.cs" type="Script" id=21]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -916,8 +917,13 @@ margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="Inventory" parent="." instance=ExtResource( 20 )]
+[node name="Utilities" parent="." instance=ExtResource( 20 )]
 visible = false
+margin_top = 900.0
+margin_bottom = 900.0
+script = ExtResource( 21 )
+
+[node name="Tween" type="Tween" parent="Utilities"]
 
 [connection signal="tween_completed" from="LevelInfo/Tween" to="LevelInfo" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Dialog/Timer" to="Dialog" method="_on_Timer_timeout"]

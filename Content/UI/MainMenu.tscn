@@ -15,8 +15,9 @@
 [ext_resource path="res://Content/Lights/GodRays.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Content/Art/Particles/Leaves/leaf1.png" type="Texture" id=14]
 [ext_resource path="res://Content/UI/Fonts/LinLibertine_aS.ttf" type="DynamicFontData" id=15]
-[ext_resource path="res://Content/UI/Transitions/Radial.png" type="Texture" id=16]
-[ext_resource path="res://Content/UI/Fonts/LinuxLibertine.tres" type="DynamicFont" id=17]
+[ext_resource path="res://Content/UI/Play.cs" type="Script" id=16]
+[ext_resource path="res://Content/UI/Transitions/Radial.png" type="Texture" id=17]
+[ext_resource path="res://Content/UI/Fonts/LinuxLibertine.tres" type="DynamicFont" id=18]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.919149, 1 )
@@ -138,7 +139,7 @@ void fragment()
 [sub_resource type="ShaderMaterial" id=13]
 shader = SubResource( 12 )
 shader_param/cutoff = 0.936
-shader_param/mask = ExtResource( 16 )
+shader_param/mask = ExtResource( 17 )
 
 [sub_resource type="Animation" id=14]
 tracks/0/type = "value"
@@ -230,20 +231,6 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=17]
-tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 0, 0, 0, 1 ) ]
-}
-
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -254,6 +241,7 @@ size_flags_vertical = 3
 script = ExtResource( 1 )
 
 [node name="BG" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 210.957, -2.65759 )
 
 [node name="ColorRect" type="ColorRect" parent="BG"]
@@ -354,7 +342,6 @@ process_material = SubResource( 5 )
 texture = SubResource( 6 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 500
@@ -369,6 +356,7 @@ margin_right = 1420.0
 margin_bottom = 880.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+editor/display_folded = true
 margin_right = 920.0
 margin_bottom = 181.0
 
@@ -417,8 +405,10 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 200, 50 )
 custom_fonts/font = SubResource( 10 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+shortcut_in_tooltip = false
 text = "Play"
 flat = true
+script = ExtResource( 16 )
 
 [node name="Options" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 54.0
@@ -441,12 +431,6 @@ custom_fonts/font = SubResource( 10 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 text = "Quit"
 flat = true
-
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-color = Color( 1, 1, 1, 0 )
 
 [node name="Transition" type="ColorRect" parent="."]
 pause_mode = 2
@@ -482,14 +466,10 @@ margin_left = -246.131
 margin_top = -74.6353
 margin_right = -18.1309
 margin_bottom = -16.6353
-custom_fonts/font = ExtResource( 17 )
+custom_fonts/font = ExtResource( 18 )
 text = "Loading ..."
 align = 1
 valign = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Fadeout = SubResource( 17 )
-
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Play" to="MarginContainer/HBoxContainer/VBoxContainer/Play" method="_on_Play_pressed"]
 [connection signal="animation_finished" from="Transition/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

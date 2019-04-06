@@ -8,16 +8,17 @@ public class MainMenu : Control
     private PackedScene PlayScene;
     public Settings settings = new Settings();
     private AnimationPlayer AnimPlayer;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        AnimPlayer = (AnimationPlayer)GetNode("AnimationPlayer");
+        
         PlayScene = (PackedScene)ResourceLoader.Load("res://Content/_Core/Scenes/RenderScene.tscn");
         LoadSettings();
         ApplySettings();
     }
 
-    private void _on_Play_pressed()
+    public void _on_Play_pressed()
     {
         ((AnimationPlayer)GetNode("Transition/AnimationPlayer")).Play("FadeIn");
     }
@@ -58,7 +59,7 @@ public class MainMenu : Control
     }
     private void _on_AnimationPlayer_animation_finished(String anim_name)
     {
-        GetTree().ChangeSceneTo(PlayScene);
+        GetTree().ChangeScene("res://Content/_Core/Scenes/RenderScene.tscn");
     }
 }
 
