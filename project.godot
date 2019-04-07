@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 SceneSwitcher="*res://Content/_Core/Singletons/SceneSwitcher.cs"
+InventoryManager="*res://Content/_Core/Singletons/InventoryManager.cs"
 
 [debug]
 

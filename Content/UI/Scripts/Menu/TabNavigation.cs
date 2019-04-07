@@ -7,6 +7,9 @@ public class TabNavigation : TabContainer
 
     public override void _Input(InputEvent @event)
     {
+        if (!((Utilities)GetNode("../../")).MenuOpened)
+            return;
+
         if (@event.IsActionPressed("ui_nextpage"))
         {
             if(this.CurrentTab < this.GetChildCount())

@@ -6,9 +6,6 @@ using System.IO;
 
 public class Inventory : Control
 {
-    public List<ItemData> InventoryContent = new List<ItemData>();
-    public List<ItemData> Items = new List<ItemData>();
-
     private GridContainer ItemContainer;
     private PackedScene ItemScene;
 
@@ -28,11 +25,12 @@ public class Inventory : Control
         ItemDescriptionLabel = (RichTextLabel)GetNode("MarginContainer/HBoxContainer/Right/VBoxContainer/Panel/MarginContainer/VBoxContainer/Panel/MarginContainer/Content");
 
         // Init.
-        LoadInventory();
         UpdateUI();
 
         
         UpdateInfo();
+
+        
         //SaveInventory();
     }
 
@@ -42,26 +40,20 @@ public class Inventory : Control
         UpdateInfo();
     }
 
-
-    public void AddItem(string itemName, int amount)
-    {
-
-    }
-
-    private void UpdateUI()
+    public void UpdateUI()
     {
         int idx = 0;
-        foreach (ItemData data in Items)
+        foreach (var data in InventoryManager.Inventory)
         {
             // If the item is already there, just update the amount.
             if (ItemContainer.HasNode(data.ItemName))
             {
-                var node = (InventoryItem)GetNode(ItemContainer.Name);
-                node.Amount = data.Amount;
+                var node = (InventoryItem   )ItemContainer.GetNode(data.ItemName);
+                node.UpdateAmount(data.Amount);
                 idx++;
                 continue;
             }
-                
+            
             // Create the item and add it to the container.
             InventoryItem item = (InventoryItem)ItemScene.Instance();
             item.Name = item.ItemName = data.ItemName;
@@ -90,24 +82,5 @@ public class Inventory : Control
                 ItemDescriptionLabel.Text = ((InventoryItem)child).Description;
             }
         }
-    }
-
-    public void LoadInventory()
-    {
-        StreamReader writer = new StreamReader("inventory.json");
-
-        string file = writer.ReadToEnd();
-        writer.Close();
-
-        List<ItemData> loadedItems = JsonConvert.DeserializeObject<List<ItemData>>(file);
-        Items = loadedItems;
-    }
-
-    public void SaveInventory()
-    {
-        string json = JsonConvert.SerializeObject(Items, Formatting.Indented);
-        StreamWriter file = new StreamWriter("inventory.json");
-        file.WriteLine(json);
-        file.Close();
     }
 }

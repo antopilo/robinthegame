@@ -74,10 +74,13 @@
     <Compile Include="Content\UI\Scripts\DeathCount.cs" />
     <Compile Include="Content\UI\Scripts\Inventory\Inventory.cs" />
     <Compile Include="Content\UI\Scripts\Inventory\InventoryItem.cs" />
+    <Compile Include="Content\UI\Scripts\Inventory\InventoryNotification.cs" />
     <Compile Include="Content\UI\Scripts\Inventory\ItemData.cs" />
+    <Compile Include="Content\UI\Scripts\Inventory\ItemNotification.cs" />
     <Compile Include="Content\UI\Scripts\Menu\TabNavigation.cs" />
     <Compile Include="Content\UI\Utilities.cs" />
     <Compile Include="Content\_Core\Camera.cs" />
+    <Compile Include="Content\_Core\Singletons\InventoryManager.cs" />
     <Compile Include="Content\_Core\Singletons\SceneSwitcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Content\UI\Scripts\Console.cs" />

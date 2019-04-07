@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Content/UI/Scripts/SceneTransition.cs" type="Script" id=1]
 [ext_resource path="res://Content/UI/Scripts/LevelInfo.cs" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://Content/UI/Transitions/Radial.png" type="Texture" id=19]
 [ext_resource path="res://Content/UI/Utilities.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Content/UI/Utilities.cs" type="Script" id=21]
+[ext_resource path="res://Content/UI/Scripts/Inventory/InventoryNotification.cs" type="Script" id=22]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -804,10 +805,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -2032.0
-margin_top = -1956.0
-margin_right = 1968.0
-margin_bottom = 2044.0
+margin_left = -2031.34
+margin_top = -1957.33
+margin_right = 1968.66
+margin_bottom = 2042.67
 rect_pivot_offset = Vector2( 2000, 2000 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -918,12 +919,24 @@ margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="Utilities" parent="." instance=ExtResource( 20 )]
-visible = false
 margin_top = 900.0
 margin_bottom = 900.0
 script = ExtResource( 21 )
 
 [node name="Tween" type="Tween" parent="Utilities"]
+
+[node name="InventoryNotification" type="Control" parent="."]
+margin_left = 1566.0
+margin_top = 194.0
+margin_right = 1919.0
+margin_bottom = 972.0
+script = ExtResource( 22 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryNotification"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+alignment = 2
 
 [connection signal="tween_completed" from="LevelInfo/Tween" to="LevelInfo" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Dialog/Timer" to="Dialog" method="_on_Timer_timeout"]
@@ -949,3 +962,5 @@ script = ExtResource( 21 )
 [connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Options/Apply/Apply" to="PauseMenu" method="_on_Apply_pressed"]
 [connection signal="animation_changed" from="InteractionFeedback/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_changed"]
 [connection signal="animation_finished" from="Transition/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+
+[editable path="Utilities"]

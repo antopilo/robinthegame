@@ -10,6 +10,7 @@ public class Root : Control
     public static Console Console;
     public static DeathCount DeathCount;
     public static GameController GameController;
+    public static InventoryManager InventoryManager;
     public static Player Player;
     public static Weapon Weapon;
     public static Dialog Dialog;
@@ -17,39 +18,53 @@ public class Root : Control
     public static SceneSwitcher SceneSwitcher;
     public static Viewport Viewport;
     public static ViewportContainer GameContainer;
+    public static Utilities Utilities;
 
     public override void _Ready()
     {
-        // Get node
-        Console = GetNode("UI/Console") as Console;
-        SceneTransition = GetNode("UI") as SceneTransition;
-        Viewport = GetNode("Game/Viewport") as Viewport;
-        LevelInfo = (LevelInfo)GetNode("UI/LevelInfo");
+        // Singletons
         SceneSwitcher = GetNode("/root/SceneSwitcher") as SceneSwitcher;
-        GameController = GetNode("Game/Viewport/World") as GameController;
-        Player = GameController.GetNode("Player") as Player;
-        Weapon = Player.GetNode("Weapon") as Weapon;
-        GameContainer = GetNode("Game") as ViewportContainer;
+        InventoryManager = GetNode("/root/InventoryManager") as InventoryManager;
+
+        // Get node
+        SceneTransition = GetNode("UI") as SceneTransition;
+        Utilities = (Utilities)GetNode("UI/Utilities");
+        Console = GetNode("UI/Console") as Console;
+        LevelInfo = (LevelInfo)GetNode("UI/LevelInfo");
         Dialog = (Dialog)GetNode("UI/Dialog");
         DeathCount = (DeathCount)GetNode("UI/DeathCount");
 
+        GameContainer = GetNode("Game") as ViewportContainer;
+        Viewport = GetNode("Game/Viewport") as Viewport;
+        GameController = GetNode("Game/Viewport/World") as GameController;
+        Player = GameController.GetNode("Player") as Player;
+        Weapon = Player.GetNode("Weapon") as Weapon;
+        
         LoadSettings();
         ApplySettings();
     }
 
-    public override void  _Process(float delta){
+    public override void  _Process(float delta)
+    {
+        // Singletons
+        SceneSwitcher = GetNode("/root/SceneSwitcher") as SceneSwitcher;
+        InventoryManager = GetNode("/root/InventoryManager") as InventoryManager;
+
+        // Get node
+        SceneTransition = GetNode("UI") as SceneTransition;
+        Utilities = (Utilities)GetNode("UI/Utilities");
         Console = GetNode("UI/Console") as Console;
-        Viewport = GetNode("Game/Viewport") as Viewport;
         LevelInfo = (LevelInfo)GetNode("UI/LevelInfo");
-        DeathCount = (DeathCount)GetNode("UI/DeathCount");
         Dialog = (Dialog)GetNode("UI/Dialog");
-        GameController = GetNode("Game/Viewport").GetChild(0) as GameController;
-        Player = GameController.GetNode("Player") as Player;
+        DeathCount = (DeathCount)GetNode("UI/DeathCount");
 
-        Weapon = Player.GetNode("Weapon") as Weapon;
         GameContainer = GetNode("Game") as ViewportContainer;
+        Viewport = GetNode("Game/Viewport") as Viewport;
+        GameController = Viewport.GetChild(0) as GameController;
+        Player = GameController.GetNode("Player") as Player;
+        Weapon = Player.GetNode("Weapon") as Weapon;
 
-        if(Input.IsActionJustPressed("Screenshot"))
+        if (Input.IsActionJustPressed("Screenshot"))
             Screenshot();
     }
 

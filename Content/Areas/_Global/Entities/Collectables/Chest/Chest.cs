@@ -3,6 +3,8 @@ using System;
 
 public class Chest : Node2D
 {
+    [Export] public string ItemName = "Gold";
+    [Export] public int Amount = 1;
     public bool Opened = false;
     private AnimatedSprite AnimatedSprite;
     private AudioStreamPlayer AudioPlayer;
@@ -25,5 +27,6 @@ public class Chest : Node2D
         AnimatedSprite.Animation = "Opening";
         Root.Player.RemoveFromInteraction(this);
         AudioPlayer.Play(0);
+        InventoryManager.AddItem(ItemName, Amount);
     }
 }

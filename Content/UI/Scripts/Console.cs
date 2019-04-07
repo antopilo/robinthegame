@@ -372,7 +372,9 @@ public class Console : Control
                 Root.Player.MoveLocalX(x * 8);
                 DialogBox.ShowMessage("Moved player X: " + x + " tiles ");
                 break;
-
+            case "ADDITEM":
+                InventoryManager.AddItem("Coal", 1);
+                break;
             case "HELP":
                 ConsoleBox.BbcodeText += "\n [color=red]Here is the list of commands that are available: [/color]";
 
