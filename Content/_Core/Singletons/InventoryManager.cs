@@ -7,14 +7,15 @@ using System.IO;
 public class InventoryManager : Node
 {
     public static List<ItemData> Items = new List<ItemData>();
-    private static List<ItemData> inventory = new List<ItemData>();
+    public static List<ItemData> Inventory = new List<ItemData>() {};
 
-    public static List<ItemData> Inventory { get => inventory; set => inventory = value; }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        
         LoadItems();
+       
     }
     
     // Adding item to inventory.
@@ -26,6 +27,7 @@ public class InventoryManager : Node
         {
             GD.PrintErr("Item not found: " + name);
             Console.Log("Item not found: " + name);
+            return;
         }
         if (Inventory.Contains(item))
         {
@@ -38,6 +40,29 @@ public class InventoryManager : Node
         }
         
         InventoryNotification.SendNotification(item, amount);
+        Root.Utilities.Inventory.UpdateUI();
+    }
+
+
+    public static bool HasItem(string name)
+    {
+        ItemData item = Items.Find(x => x.ItemName == name);
+        if (Inventory.Contains(item))
+            return true;
+        return false;
+    }
+
+    public static void RemoveItem(string name, int amount)
+    {
+        ItemData item = Items.Find(x => x.ItemName == name);
+        if (Inventory.Contains(item))
+        {
+            if (Inventory.Find(x => x.ItemName == name).Amount > 1)
+                Inventory.Find(x => x.ItemName == name).Amount--;
+            else
+                Inventory.Remove(item);
+        }
+        InventoryNotification.SendNotification(item, -amount);
         Root.Utilities.Inventory.UpdateUI();
     }
 

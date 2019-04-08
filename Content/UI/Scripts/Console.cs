@@ -372,8 +372,19 @@ public class Console : Control
                 Root.Player.MoveLocalX(x * 8);
                 DialogBox.ShowMessage("Moved player X: " + x + " tiles ");
                 break;
-            case "ADDITEM":
-                InventoryManager.AddItem("Coal", 1);
+            case "GIVE":
+                if(parameters.Length== 0)
+                {
+                    Log("[color=red]ERROR: Must specify and item");
+                    return;
+                }
+                else if(parameters.Length == 1)
+                {
+                    InventoryManager.AddItem(parameters[0], 1);
+                }
+                else
+                    InventoryManager.AddItem(parameters[0], int.Parse(parameters[1]));
+
                 break;
             case "HELP":
                 ConsoleBox.BbcodeText += "\n [color=red]Here is the list of commands that are available: [/color]";

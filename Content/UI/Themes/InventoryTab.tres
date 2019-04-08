@@ -1,0 +1,29 @@
+[gd_resource type="Theme" load_steps=2 format=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.905882, 0.329412, 0.329412, 1 )
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_detail = 15
+
+[resource]
+Tabs/colors/font_color_bg = Color( 0.94902, 0.321569, 0.321569, 1 )
+Tabs/colors/font_color_disabled = Color( 0.843137, 0.12549, 0.12549, 0.2 )
+Tabs/colors/font_color_fg = Color( 0.843137, 0.113725, 0.113725, 1 )
+Tabs/constants/hseparation = 4
+Tabs/constants/label_valign_bg = 2
+Tabs/constants/label_valign_fg = 0
+Tabs/constants/top_margin = 24
+Tabs/fonts/font = null
+Tabs/icons/close = null
+Tabs/icons/decrement = null
+Tabs/icons/decrement_highlight = null
+Tabs/icons/increment = null
+Tabs/icons/increment_highlight = null
+Tabs/styles/button = SubResource( 1 )
+Tabs/styles/button_pressed = null
+Tabs/styles/panel = SubResource( 1 )
+Tabs/styles/tab_bg = SubResource( 1 )
+Tabs/styles/tab_disabled = null
+Tabs/styles/tab_fg = null
+

@@ -1,13 +1,34 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Content/UI/Scripts/Inventory/InventoryItem.cs" type="Script" id=1]
 [ext_resource path="res://Content/Art/UI/Icons/SkullHidef.png" type="Texture" id=2]
 [ext_resource path="res://Content/UI/Fonts/LinLibertine_aS.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.768627, 0.768627, 0.768627, 1 )
+[sub_resource type="Theme" id=11]
+MarginContainer/constants/margin_bottom = 0
+MarginContainer/constants/margin_left = 0
+MarginContainer/constants/margin_right = 0
+MarginContainer/constants/margin_top = 0
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="StyleBoxFlat" id=12]
+bg_color = Color( 0.564706, 0.564706, 0.564706, 1 )
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.890196, 0.866667, 0.866667, 1 )
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="DynamicFont" id=10]
 size = 36
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
@@ -18,32 +39,34 @@ margin_right = 100.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 focus_mode = 2
-custom_constants/margin_right = 2
-custom_constants/margin_top = 2
-custom_constants/margin_left = 2
-custom_constants/margin_bottom = 2
+theme = SubResource( 11 )
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
 script = ExtResource( 1 )
 
 [node name="Background" type="Panel" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 102.0
-margin_bottom = 102.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 104.0
+margin_bottom = 104.0
 mouse_filter = 2
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 12 )
 
-[node name="Focus" type="ColorRect" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 102.0
-margin_bottom = 102.0
-color = Color( 0.254902, 0.615686, 1, 1 )
+[node name="Focus" type="Panel" parent="."]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 104.0
+margin_bottom = 104.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 9 )
 
 [node name="Icon" type="MarginContainer" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 102.0
-margin_bottom = 102.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 104.0
+margin_bottom = 104.0
 rect_min_size = Vector2( 100, 100 )
 mouse_filter = 2
 custom_constants/margin_right = 25
@@ -63,10 +86,10 @@ expand = true
 stretch_mode = 6
 
 [node name="CountContainer" type="Control" parent="."]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 102.0
-margin_bottom = 102.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 104.0
+margin_bottom = 104.0
 mouse_filter = 2
 
 [node name="Count" type="Label" parent="CountContainer"]
@@ -79,7 +102,7 @@ margin_top = -46.2586
 margin_right = -1.55028
 margin_bottom = -4.25861
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 10 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "x22"

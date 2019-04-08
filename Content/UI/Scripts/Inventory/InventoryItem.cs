@@ -10,15 +10,15 @@ public class InventoryItem : MarginContainer
     public string IconPath = "res://icon.png";
 
     private TextureRect TextureRect;
+
     private Label CountLabel;
-    private ColorRect FocusRect;
+    private Panel FocusRect;
 
     public override void _Ready()
     {
         TextureRect = (TextureRect)GetNode("Icon/Image");
         CountLabel = (Label)GetNode("CountContainer/Count");
-        FocusRect = (ColorRect)GetNode("Focus");
-
+        FocusRect = (Panel)GetNode("Focus");
         TextureRect.Texture = (Texture)ResourceLoader.Load(IconPath);
         CountLabel.Text = "x" + Amount;
     }
@@ -26,6 +26,8 @@ public class InventoryItem : MarginContainer
     public void UpdateAmount(int amount)
     {
         Amount = amount;
+        if (Amount == 0)
+            this.QueueFree();
         CountLabel.Text = "x" + Amount;
     }
 

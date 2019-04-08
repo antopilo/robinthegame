@@ -3,7 +3,7 @@ using System;
 
 public class Utilities : Control
 {
-    public bool MenuOpened = true;
+    public bool MenuOpened = false;
     public Inventory Inventory;
     private Vector2 InitialPosition = new Vector2();
     private Tween Tween;

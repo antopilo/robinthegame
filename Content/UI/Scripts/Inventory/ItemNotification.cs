@@ -29,7 +29,15 @@ public class ItemNotification : MarginContainer
         Timer.WaitTime = ShowTime;
 
         // Load Icon
-        NotificationLabel.Text = Amount + " " + ItemName + " " + "added.";
+        if(Amount < 0)
+        {
+            NotificationLabel.Text = Amount.ToString().Trim('-') + " " + ItemName + " " + "removed.";
+        }
+        else
+        {
+            NotificationLabel.Text = Amount + " " + ItemName + " " + "added.";
+        }
+        
         NotificationIcon.Texture = ResourceLoader.Load(IconPath) as Texture;
 
         

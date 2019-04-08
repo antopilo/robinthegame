@@ -9,7 +9,6 @@ public class InventoryNotification : Control
     public override void _Ready()
     {
         Container = (VBoxContainer)GetNode("VBoxContainer");
-
         NotificationScene = (PackedScene)ResourceLoader.Load("res://Content/UI/ItemNotification.tscn");
     }
 

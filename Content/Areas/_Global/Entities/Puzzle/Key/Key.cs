@@ -37,23 +37,20 @@ public class Key : Node2D
         {
             if(DistanceFromPlayer <= DETECTION_RANGE)
             {
-                Player.Following.Add(this);
-                Index = Player.Following.IndexOf(this);
+                InventoryManager.AddItem("Key", 1);
                 Grabbed = true;
 
-                if (Index == 0)
-                    Target = Player;
-                else
-                    Target = Player.Following[Index - 1];
+                Target = Player;
             }
         }
         else if(!Used && Grabbed)
         {
-            T.FollowProperty(this, "global_position", GlobalPosition, Target, "global_position", 0.3f, Tween.TransitionType.Linear, Tween.EaseType.Out);
+            T.InterpolateProperty(this, "global_position", GlobalPosition, Target.GlobalPosition, 0.3f, 
+                Tween.TransitionType.Linear, Tween.EaseType.Out);
+            T.InterpolateProperty(this, "scale", new Vector2(1,1), new Vector2(0, 0), 0.3f, 
+                Tween.TransitionType.Linear, Tween.EaseType.Out);
             T.Start();
         }
-        if (Used == true && door.Sprite.Scale.x < 0.5)
-            Kill();
     }
 
     public void Kill()
@@ -63,31 +60,9 @@ public class Key : Node2D
         this.QueueFree();
     }
 
-    public void MoveTo(Node2D pTarget)
-    {
-        door = pTarget as Door;
-        Vector2 Destination = pTarget.GlobalPosition + new Vector2(12,12);
-        T.StopAll();
-        T.InterpolateProperty(this, "global_position", GlobalPosition, Destination, 0.3f, Tween.TransitionType.Expo, Tween.EaseType.InOut);
-        T.Start();
-    }
-
-    public void ChangeTarget(Node2D pTarget)
-    {
-        T.StopAll();
-        T.FollowProperty(this, "global_position", GlobalPosition, pTarget, "global_position", 0.3f, Tween.TransitionType.Linear, Tween.EaseType.Out);
-        T.Start();
-    }
-
     private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
     {
-        if (Used)
-        {
-            Player.Following.Remove(this);
-            door.Open();
-            Used = true;
-            //Kill();
-        }
+        Kill();
     }
 }
 

@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Entities/Puzzle/Door/Door.cs" type="Script" id=1]
 [ext_resource path="res://Content/Art/Sprites/Entities/ent_global.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 4 )
 
 [node name="door" type="Node2D"]
 script = ExtResource( 1 )
@@ -22,5 +25,11 @@ position = Vector2( 12, 12 )
 shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="InteractionZone" type="Area2D" parent="."]
+position = Vector2( 12, 20 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
+shape = SubResource( 2 )
 
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

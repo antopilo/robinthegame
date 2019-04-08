@@ -3,8 +3,10 @@ using Godot;
 public class Door : Node2D
 {
     public Rect2 Box;
-    Player Player;
-    CollisionShape2D Collision;
+    public Vector2 InteractionOffset = new Vector2(8, 8);
+
+    private Player Player;
+    private CollisionShape2D Collision;
     public Sprite Sprite;
 
     const int DETECTION_RANGE = 45;
@@ -21,20 +23,12 @@ public class Door : Node2D
         Box = new Rect2(GlobalPosition, new Vector2(24, 24));
     }
 
-    public override void _PhysicsProcess(float delta)
+    public void Interact()
     {
-        Distance = Mathf.Abs(((GlobalPosition + new Vector2(12, 12)) - Player.GlobalPosition).Length());
-
-        if(Distance <= DETECTION_RANGE && Player.Following.Count > 0 && !Opened)
+        if (InventoryManager.HasItem("Key"))
         {
-            if((Player.Following[Player.Following.Count - 1] as Key).Used == false)
-            {
-                Opened = true;
-                (Player.Following[Player.Following.Count - 1] as Key).T.StopAll();
-                (Player.Following[Player.Following.Count - 1] as Key).Used = true;
-                (Player.Following[Player.Following.Count - 1] as Key).MoveTo(this);
-                
-            }
+            InventoryManager.RemoveItem("Key", 1);
+            Open();
         }
     }
 

@@ -15,13 +15,13 @@
     "ItemName": "Key",
     "Description": "A Simple key that can unlock stuff.",
     "Amount": 6,
-    "IconPath": "res://icon.png"
+    "IconPath": "res://Content/Art/Items/Key.png"
   },
   {
     "ItemName": "Gold",
     "Description": "Your valuable money.",
     "Amount": 999,
-    "IconPath": "res://icon.png"
+    "IconPath": "res://Content/Art/Items/Coin.png"
   },
   {
     "ItemName": "Bugs",
@@ -36,9 +36,9 @@
     "IconPath": "res://icon.png"
   },
   {
-    "ItemName": "Magic arrow",
-    "Description": "cool arrow.",
+    "ItemName": "Arrow",
+    "Description": "An arrow that can be controller with the power of your mind. Can be useful for a lot of different things",
     "Amount": 1,
-    "IconPath": "res://icon.png"
+    "IconPath": "res://Content/Art/Items/Arrow.png"
   }
 ]

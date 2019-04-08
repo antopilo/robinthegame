@@ -18,11 +18,11 @@ public class Inventory : Control
     public override void _Ready()
     {
         // refs
-        ItemContainer = (GridContainer)GetNode("MarginContainer/HBoxContainer/Left/VBoxContainer/TabContainer/Misc/ScrollContainer/GridContainer");
+        ItemContainer = (GridContainer)GetNode("MarginContainer/HBoxContainer/Left/VBoxContainer/ScrollContainer/GridContainer");
         ItemScene = (PackedScene)ResourceLoader.Load("res://Content/UI/Item.tscn");
 
         ItemTitleLabel = (Label)GetNode("MarginContainer/HBoxContainer/Right/VBoxContainer/Label");
-        ItemDescriptionLabel = (RichTextLabel)GetNode("MarginContainer/HBoxContainer/Right/VBoxContainer/Panel/MarginContainer/VBoxContainer/Panel/MarginContainer/Content");
+        ItemDescriptionLabel = (RichTextLabel)GetNode("MarginContainer/HBoxContainer/Right/VBoxContainer/MarginContainer/VBoxContainer/Panel/MarginContainer/Content");
 
         // Init.
         UpdateUI();
@@ -42,18 +42,16 @@ public class Inventory : Control
 
     public void UpdateUI()
     {
+        
+        foreach (Node child in ItemContainer.GetChildren())
+        {
+            child.QueueFree();
+            ItemTitleLabel.Text = "...";
+            ItemDescriptionLabel.Text = "...    ";
+        }
         int idx = 0;
         foreach (var data in InventoryManager.Inventory)
         {
-            // If the item is already there, just update the amount.
-            if (ItemContainer.HasNode(data.ItemName))
-            {
-                var node = (InventoryItem   )ItemContainer.GetNode(data.ItemName);
-                node.UpdateAmount(data.Amount);
-                idx++;
-                continue;
-            }
-            
             // Create the item and add it to the container.
             InventoryItem item = (InventoryItem)ItemScene.Instance();
             item.Name = item.ItemName = data.ItemName;
@@ -63,6 +61,7 @@ public class Inventory : Control
 
             if (idx == 0)
             {
+                item.GrabFocus();
                 ItemTitleLabel.Text = item.ItemName;
                 ItemDescriptionLabel.Text = item.Description;
             }

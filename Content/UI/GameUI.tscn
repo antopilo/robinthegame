@@ -962,5 +962,3 @@ alignment = 2
 [connection signal="pressed" from="PauseMenu/MarginContainer/HBoxContainer/Options/Apply/Apply" to="PauseMenu" method="_on_Apply_pressed"]
 [connection signal="animation_changed" from="InteractionFeedback/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_changed"]
 [connection signal="animation_finished" from="Transition/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-
-[editable path="Utilities"]
