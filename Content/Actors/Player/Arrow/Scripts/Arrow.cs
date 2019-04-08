@@ -159,13 +159,16 @@ public class Arrow : KinematicBody2D
     /// </summary>
     public void FreezeArrow()
     {
-        var collision = MoveAndCollide(new Vector2());
-        if (collision != null && collision.GetCollider() is Player)
-            ReturnToPlayer();
+        
 
 
         FreezePosition = GlobalPosition;
         SetCollisionLayerBit(0, true);
+
+        var collision = MoveAndCollide(new Vector2());
+        if (collision != null && collision.GetCollider() is Player)
+            ReturnToPlayer();
+
         Speed = 0;
         Frozen = true;
         CanDash = false;
