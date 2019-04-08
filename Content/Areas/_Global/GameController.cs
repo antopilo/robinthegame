@@ -193,8 +193,8 @@ public class GameController : Node2D
         Camera.LimitBottom = (int)(CameraCenter.y + GetViewport().Size.y / 2 * Camera.Zoom.y);
 
         // Transition settings.
-        float Time = 0.25f;
-        Tween.TransitionType Transition = Tween.TransitionType.Linear;
+        float Time = 0.5f;
+        Tween.TransitionType Transition = Tween.TransitionType.Expo;
         Tween.EaseType Ease = Tween.EaseType.Out;
 
         T.InterpolateProperty(Camera, "limit_right", Camera.LimitRight, NewLimitRight, Time, Transition, Ease);

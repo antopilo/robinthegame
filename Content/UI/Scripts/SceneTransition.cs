@@ -37,12 +37,14 @@ public class SceneTransition : CanvasLayer
 	public void Fade()
     {   
 	    AnimPlayer.Play("FadeOut");
+        Root.Utilities.CloseUI();
         GetTree().Paused = true;
     }
 
     public void FadeIn()
     {
         AnimPlayer.Play("FadeIn");
+        Root.Utilities.CloseUI();
     }
 	
     public void MoveToPlayer()

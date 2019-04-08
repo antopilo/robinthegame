@@ -195,7 +195,7 @@ position = Vector2( -648, -296 )
 [node name="dropdown" type="Node2D" parent="."]
 editor/display_folded = true
 show_behind_parent = true
-position = Vector2( 4.76837e-007, -328 )
+position = Vector2( 4.76837e-07, -328 )
 script = ExtResource( 8 )
 LevelName = ""
 
@@ -363,7 +363,6 @@ scale = Vector2( 0.8, 0.8 )
 "Player",
 ] instance=ExtResource( 27 )]
 pause_mode = 1
-editor/display_folded = true
 position = Vector2( -1112.57, -181.964 )
 z_index = 1
 
@@ -372,6 +371,7 @@ pause_mode = 2
 position = Vector2( 0.199951, 0 )
 scale = Vector2( 0.25, 0.25 )
 current = true
+smoothing_enabled = true
 drag_margin_left = 0.3
 drag_margin_top = 0.3
 drag_margin_right = 0.3

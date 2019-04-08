@@ -25,8 +25,10 @@ public class Utilities : Control
         else if (@event.IsActionPressed("OpenUI") && MenuOpened)
             CloseUI();
     }
-    private void OpenUI()
+    public void OpenUI()
     {
+        if(MenuOpened)
+            return;
         Tween.StopAll();
         Console.Log("UI opened");
         MenuOpened = true;
@@ -37,8 +39,10 @@ public class Utilities : Control
         GetTree().Paused = true;
     }
 
-    private void CloseUI()
+    public void CloseUI()
     {
+        if(!MenuOpened)
+            return;
         Tween.StopAll();    
         Console.Log("UI closed");
         MenuOpened = false;
