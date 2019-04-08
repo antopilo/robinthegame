@@ -160,7 +160,7 @@ public class Arrow : KinematicBody2D
     public void FreezeArrow()
     {
         var collision = MoveAndCollide(new Vector2());
-        if (collision.GetCollider() != null && collision.GetCollider() is Player)
+        if (collision != null && collision.GetCollider() is Player)
             ReturnToPlayer();
 
 
