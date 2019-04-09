@@ -60,6 +60,7 @@
     <Compile Include="Content\Areas\_Global\Entities\Entity.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Hazards\DartShooter\DartShooter.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Hazards\DartShooter\Dart\Dart.cs" />
+    <Compile Include="Content\Areas\_Global\Entities\Platforming\Lift\Lift.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Bell\Bell.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Bell\SongPuzzle.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Door\DoorPuzzle.cs" />

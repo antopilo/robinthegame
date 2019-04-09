@@ -79,6 +79,11 @@ public class GameController : Node2D
             return;
         Level Room;
 
+        // Kill the player if he can die from falling
+        if (CurrentRoom.FallKill && Player.Position.y > CurrentRoom.LevelSize.y + CurrentRoom.LevelPosition.y)
+            Root.Player.Spawn(true);
+
+
         // Loops through each Room in the world. They decide which one is the Player in.
         foreach (Node level in GetChildren())
         {
@@ -89,6 +94,8 @@ public class GameController : Node2D
                 float x = Player.Position.x, y = Player.Position.y;
                 float xMin = Room.LevelPosition.x, yMin = Room.LevelPosition.y;
                 float xMax = xMin + Room.LevelSize.x, yMax = yMin + Room.LevelSize.y;
+
+
 
                 // If the Player is inside the level.
                 if ((x >= xMin) && (y >= yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
