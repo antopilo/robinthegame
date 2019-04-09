@@ -11,13 +11,16 @@ public class Console : Control
     private LineEdit ConsoleInput;
     private string WorldPath = "res://Content/Areas/Worlds/";
     private Dialog DialogBox;
-    private static RichTextLabel ConsoleBox;
 
+    public bool Opened = false;
+
+    private bool Inspect = false;
+    private static RichTextLabel ConsoleBox;
 
     private string LastCommand = "";
     private string[] Commands = { "QUIT", "SHOWGRID", "SPAWN | RESPAWN", "CONTROLLER", "WINDOW",
                                   "FULLSCREEN", "VSYNC", "BORDERLESS", "SAY", "TP",
-                                  "MOVE", "HELP", "SHAKE", "LOAD", "LW", "GHOST" , "RELOAD" , "HELP", "CLEAR" };
+                                  "MOVE", "HELP", "SHAKE", "LOAD", "LW", "GHOST" , "RELOAD" , "HELP", "CLEAR", "INSPECT" };
     private List<string> cache = new List<string>();
 
     public override void _Ready()
@@ -36,20 +39,34 @@ public class Console : Control
         // Toggle to Show or Hide the console.
         if (@event.IsActionReleased("console"))
         {
-            Visible = !Visible;
-
-            if (Visible) // Show
+            Opened = !Opened;
+            Inspect = false;
+            if (Opened) // Show
             {
+                Visible = true;
                 ConsoleInput.GrabFocus();
+                ConsoleInput.Visible = true;
                 ConsoleInput.Clear();
                 Root.Player.CanControl = false;
             }
             else // Hide
             {
+                Visible = false;
+                ConsoleInput.Visible = true;
                 ConsoleInput.ReleaseFocus();
                 ConsoleInput.Clear();
                 Root.Player.CanControl = true;
             }
+        }
+        if (Inspect)
+        {
+            Opened = false;
+            ConsoleInput.ReleaseFocus();
+            ConsoleInput.Visible = false;
+            Root.Player.CanControl = true;
+            this.Visible = true;
+            ConsoleBox.Visible = true;
+            ConsoleBox.Modulate = new Color(1, 1, 1, 0.5f);
         }
 
         // Press up for the previous command.
@@ -69,8 +86,6 @@ public class Console : Control
     // Event for when entering a new command.
     private void _on_LineEdit_text_entered(String new_text)
     {
-        bool Toggle;
-
         // Parse the command.
         var input = new_text.ToUpper().Split(" ");
         var command = input[0];
@@ -274,13 +289,23 @@ public class Console : Control
                         (Root.Player.Camera as Camera).Shake(float.Parse(parameters[0]), 1f);
                     else if (parameters.Length == 2)
                         (Root.Player.Camera as Camera).Shake(float.Parse(parameters[0]), float.Parse(parameters[1]));
-                                   }
+                }
                 catch
                 {
                     ConsoleBox.BbcodeText += "\n [color=red]The shake command must have 1 or 2 parameters. \n Shake [Amount] [Duration]";
                 }
                 break;
-
+            case "INSPECT":
+                Inspect = !Inspect;
+                Root.Player.CanControl = true;
+                Opened = false;
+                ConsoleInput.ReleaseFocus();
+                ConsoleInput.Visible = false;
+                Root.Player.CanControl = true;
+                this.Visible = true;
+                ConsoleBox.Visible = true;
+                ConsoleBox.Modulate = new Color(1, 1, 1, 0.5f);
+                break;
             // Toggle Vsync usage.
             case "VSYNC":
                 if (parameters[0] == "0")
@@ -337,7 +362,7 @@ public class Console : Control
                 {
                     Root.GameController.ChangeRoom(Level);
                     Root.Dialog.ShowMessage("Teleported to " + Level.Name, 2f);
-                    Root.Player.GlobalPosition = Level.GlobalPosition;
+                    Root.Player.GlobalPosition = Level.LevelPosition + Level.LevelSize / 2;
                     Level.ChooseSpawn();
                     Root.GameController.Spawn(false);
                 }
@@ -359,7 +384,7 @@ public class Console : Control
                 {
                     var y = parameters[1].ToFloat();
                     Root.Player.MoveLocalY(y * 8);
-                    DialogBox.ShowMessage("Moved player Y: " + y + " tiles ");
+                    DialogBox.ShowMessage("Moved player Y: " + y + " tiles ", 2f);
                 }
                 else if (parameters.Length > 2)
                 {
@@ -397,13 +422,12 @@ public class Console : Control
                 ConsoleBox.BbcodeText += "\n " + "[color=red]Unknown Command. Type : help for the list of commands.[/color]";
                 return;
         }
-
-        
     }
 
     public static void Log(string message)
     {
         ConsoleBox.BbcodeText += message + "\n";
+        GD.Print(message);
     }
 }
 

@@ -7,43 +7,40 @@
 extents = Vector2( 24, 10 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16, 8 )
+extents = Vector2( 16, 1 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 16, 1 )
+extents = Vector2( 16, 8 )
 
 [node name="Lift" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="InteractionZone" type="Area2D" parent="."]
-editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
 shape = SubResource( 1 )
 
 [node name="Platform" type="KinematicBody2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, 8 )
+
+[node name="PlayerCheck" type="Area2D" parent="Platform"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform/PlayerCheck"]
+position = Vector2( 0, -8 )
+shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="Platform"]
 script = ExtResource( 2 )
 SizeX = 32
 SizeY = 16
-color = Color( 1, 0.113725, 0.113725, 1 )
+color = Color( 0.898039, 0, 1, 1 )
 filled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="PlayerCheck" type="Area2D" parent="."]
-position = Vector2( 0, 8 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCheck"]
-position = Vector2( 0, -8 )
-shape = SubResource( 3 )
-
+[connection signal="body_entered" from="Platform/PlayerCheck" to="." method="_on_PlayerCheck_body_entered"]
+[connection signal="body_exited" from="Platform/PlayerCheck" to="." method="_on_PlayerCheck_body_exited"]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
-[connection signal="body_entered" from="PlayerCheck" to="." method="_on_PlayerCheck_body_entered"]
-[connection signal="body_exited" from="PlayerCheck" to="." method="_on_PlayerCheck_body_exited"]

@@ -155,7 +155,6 @@ public class SceneTransition : CanvasLayer
         // If the animation is triggered while changing scene.
         if(anim_name == "FadeIn")
         {
-            GD.Print("Switcher Ready!");
             SceneChangeReady = true;
             AnimPlayer.Play("Out");
             return;

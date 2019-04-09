@@ -12,6 +12,7 @@ public class Lift : Node2D
 
     private KinematicBody2D Platform;
     private Tween Tween;
+    private Area2D InteractionZone;
 
     private bool Fixed = false;
     private bool Up = true;
@@ -26,6 +27,7 @@ public class Lift : Node2D
     public override void _Ready()
     {
         Platform = (KinematicBody2D)GetNode("Platform");
+        InteractionZone = (Area2D)GetNode("InteractionZone");
 
         if (!HasNode("Target"))
         {
@@ -43,13 +45,19 @@ public class Lift : Node2D
 
     public override void _Process(float delta)
     {
-
-        if (PlayerPresent && Tween.IsActive())
+        InteractionZone.GlobalPosition = Platform.GlobalPosition;
+        if (Tween.IsActive() && PlayerPresent)
         {
+            Root.Player.CanControl = false;
+            Root.Player.Sprite.Animation = "idle";
+            Root.Player.GravityMult = 0;
             Root.Player.GlobalPosition += Platform.GlobalPosition - LastPosition;
             Console.Log((Platform.GlobalPosition - LastPosition).ToString());
         }
-
+        else if(PlayerPresent && !Tween.IsActive())
+        {
+            Root.Player.CanControl = true;
+        }
         LastPosition = Platform.GlobalPosition;
     }
 
@@ -61,6 +69,7 @@ public class Lift : Node2D
             if (InventoryManager.HasItem(RequiredItem))
             {
                 InventoryManager.RemoveItem(RequiredItem, 1);
+                Root.Dialog.ShowMessage("Lift repaired", 2f);
                 Fixed = true;
             }
             else
@@ -73,7 +82,7 @@ public class Lift : Node2D
         {
             if(Up)
             {
-                Tween.InterpolateProperty(Platform, "global_position", InitialPosition, Target, 4f,
+                Tween.InterpolateProperty(Platform, "global_position", InitialPosition, Target, Speed,
                     Tween.TransitionType.Linear, Tween.EaseType.InOut);
                 Tween.Start();
 
@@ -83,13 +92,12 @@ public class Lift : Node2D
             }
             else if(!Up)
             {
-                Tween.InterpolateProperty(Platform, "global_position", Target, InitialPosition, 4f,
+                Tween.InterpolateProperty(Platform, "global_position", Target, InitialPosition, Speed,
                     Tween.TransitionType.Linear, Tween.EaseType.InOut);
                 Tween.Start();
 
                 CanInteract = false;
                 Up = true;
-                Root.Player.RemoveFromInteraction(this);
             }
         }
     }
@@ -98,6 +106,7 @@ public class Lift : Node2D
 	private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
     {
         CanInteract = true;
+        Root.Player.CanControl = true;
     }
 
 

@@ -91,11 +91,11 @@ public class FallingPlatform : Node2D
     /// <param name="body"></param>
     private void _on_Area2D_body_entered(PhysicsBody2D body)
     {
-        if(State != PlatformStates.Ready || !(body is Player))
+        if(State != PlatformStates.Ready || !(body is Player) || ShakeTimer.TimeLeft != 0)
             return;
 
         var player = (body as Player);
-        if(player.Velocity.y >= 0) // Activate shaking process and Timer.
+        if(player.Alive && player.Velocity.y >= 0) // Activate shaking process and Timer.
         {
             State = PlatformStates.Shaking;
             ShakeTimer.Start();
@@ -132,25 +132,19 @@ public class FallingPlatform : Node2D
 
     private void _on_ReadyCooldown_timeout()
     {
-       
         State = PlatformStates.Ready;
         Collision.Disabled = false;
     }
 
     public void Reset()
     {
-        if(State == PlatformStates.Ready)
-            return;
-
         // Slowly Tween back to original position and opacity.
+        Timer.Stop();
         Tween.RemoveAll();
-        Tween.InterpolateProperty(Sprite, "scale", new Vector2(), new Vector2(1, 1), 2f, Tween.TransitionType.Elastic, Tween.EaseType.Out);
-        Tween.Start();
         
-        DetectionZone.CallDeferred("set_monitoring", true);
         State = PlatformStates.Ready;
         Sprite.RotationDegrees = 0;
-        Collision.Disabled = false;
+        Collision.SetDeferred("disabled", false);
         Platform.Position = InitialPosition;
         Platform.Modulate = InitialColor;
     }

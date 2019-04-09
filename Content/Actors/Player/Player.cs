@@ -29,7 +29,7 @@ public class Player : KinematicBody2D
 
     private float NextJumpTime = 0f;
     private float CurrentMaxSpeed = MAX_SPEED;
-    private float GravityMult = 1f;
+    public float GravityMult = 1f;
     public Vector2 Velocity = new Vector2();
 
     public bool CanControl = true;

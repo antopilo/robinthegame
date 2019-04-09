@@ -12,7 +12,7 @@ public class GameController : Node2D
     private bool IsSpawning = false;
     private Tween Tween;
 
-    [Export] private string StartLevel = "0";
+    [Export] private string StartLevel = "";
     [Export] private Color BackgroundColor;
 
     // Called when the node enters the scene tree for the first time.
@@ -27,6 +27,8 @@ public class GameController : Node2D
 
         SnapCamToRoom(GetNode(StartLevel) as Level);
         ChangeRoom(GetNode(StartLevel) as Level);
+        CurrentRoom.ChooseSpawn();
+        Player.GlobalPosition = CurrentRoom.SpawnPosition;
 
         Tween = new Tween();
         Tween.Name = "CameraAreaTween";
@@ -83,7 +85,6 @@ public class GameController : Node2D
         if (CurrentRoom.FallKill && Player.Position.y > CurrentRoom.LevelSize.y + CurrentRoom.LevelPosition.y)
             Root.Player.Spawn(true);
 
-
         // Loops through each Room in the world. They decide which one is the Player in.
         foreach (Node level in GetChildren())
         {
@@ -94,8 +95,6 @@ public class GameController : Node2D
                 float x = Player.Position.x, y = Player.Position.y;
                 float xMin = Room.LevelPosition.x, yMin = Room.LevelPosition.y;
                 float xMax = xMin + Room.LevelSize.x, yMax = yMin + Room.LevelSize.y;
-
-
 
                 // If the Player is inside the level.
                 if ((x >= xMin) && (y >= yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
@@ -260,8 +259,6 @@ public class GameController : Node2D
         if (CurrentRoom.SpawnPosition == new Vector2())
             CurrentRoom.ChooseSpawn();
 
-        
-
         Root.SceneTransition.MoveToPlayer();
     }
 
@@ -280,7 +277,8 @@ public class GameController : Node2D
             return;
 
         CurrentRoom = pRoom;
-        
+        CurrentRoom.ChooseSpawn();
+
         CurrentRoom.Reload();
         MoveCamToRoom(CurrentRoom);
         LevelInfo.UpdateInfo(CurrentRoom);

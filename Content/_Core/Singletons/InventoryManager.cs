@@ -9,13 +9,10 @@ public class InventoryManager : Node
     public static List<ItemData> Items = new List<ItemData>();
     public static List<ItemData> Inventory = new List<ItemData>() {};
 
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        
         LoadItems();
-       
     }
     
     // Adding item to inventory.
