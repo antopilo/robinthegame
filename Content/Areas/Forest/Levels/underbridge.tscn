@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/Level.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/bg_tile.tres" type="TileSet" id=2]
@@ -6,8 +6,9 @@
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_tile.tres" type="TileSet" id=4]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/entities.tres" type="TileSet" id=5]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/fg_decals.tres" type="TileSet" id=6]
-[ext_resource path="res://Content/Areas/_Global/Entities/Collectables/Chest.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Content/Areas/_Global/Entities/Platforming/Lift/Lift.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Content/Areas/_Global/Entities/Collectables/Chest.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Content/_Core/DebugDraw/LevelDebugRect.tscn" type="PackedScene" id=9]
 
 [node name="elevator" type="Node2D"]
 show_behind_parent = true
@@ -46,7 +47,7 @@ show_behind_parent = true
 tile_set = ExtResource( 5 )
 cell_size = Vector2( 8, 8 )
 format = 1
-tile_data = PoolIntArray( 458787, 5, 0, 1048582, 1, 0, 1179686, 5, 0, 1310734, 3, 0, 1310735, 3, 0, 1310736, 3, 0, 1310737, 3, 0 )
+tile_data = PoolIntArray( 458787, 5, 0, 1048582, 1, 0, 1179686, 5, 0 )
 
 [node name="fg_decals" type="TileMap" parent="Layers"]
 show_behind_parent = true
@@ -57,10 +58,13 @@ tile_data = PoolIntArray( 65553, 13, 0, 131077, 11, 0, 131099, 11, 0, 327700, 8,
 
 [node name="objects" type="Node2D" parent="."]
 
-[node name="Chest" parent="objects" instance=ExtResource( 7 )]
+[node name="Lift" parent="objects" instance=ExtResource( 7 )]
+position = Vector2( 128, 160 )
+
+[node name="Chest" parent="objects" instance=ExtResource( 8 )]
 position = Vector2( 120, 44 )
 Amount = 12
 
-[node name="DebugDraw" parent="." instance=ExtResource( 8 )]
+[node name="DebugDraw" parent="." instance=ExtResource( 9 )]
 expand_color = Color( 1, 0, 0, 1 )
 

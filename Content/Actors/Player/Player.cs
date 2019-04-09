@@ -129,6 +129,8 @@ public class Player : KinematicBody2D
         SpeedLimits();
         Sounds(delta); // Handles player sounds
         Particles(); // Handles player particles
+
+        Velocity += GetFloorVelocity();
         MoveAndSlide(Velocity);
 
         ApplyGravity();

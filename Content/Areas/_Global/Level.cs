@@ -9,10 +9,9 @@ public class Level : Node2D
     const int MIN_HEIGHT = 180;
     const int TileSize = 8;
 
-    
     [Export] public string LevelName = "Somewhere Unknown...";
     [Export] public int LevelDifficulty = 0;
-    [Export] public bool FallKill = false;
+    [Export] public bool FallKill = false; 
     [Export] public float LevelZoom = 1;
 
     public GameController World;

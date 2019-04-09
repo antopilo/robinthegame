@@ -10,9 +10,6 @@ func _process(delta):
 	update()
 	
 func _draw():
-	if !Engine.editor_hint:
-		return
-		
 	var offset = position
 	var Size = Vector2(SizeX, SizeY)
 	if(centered):
