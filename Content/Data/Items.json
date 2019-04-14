@@ -27,13 +27,13 @@
     "ItemName": "Bugs",
     "Description": "A good snack that some would like, but not you.",
     "Amount": 4,
-    "IconPath": "res://icon.png"
+    "IconPath": "res://Content/Art/Items/Bugs.png"
   },
   {
     "ItemName": "Lever",
     "Description": "A lever.",
     "Amount": 1,
-    "IconPath": "res://icon.png"
+    "IconPath": "res://Content/Art/Items/Lever.png"
   },
   {
     "ItemName": "Arrow",

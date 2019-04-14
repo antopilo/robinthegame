@@ -131,6 +131,7 @@ public class Player : KinematicBody2D
         Particles(); // Handles player particles
 
         Velocity += GetFloorVelocity();
+        
         MoveAndSlide(Velocity);
 
         ApplyGravity();

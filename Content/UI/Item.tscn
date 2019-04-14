@@ -4,20 +4,20 @@
 [ext_resource path="res://Content/Art/UI/Icons/SkullHidef.png" type="Texture" id=2]
 [ext_resource path="res://Content/UI/Fonts/LinLibertine_aS.ttf" type="DynamicFontData" id=3]
 
-[sub_resource type="Theme" id=11]
+[sub_resource type="Theme" id=1]
 MarginContainer/constants/margin_bottom = 0
 MarginContainer/constants/margin_left = 0
 MarginContainer/constants/margin_right = 0
 MarginContainer/constants/margin_top = 0
 
-[sub_resource type="StyleBoxFlat" id=12]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.564706, 0.564706, 0.564706, 1 )
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.890196, 0.866667, 0.866667, 1 )
 border_width_left = 8
 border_width_top = 8
@@ -28,7 +28,7 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=4]
 size = 36
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
@@ -39,7 +39,7 @@ margin_right = 100.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
 focus_mode = 2
-theme = SubResource( 11 )
+theme = SubResource( 1 )
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -52,7 +52,7 @@ margin_top = 4.0
 margin_right = 104.0
 margin_bottom = 104.0
 mouse_filter = 2
-custom_styles/panel = SubResource( 12 )
+custom_styles/panel = SubResource( 2 )
 
 [node name="Focus" type="Panel" parent="."]
 margin_left = 4.0
@@ -60,7 +60,7 @@ margin_top = 4.0
 margin_right = 104.0
 margin_bottom = 104.0
 mouse_filter = 2
-custom_styles/panel = SubResource( 9 )
+custom_styles/panel = SubResource( 3 )
 
 [node name="Icon" type="MarginContainer" parent="."]
 margin_left = 4.0
@@ -102,7 +102,7 @@ margin_top = -46.2586
 margin_right = -1.55028
 margin_bottom = -4.25861
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "x22"

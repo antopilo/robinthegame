@@ -29,6 +29,7 @@ show_behind_parent = true
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 8, 8 )
 format = 1
+tile_data = PoolIntArray( 327704, 2, 0, 393237, 5, 0, 589855, 6, 0, 589856, 16, 0, 655396, 10, 0, 720918, 8, 0, 917505, 16, 0, 917510, 12, 0, 917536, 19, 0, 983065, 19, 0, 1048599, 1, 0, 1114131, 16, 0 )
 
 [node name="fg_tile" type="TileMap" parent="Layers"]
 show_behind_parent = true
@@ -45,7 +46,7 @@ show_behind_parent = true
 tile_set = ExtResource( 5 )
 cell_size = Vector2( 8, 8 )
 format = 1
-tile_data = PoolIntArray( 655386, 3, 0, 655387, 3, 0, 655388, 3, 0, 655389, 3, 0, 655398, 5, 0, 917508, 5, 0, 1310730, 7, 0, 1310731, 7, 0, 1310732, 7, 0, 1310733, 7, 0, 1310734, 7, 0, 1310735, 7, 0 )
+tile_data = PoolIntArray( 655386, 3, 0, 655387, 3, 0, 655388, 3, 0, 655389, 3, 0, 655398, 5, 0, 917508, 5, 0, 1310730, 7, 0, 1310731, 7, 0, 1310732, 7, 0, 1310733, 7, 0, 1310734, 7, 0, 1310735, 7, 0, 1310736, 7, 0 )
 
 [node name="fg_decals" type="TileMap" parent="Layers"]
 show_behind_parent = true

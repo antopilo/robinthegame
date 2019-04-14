@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/GameController.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/Forest/Tilesets/bg_tile.tres" type="TileSet" id=2]
@@ -30,10 +30,8 @@
 [ext_resource path="res://Content/Areas/Forest/Levels/MainHub.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Content/Actors/Player/Player.tscn" type="PackedScene" id=29]
 [ext_resource path="res://Content/_Core/Camera.cs" type="Script" id=30]
-[ext_resource path="res://Content/Areas/Forest/Background/clouds.png" type="Texture" id=31]
-[ext_resource path="res://Content/Areas/Forest/Background/mountains.png" type="Texture" id=32]
-[ext_resource path="res://Content/Areas/Forest/Background/trees.png" type="Texture" id=33]
-[ext_resource path="res://Content/Areas/Forest/Background/trees2.png" type="Texture" id=34]
+[ext_resource path="res://Content/Areas/Forest/Background/trees.png" type="Texture" id=31]
+[ext_resource path="res://Content/Art/Backgrounds/farpine1.png" type="Texture" id=32]
 
 [node name="World" type="Node2D"]
 pause_mode = 2
@@ -169,7 +167,7 @@ LevelName = ""
 [node name="2b" parent="." groups=[
 "level",
 ] instance=ExtResource( 12 )]
-position = Vector2( -804.914, 551.896 )
+position = Vector2( -792, 552 )
 LevelName = "Dungeon I"
 LevelDifficulty = 2
 
@@ -402,44 +400,50 @@ script = ExtResource( 30 )
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Player/Camera2D"]
 scroll_ignore_camera_zoom = true
 
-[node name="far" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
-motion_scale = Vector2( 0.025, 0.01 )
-motion_mirroring = Vector2( 320, 0 )
+[node name="close4" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
+position = Vector2( -96, -168 )
+motion_scale = Vector2( 0.5, 0.1 )
+motion_mirroring = Vector2( 200, 0 )
 
-[node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/far"]
-position = Vector2( -8, 8 )
+[node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/close4"]
+position = Vector2( 96, 165.693 )
+scale = Vector2( 1.04228, 0.73527 )
 texture = ExtResource( 31 )
-
-[node name="mid" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
-motion_scale = Vector2( 0.03, 0.03 )
-motion_mirroring = Vector2( 320, 0 )
-
-[node name="Sprite2" type="Sprite" parent="Player/Camera2D/ParallaxBackground/mid"]
-position = Vector2( 8, 24 )
-texture = ExtResource( 32 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 780, 175 )
+region_rect = Rect2( 0, 8, 320, 168 )
 
 [node name="close" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
-position = Vector2( -8, -45.6926 )
-motion_scale = Vector2( 0.1, 0.1 )
-motion_mirroring = Vector2( 320, 0 )
+motion_scale = Vector2( 0.3, 0.1 )
+motion_mirroring = Vector2( 512, 0 )
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/close"]
-position = Vector2( 144.155, 123.944 )
+position = Vector2( 96, 165.693 )
 scale = Vector2( 1.04228, 0.73527 )
-texture = ExtResource( 33 )
+texture = ExtResource( 32 )
 region_enabled = true
-region_rect = Rect2( -19, 39, 1011, 306 )
+region_rect = Rect2( 0, 224, 512, 512 )
 
 [node name="close2" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
-position = Vector2( -8, -45.6926 )
-motion_scale = Vector2( 0.4, 0.25 )
-motion_mirroring = Vector2( 320, 0 )
+position = Vector2( 8, 32 )
+motion_scale = Vector2( 0.25, 0.1 )
+motion_mirroring = Vector2( 512, 0 )
 
 [node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/close2"]
-position = Vector2( 160, 69.6926 )
-texture = ExtResource( 34 )
+position = Vector2( 96, 165.693 )
+scale = Vector2( 1.04228, 0.73527 )
+texture = ExtResource( 32 )
 region_enabled = true
-region_rect = Rect2( 3, 19.5, 768, 156.5 )
+region_rect = Rect2( 0, 224, 512, 512 )
+
+[node name="close3" type="ParallaxLayer" parent="Player/Camera2D/ParallaxBackground"]
+position = Vector2( 16, 64 )
+motion_scale = Vector2( 0.1, 0.1 )
+motion_mirroring = Vector2( 512, 0 )
+
+[node name="Sprite" type="Sprite" parent="Player/Camera2D/ParallaxBackground/close3"]
+position = Vector2( 96, 165.693 )
+scale = Vector2( 1.04228, 0.73527 )
+texture = ExtResource( 32 )
+region_enabled = true
+region_rect = Rect2( 0, 224, 512, 512 )
 

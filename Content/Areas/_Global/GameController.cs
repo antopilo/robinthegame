@@ -100,7 +100,7 @@ public class GameController : Node2D
                 if ((x >= xMin) && (y >= yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
                 {   
                     // if the player enters a level from under, do a jump to gain a little bit of height.
-                    if (y <= CurrentRoom.LevelPosition.y)
+                    if (Root.Player.CanControl && y <= CurrentRoom.LevelPosition.y)
                         Root.Player.Jump();
                     ChangeRoom(Room);
                 }

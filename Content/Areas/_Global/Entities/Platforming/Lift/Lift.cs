@@ -49,10 +49,9 @@ public class Lift : Node2D
         if (Tween.IsActive() && PlayerPresent)
         {
             Root.Player.CanControl = false;
-            Root.Player.Sprite.Animation = "idle";
-            Root.Player.GravityMult = 0;
-            Root.Player.GlobalPosition += Platform.GlobalPosition - LastPosition;
-            Console.Log((Platform.GlobalPosition - LastPosition).ToString());
+            
+            Root.Player.GlobalPosition -= LastPosition - Platform.GlobalPosition;
+            Root.Player.State = States.Ground;
         }
         else if(PlayerPresent && !Tween.IsActive())
         {
@@ -82,22 +81,25 @@ public class Lift : Node2D
         {
             if(Up)
             {
-                Tween.InterpolateProperty(Platform, "global_position", InitialPosition, Target, Speed,
+                Tween.InterpolateProperty(Platform, "global_position", 
+                    InitialPosition, Target, Speed,
                     Tween.TransitionType.Linear, Tween.EaseType.InOut);
                 Tween.Start();
-
+                InteractionOffset = Target;
                 CanInteract = false;
                 Up = false;
                 Root.Player.RemoveFromInteraction(this);
             }
             else if(!Up)
             {
-                Tween.InterpolateProperty(Platform, "global_position", Target, InitialPosition, Speed,
+                Tween.InterpolateProperty(Platform, "global_position", 
+                    Target, InitialPosition, Speed,
                     Tween.TransitionType.Linear, Tween.EaseType.InOut);
                 Tween.Start();
-
+                InteractionOffset = new Vector2();
                 CanInteract = false;
                 Up = true;
+                Root.Player.RemoveFromInteraction(this);
             }
         }
     }
@@ -105,6 +107,7 @@ public class Lift : Node2D
 
 	private void _on_Tween_tween_completed(Godot.Object @object, NodePath key)
     {
+        Tween.RemoveAll();
         CanInteract = true;
         Root.Player.CanControl = true;
     }
