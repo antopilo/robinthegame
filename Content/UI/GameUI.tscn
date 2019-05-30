@@ -140,7 +140,7 @@ void fragment()
 
 [sub_resource type="ShaderMaterial" id=12]
 shader = SubResource( 11 )
-shader_param/cutoff = 1.0
+shader_param/cutoff = 0.0
 shader_param/mask = ExtResource( 19 )
 
 [sub_resource type="Animation" id=13]
@@ -799,7 +799,6 @@ anims/Inactive = SubResource( 10 )
 
 [node name="Transition" type="ColorRect" parent="."]
 pause_mode = 2
-editor/display_folded = true
 material = SubResource( 12 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -822,7 +821,6 @@ anims/FadeOut = SubResource( 14 )
 anims/Out = SubResource( 15 )
 
 [node name="Label" type="Label" parent="Transition"]
-modulate = Color( 1, 1, 1, 0 )
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -937,7 +935,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_vertical = 0
 alignment = 2
-
 [connection signal="tween_completed" from="LevelInfo/Tween" to="LevelInfo" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Dialog/Timer" to="Dialog" method="_on_Timer_timeout"]
 [connection signal="tween_completed" from="Dialog/Tween" to="Dialog" method="_on_Tween_tween_completed"]

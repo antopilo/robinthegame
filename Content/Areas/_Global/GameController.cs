@@ -29,11 +29,28 @@ public class GameController : Node2D
         ChangeRoom(GetNode(StartLevel) as Level);
         CurrentRoom.ChooseSpawn();
         Player.GlobalPosition = CurrentRoom.SpawnPosition;
-
+        Player.Camera.ResetSmoothing();
         Tween = new Tween();
         Tween.Name = "CameraAreaTween";
         AddChild(Tween);
         Tween.Connect("tween_completed", this, "_on_Tween_tween_completed");
+
+        Tween T;
+            if (!HasNode("Tween"))
+            {
+                T = new Tween();
+                T.Name = "Tween";
+                AddChild(T);
+                
+            }
+            else
+            {
+                T = (Tween)GetNode("Tween");
+            }
+            T.RemoveAll();
+            T.InterpolateProperty(Player, "scale", new Vector2(0, 0), new Vector2(1, 1), 0.25f,
+                Tween.TransitionType.Expo, Tween.EaseType.In);
+            T.Start();
     }
 
     // Called Every frame.
@@ -99,7 +116,7 @@ public class GameController : Node2D
                 if ((x >= xMin) && (y >= yMin) && (x < xMax) && (y < yMax) && CurrentRoom != level)
                 {   
                     // if the player enters a level from under, do a jump to gain a little bit of height.
-                    if (Root.Player.CanControl && y <= CurrentRoom.LevelPosition.y)
+                    if (Root.Player.Alive && y <= CurrentRoom.LevelPosition.y)
                         Root.Player.Jump();
                     ChangeRoom(Room);
                 }

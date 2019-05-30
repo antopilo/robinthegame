@@ -2,7 +2,7 @@ using Godot;
 
 public class SceneTransition : CanvasLayer
 {
-    public bool SceneChangeReady = false;
+    public bool SceneChangeReady = true;
     public AnimationPlayer InteractionAnim;
 
     private AnimationPlayer AnimPlayer;
@@ -25,7 +25,7 @@ public class SceneTransition : CanvasLayer
         InteractionAnim = (AnimationPlayer)GetNode("InteractionFeedback/AnimationPlayer");
         textScene = ResourceLoader.Load("res://Content/Actors/SpeechText.tscn") as PackedScene;
         Tween = (Tween)GetNode("Tween");
-
+        AnimPlayer.CurrentAnimation = "Out";
         AnimPlayer.Play("Out");
     }
         

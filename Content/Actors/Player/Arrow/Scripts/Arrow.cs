@@ -10,6 +10,7 @@ public class Arrow : KinematicBody2D
     // Nodes
     public Weapon Weapon;
     private Tween T;
+    private Tween T2;
     private float Fuel = 100f;
     private float FuelCost = 0.1f;
 
@@ -33,6 +34,7 @@ public class Arrow : KinematicBody2D
     {
         Name = "Arrow";
         T = GetNode("Tween") as Tween;
+        T2 = GetNode("Tween2") as Tween;
         Player = Root.Player;
         Weapon = Player.GetNode("Weapon") as Weapon;
         this.LastDirection = new Vector2(1, 0);
@@ -44,10 +46,19 @@ public class Arrow : KinematicBody2D
     {
         if (@event.IsActionPressed("fire") && CanDash)
             Dash();
-        else if (@event.IsActionPressed("fire") || @event.IsActionPressed("right_click"))
+        else if ( (Frozen && !MovingBack) && (@event.IsActionPressed("fire") || @event.IsActionPressed("right_click") ) )
             ReturnToPlayer();
     }
 
+
+    public void Jiggle()
+    {
+        T2.InterpolateProperty(this, "rotation_degrees", RotationDegrees - 45, RotationDegrees, 0.8f,
+            Tween.TransitionType.Elastic, Tween.EaseType.Out);
+        T2.Start();
+    }
+
+    
     public override void _PhysicsProcess(float delta)
     {
         if (MovingBack) // If the arrow is returning to the player. Return.
@@ -159,9 +170,6 @@ public class Arrow : KinematicBody2D
     /// </summary>
     public void FreezeArrow()
     {
-        
-
-
         FreezePosition = GlobalPosition;
         SetCollisionLayerBit(0, true);
 
@@ -176,6 +184,7 @@ public class Arrow : KinematicBody2D
         ColliderOffset = ((Collider as Node2D).GlobalPosition - GlobalPosition);
 
         (GetNode("Particles2D") as Particles2D).Emitting = false;
+        Jiggle();
     }
 
     /// <summary>
@@ -242,6 +251,9 @@ public class Arrow : KinematicBody2D
     /// <param name="key"></param>
     private void _on_Tween_tween_completed(Object @object, NodePath key)
     {
+        if(key == "rotation_degrees")
+            return;
+
         Weapon.CanShoot = true;
         CallDeferred("queue_free");
     }
