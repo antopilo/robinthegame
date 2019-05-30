@@ -374,7 +374,14 @@ public class Player : KinematicBody2D
     /// Normal jump
     /// </summary>
     public void Jump()
-    {
+    {   var CollisionCount = GetSlideCount() - 1;
+        KinematicCollision2D col = null;
+        if (CollisionCount > -1)
+        {
+            col = GetSlideCollision(CollisionCount);
+        }
+        if(col != null && col.GetCollider() is Arrow)
+            (col.GetCollider() as Arrow).Jiggle();
         CurrentMaxSpeed = MAX_SPEED;
         Velocity.y = -JUMP_FORCE;
     }
@@ -384,6 +391,14 @@ public class Player : KinematicBody2D
     /// </summary>
     public void SuperJump()
     {
+        var CollisionCount = GetSlideCount() - 1;
+        KinematicCollision2D col = null;
+        if (CollisionCount > -1)
+        {
+            col = GetSlideCollision(CollisionCount);
+        }
+        if(col != null && col.GetCollider() is Arrow)
+            (col.GetCollider() as Arrow).Jiggle();
         CurrentMaxSpeed = MAX_SPEED;
         Velocity.y = -SUPER_JUMP_FORCE;
     }

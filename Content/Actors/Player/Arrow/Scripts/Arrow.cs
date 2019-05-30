@@ -9,12 +9,13 @@ public class Arrow : KinematicBody2D
     
     // Nodes
     public Weapon Weapon;
+    public Sprite Sprite;
     private Tween T;
     private Tween T2;
     private float Fuel = 100f;
     private float FuelCost = 0.1f;
-
-    // Settings n States
+    private float TargetRotation = 0f;
+    // Settings n States    
     public bool ControllerMode = false;
     private bool IsControlled = true;
     private bool Frozen = false;
@@ -35,6 +36,7 @@ public class Arrow : KinematicBody2D
         Name = "Arrow";
         T = GetNode("Tween") as Tween;
         T2 = GetNode("Tween2") as Tween;
+        Sprite = (Sprite)GetNode("Sprite");
         Player = Root.Player;
         Weapon = Player.GetNode("Weapon") as Weapon;
         this.LastDirection = new Vector2(1, 0);
@@ -53,7 +55,7 @@ public class Arrow : KinematicBody2D
 
     public void Jiggle()
     {
-        T2.InterpolateProperty(this, "rotation_degrees", RotationDegrees - 45, RotationDegrees, 0.8f,
+        T2.InterpolateProperty(this, "rotation_degrees", TargetRotation - 45, TargetRotation, 0.8f,
             Tween.TransitionType.Elastic, Tween.EaseType.Out);
         T2.Start();
     }
@@ -183,6 +185,7 @@ public class Arrow : KinematicBody2D
         ColliderOffset = ((Collider as Node2D).GlobalPosition - GlobalPosition);
 
         (GetNode("Particles2D") as Particles2D).Emitting = false;
+        TargetRotation = this.RotationDegrees;
         Jiggle();
     }
 
