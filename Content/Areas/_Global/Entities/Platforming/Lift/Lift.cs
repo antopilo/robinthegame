@@ -73,7 +73,7 @@ public class Lift : Node2D
             }
             else
             {
-                Root.Dialog.ShowMessage("You need to repair it first and you are missing the components...", 2f);
+                Root.Dialog.ShowMessage("You need to repair it first and you are missing the components...", 3f);
                 return;
             }
         }

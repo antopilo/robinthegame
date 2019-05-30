@@ -41,11 +41,9 @@ public class GameController : Node2D
     {
         if(IsSpawning && Root.SceneTransition.SceneChangeReady)
         {
-            Root.Dialog.ShowMessage("Player Spawned", 1f);
             IsSpawning = false;
             Root.Player.GlobalPosition = CurrentRoom.SpawnPosition;
             Root.Player.Alive = true;
-            Root.Player.CanControl = true;
             Root.SceneTransition.SceneChangeReady = false;
             Root.SceneTransition.MoveToPlayer();
             Tween T;
@@ -61,9 +59,10 @@ public class GameController : Node2D
                 T = (Tween)GetNode("Tween");
             }
             T.RemoveAll();
-            T.InterpolateProperty(Player, "scale", new Vector2(0, 0), new Vector2(1, 1), 0.5f,
+            T.InterpolateProperty(Player, "scale", new Vector2(0, 0), new Vector2(1, 1), 0.25f,
                 Tween.TransitionType.Expo, Tween.EaseType.In);
             T.Start();
+            CurrentRoom.Reload();
         }
 
         if (Root.Player.State != States.Ghost)
@@ -254,7 +253,6 @@ public class GameController : Node2D
             
 
         IsSpawning = true;
-        CurrentRoom.Reload();
 
         if (CurrentRoom.SpawnPosition == new Vector2())
             CurrentRoom.ChooseSpawn();
@@ -278,7 +276,7 @@ public class GameController : Node2D
 
         CurrentRoom = pRoom;
         CurrentRoom.ChooseSpawn();
-
+        Player.Sprite.Playing = false;
         CurrentRoom.Reload();
         MoveCamToRoom(CurrentRoom);
         LevelInfo.UpdateInfo(CurrentRoom);
@@ -304,6 +302,8 @@ public class GameController : Node2D
         GD.Print("Transition finished");
         Root.Player.Alive = true;
         Root.Player.CanControl = true;
+        Player.Sprite.Playing = true;
+        
 	}
 }
 

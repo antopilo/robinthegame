@@ -464,7 +464,7 @@ public class Player : KinematicBody2D
     public void Spawn(bool WithAnimation)
     {
         (GetParent() as GameController).Spawn(WithAnimation);
-        Velocity = new Vector2();
+        Velocity = Vector2.Zero;
         Camera.Shake(3f, 0.05f);
     }
 

@@ -32,7 +32,7 @@ emission_box_extents = Vector3( 1, 500, 1 )
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 4, 0, 0 )
-angular_velocity = 1.11121e-038
+angular_velocity = 1.11121e-38
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle = -10.5
@@ -47,7 +47,7 @@ emission_box_extents = Vector3( 1, 500, 1 )
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 4, 0, 0 )
-angular_velocity = 1.11121e-038
+angular_velocity = 1.11121e-38
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle = -10.5
@@ -62,7 +62,7 @@ emission_box_extents = Vector3( 25, 200, 1 )
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 148.76
-angular_velocity = 8.46376e+027
+angular_velocity = 8.46376e+27
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 19.83
@@ -138,7 +138,7 @@ void fragment()
 
 [sub_resource type="ShaderMaterial" id=13]
 shader = SubResource( 12 )
-shader_param/cutoff = 0.936
+shader_param/cutoff = 1.0
 shader_param/mask = ExtResource( 17 )
 
 [sub_resource type="Animation" id=14]
@@ -241,7 +241,6 @@ size_flags_vertical = 3
 script = ExtResource( 1 )
 
 [node name="BG" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 210.957, -2.65759 )
 
 [node name="ColorRect" type="ColorRect" parent="BG"]
@@ -252,10 +251,10 @@ margin_bottom = 669.0
 color = Color( 0.211765, 0.756863, 0.996078, 0.0509804 )
 
 [node name="Clouds1" type="Particles2D" parent="BG"]
-position = Vector2( -600.125, 348.226 )
+position = Vector2( -811.834, -23.2626 )
 amount = 4
 lifetime = 35.0
-preprocess = 68.18
+preprocess = 146.97
 visibility_rect = Rect2( 0, 0, 2000, 2000 )
 local_coords = false
 process_material = SubResource( 3 )
@@ -263,20 +262,20 @@ texture = ExtResource( 2 )
 
 [node name="Clouds2" type="Particles2D" parent="BG"]
 self_modulate = Color( 1, 1, 1, 0.643137 )
-position = Vector2( -464.789, 766.537 )
+position = Vector2( -676.498, 395.048 )
 amount = 5
 lifetime = 35.0
-preprocess = 68.18
+preprocess = 146.97
 visibility_rect = Rect2( 0, 0, 2000, 2000 )
 local_coords = false
 process_material = SubResource( 4 )
 texture = ExtResource( 3 )
 
 [node name="Clouds3" type="Particles2D" parent="BG"]
-position = Vector2( -704.238, 458.847 )
+position = Vector2( -932.249, 494.909 )
 amount = 4
 lifetime = 35.0
-preprocess = 68.18
+preprocess = 146.97
 visibility_rect = Rect2( 0, 0, 2000, 2000 )
 local_coords = false
 process_material = SubResource( 3 )
@@ -286,7 +285,7 @@ texture = ExtResource( 4 )
 position = Vector2( -404.742, 292.902 )
 amount = 14
 lifetime = 20.0
-preprocess = 68.18
+preprocess = 146.97
 process_material = SubResource( 5 )
 texture = SubResource( 6 )
 
@@ -325,14 +324,13 @@ scale = Vector2( 5.26703, 6.76891 )
 position = Vector2( -300.212, 242.17 )
 amount = 31
 lifetime = 20.0
-preprocess = 118.25
-explosiveness = 0.27
+preprocess = 58.06
 randomness = 0.39
 process_material = SubResource( 7 )
 texture = ExtResource( 14 )
 
 [node name="Birbs2" type="Particles2D" parent="BG"]
-position = Vector2( 1824.2, 491.373 )
+position = Vector2( 1832.19, 179.802 )
 rotation = -3.14159
 scale = Vector2( 1, -1 )
 amount = 14
@@ -439,12 +437,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -1320.0
-margin_top = -1260.0
-margin_right = 1180.0
-margin_bottom = 1240.0
-rect_scale = Vector2( 1.04259, 1 )
-rect_pivot_offset = Vector2( 7.47473, -1.18402 )
+margin_left = -1227.6
+margin_top = -1215.46
+margin_right = 1272.4
+margin_bottom = 1284.54
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -470,6 +466,5 @@ custom_fonts/font = ExtResource( 18 )
 text = "Loading ..."
 align = 1
 valign = 1
-
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Play" to="MarginContainer/HBoxContainer/VBoxContainer/Play" method="_on_Play_pressed"]
 [connection signal="animation_finished" from="Transition/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

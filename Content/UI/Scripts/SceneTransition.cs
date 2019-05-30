@@ -49,15 +49,17 @@ public class SceneTransition : CanvasLayer
 	
     public void MoveToPlayer()
     {
+
         var player = Root.Player;
         var camera = Root.Player.Camera;
-        var heightOffset = new Vector2(0, -16);
+        camera.GlobalPosition = player.GlobalPosition;
+        camera.ResetSmoothing();
+        var heightOffset = new Vector2(0, -8);
         var Offset = camera.GetCameraScreenCenter() - (camera.GetViewportRect().Size / 2f);
-        Vector2 uiPosition = player.GlobalPosition - Offset + heightOffset;
-        uiPosition = player.GlobalPosition - Offset + heightOffset;
+        var uiPosition = player.GlobalPosition - Offset + heightOffset;
         var scale = Root.GameContainer.StretchShrink;
 
-        TransitionRect.RectPosition = (uiPosition * new Vector2(scale, scale)) - new Vector2(2000, 2000) ;
+        TransitionRect.RectPosition = (uiPosition * new Vector2(scale, scale)) - (TransitionRect.RectSize / 2);
     }
 
     public void MoveToCenter()
@@ -152,14 +154,19 @@ public class SceneTransition : CanvasLayer
     // When the transition stops, start the game.
     private void _on_AnimationPlayer_animation_finished(string anim_name)
     {
-        // If the animation is triggered while changing scene.
+        // Closing animation
         if(anim_name == "FadeIn")
         {
             SceneChangeReady = true;
+            // Snap the cam to the spawn position.
+            Root.Player.GlobalPosition = Root.GameController.CurrentRoom.SpawnPosition;
+            Root.Player.Camera.ResetSmoothing();
+
+            // Player opening animation
             AnimPlayer.Play("Out");
             return;
         }
-        if(anim_name == "Out"){
+        else if(anim_name == "Out"){
             MoveToCenter();
             return;
         }

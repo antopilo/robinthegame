@@ -135,7 +135,15 @@ public class FallingBlock3x3 : KinematicBody2D
             return;
         
         if((Collision.GetCollider() is Player && (Collision.GetCollider() as Player).Alive))
+        {
             Triggered = true;
+            Frozen = true;
+            (Root.Player.Camera as Camera).Shake(2f, 0.05f);
+            this.GlobalPosition = new Vector2(Mathf.Stepify(GlobalPosition.x, 8), Mathf.Stepify(GlobalPosition.y, 8));
+            if(HasNode("Impact"))
+                (GetNode("Impact") as AudioStreamPlayer).Play(0);
+        }
+            
 
         // If it is a tile or a falling block that is frozen.
         if(Triggered && Collision.Normal == new Vector2(0, -1) && (Collision.GetCollider() is TileMap || 

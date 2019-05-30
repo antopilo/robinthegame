@@ -1,0 +1,1 @@
+msbuild /p:Configuration=Tools  && echo $PWD && godot 
