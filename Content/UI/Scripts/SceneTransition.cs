@@ -2,7 +2,7 @@ using Godot;
 
 public class SceneTransition : CanvasLayer
 {
-    public bool SceneChangeReady = true;
+    public bool SceneChangeReady = false;
     public AnimationPlayer InteractionAnim;
 
     private AnimationPlayer AnimPlayer;
@@ -54,7 +54,7 @@ public class SceneTransition : CanvasLayer
         var camera = Root.Player.Camera;
         camera.GlobalPosition = player.GlobalPosition;
         camera.ResetSmoothing();
-        var heightOffset = new Vector2(0, -8);
+        var heightOffset = new Vector2(0, -4);
         var Offset = camera.GetCameraScreenCenter() - (camera.GetViewportRect().Size / 2f);
         var uiPosition = player.GlobalPosition - Offset + heightOffset;
         var scale = Root.GameContainer.StretchShrink;
@@ -160,8 +160,7 @@ public class SceneTransition : CanvasLayer
             SceneChangeReady = true;
             // Snap the cam to the spawn position.
             Root.Player.GlobalPosition = Root.GameController.CurrentRoom.SpawnPosition;
-            Root.Player.Camera.ResetSmoothing();
-
+            
             // Player opening animation
             AnimPlayer.Play("Out");
             return;

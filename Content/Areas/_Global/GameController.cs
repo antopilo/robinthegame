@@ -59,7 +59,6 @@ public class GameController : Node2D
         if(IsSpawning && Root.SceneTransition.SceneChangeReady)
         {
             IsSpawning = false;
-            Root.Player.GlobalPosition = CurrentRoom.SpawnPosition;
             Root.Player.Alive = true;
             Root.SceneTransition.SceneChangeReady = false;
             Root.SceneTransition.MoveToPlayer();
@@ -69,7 +68,6 @@ public class GameController : Node2D
                 T = new Tween();
                 T.Name = "Tween";
                 AddChild(T);
-                
             }
             else
             {
@@ -80,6 +78,7 @@ public class GameController : Node2D
                 Tween.TransitionType.Expo, Tween.EaseType.In);
             T.Start();
             CurrentRoom.Reload();
+            Player.SetPhysicsProcess(true);
         }
 
         if (Root.Player.State != States.Ghost)
@@ -264,8 +263,9 @@ public class GameController : Node2D
             }
             T.RemoveAll();
             T.InterpolateProperty(Player, "scale", new Vector2(1, 1), new Vector2(0, 0), 0.2f,
-                Tween.TransitionType.Expo, Tween.EaseType.In);
+                Tween.TransitionType.Expo, Tween.EaseType.In, 0.4f);
             T.Start();
+            Player.SetPhysicsProcess(false);
         }
             
 

@@ -58,7 +58,6 @@ public class Arrow : KinematicBody2D
         T2.Start();
     }
 
-    
     public override void _PhysicsProcess(float delta)
     {
         if (MovingBack) // If the arrow is returning to the player. Return.
