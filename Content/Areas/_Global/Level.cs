@@ -34,7 +34,7 @@ public class Level : Node2D
     #endregion
 
     #region Layers
-    TileMap LayerSolid;
+    public TileMap LayerSolid;
     TileMap LayerBackground;
     TileMap LayerEntities;
     TileMap LayerFgDecals;

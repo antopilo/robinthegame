@@ -1,37 +1,78 @@
 [gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Content/Actors/Player/Player.cs" type="Script" id=1]
-[ext_resource path="res://Content/Actors/Player/Arrow/Scripts/Weapon.cs" type="Script" id=2]
-[ext_resource path="res://Content/Actors/Player/aura.png" type="Texture" id=3]
-[ext_resource path="res://Content/Audio/SFX/footstep.wav" type="AudioStream" id=4]
-[ext_resource path="res://Content/Audio/SFX/386645__jalastram__sfx-jump-17.wav" type="AudioStream" id=5]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/idle.png" type="Texture" id=6]
-[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle1.png" type="Texture" id=7]
-[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle2.png" type="Texture" id=8]
-[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle3.png" type="Texture" id=9]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling1.png" type="Texture" id=10]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=11]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=12]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=13]
-[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=14]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=15]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=16]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=17]
-[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=18]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=19]
-[ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=20]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/idle.png" type="Texture" id=2]
+[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle1.png" type="Texture" id=3]
+[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle2.png" type="Texture" id=4]
+[ext_resource path="res://Content/Art/Sprites/Player/Idle/idle3.png" type="Texture" id=5]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling1.png" type="Texture" id=6]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling2.png" type="Texture" id=7]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling3.png" type="Texture" id=8]
+[ext_resource path="res://Content/Art/Sprites/Player/Jump/falling4.png" type="Texture" id=9]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F2.png" type="Texture" id=10]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F3.png" type="Texture" id=11]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F4.png" type="Texture" id=12]
+[ext_resource path="res://Content/Art/Sprites/Player/Running/Running 4F1.png" type="Texture" id=13]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/wall.png" type="Texture" id=14]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/lookup.png" type="Texture" id=15]
+[ext_resource path="res://Content/Art/Sprites/Player/Statics/crouch.png" type="Texture" id=16]
+[ext_resource path="res://Content/Actors/Player/Arrow/Scripts/Weapon.cs" type="Script" id=17]
+[ext_resource path="res://Content/Actors/Player/aura.png" type="Texture" id=18]
+[ext_resource path="res://Content/Audio/SFX/footstep.wav" type="AudioStream" id=19]
+[ext_resource path="res://Content/Audio/SFX/386645__jalastram__sfx-jump-17.wav" type="AudioStream" id=20]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="CanvasItemMaterial" id=1]
+light_mode = 1
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "idle",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": false,
+"name": "falling",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "Running",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "Wall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "lookup",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 4, 6 )
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="Gradient" id=4]
 offsets = PoolRealArray( 0.674074, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=6]
 emission_shape = 1
 emission_sphere_radius = 3.0
 flag_disable_z = true
@@ -45,48 +86,7 @@ angle = 720.0
 angle_random = 1.0
 scale = 2.0
 scale_random = 1.0
-color_ramp = SubResource( 3 )
-
-[sub_resource type="CanvasItemMaterial" id=5]
-light_mode = 1
-
-[sub_resource type="SpriteFrames" id=6]
-animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "idle",
-"speed": 3.0
-}, {
-"frames": [ ExtResource( 10 ) ],
-"loop": true,
-"name": "Jump",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
-"name": "Crouch",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
-"loop": false,
-"name": "falling",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ) ],
-"loop": true,
-"name": "Running",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 19 ) ],
-"loop": true,
-"name": "Wall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 20 ) ],
-"loop": true,
-"name": "lookup",
-"speed": 5.0
-} ]
+color_ramp = SubResource( 5 )
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 8, 2 )
@@ -95,18 +95,25 @@ extents = Vector2( 8, 2 )
 script = ExtResource( 1 )
 FootStepRate = 2.0
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 1 )
+position = Vector2( 0, -2 )
+frames = SubResource( 2 )
+animation = "Running"
+frame = 3
+
 [node name="Collision" type="CollisionShape2D" parent="."]
-scale = Vector2( 0.949382, 0.987338 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="Weapon" type="Node2D" parent="."]
 editor/display_folded = true
 position = Vector2( 0, -2 )
-script = ExtResource( 2 )
+script = ExtResource( 17 )
 
 [node name="Arrow_origin" type="Position2D" parent="Weapon"]
 
 [node name="Particles" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 6 )
 
 [node name="RunDust" type="Particles2D" parent="Particles"]
@@ -114,7 +121,7 @@ emitting = false
 amount = 30
 lifetime = 1.1
 local_coords = false
-process_material = SubResource( 4 )
+process_material = SubResource( 6 )
 
 [node name="WallJump" type="Particles2D" parent="Particles"]
 emitting = false
@@ -123,8 +130,6 @@ randomness = 0.28
 local_coords = false
 
 [node name="Raycasts" type="Node2D" parent="."]
-editor/display_folded = true
-visible = false
 
 [node name="Right" type="RayCast2D" parent="Raycasts"]
 position = Vector2( 0, -2 )
@@ -144,10 +149,20 @@ enabled = true
 cast_to = Vector2( 0, -5 )
 collision_mask = 2
 
+[node name="LedgeRight" type="RayCast2D" parent="Raycasts"]
+position = Vector2( 5, -6 )
+enabled = true
+cast_to = Vector2( 0, 1 )
+
+[node name="LedgeLeft" type="RayCast2D" parent="Raycasts"]
+position = Vector2( -5, -6 )
+enabled = true
+cast_to = Vector2( 0, 1 )
+
 [node name="Light" type="Light2D" parent="."]
 visible = false
 position = Vector2( 0.0375233, -1.96248 )
-texture = ExtResource( 3 )
+texture = ExtResource( 18 )
 texture_scale = 1.5
 color = Color( 0.133333, 0.133333, 0.133333, 0.603922 )
 energy = 1.2
@@ -165,21 +180,15 @@ wait_time = 0.25
 [node name="Timer" type="Timer" parent="Timers"]
 
 [node name="SFX" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Footstep" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 4 )
+stream = ExtResource( 19 )
 volume_db = -13.468
 pitch_scale = 2.5
 
 [node name="Jump" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 5 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-material = SubResource( 5 )
-position = Vector2( 0, -2 )
-frames = SubResource( 6 )
-animation = "Running"
-frame = 3
+stream = ExtResource( 20 )
 
 [node name="InteractionRange" type="Area2D" parent="."]
 visible = false
@@ -187,7 +196,6 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRange"]
 position = Vector2( 0, 4 )
 shape = SubResource( 7 )
-
 [connection signal="timeout" from="Timers/DisableInput" to="." method="_on_DisableInput_timeout"]
 [connection signal="area_entered" from="InteractionRange" to="." method="_on_InteractionRange_area_entered"]
 [connection signal="area_exited" from="InteractionRange" to="." method="_on_InteractionRange_area_exited"]

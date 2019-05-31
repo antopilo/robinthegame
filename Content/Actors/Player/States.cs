@@ -3,5 +3,6 @@
     Air,
     Ground,
     Wall,
-    Ghost
+    Ghost,
+    Ledge
 }
