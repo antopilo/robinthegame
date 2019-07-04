@@ -5,7 +5,6 @@
 [ext_resource path="res://Content/Areas/_Global/Entities/Hazards/DartShooter/Frames/Shoot2.png" type="Texture" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
-
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": false,
@@ -14,7 +13,6 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-
 extents = Vector2( 4, 4 )
 
 [node name="DartShooter" type="Node2D"]
@@ -29,7 +27,6 @@ frame = 1
 playing = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-editor/display_folded = true
 position = Vector2( 4, 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]

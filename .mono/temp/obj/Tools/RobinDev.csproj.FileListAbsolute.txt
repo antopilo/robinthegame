@@ -84,3 +84,13 @@ C:/Users/Antoine/Desktop/robinthegame/.mono/temp/obj/Tools/RobinDev.pdb
 /home/antopilo/Desktop/Projets/robinthegame/.mono/temp/obj/Tools/RobinDev.csproj.CopyComplete
 /home/antopilo/Desktop/Projets/robinthegame/.mono/temp/obj/Tools/RobinDev.dll
 /home/antopilo/Desktop/Projets/robinthegame/.mono/temp/obj/Tools/RobinDev.pdb
+F:\Desktop\Projets\robinthegame\.mono\temp\obj\Tools\RobinDev.pdb
+F:\Desktop\Projets\robinthegame\.mono\temp\bin\Tools\RobinDev.dll
+F:\Desktop\Projets\robinthegame\.mono\temp\bin\Tools\RobinDev.pdb
+F:\Desktop\Projets\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.dll
+F:\Desktop\Projets\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.pdb
+F:\Desktop\Projets\robinthegame\.mono\temp\bin\Tools\Newtonsoft.Json.xml
+F:\Desktop\Projets\robinthegame\.mono\temp\obj\Tools\RobinDev.csprojAssemblyReference.cache
+F:\Desktop\Projets\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CoreCompileInputs.cache
+F:\Desktop\Projets\robinthegame\.mono\temp\obj\Tools\RobinDev.csproj.CopyComplete
+F:\Desktop\Projets\robinthegame\.mono\temp\obj\Tools\RobinDev.dll

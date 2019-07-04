@@ -19,7 +19,8 @@ public class SceneSwitcher : Node
 
     public override void _Process(float delta)
     {
-        if(ChangingScene && Root.SceneTransition.SceneChangeReady){
+        if(ChangingScene && Root.SceneTransition.SceneChangeReady)
+        {
             ChangingScene = false;
             Root.SceneTransition.SceneChangeReady = false;
 
@@ -27,26 +28,28 @@ public class SceneSwitcher : Node
             Root.Viewport.GetChild(0).QueueFree();
 
             // Add new World.
-            GameController newWorldScene = QueuedWorld.Instance() as GameController;
-            Root.Viewport.AddChild(newWorldScene);
+            var newWorldScene = (GameController)QueuedWorld.Instance();
+            var viewport = Root.Viewport;
+            viewport.AddChild(newWorldScene);
 
             // If a specified waypoint is passed. Teleport the player there.
             if (QueuedWaypoint != "" && newWorldScene.HasNode("Waypoint/" + QueuedWaypoint))
             {
-                var destination = (newWorldScene.GetNode("Waypoint/" + QueuedWaypoint) as Position2D).GlobalPosition;
-                (newWorldScene.GetNode("Player") as Player).GlobalPosition = destination;
+                // Setting player at waypoint.
+                Position2D waypoint = (Position2D)newWorldScene.GetNode("Waypoint/" + QueuedWaypoint);
+                newWorldScene.Player.GlobalPosition = waypoint.GlobalPosition;
 
-                if(newWorldScene.FindRoom(destination) != null)
+                // Check to see if the waypoint is located in a room.
+                if(newWorldScene.FindRoom(waypoint.GlobalPosition) != null)
                 {
-                    var newRoom = newWorldScene.FindRoom(destination);
+                    var newRoom = newWorldScene.FindRoom(waypoint.GlobalPosition);
                     newWorldScene.SnapCamToRoom(newRoom);
                     newWorldScene.CurrentRoom = newRoom;
                 }
-                
             }
             else
             {
-                if(newWorldScene.HasNode("Waypoint") && newWorldScene.GetNode("Waypoint").GetChildCount() > 0)
+                if(newWorldScene.HasNode("Waypoint") && newWorldScene.GetNode("Waypoint").GetChildCount() >= 0)
                 {
                     var destination = (newWorldScene.GetNode("Waypoint").GetChild(0) as Node2D).GlobalPosition;
                     (newWorldScene.GetNode("Player") as Player).GlobalPosition = destination;
@@ -65,9 +68,9 @@ public class SceneSwitcher : Node
         }
     }
 
-    
+
     // Load a world a place the player in it to a specified Waypoint
-    // NOTE: Waypoint a placed under Waypoint/NameofWaypoint along with levels into a world.
+    // NOTE: Waypoint are placed under "Waypoints/<NameofWaypoint>" along with levels into a world.
     public void ChangeWorld(PackedScene pWorld, string Waypoint)
     {
         if (pWorld is null)
@@ -79,6 +82,7 @@ public class SceneSwitcher : Node
         Root.SceneTransition.FadeIn();
         ChangingScene = true;
     }
+
 
     #region SavingWorld
     // Save the current world into its own resource.

@@ -16,9 +16,17 @@ public class Root : Control
     public static Dialog Dialog;
     public static SceneTransition SceneTransition;
     public static SceneSwitcher SceneSwitcher;
-    public static Viewport Viewport;
+    public static Viewport m_viewport;
     public static ViewportContainer GameContainer;
     public static Utilities Utilities;
+
+    public static Viewport Viewport 
+    {
+        get 
+        {
+            return (Viewport)GameContainer.GetNode("Viewport");
+        }
+    }
 
     public override void _Ready()
     {
@@ -35,7 +43,7 @@ public class Root : Control
         DeathCount = (DeathCount)GetNode("UI/DeathCount");
 
         GameContainer = GetNode("Game") as ViewportContainer;
-        Viewport = GetNode("Game/Viewport") as Viewport;
+        m_viewport = GetNode("Game/Viewport") as Viewport;
         GameController = GetNode("Game/Viewport/World") as GameController;
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;
@@ -59,7 +67,7 @@ public class Root : Control
         DeathCount = (DeathCount)GetNode("UI/DeathCount");
 
         GameContainer = GetNode("Game") as ViewportContainer;
-        Viewport = GetNode("Game/Viewport") as Viewport;
+        m_viewport = GetNode("Game/Viewport") as Viewport;
         GameController = Viewport.GetChild(0) as GameController;
         Player = GameController.GetNode("Player") as Player;
         Weapon = Player.GetNode("Weapon") as Weapon;

@@ -51,7 +51,6 @@ position = Vector2( 319.962, -208 )
 [node name="debug" parent="." groups=[
 "level",
 ] instance=ExtResource( 5 )]
-position = Vector2( 0, 0 )
 LevelName = "Unknown road A"
 
 [node name="test" parent="." groups=[
@@ -112,6 +111,7 @@ position = Vector2( 2743.96, -136 )
 "Player",
 ] instance=ExtResource( 17 )]
 pause_mode = 1
+editor/display_folded = true
 position = Vector2( 47.9625, 176 )
 z_index = 1
 

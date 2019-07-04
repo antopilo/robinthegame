@@ -6,7 +6,7 @@ public class GameController : Node2D
     public Level CurrentRoom;
     public bool ShowGrid = false;
 
-    private Player Player;
+    private Player m_player;
     private LevelInfo LevelInfo;
 
     private bool IsSpawning = false;
@@ -15,11 +15,22 @@ public class GameController : Node2D
     [Export] private string StartLevel = "";
     [Export] private Color BackgroundColor;
 
+    public Player Player
+    {
+        get
+        {
+            if (m_player == null)
+                m_player = (Player)GetNode("Player");
+
+            return m_player;
+        }
+    }
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         LevelInfo = (LevelInfo)GetNode("../../../UI/LevelInfo");
-        Player = (Player)GetNode("Player");
+        m_player = (Player)GetNode("Player");
         Root.Player = Player;
 
         if (BackgroundColor != null)

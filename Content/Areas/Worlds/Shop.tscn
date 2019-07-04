@@ -20,11 +20,13 @@ extents = Vector2( 16, 52 )
 
 [node name="Shop" type="Node2D"]
 script = ExtResource( 1 )
+StartLevel = "0"
 BackgroundColor = Color( 0.211765, 0.756863, 0.996078, 1 )
 
 [node name="0" type="Node2D" parent="." groups=[
 "Level",
 ]]
+editor/display_folded = true
 show_behind_parent = true
 script = ExtResource( 2 )
 LevelName = "Inn"
@@ -126,8 +128,7 @@ position = Vector2( 140, 76 )
 
 [node name="WorldTrigger" type="Area2D" parent="0/objects"]
 editor/display_folded = true
-visible = false
-position = Vector2( -16, 76 )
+position = Vector2( -15.5123, 77.463 )
 script = ExtResource( 11 )
 Destination = "Forest"
 Waypoint = "village2"
@@ -142,10 +143,11 @@ expand_color = Color( 0.0901961, 0.890196, 0.607843, 1 )
 [node name="Waypoint" type="Node2D" parent="."]
 
 [node name="Start" type="Position2D" parent="Waypoint"]
-position = Vector2( 40, 120 )
+position = Vector2( 38.2076, 114.623 )
 
 [node name="Player" parent="." instance=ExtResource( 13 )]
 editor/display_folded = true
+position = Vector2( 4.38907, 6.33978 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 pause_mode = 2

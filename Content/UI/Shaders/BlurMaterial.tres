@@ -13,3 +13,4 @@ void fragment() {
 render_priority = 1
 shader = SubResource( 1 )
 shader_param/lod = 2.235
+

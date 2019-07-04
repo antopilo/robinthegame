@@ -134,7 +134,7 @@ public class Console : Control
                 }
                 else
                 {
-                    var scene = ResourceLoader.Load(WorldPath + cache[int.Parse(parameters[0].ToString())]) as PackedScene;
+                    var scene = ResourceLoader.Load(WorldPath + cache[int.Parse(parameters[0])]) as PackedScene;
                     if (scene == null)
                     {
                         ConsoleBox.BbcodeText += "[color=red] ERROR: " + cache[int.Parse(parameters[0].ToString())] + " couldn't be loaded.";

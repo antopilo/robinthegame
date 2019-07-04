@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -37,6 +37,15 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GodotSharp">
       <HintPath>$(ProjectDir)\.mono\assemblies\GodotSharp.dll</HintPath>
@@ -53,6 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content\Actors\Blacksmith.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\IState.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\StateMachine.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Air.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Idle.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Moving.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Wall.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Walljump.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Collectables\Chest\Chest.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Core\FallingBlock\FallingBlock3x3.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Core\MessageSender\MessageSender.cs" />
@@ -113,5 +129,14 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

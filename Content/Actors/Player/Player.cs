@@ -10,6 +10,9 @@ public class Player : KinematicBody2D
     public Arrow Arrow { get; set; }
     private Particles2D RunDust;
 
+    public StateMachine StateMachine;
+    public int WallDirection = 1;
+
     public Vector2 FeetPosition => GlobalPosition + new Vector2(0, 4);
     public Vector2 Inputv => new Vector2(InputDirectionX, InputDirectionY);
 
@@ -40,9 +43,9 @@ public class Player : KinematicBody2D
     public States State { get; set; }
 
     public bool Alive = true;
-    public bool IsCrouching { get; private set; } = false;
-    public bool IsWallJumping { get; private set; } = false;
-    public bool WasOnGround { get; private set; } = false;
+    public bool IsCrouching { get; set; } = false;
+    public bool IsWallJumping { get; set; } = false;
+    public bool WasOnGround { get; set; } = false;
     public bool CanWallJump { get; private set; } = false;
     public bool CanJump { get; private set; } = false;
     public bool ArrowExist { get; set; } = false;
@@ -69,6 +72,15 @@ public class Player : KinematicBody2D
         Camera = (Camera)GetNode("Camera2D");
         RunDust = (Particles2D)GetNode("Particles/RunDust");
         WallJumpDust = (Particles2D)GetNode("Particles/WallJump");
+
+        StateMachine = new StateMachine(this);
+
+        StateMachine.AddState(new Idle());
+        StateMachine.AddState(new Moving());
+        StateMachine.AddState(new Wall());
+        StateMachine.AddState(new Air());
+
+        StateMachine.SetState("Moving");
     }
 
     // Jumping.
@@ -77,42 +89,50 @@ public class Player : KinematicBody2D
         if (Root.Console.Visible)
             return;
 
-        if (e.IsActionPressed("jump") && CanControl)
-        {
+        //if (e.IsActionPressed("jump") && CanControl)
+        //{
             
-            if (State == States.Ground || (DeltaTime <= NextJumpTime && CanJump))
-            {
-                CanJump = false;
-                WasOnGround = true;
+        //    if (State == States.Ground || (DeltaTime <= NextJumpTime && CanJump))
+        //    {
+        //        CanJump = false;
+        //        WasOnGround = true;
 
-                // Jump sound.
-                //(GetNode("SFX/Jump") as AudioStreamPlayer).Play(0);
+        //        // Jump sound.
+        //        //(GetNode("SFX/Jump") as AudioStreamPlayer).Play(0);
 
-                if (IsCrouching)
-                    SuperJump();
-                else
-                    Jump();
-            }
-            else if(State == States.Ledge)
-            {
-                if(!Sprite.FlipH && InputDirectionX == 1)
-                    Jump(0.75f);
-                else if(Sprite.FlipH && InputDirectionX == -1)
-                    Jump(0.75f);
-                else
-                    WallJump();
-            }
-            else if (CanWallJump)
-            {
-                WasOnGround = false;
-                WallJump();
-                WallJumpDust.Emitting = true;
-            }
-        }
+        //        if (IsCrouching)
+        //            SuperJump();
+        //        else
+        //            Jump();
+        //    }
+        //    else if(State == States.Ledge)
+        //    {
+        //        if(!Sprite.FlipH && InputDirectionX == 1)
+        //        {
+        //            GD.Print("LEDGE JUMP");
+        //            EnterAirState();
+        //            Jump(1);
+        //        }
+        //        else if(Sprite.FlipH && InputDirectionX == -1)
+        //        {
+        //            GD.Print("LEDGE JUMP");
+        //            EnterAirState();
+        //            Jump(1);
+        //        }
+        //        else
+        //            WallJump();
+        //    }
+        //    else if (CanWallJump)
+        //    {
+        //        WasOnGround = false;
+        //        WallJump();
+        //        WallJumpDust.Emitting = true;
+        //    }
+        //}
           
 
-        if (e.IsActionReleased("jump") && Velocity.y < 0 && WasOnGround) // Tap jump
-            Velocity.y /= 1.5f;
+        //if (e.IsActionReleased("jump") && Velocity.y < 0 && WasOnGround) // Tap jump
+        //    Velocity.y /= 1.5f;
     }
 
     public void ResetInput()
@@ -123,31 +143,32 @@ public class Player : KinematicBody2D
         InputDirectionY = 0;
     }
 
-   
     // Main loop.
     public override void _PhysicsProcess(float delta)
     {
         CollisionBox.Disabled = State == States.Ghost;
         Modulate = State == States.Ghost ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1); 
         GetReference();
-        GetInput();
-        UpdateVelocity();
+        //GetInput();
+        //UpdateVelocity();
+
+        StateMachine.Update(delta);
 
         if(State != States.Ghost)
         {
-            UpdateState();
-            CanWalljump();
+            //UpdateState();
+            //CanWalljump();
         }
             
-        SpeedLimits();
+        //SpeedLimits();
         Sounds(delta); // Handles player sounds
         Particles(); // Handles player particles
 
-        Velocity += GetFloorVelocity();
+        //Velocity += GetFloorVelocity();
         
-        MoveAndSlide(Velocity);
+        //MoveAndSlide(Velocity);
 
-        ApplyGravity();
+        //ApplyGravity();
         GetArrow();
         GetInteractable();
 
@@ -184,8 +205,13 @@ public class Player : KinematicBody2D
         // Horizontal Inputs
         if (Godot.Input.IsActionPressed("Left"))
         {
-            if(State != States.Wall && State != States.Ledge){
-                Sprite.Play("Running");
+            if(State != States.Wall && State != States.Ledge)
+            {
+                if(Mathf.Abs(Velocity.x) < MAX_SPEED / 2)
+                    Sprite.Play("Face");
+                else
+                    Sprite.Play("Running");
+                
                 Sprite.FlipH = true;
             }
             InputDirectionX = -1;
@@ -193,8 +219,12 @@ public class Player : KinematicBody2D
         }
         else if (Godot.Input.IsActionPressed("Right"))
         {
-            if(State != States.Wall && State != States.Ledge){
-                Sprite.Play("Running");
+            if(State != States.Wall && State != States.Ledge)
+            {
+               if(Mathf.Abs(Velocity.x) < MAX_SPEED / 2)
+                    Sprite.Play("Face");
+                else
+                    Sprite.Play("Running");
                 Sprite.FlipH = false;
             }
                 
@@ -272,7 +302,6 @@ public class Player : KinematicBody2D
             EnterWallState(Collision.Normal == NormalLeft ? 1 : 0);
         if (CanWallJump && CanGrabLedge())
             EnterLedge();
-        GD.Print("CanWJ: " + CanWallJump + " | CanLedg: " + CanGrabLedge());
         if (Collision.Normal == NormalCeiling)
             Velocity.y = -Velocity.y / 4;
 
@@ -280,27 +309,28 @@ public class Player : KinematicBody2D
 
     public bool CanGrabLedge()
     {
-        if(!CanControl || Velocity.y <= 0)
+        if(!CanControl)
             return false;
 
-        var castLeft = (RayCast2D)GetNode("Raycasts/LedgeLeft");
         var castRight = (RayCast2D)GetNode("Raycasts/LedgeRight");
         var point = castRight.GetCollisionPoint() - Root.GameController.CurrentRoom.LevelPosition;
         var tmPos = Root.GameController.CurrentRoom.LayerSolid.WorldToMap(point);
         var tile = Root.GameController.CurrentRoom.LayerSolid.GetCellv(tmPos - new Vector2(0, 1));
-        if(castRight.IsColliding() && castRight.GetCollisionNormal() == Vector2.Up && tile == -1)
+        if(castRight.IsColliding() && tile == -1)
             return true;
         return false;
     }
 
     public void EnterLedge()
     {
+        if (Velocity.y < 0)
+            return;
+        Sprite.Play("Ledge");
         Velocity.y = 0;
         GravityMult = 0;
         Velocity.x = 0;
         State = States.Ledge;
         Sprite.FlipH = Sprite.FlipH;
-        Sprite.Play("Wall");
     }
 
 
@@ -329,7 +359,6 @@ public class Player : KinematicBody2D
 
         if (Velocity.y > 0)
         {
-            GD.Print("yeah");
             Velocity.y /= 1.1f;
             Sprite.Play("Wall");
             Sprite.FlipH = Convert.ToBoolean(direction);
@@ -375,6 +404,10 @@ public class Player : KinematicBody2D
             GravityMult = 0;
         else
             GravityMult = 1;
+
+
+        var scale = 1 - ((Mathf.Abs(Velocity.y) / MAX_AIR_SPEED) / 4);
+        Sprite.Scale = new Vector2(Mathf.Clamp(scale, 0.75f, 1), 1);
 
         Velocity.y += GRAVITY * GravityMult;
     }
@@ -523,6 +556,8 @@ public class Player : KinematicBody2D
 
         WasOnGround = false;
     }
+
+
 
     public void Spawn(bool WithAnimation)
     {
