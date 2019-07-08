@@ -13,95 +13,79 @@ class Wall : IState
     private Vector2 m_velocity = new Vector2();
     private int m_wallDirection = 0;
     private float wallFallMult = 0;
+    private const float MAX_FALL_SPEED = 30f;
 
+    // Init.
     public void Enter(ref Player host)
     {
-        m_velocity = new Vector2(0,0);
         m_wallDirection = host.WallDirection;
+        m_velocity = host.Velocity;
 
-        if (m_velocity.y > 0)
-        {
-            m_velocity.y /= 1.1f;
-            host.Sprite.Play("Wall");
-            
-        }
-        else
-        {
-            host.Sprite.Play("falling");
-        }
+        
     }
 
 
+    // Update each frame.
     public void Update(ref Player host, float delta)
     {
+        // Gravity is valid when on a wall.
         ApplyGravity();
 
-        host.Sprite.Play("Wall");
-        host.Sprite.FlipH = m_wallDirection != -1;
+        // If the player is sliding down a wall and he hits the floow.
+        // Make him switch state to idle.
+        if (host.IsOnFloor())
+            host.StateMachine.SetState("Idle");
 
-        if (Input.IsActionPressed("Jump"))
-            WallJump(ref host);
+        UpdateInput(ref host);
 
+        // Set the sprite and direction.
+        if (m_velocity.y > 0)
+            host.Sprite.Play("Wall");
+        else
+            host.Sprite.Play("Falling");
+
+        if (m_wallDirection == 0)
+            host.Sprite.FlipH = false;
+        else
+            host.Sprite.FlipH = true;
+
+        // Walljump.
+        if (Input.IsActionJustPressed("Jump"))
+            host.StateMachine.SetState("Walljump");
+
+        // Max fall speed
+        // TODO: CHANGE MAGIC VALUE.
+        m_velocity.y = Mathf.Clamp(m_velocity.y, -999, MAX_FALL_SPEED);
+
+        // Move the player.
         host.MoveAndSlide(m_velocity, new Vector2(0, -1));
+
+        if (host.GetSlideCount() <= 0)
+            host.StateMachine.SetState("Air");
+
     }
     
 
+    private void UpdateInput(ref Player host)
+    {
+        if (Input.IsActionPressed("Left") && m_wallDirection == -1)
+            host.StateMachine.SetState("Air");
+        else if (Input.IsActionPressed("Right") && m_wallDirection == 1)
+            host.StateMachine.SetState("Air");
+    }
+
+
+    // Apply a force downward on the m_velocity.;
     private void ApplyGravity()
     {
-        m_velocity.y += Air.GRAVITY / 4;
+        m_velocity.y += Air.GRAVITY ;
     }
 
-
-    private void WallJump(ref Player host)
-    {
-        var JumpDirection = 0;
-
-        host.IsWallJumping = true;
-        //CurrentMaxSpeed = MAX_AIR_SPEED;
-        (host.GetNode("Timers/DisableInput") as Timer).Start();
-
-        var CollisionCount = host.GetSlideCount() - 1;
-        if (CollisionCount > -1)
-        {
-            var Collision = host.GetSlideCollision(CollisionCount);
-
-            if (Collision.Normal == new Vector2(1, 0))
-            {
-                JumpDirection = 1;
-                host.Sprite.FlipH = false;
-            }
-            else if (Collision.Normal == new Vector2(-1, 0))
-            {
-                JumpDirection = -1;
-                host.Sprite.FlipH = true;
-            }
-        }
-        else if (!host.IsOnFloor())
-        {
-            var RayLeft = host.GetNode("Raycasts/Left") as RayCast2D;
-            var RayRight = host.GetNode("Raycasts/Right") as RayCast2D;
-            if (RayLeft.IsColliding())
-            {
-                JumpDirection = 1;
-                host.Sprite.FlipH = false;
-            }
-            else if (RayRight.IsColliding())
-            {
-                JumpDirection = -1;
-                host.Sprite.FlipH = true;
-            }
-        }
-
-        // Start timer
-        //InputDisableTimer = WALLJUMP_DISABLETIME;
-        //m_velocity.x = WALL_JUMP_FORCE * JumpDirection;
-        //m_velocity.y = -WALL_JUMP_HEIGHT;
-    }
-
-
+    // Transfer velocity to the player. The next state might need it.
     public void Exit(ref Player host)
     {
         host.Velocity = m_velocity;
+        host.WallDirection = 0;
     }
 }
 

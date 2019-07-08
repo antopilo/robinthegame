@@ -12,8 +12,8 @@ class Moving : IState
 
     public const int JUMP_FORCE = 190;
     private const int MAX_SPEED = 90;
-    private const int ACCELERATION = 8;
-    private const int DECELERATION = 4;
+    public const int ACCELERATION = 8;
+    public const int DECELERATION = 4;
 
     private Vector2 InputDirection = new Vector2();
     private Vector2 m_velocity = new Vector2();

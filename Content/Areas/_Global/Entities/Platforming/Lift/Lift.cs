@@ -48,14 +48,13 @@ public class Lift : Node2D
         InteractionZone.GlobalPosition = Platform.GlobalPosition;
         if (Tween.IsActive() && PlayerPresent)
         {
-            Root.Player.CanControl = false;
+            Root.Player.StateMachine.SetState("Sit");
             
             Root.Player.GlobalPosition -= LastPosition - Platform.GlobalPosition;
-            Root.Player.State = States.Ground;
         }
-        else if(PlayerPresent && !Tween.IsActive())
+        else if(PlayerPresent && !Tween.IsActive() && Root.Player.StateMachine.CurrentState is Sit)
         {
-            Root.Player.CanControl = true;
+            Root.Player.StateMachine.SetState("Idle");
         }
         LastPosition = Platform.GlobalPosition;
     }

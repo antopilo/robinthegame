@@ -25,10 +25,13 @@ public class Player : KinematicBody2D
     private const int SUPER_JUMP_FORCE = 220;
     private const int WALL_JUMP_HEIGHT = 140;
     private const int WALL_JUMP_FORCE = 120;
-    private const int JUMP_PAD_FORCE = 260;
+    public const int JUMP_PAD_FORCE = 260;
     private const int MAX_SPEED = 90;
     private const int MAX_AIR_SPEED = 100;
     private const int MAX_FALL_SPEED = 300;
+
+    public Vector2 JumpPadDirection = new Vector2();
+
 
     private float NextJumpTime = 0f;
     private float CurrentMaxSpeed = MAX_SPEED;
@@ -78,62 +81,15 @@ public class Player : KinematicBody2D
         StateMachine.AddState(new Idle());
         StateMachine.AddState(new Moving());
         StateMachine.AddState(new Wall());
+        StateMachine.AddState(new Walljump());
+        StateMachine.AddState(new JumpPadded());
         StateMachine.AddState(new Air());
+        StateMachine.AddState(new Ghost());
+        StateMachine.AddState(new Sit());
 
         StateMachine.SetState("Moving");
     }
 
-    // Jumping.
-    public override void _Input(InputEvent e)
-    {
-        if (Root.Console.Visible)
-            return;
-
-        //if (e.IsActionPressed("jump") && CanControl)
-        //{
-            
-        //    if (State == States.Ground || (DeltaTime <= NextJumpTime && CanJump))
-        //    {
-        //        CanJump = false;
-        //        WasOnGround = true;
-
-        //        // Jump sound.
-        //        //(GetNode("SFX/Jump") as AudioStreamPlayer).Play(0);
-
-        //        if (IsCrouching)
-        //            SuperJump();
-        //        else
-        //            Jump();
-        //    }
-        //    else if(State == States.Ledge)
-        //    {
-        //        if(!Sprite.FlipH && InputDirectionX == 1)
-        //        {
-        //            GD.Print("LEDGE JUMP");
-        //            EnterAirState();
-        //            Jump(1);
-        //        }
-        //        else if(Sprite.FlipH && InputDirectionX == -1)
-        //        {
-        //            GD.Print("LEDGE JUMP");
-        //            EnterAirState();
-        //            Jump(1);
-        //        }
-        //        else
-        //            WallJump();
-        //    }
-        //    else if (CanWallJump)
-        //    {
-        //        WasOnGround = false;
-        //        WallJump();
-        //        WallJumpDust.Emitting = true;
-        //    }
-        //}
-          
-
-        //if (e.IsActionReleased("jump") && Velocity.y < 0 && WasOnGround) // Tap jump
-        //    Velocity.y /= 1.5f;
-    }
 
     public void ResetInput()
     {
@@ -146,29 +102,10 @@ public class Player : KinematicBody2D
     // Main loop.
     public override void _PhysicsProcess(float delta)
     {
-        CollisionBox.Disabled = State == States.Ghost;
-        Modulate = State == States.Ghost ? new Color(1, 1, 1, 0.5f) : new Color(1, 1, 1, 1); 
         GetReference();
-        //GetInput();
-        //UpdateVelocity();
-
         StateMachine.Update(delta);
-
-        if(State != States.Ghost)
-        {
-            //UpdateState();
-            //CanWalljump();
-        }
-            
-        //SpeedLimits();
         Sounds(delta); // Handles player sounds
         Particles(); // Handles player particles
-
-        //Velocity += GetFloorVelocity();
-        
-        //MoveAndSlide(Velocity);
-
-        //ApplyGravity();
         GetArrow();
         GetInteractable();
 
@@ -182,85 +119,6 @@ public class Player : KinematicBody2D
             Camera = GetNode("Camera2D") as Camera;
     }
 
-    public void GhostMode()
-    {
-        CollisionBox.Disabled = true;
-    }
-
-    /// <summary>
-    /// Update the direction of the player with the input.
-    /// Must be called every frame.
-    /// Also plays the animation.
-    /// </summary>
-    private void GetInput()
-    {
-        // Input disabling
-        if (!CanControl || !Alive || Root.Console.Visible)
-        {
-            InputDirectionX = 0;
-            InputDirectionY = 0;
-            return;
-        }
-
-        // Horizontal Inputs
-        if (Godot.Input.IsActionPressed("Left"))
-        {
-            if(State != States.Wall && State != States.Ledge)
-            {
-                if(Mathf.Abs(Velocity.x) < MAX_SPEED / 2)
-                    Sprite.Play("Face");
-                else
-                    Sprite.Play("Running");
-                
-                Sprite.FlipH = true;
-            }
-            InputDirectionX = -1;
-            LastDirectionX = -1;
-        }
-        else if (Godot.Input.IsActionPressed("Right"))
-        {
-            if(State != States.Wall && State != States.Ledge)
-            {
-               if(Mathf.Abs(Velocity.x) < MAX_SPEED / 2)
-                    Sprite.Play("Face");
-                else
-                    Sprite.Play("Running");
-                Sprite.FlipH = false;
-            }
-                
-            InputDirectionX = 1;
-            LastDirectionX = 1;
-        }
-        else
-        {
-            InputDirectionX = 0;
-
-            if (State == States.Ground)
-                Sprite.Play("idle");
-        }
-
-        // Looking up
-        if (Godot.Input.IsActionPressed("Up"))
-        {
-            InputDirectionY = -1;
-        }
-        else if (Godot.Input.IsActionPressed("Down"))
-        {
-            InputDirectionY = 1;
-
-            if (InputDirectionX == 0 && State == States.Ground)
-            {
-                IsCrouching = true;
-                Sprite.Play("Crouch");
-            }
-                
-        }
-        else
-        {
-            InputDirectionY = 0;
-            IsCrouching = false;
-        }
-    }
 
     private void Particles()
     {
@@ -440,16 +298,6 @@ public class Player : KinematicBody2D
     }
     #endregion
 
-    #region Abilities
-    /// <summary>
-    /// Decide if the player can Wall jump or not.
-    /// </summary>
-    private void CanWalljump()
-    {
-        var Left = (RayCast2D)GetNode("Raycasts/Left");
-        var Right = (RayCast2D)GetNode("Raycasts/Right");
-        CanWallJump = (Left.IsColliding() || Right.IsColliding()) || State == States.Wall;
-    }
 
     /// <summary>
     /// Normal jump
@@ -539,22 +387,8 @@ public class Player : KinematicBody2D
     /// <param name="pDirection"></param>
     public void JumpPad(Vector2 pDirection)
     {
-        if (pDirection.x != 0)
-        {
-            Velocity.x = Mathf.Sign(pDirection.x) * JUMP_PAD_FORCE * 5;
-            Velocity.y = -JUMP_PAD_FORCE / 1.5f;
-
-            IsWallJumping = true;
-            CurrentMaxSpeed = MAX_AIR_SPEED;
-            CanControl = false;
-            (GetNode("Timers/DisableInput") as Timer).Start();
-        }
-        else if (pDirection.y != 0)
-        {
-            Velocity.y = Mathf.Sign(pDirection.y) * JUMP_PAD_FORCE;
-        }
-
-        WasOnGround = false;
+        this.JumpPadDirection = pDirection;
+        StateMachine.SetState("JumpPad");
     }
 
 
@@ -582,7 +416,6 @@ public class Player : KinematicBody2D
             Arrow = null;
         }
     }
-    #endregion
 
     #region Interaction
 
@@ -645,6 +478,7 @@ public class Player : KinematicBody2D
         }
     } 
     #endregion
+
     private void _on_DisableInput_timeout()
     {
         CanControl = true;

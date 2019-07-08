@@ -65,8 +65,11 @@
     <Compile Include="Content\Actors\Player\StateMachine\IState.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\StateMachine.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Air.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Ghost.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Idle.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\JumpPad.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Moving.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Sit.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Wall.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Walljump.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Collectables\Chest\Chest.cs" />

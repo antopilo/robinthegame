@@ -15,9 +15,6 @@ class Air : IState
     private const int MAX_AIR_SPEED = 100;
     private const int ACCELERATION = 8;
     private const int DECELERATION = 4;
-    private const int WALL_JUMP_HEIGHT = 140;
-    private const int WALL_JUMP_FORCE = 120;
-    private const float WALLJUMP_DISABLETIME = 0.25f;
 
     private Vector2 InputDirection = new Vector2();
     private Vector2 m_velocity;
@@ -25,8 +22,6 @@ class Air : IState
 
     private float DeltaTime = 0;
 
-    // Timer
-    private float InputDisableTimer = 0;
 
     public void Enter(ref Player host)
     {
@@ -39,33 +34,26 @@ class Air : IState
 
     public void Update(ref Player host, float delta)
     {
-        if(InputDisableTimer <= 0f)
-        {
-            // Gets the direction of the inputs.
-            // Also update sprites with direction.
-            GetInputDirection(ref host);
+        // Gets the direction of the inputs.
+        // Also update sprites with direction.
+        GetInputDirection(ref host);
 
-            // If pressing something, accelerate.
-            m_velocity.x += InputDirection.x * ACCELERATION;
+        // If pressing something, accelerate.
+        m_velocity.x += InputDirection.x * ACCELERATION;
 
-            // Implements a max speed.
-            if (Mathf.Abs(m_velocity.x) > MAX_SPEED)
-                m_velocity.x = MAX_SPEED * Mathf.Sign(m_velocity.x);
+        // Implements a max speed.
+        if (Mathf.Abs(m_velocity.x) > MAX_SPEED)
+            m_velocity.x = MAX_SPEED * Mathf.Sign(m_velocity.x);
 
-            // If not pressing anything, decelerate.
-            if (InputDirection.x == 0)
-                m_velocity.x -= DECELERATION * Mathf.Sign(m_velocity.x);
+        // If not pressing anything, decelerate.
+        if (InputDirection.x == 0)
+            m_velocity.x -= DECELERATION * Mathf.Sign(m_velocity.x);
 
-            // Snap the value to 0 if hes is still moving a little bit.
-            // Make sure that the player actually stops. 
-            if (Mathf.Abs(m_velocity.x) < 10 && InputDirection.x == 0)
-                m_velocity.x = 0;
-        }
-        else
-        {
-            InputDisableTimer -= delta;
-        }
-
+        // Snap the value to 0 if hes is still moving a little bit.
+        // Make sure that the player actually stops. 
+        if (Mathf.Abs(m_velocity.x) < 10 && InputDirection.x == 0)
+            m_velocity.x = 0;
+        
         CheckCollisions(ref host);
 
         UpdateSprite(ref host);
@@ -145,7 +133,7 @@ class Air : IState
 
         if(Input.IsActionJustPressed("Jump") && CanWalljump(ref host))
         {
-            WallJump(ref host);
+            host.StateMachine.SetState("Walljump");
         }
 
         if (Input.IsActionJustReleased("Jump") && m_velocity.y < 0 && host.WasOnGround)
@@ -173,46 +161,7 @@ class Air : IState
     {
         var JumpDirection = 0;
 
-        host.IsWallJumping = true;
-        //CurrentMaxSpeed = MAX_AIR_SPEED;
-        (host.GetNode("Timers/DisableInput") as Timer).Start();
-
-        var CollisionCount = host.GetSlideCount() - 1;
-        if (CollisionCount > -1)
-        {
-            var Collision = host.GetSlideCollision(CollisionCount);
-
-            if (Collision.Normal == new Vector2(1, 0))
-            {
-                JumpDirection = 1;
-                host.Sprite.FlipH = false;
-            }
-            else if (Collision.Normal == new Vector2(-1, 0))
-            {
-                JumpDirection = -1;
-                host.Sprite.FlipH = true;
-            }
-        }
-        else if (!host.IsOnFloor())
-        {
-            var RayLeft = host.GetNode("Raycasts/Left") as RayCast2D;
-            var RayRight = host.GetNode("Raycasts/Right") as RayCast2D;
-            if (RayLeft.IsColliding())
-            {
-                JumpDirection = 1;
-                host.Sprite.FlipH = false;
-            }
-            else if (RayRight.IsColliding())
-            {
-                JumpDirection = -1;
-                host.Sprite.FlipH = true;
-            }
-        }
-
-        // Start timer
-        InputDisableTimer = WALLJUMP_DISABLETIME;
-        m_velocity.x = WALL_JUMP_FORCE * JumpDirection;
-        m_velocity.y = -WALL_JUMP_HEIGHT;
+       
     }
 
 

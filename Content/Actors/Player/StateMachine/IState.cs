@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,5 +28,6 @@ public interface IState
     /// </summary>
     /// <param name="host">Player</param>
     void Exit(ref Player host);
+
 }
 

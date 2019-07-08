@@ -208,9 +208,9 @@ public class Console : Control
                 Root.GameController.Spawn(true);
                 break;
             case "GHOST":
-                if(Root.Player.State == States.Ghost)
+                if(Root.Player.StateMachine.CurrentState is Ghost)
                 {
-                    Root.Player.State = States.Air;
+                    Root.Player.StateMachine.SetState("Idle");
                     Root.GameController.ChangeRoom(Root.GameController.FindRoom(Root.Player.GlobalPosition));
                     Root.Player.Camera.GlobalPosition = Root.Player.GlobalPosition;
                     Root.Dialog.ShowMessage("Ghost mode deactivated", 2f);
@@ -218,9 +218,9 @@ public class Console : Control
                 } 
                 else
                 {
+                    Root.Player.StateMachine.SetState("Ghost");
                     Root.Dialog.ShowMessage("Ghost mode activated", 2f);
                     Root.Player.Camera.GlobalPosition = Root.Player.GlobalPosition;
-                    Root.Player.State = States.Ghost;
                 }
                     
                 break;
