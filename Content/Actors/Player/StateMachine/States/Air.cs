@@ -22,7 +22,6 @@ class Air : IState
 
     private float DeltaTime = 0;
 
-
     public void Enter(ref Player host)
     {
         m_velocity = host.Velocity;
@@ -79,7 +78,6 @@ class Air : IState
             return;
 
         var Collision = host.GetSlideCollision(CollisionCount);
-        var NormalGround = new Vector2(0, -1);
         var NormalLeft = new Vector2(1, 0);
         var NormalRight = new Vector2(-1, 0);
         var NormalCeiling = new Vector2(0, 1);

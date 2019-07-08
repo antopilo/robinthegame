@@ -55,6 +55,8 @@ public class Lift : Node2D
         else if(PlayerPresent && !Tween.IsActive() && Root.Player.StateMachine.CurrentState is Sit)
         {
             Root.Player.StateMachine.SetState("Idle");
+            Root.Player.AddToInteraction(this);
+	
         }
         LastPosition = Platform.GlobalPosition;
     }
@@ -88,6 +90,8 @@ public class Lift : Node2D
                 CanInteract = false;
                 Up = false;
                 Root.Player.RemoveFromInteraction(this);
+				var lever = (AnimatedSprite)GetNode("InteractionZone/Lever");
+				lever.Play("Active");
             }
             else if(!Up)
             {
@@ -99,6 +103,8 @@ public class Lift : Node2D
                 CanInteract = false;
                 Up = true;
                 Root.Player.RemoveFromInteraction(this);
+				var lever = (AnimatedSprite)GetNode("InteractionZone/Lever");
+				lever.Play("Inactive");
             }
         }
     }

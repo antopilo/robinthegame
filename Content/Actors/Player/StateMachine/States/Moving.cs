@@ -64,7 +64,9 @@ class Moving : IState
 
         // If is on the ground, change state.
         if (!host.IsOnFloor())
+        {
             host.StateMachine.SetState("Air");
+        }
     }
 
 

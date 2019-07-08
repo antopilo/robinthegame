@@ -61,7 +61,9 @@ public class Inventory : Control
 
             if (idx == 0)
             {
-                item.GrabFocus();
+                if(item.IsInsideTree())
+                    item.GrabFocus();
+
                 ItemTitleLabel.Text = item.ItemName;
                 ItemDescriptionLabel.Text = item.Description;
             }

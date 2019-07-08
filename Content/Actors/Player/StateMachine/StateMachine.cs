@@ -24,8 +24,6 @@ public class StateMachine
     
     public void Update(float delta)
     {
-        GD.Print(CurrentState.StateName);
-
         CurrentState.Update(ref m_player, delta);
     }
 

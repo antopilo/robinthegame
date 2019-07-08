@@ -12,20 +12,20 @@
 [ext_resource path="res://Content/Areas/_Global/Levels/0.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Content/Areas/_Global/Levels/StreeWalljump.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Content/Areas/Forest/Levels/DungeonSecret.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Content/Areas/Forest/Levels/1.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Content/Areas/Forest/Levels/2.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Content/Areas/Forest/Levels/3.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Content/Areas/Forest/Levels/CrouchJump.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Content/Areas/Forest/Levels/Intro.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Content/Areas/Forest/Levels/Bridge.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Content/Areas/_Global/Entities/Platforming/Lift/Lift.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Content/Areas/_Global/Entities/Collectables/Chest.tscn" type="PackedScene" id=20]
-[ext_resource path="res://Content/Areas/Forest/Levels/4.tscn" type="PackedScene" id=21]
-[ext_resource path="res://Content/Areas/Forest/Levels/6.tscn" type="PackedScene" id=22]
-[ext_resource path="res://Content/Areas/Forest/Levels/5.tscn" type="PackedScene" id=23]
-[ext_resource path="res://Content/Areas/Forest/Levels/8.tscn" type="PackedScene" id=24]
-[ext_resource path="res://Content/Areas/Forest/Levels/9.tscn" type="PackedScene" id=25]
-[ext_resource path="res://Content/Areas/Forest/Levels/MineFall.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Content/Areas/Forest/Levels/MineFall.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Content/Areas/_Global/Entities/Platforming/Lift/Lift.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Content/Areas/_Global/Entities/Collectables/Chest.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Content/Areas/Forest/Levels/1.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Content/Areas/Forest/Levels/2.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Content/Areas/Forest/Levels/3.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Content/Areas/Forest/Levels/CrouchJump.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Content/Areas/Forest/Levels/Intro.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Content/Areas/Forest/Levels/Bridge.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Content/Areas/Forest/Levels/4.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Content/Areas/Forest/Levels/6.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Content/Areas/Forest/Levels/5.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Content/Areas/Forest/Levels/8.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Content/Areas/Forest/Levels/9.tscn" type="PackedScene" id=26]
 [ext_resource path="res://Content/Areas/_Global/Levels/Debug.tscn" type="PackedScene" id=27]
 [ext_resource path="res://Content/Areas/Forest/Levels/MainHub.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Content/Actors/Player/Player.tscn" type="PackedScene" id=29]
@@ -54,6 +54,7 @@ LevelName = "Unknown road A"
 [node name="white" type="Node2D" parent="." groups=[
 "level",
 ]]
+editor/display_folded = true
 position = Vector2( -1544, -368 )
 script = ExtResource( 3 )
 LevelName = "Unknown road A"
@@ -97,6 +98,7 @@ cell_size = Vector2( 8, 8 )
 format = 1
 
 [node name="objects" type="Node2D" parent="white"]
+editor/display_folded = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="white/objects"]
 position = Vector2( 184, 200 )
@@ -127,34 +129,12 @@ position = Vector2( -792, 552 )
 LevelName = "Dungeon I"
 LevelDifficulty = 2
 
-[node name="3" parent="." instance=ExtResource( 13 )]
-position = Vector2( 496, -8 )
-FallKill = true
-
-[node name="4" parent="." groups=[
-"level",
-] instance=ExtResource( 14 )]
-position = Vector2( 816, -48 )
-
-[node name="4b" parent="." groups=[
-"level",
-] instance=ExtResource( 15 )]
-position = Vector2( 808, -232 )
-
-[node name="crouchjump" parent="." instance=ExtResource( 16 )]
-position = Vector2( -552, -280 )
-
-[node name="intro" parent="." groups=[
-"level",
-] instance=ExtResource( 17 )]
-position = Vector2( -792, 0 )
-
-[node name="bridge" parent="." instance=ExtResource( 18 )]
-editor/display_folded = true
-position = Vector2( -472, 0 )
-FallKill = true
+[node name="minefall" parent="." instance=ExtResource( 13 )]
+position = Vector2( -792, 368 )
+LevelName = ""
 
 [node name="elevator" type="Node2D" parent="."]
+editor/display_folded = true
 show_behind_parent = true
 position = Vector2( -792, 184 )
 script = ExtResource( 3 )
@@ -202,21 +182,49 @@ tile_data = PoolIntArray( 65553, 13, 0, 131077, 11, 0, 131099, 11, 0, 327700, 8,
 
 [node name="objects" type="Node2D" parent="elevator"]
 
-[node name="Lift" parent="elevator/objects" instance=ExtResource( 19 )]
+[node name="Lift" parent="elevator/objects" instance=ExtResource( 14 )]
 position = Vector2( 128, 160 )
 Speed = 9.0
 
 [node name="Target" type="Position2D" parent="elevator/objects/Lift"]
 position = Vector2( 0, 360 )
 
-[node name="Chest" parent="elevator/objects" instance=ExtResource( 20 )]
+[node name="Chest" parent="elevator/objects" instance=ExtResource( 15 )]
 position = Vector2( 120, 44 )
 ItemName = "Lever"
 
 [node name="DebugDraw" parent="elevator" instance=ExtResource( 9 )]
 expand_color = Color( 1, 0, 0, 1 )
 
+[node name="3" parent="." instance=ExtResource( 16 )]
+position = Vector2( 496, -8 )
+FallKill = true
+
+[node name="4" parent="." groups=[
+"level",
+] instance=ExtResource( 17 )]
+position = Vector2( 816, -48 )
+
+[node name="4b" parent="." groups=[
+"level",
+] instance=ExtResource( 18 )]
+position = Vector2( 808, -232 )
+
+[node name="crouchjump" parent="." instance=ExtResource( 19 )]
+position = Vector2( -552, -280 )
+
+[node name="intro" parent="." groups=[
+"level",
+] instance=ExtResource( 20 )]
+position = Vector2( -792, 0 )
+
+[node name="bridge" parent="." instance=ExtResource( 21 )]
+editor/display_folded = true
+position = Vector2( -472, 0 )
+FallKill = true
+
 [node name="elevator2" type="Node2D" parent="."]
+editor/display_folded = true
 show_behind_parent = true
 position = Vector2( 176, 0 )
 script = ExtResource( 3 )
@@ -261,7 +269,7 @@ format = 1
 
 [node name="objects" type="Node2D" parent="elevator2"]
 
-[node name="Lift" parent="elevator2/objects" instance=ExtResource( 19 )]
+[node name="Lift" parent="elevator2/objects" instance=ExtResource( 14 )]
 position = Vector2( 222, 136 )
 RequiredItem = "Gold"
 
@@ -273,32 +281,28 @@ expand_color = Color( 1, 0, 0, 1 )
 
 [node name="5" parent="." groups=[
 "level",
-] instance=ExtResource( 21 )]
+] instance=ExtResource( 22 )]
 position = Vector2( 1136, -48 )
 
 [node name="6b" parent="." groups=[
 "level",
-] instance=ExtResource( 22 )]
+] instance=ExtResource( 23 )]
 position = Vector2( 1136, -360 )
 
 [node name="6" parent="." groups=[
 "level",
-] instance=ExtResource( 23 )]
+] instance=ExtResource( 24 )]
 position = Vector2( 1456, -416 )
 
 [node name="7" parent="." groups=[
 "level",
-] instance=ExtResource( 24 )]
+] instance=ExtResource( 25 )]
 position = Vector2( 1776, -48 )
 
 [node name="8" parent="." groups=[
 "level",
-] instance=ExtResource( 25 )]
+] instance=ExtResource( 26 )]
 position = Vector2( 2176, -448 )
-
-[node name="minefall" parent="." instance=ExtResource( 26 )]
-position = Vector2( -792, 368 )
-LevelName = ""
 
 [node name="debug" parent="." groups=[
 "level",

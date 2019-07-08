@@ -452,7 +452,14 @@ public class Player : KinematicBody2D
                 }catch{}
             }
 		}
-    } 
+    }
+
+    public void AddToInteraction(Node2D pObject)
+    {
+        if (InteractableObject.Contains(pObject))
+            return;
+        InteractableObject.Add(pObject);
+    }
 
     public void RemoveFromInteraction(Node2D pObject){
         if(InteractableObject.Contains(pObject))
@@ -466,16 +473,15 @@ public class Player : KinematicBody2D
         if(parent.HasMethod("Interact")){
             if((parent.Get("CanInteract") as bool?) == false)
                 return;
-            InteractableObject.Insert(0, ((area as Area2D).GetParent() as Node2D));
+            InteractableObject.Insert(0, parent);
         }
     }
 
     private void _on_InteractionRange_area_exited(object area)
     {
         var parent = (area as Area2D).GetParent() as Node2D;
-        if(parent.HasMethod("Interact")){
-            InteractableObject.Remove((area as Area2D).GetParent() as Node2D);
-        }
+        if(parent.HasMethod("Interact"))
+            InteractableObject.Remove(parent);
     } 
     #endregion
 
