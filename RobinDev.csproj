@@ -62,6 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Content\Actors\Blacksmith.cs" />
+    <Compile Include="Content\Actors\Player\Arrow\Scripts\BlueArrow.cs" />
+    <Compile Include="Content\Actors\Player\Arrow\Scripts\IArrow.cs" />
+    <Compile Include="Content\Actors\Player\Arrow\Scripts\PurpleArrow.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\IState.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\StateMachine.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Air.cs" />
@@ -100,6 +103,7 @@
     <Compile Include="Content\UI\Scripts\Menu\TabNavigation.cs" />
     <Compile Include="Content\UI\Utilities.cs" />
     <Compile Include="Content\_Core\Camera.cs" />
+    <Compile Include="Content\_Core\Singletons\EventManager.cs" />
     <Compile Include="Content\_Core\Singletons\InventoryManager.cs" />
     <Compile Include="Content\_Core\Singletons\SceneSwitcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

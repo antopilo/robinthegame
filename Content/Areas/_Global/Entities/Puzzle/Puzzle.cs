@@ -29,7 +29,6 @@ public class Puzzle : Node2D
  
     public override void _PhysicsProcess(float delta)
     {
-
         if(Solved && !Done)
             Trigger();
 

@@ -19,8 +19,8 @@ public class Blacksmith : Node2D
 
     public void Interact()
     {
-
-        if(TalkCount >= MaxTalk - 1){
+        if(TalkCount >= MaxTalk - 1)
+        {
             CanInteract = false;
             Root.Player.RemoveFromInteraction(this);
             Root.SceneTransition.MoveOrbInGame(Root.Player.GlobalPosition);

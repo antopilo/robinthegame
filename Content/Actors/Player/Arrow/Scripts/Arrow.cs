@@ -1,6 +1,7 @@
 using Godot;
 
 public enum ArrowType { Normal, Magic, Guided, Teleport, Distraction}
+
 public class Arrow : KinematicBody2D
 {
     const float MAX_FUEL = 100f;
@@ -15,20 +16,21 @@ public class Arrow : KinematicBody2D
     private float Fuel = 100f;
     private float FuelCost = 0.1f;
     private float TargetRotation = 0f;
+
     // Settings n States    
     public bool ControllerMode = false;
     private bool IsControlled = true;
     private bool Frozen = false;
-    private bool MovingBack = false;
+    public bool MovingBack = false;
     private bool CanDash = true;
-    private float Speed = 0.75f;
+    public float Speed = 0.75f;
     private float Angle;
     private Vector2 Direction;
     private Vector2 LastDirection;
     private Vector2 FreezePosition;
     private Vector2 ColliderOffset;
     private Object Collider;
-    private Player Player;
+    public Player Player;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -44,10 +46,11 @@ public class Arrow : KinematicBody2D
         Player.ArrowExist = true;
         Player.Arrow = this;
     }
+
     public override void _Input(InputEvent @event)
     {
         if (@event.IsActionPressed("fire") && CanDash)
-            Dash();
+            Ability();
         else if ( (Frozen && !MovingBack) && (@event.IsActionPressed("fire") || @event.IsActionPressed("right_click") ) )
             ReturnToPlayer();
     }
@@ -90,14 +93,14 @@ public class Arrow : KinematicBody2D
             FollowCollider();
         }
 
-        ApplyGravity();
         CheckCollision();
 
-        if (Collider != null)
-            FollowCollider();
+        //if (Collider != null)
+        //    FollowCollider();
     }
 
     #region Controls
+
     /// <summary>
     /// When using the mouse, the arrow follows the mouse position.
     /// This is an algorithm that is yet to be solved because I dont know what 1.33 is.
@@ -178,6 +181,8 @@ public class Arrow : KinematicBody2D
         if (collision != null && collision.GetCollider() is Player)
             ReturnToPlayer();
 
+
+        
         Speed = 0;
         Frozen = true;
         CanDash = false;
@@ -219,14 +224,11 @@ public class Arrow : KinematicBody2D
     }
 
 
-    public void ApplyGravity()
+    public virtual void Ability()
     {
-        if(Fuel <= 0)
-        {
-            //TODO: Make Arrow fall down with gravity.
-            // LookAt(Player.Position);
-        }
+        Dash();
     }
+
 
     public void Dash()
     {
@@ -246,7 +248,7 @@ public class Arrow : KinematicBody2D
     }
 
     /// <summary>
-    /// Called when the arrow is returned to the player
+    /// Called when the arrSow is returned to the player
     /// when tween is done.
     /// </summary>
     /// <param name="object"></param>
@@ -255,6 +257,13 @@ public class Arrow : KinematicBody2D
     {
         if(key == "rotation_degrees")
             return;
+
+        Weapon.CanShoot = true;
+        CallDeferred("queue_free");
+    }
+
+    public void Destroy()
+    {
 
         Weapon.CanShoot = true;
         CallDeferred("queue_free");

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Content/Actors/Player/Arrow/Scripts/Arrow.cs" type="Script" id=1]
-[ext_resource path="res://Content/Art/Sprites/Player/Arrow/ArrowBlue.png" type="Texture" id=2]
+[ext_resource path="res://Content/Actors/Player/Arrow/Scripts/PurpleArrow.cs" type="Script" id=1]
+[ext_resource path="res://Content/Art/Sprites/Player/Arrow/ArrowPurple.png" type="Texture" id=2]
 [ext_resource path="res://Content/Actors/Player/aura.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -25,8 +25,8 @@ angular_velocity = 6.81031e-043
 orbit_velocity = 0.01
 orbit_velocity_random = 0.0
 scale_random = 1.0
-color = Color( 0.0823529, 0.47451, 1, 1 )
-hue_variation = -0.04
+color = Color( 0.745941, 0.121094, 1, 1 )
+hue_variation = 0.1
 hue_variation_curve = SubResource( 3 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" groups=[
