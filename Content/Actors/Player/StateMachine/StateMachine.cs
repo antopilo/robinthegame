@@ -25,6 +25,7 @@ public class StateMachine
     public void Update(float delta)
     {
         CurrentState.Update(ref m_player, delta);
+        GD.Print(CurrentState.StateName);
     }
 
     public void AddState(IState state)

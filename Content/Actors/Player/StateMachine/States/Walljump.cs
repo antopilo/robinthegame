@@ -15,7 +15,7 @@ class Walljump : IState
     private const float WALLJUMP_DISABLETIME = 0.25f;
 
     private Vector2 m_velocity = new Vector2();
-    private int m_direction = 0;
+    private WallDirection m_direction = 0;
 
     // Timer
     private float InputDisableTimer = 0.25f;
@@ -43,12 +43,12 @@ class Walljump : IState
 
             if (Collision.Normal == new Vector2(1, 0))
             {
-                m_direction = 1;
+                m_direction = WallDirection.RIGHT;
                 host.Sprite.FlipH = false;
             }
             else if (Collision.Normal == new Vector2(-1, 0))
             {
-                m_direction = -1;
+                m_direction = WallDirection.LEFT;
                 host.Sprite.FlipH = true;
             }
         }
@@ -58,19 +58,19 @@ class Walljump : IState
             var RayRight = host.GetNode("Raycasts/Right") as RayCast2D;
             if (RayLeft.IsColliding())
             {
-                m_direction = 1;
+                m_direction = WallDirection.RIGHT;
                 host.Sprite.FlipH = false;
             }
             else if (RayRight.IsColliding())
             {
-                m_direction = -1;
+                m_direction = WallDirection.LEFT;
                 host.Sprite.FlipH = true;
             }
         }
 
         // Start timer
         InputDisableTimer = WALLJUMP_DISABLETIME;
-        m_velocity.x = WALL_JUMP_FORCE * m_direction;
+        m_velocity.x = WALL_JUMP_FORCE * (int)m_direction;
         m_velocity.y = -WALL_JUMP_HEIGHT;
     }
 

@@ -42,7 +42,7 @@ __meta__ = {
 "_edit_horizontal_guides_": [  ],
 "_edit_vertical_guides_": [  ]
 }
-StartLevel = "0"
+StartLevel = "debug"
 BackgroundColor = Color( 0.266667, 0.776471, 0.996078, 1 )
 
 [node name="0" parent="." groups=[
@@ -54,7 +54,6 @@ LevelName = "Unknown road A"
 [node name="white" type="Node2D" parent="." groups=[
 "level",
 ]]
-editor/display_folded = true
 position = Vector2( -1544, -368 )
 script = ExtResource( 3 )
 LevelName = "Unknown road A"
@@ -98,7 +97,6 @@ cell_size = Vector2( 8, 8 )
 format = 1
 
 [node name="objects" type="Node2D" parent="white"]
-editor/display_folded = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="white/objects"]
 position = Vector2( 184, 200 )
@@ -219,12 +217,10 @@ position = Vector2( -552, -280 )
 position = Vector2( -792, 0 )
 
 [node name="bridge" parent="." instance=ExtResource( 21 )]
-editor/display_folded = true
 position = Vector2( -472, 0 )
 FallKill = true
 
 [node name="elevator2" type="Node2D" parent="."]
-editor/display_folded = true
 show_behind_parent = true
 position = Vector2( 176, 0 )
 script = ExtResource( 3 )
@@ -315,7 +311,6 @@ position = Vector2( -1000, -488 )
 position = Vector2( 2272, -184 )
 
 [node name="Waypoint" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="2b" type="Position2D" parent="Waypoint"]
 position = Vector2( -568, 704 )
@@ -354,4 +349,3 @@ script = ExtResource( 30 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Player/Camera2D"]
 scroll_ignore_camera_zoom = true
-

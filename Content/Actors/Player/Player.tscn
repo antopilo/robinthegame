@@ -33,14 +33,19 @@ animations = [ {
 "name": "Idle",
 "speed": 3.0
 }, {
+"frames": [ ExtResource( 18 ) ],
+"loop": true,
+"name": "Jump",
+"speed": 0.0
+}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "Crouch",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "Ledge",
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": false,
+"name": "Falling",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ) ],
@@ -48,30 +53,25 @@ animations = [ {
 "name": "lookup",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Ledge",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "Running",
 "speed": 15.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": false,
-"name": "Falling",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 16 ) ],
-"loop": true,
-"name": "Wall",
-"speed": 5.0
 }, {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
 "name": "Face",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 18 ) ],
+"frames": [ ExtResource( 16 ) ],
 "loop": true,
-"name": "Jump",
-"speed": 0.0
+"name": "Wall",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -104,7 +104,6 @@ color_ramp = SubResource( 5 )
 extents = Vector2( 8, 2 )
 
 [node name="Player" type="KinematicBody2D"]
-editor/display_folded = true
 script = ExtResource( 1 )
 FootStepRate = 2.0
 
@@ -118,7 +117,6 @@ animation = "Face"
 shape = SubResource( 3 )
 
 [node name="Weapon" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, -2 )
 script = ExtResource( 19 )
 
@@ -190,7 +188,6 @@ wait_time = 0.25
 [node name="Timer" type="Timer" parent="Timers"]
 
 [node name="SFX" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Footstep" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 21 )
@@ -206,7 +203,6 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRange"]
 position = Vector2( 0, 4 )
 shape = SubResource( 7 )
-
 [connection signal="timeout" from="Timers/DisableInput" to="." method="_on_DisableInput_timeout"]
 [connection signal="area_entered" from="InteractionRange" to="." method="_on_InteractionRange_area_entered"]
 [connection signal="area_exited" from="InteractionRange" to="." method="_on_InteractionRange_area_exited"]

@@ -63,6 +63,21 @@ public class Arrow : KinematicBody2D
         T2.Start();
     }
 
+    public void TiltDown()
+    {
+        T2.InterpolateProperty(this, "rotation_degrees", TargetRotation , TargetRotation - 15, 0.8f,
+            Tween.TransitionType.Elastic, Tween.EaseType.Out);
+        T2.Start();
+    }
+
+    public void Reset()
+    {
+        T2.InterpolateProperty(this, "rotation_degrees", this.RotationDegrees , TargetRotation, 0.2f,
+            Tween.TransitionType.Linear, Tween.EaseType.Out);
+        T2.Start();
+    }
+
+
     public override void _PhysicsProcess(float delta)
     {
         if (MovingBack) // If the arrow is returning to the player. Return.

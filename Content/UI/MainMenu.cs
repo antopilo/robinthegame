@@ -62,7 +62,3 @@ public class MainMenu : Control
     }
 }
 
-
-
-
-

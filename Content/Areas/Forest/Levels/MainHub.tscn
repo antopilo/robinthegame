@@ -90,7 +90,6 @@ position = Vector2( 520, 112 )
 z_index = -1
 
 [node name="BlackSmith" type="Node2D" parent="objects"]
-editor/display_folded = true
 position = Vector2( 364, 252 )
 
 [node name="House" type="Sprite" parent="objects/BlackSmith"]
@@ -122,5 +121,4 @@ shape = SubResource( 4 )
 
 [node name="DebugDraw" parent="." instance=ExtResource( 12 )]
 expand_color = Color( 1, 0, 0, 1 )
-
 [connection signal="body_entered" from="objects/WorldTrigger" to="objects/WorldTrigger" method="_on_WorldTrigger_body_entered"]

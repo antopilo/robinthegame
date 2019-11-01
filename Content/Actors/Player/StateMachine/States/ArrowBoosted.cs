@@ -1,0 +1,50 @@
+using System;
+using Godot;
+
+public class ArrowBoosted : IState
+{
+    string IState.StateName => "ArrowBoosted";
+
+    private Vector2 m_velocity;
+
+    void IState.Enter(ref Player host)
+    {
+        host.Jump(2f);
+        m_velocity = host.Velocity;
+
+        host.Velocity = m_velocity;
+        host.StateMachine.SetState("Air");
+    }
+
+    void IState.Exit(ref Player host)
+    {
+        host.Velocity = m_velocity;
+    }
+
+    void IState.Update(ref Player host, float delta)
+    {
+        ApplyGravity();
+
+        UpdateSprite(ref host);
+
+        if(m_velocity.y > 0f)
+            host.StateMachine.SetState("Air");
+
+        // Move the player.
+        host.MoveAndSlide(m_velocity, new Vector2(0, -1));
+    }
+
+    private void ApplyGravity()
+    {
+        m_velocity.y += Air.GRAVITY;
+    }
+
+    private void UpdateSprite(ref Player host)
+    {
+        if (m_velocity.y >= 0)
+            host.Sprite.Play("Falling");
+        else
+            host.Sprite.Play("Jump");
+    }
+}
+

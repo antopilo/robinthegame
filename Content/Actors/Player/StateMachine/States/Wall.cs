@@ -6,12 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+public enum WallDirection
+{
+    LEFT = -1, NONE = 0, RIGHT = 1
+}
+
 class Wall : IState
 {
     public string StateName => "Wall";
 
     private Vector2 m_velocity = new Vector2();
-    private int m_wallDirection = 0;
+    private WallDirection m_wallDirection = 0;
     private float wallFallMult = 0;
     private const float MAX_FALL_SPEED = 30f;
 
@@ -33,7 +38,11 @@ class Wall : IState
 
         // If the player is sliding down a wall and he hits the floow.
         // Make him switch state to idle.
-        if (host.IsOnFloor())
+
+        if(Air.LandedOnArrow(ref host))
+            host.StateMachine.SetState("ArrowBoostGrace");
+            
+        else if (host.IsOnFloor())
             host.StateMachine.SetState("Idle");
 
         UpdateInput(ref host);
@@ -44,7 +53,7 @@ class Wall : IState
         else
             host.Sprite.Play("Falling");
 
-        if (m_wallDirection == 0)
+        if (m_wallDirection == WallDirection.LEFT)
             host.Sprite.FlipH = false;
         else
             host.Sprite.FlipH = true;
@@ -55,7 +64,7 @@ class Wall : IState
 
         // Max fall speed
         // TODO: CHANGE MAGIC VALUE.
-        m_velocity.y = Mathf.Clamp(m_velocity.y, -999, MAX_FALL_SPEED);
+        m_velocity.y = Mathf.Clamp(m_velocity.y, -Mathf.Inf, MAX_FALL_SPEED);
 
         // Move the player.
         host.MoveAndSlide(m_velocity, new Vector2(0, -1));
@@ -68,9 +77,9 @@ class Wall : IState
 
     private void UpdateInput(ref Player host)
     {
-        if (Input.IsActionPressed("Left") && m_wallDirection == -1)
+        if (Input.IsActionPressed("Left") && m_wallDirection == WallDirection.LEFT)
             host.StateMachine.SetState("Air");
-        else if (Input.IsActionPressed("Right") && m_wallDirection == 1)
+        else if (Input.IsActionPressed("Right") && m_wallDirection == WallDirection.RIGHT)
             host.StateMachine.SetState("Air");
     }
 

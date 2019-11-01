@@ -64,7 +64,10 @@ class Air : IState
         host.MoveAndSlide(m_velocity, new Vector2(0, -1));
 
         // If is on the ground, change state.
-        if (host.IsOnFloor())
+        if(LandedOnArrow(ref host))
+            host.StateMachine.SetState("ArrowBoostGrace");
+
+        else if (host.IsOnFloor())
             host.StateMachine.SetState("Moving");
 
         ApplyGravity(ref host);
@@ -82,7 +85,7 @@ class Air : IState
         var NormalRight = new Vector2(-1, 0);
         var NormalCeiling = new Vector2(0, 1);
 
-        if ((Collision.Normal == NormalLeft || Collision.Normal == NormalRight))
+        if ((Collision.Normal == NormalLeft & InputDirection.x == -1 || Collision.Normal == NormalRight & InputDirection.x == 1))
             host.StateMachine.SetState("Wall");
             
 
@@ -155,13 +158,6 @@ class Air : IState
     }
 
 
-    private void WallJump(ref Player host)
-    {
-        var JumpDirection = 0;
-
-       
-    }
-
 
     private void ApplyGravity(ref Player host)
     {
@@ -192,7 +188,28 @@ class Air : IState
         var NormalRight = new Vector2(-1, 0);
         var NormalCeiling = new Vector2(0, 1);
 
-        host.WallDirection = Collision.Normal == NormalLeft ? 1 : 0;
+        host.WallDirection = Collision.Normal == NormalLeft ? WallDirection.RIGHT : WallDirection.LEFT;
+    }
+
+
+    public static bool LandedOnArrow(ref Player host)
+    {
+        var CollisionCount = host.GetSlideCount() - 1;
+
+        KinematicCollision2D col;
+        if (CollisionCount > -1)
+        {
+            col = host.GetSlideCollision(CollisionCount);
+
+             if (col.Collider is Arrow && col.Normal == new Vector2(0, -1))
+             {
+                ((Arrow)col.Collider).TiltDown();
+                return true;
+             }
+                
+        }
+       
+        return false;
     }
 }
 

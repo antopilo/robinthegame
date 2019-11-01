@@ -129,25 +129,30 @@ public class FallingBlock3x3 : KinematicBody2D
     private void CheckTouch()
     {
         // Get collision
-        Collision = MoveAndCollide(Velocity, true, true, true);
+        Collision = MoveAndCollide(Velocity, false, true, true);
 
         if (Collision == null)
             return;
         
-        if((Collision.GetCollider() is Player && (Collision.GetCollider() as Player).Alive))
+        if((Collision.Collider is Player && ((Player)Collision.Collider ).Alive))
         {
             Triggered = true;
-            Frozen = true;
-            (Root.Player.Camera as Camera).Shake(2f, 0.05f);
-            this.GlobalPosition = new Vector2(Mathf.Stepify(GlobalPosition.x, 8), Mathf.Stepify(GlobalPosition.y, 8));
-            if(HasNode("Impact"))
-                (GetNode("Impact") as AudioStreamPlayer).Play(0);
+            // If the collision happens under the block. Kill.
+            if(Collision.Normal == new Vector2(0, -1))
+            {
+                (Root.Player.Camera as Camera).Shake(1f, 0.05f);
+            }
+            //Frozen = true;
+            
+            //this.GlobalPosition = new Vector2(Mathf.Stepify(GlobalPosition.x, 8), Mathf.Stepify(GlobalPosition.y, 8));
+            //if(HasNode("Impact"))
+            //    (GetNode("Impact") as AudioStreamPlayer).Play(0);
         }
             
 
         // If it is a tile or a falling block that is frozen.
-        if(Triggered && Collision.Normal == new Vector2(0, -1) && (Collision.GetCollider() is TileMap || 
-            (Collision.GetCollider() is FallingBlock3x3 && (Collision.GetCollider() as FallingBlock3x3).Frozen)) )
+        if(Triggered && Collision.Normal == new Vector2(0, -1) && (Collision.Collider is TileMap || 
+            (Collision.Collider is FallingBlock3x3 && (Collision.Collider as FallingBlock3x3).Frozen)) )
         {
             Frozen = true;
             (Root.Player.Camera as Camera).Shake(2f, 0.05f);
