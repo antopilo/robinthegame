@@ -28,7 +28,7 @@ public class Level : Node2D
 
     #region Entities
     private PackedScene FallingPlatform, Spike, JumpPad,Door, Key,Extender,Spawn,FallBlock,JumpThroughPlatform,Coin,DartShooter, 
-        FallingBlock3x3, FallingBlock3x4, FallingBlock4x4, FallingBlock4x5, FallingBlock5x4;
+        FallingBlock3x3, FallingBlock3x4, FallingBlock4x4, FallingBlock4x5, FallingBlock5x4, Pole;
 
 
     #endregion
@@ -68,6 +68,7 @@ public class Level : Node2D
         FallingBlock4x4 = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Core/FallingBlock/FallingBlock4x4.tscn") as PackedScene;
         FallingBlock4x5 = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Core/FallingBlock/FallingBlock4x5.tscn") as PackedScene;
         FallingBlock5x4 = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Core/FallingBlock/FallingBlock5x4.tscn") as PackedScene;
+        Pole = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Pole/Pole.tscn") as PackedScene;
 
         Player = GetNode("../Player") as Player;
         Entities = GetNode("objects");
@@ -218,6 +219,9 @@ public class Level : Node2D
                     break;
                 case 14:
                     PlaceEntity(Tile, "FallingBlock5x4", FallingBlock5x4);
+                    break;
+                case 15:
+                    PlaceEntity(Tile, "Pole", Pole);
                     break;
             }
         }

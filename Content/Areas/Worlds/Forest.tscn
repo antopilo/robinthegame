@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Content/Areas/_Global/GameController.cs" type="Script" id=1]
 [ext_resource path="res://Content/Areas/_Global/Levels/test.tscn" type="PackedScene" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://Content/Areas/Forest/Levels/MainHub.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Content/Actors/Player/Player.tscn" type="PackedScene" id=29]
 [ext_resource path="res://Content/_Core/Camera.cs" type="Script" id=30]
+[ext_resource path="res://Content/Areas/Forest/Testing/JumpGround.tscn" type="PackedScene" id=31]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 168, 10 )
@@ -303,7 +304,10 @@ position = Vector2( 2176, -448 )
 [node name="debug" parent="." groups=[
 "level",
 ] instance=ExtResource( 27 )]
-position = Vector2( -1000, -488 )
+position = Vector2( -1058.31, -707.344 )
+
+[node name="jumpground" parent="." instance=ExtResource( 31 )]
+position = Vector2( -1456.08, -1040.97 )
 
 [node name="village" parent="." groups=[
 "level",

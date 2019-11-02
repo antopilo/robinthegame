@@ -84,6 +84,7 @@
     <Compile Include="Content\Areas\_Global\Entities\Hazards\DartShooter\DartShooter.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Hazards\DartShooter\Dart\Dart.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Platforming\Lift\Lift.cs" />
+    <Compile Include="Content\Areas\_Global\Entities\Pole\Pole.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Bell\Bell.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Bell\SongPuzzle.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Puzzle\Door\DoorPuzzle.cs" />
@@ -138,6 +139,10 @@
     <None Include="packages.config" />
     <Compile Include="Content\Actors\Player\StateMachine\States\ArrowBoostGrace.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\ArrowBoosted.cs" />
+    <Compile Include="Content\UI\Debug\DebugPrinter.cs" />
+    <Compile Include="Content\UI\Debug\DebugViewer.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\PoleGrace.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\PoleBoost.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

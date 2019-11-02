@@ -10,11 +10,7 @@
 [ext_resource path="res://Content/Art/Sprites/Entities/Extender/extender7.png" type="Texture" id=8]
 [ext_resource path="res://Content/Art/Sprites/Entities/Extender/extender8.png" type="Texture" id=9]
 
-
-
-
 [sub_resource type="SpriteFrames" id=1]
-
 animations = [ {
 "frames": [  ],
 "loop": true,
@@ -33,13 +29,9 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
 extents = Vector2( 8, 12 )
 
 [sub_resource type="RectangleShape2D" id=3]
-
-custom_solver_bias = 0.0
 extents = Vector2( 8, 2 )
 
 [node name="extender" type="Node2D"]
@@ -53,36 +45,16 @@ frame = 7
 
 [node name="collision" type="StaticBody2D" parent="."]
 position = Vector2( 8, 12 )
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
 
 [node name="shape" type="CollisionShape2D" parent="collision"]
 shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 8, 6 )
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
 
 [node name="shape" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="."]
-repeat = false
-playback_process_mode = 1
-playback_speed = 1.0
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
-
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

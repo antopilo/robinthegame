@@ -58,6 +58,7 @@ public class Arrow : KinematicBody2D
 
     public void Jiggle()
     {
+        T2.StopAll();
         T2.InterpolateProperty(this, "rotation_degrees", TargetRotation - 45, TargetRotation, 0.8f,
             Tween.TransitionType.Elastic, Tween.EaseType.Out);
         T2.Start();
@@ -65,6 +66,7 @@ public class Arrow : KinematicBody2D
 
     public void TiltDown()
     {
+        T2.StopAll();
         T2.InterpolateProperty(this, "rotation_degrees", TargetRotation , TargetRotation - 15, 0.8f,
             Tween.TransitionType.Elastic, Tween.EaseType.Out);
         T2.Start();
@@ -72,6 +74,7 @@ public class Arrow : KinematicBody2D
 
     public void Reset()
     {
+        T2.StopAll();
         T2.InterpolateProperty(this, "rotation_degrees", this.RotationDegrees , TargetRotation, 0.2f,
             Tween.TransitionType.Linear, Tween.EaseType.Out);
         T2.Start();

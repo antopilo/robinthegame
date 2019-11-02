@@ -16,6 +16,7 @@ cast_to = Vector2( 0, 320 )
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 8, 8 )
+collision_use_parent = true
+collision_use_kinematic = true
 format = 1
 tile_data = PoolIntArray( 0, 0, 1, 1, 0, 65536, 2, 0, 65537, 3, 0, 131072, 65536, 0, 196611, 65537, 0, 262144, 65538, 0, 262144, 65539, 0, 327683, 131072, 0, 196611, 131073, 0, 262144, 131074, 0, 262145, 131075, 0, 327680, 196608, 0, 393217, 196609, 0, 458752, 196610, 0, 458753, 196611, 0, 524289 )
-

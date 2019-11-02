@@ -36,7 +36,7 @@ class Idle : IState
 
         host.MoveAndSlide(m_velocity, new Vector2(0, -1));
 
-        if (!host.IsOnFloor())
+        if (!host.IsOnFloor() && host.GetSlideCount() == 0)
             host.StateMachine.SetState("Air");
     }
 

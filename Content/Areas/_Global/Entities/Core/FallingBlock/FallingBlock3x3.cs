@@ -23,7 +23,7 @@ public class FallingBlock3x3 : KinematicBody2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        MakeCollision();
+        //MakeCollision();
 
         Origin = Position; // Get start position for reset.
 
@@ -129,7 +129,7 @@ public class FallingBlock3x3 : KinematicBody2D
     private void CheckTouch()
     {
         // Get collision
-        Collision = MoveAndCollide(Velocity, false, true, true);
+        Collision = MoveAndCollide(Velocity, true, true, true);
 
         if (Collision == null)
             return;
@@ -156,7 +156,7 @@ public class FallingBlock3x3 : KinematicBody2D
         {
             Frozen = true;
             (Root.Player.Camera as Camera).Shake(2f, 0.05f);
-            this.GlobalPosition = new Vector2(Mathf.Stepify(GlobalPosition.x, 8), Mathf.Stepify(GlobalPosition.y, 8));
+            this.GlobalPosition = new Vector2(Mathf.Stepify(GlobalPosition.x, 4), Mathf.Stepify(GlobalPosition.y, 4) + 1f);
             if(HasNode("Impact"))
                 (GetNode("Impact") as AudioStreamPlayer).Play(0);
 

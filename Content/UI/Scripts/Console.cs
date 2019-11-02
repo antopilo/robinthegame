@@ -47,12 +47,14 @@ public class Console : Control
                 ConsoleInput.GrabFocus();
                 ConsoleInput.Visible = true;
                 ConsoleInput.Clear();
+                
                 Root.Player.CanControl = false;
             }
             else // Hide
             {
                 Visible = false;
                 ConsoleInput.Visible = true;
+                Engine.TimeScale = 1f;
                 ConsoleInput.ReleaseFocus();
                 ConsoleInput.Clear();
                 Root.Player.CanControl = true;

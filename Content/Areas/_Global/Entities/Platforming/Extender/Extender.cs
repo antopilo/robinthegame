@@ -34,7 +34,7 @@ public class Extender : Node2D
         if (pAnim == "extend")
             Destination = new Vector2(8f, -4f);
         else
-            Destination = new Vector2(-8f, 4f);
+            Destination = new Vector2(8f, 12f);
         T.InterpolateProperty(Collision, "position", Collision.Position, Destination, 0.5f,
                     Tween.TransitionType.Linear, Tween.EaseType.InOut);
         T.Start();

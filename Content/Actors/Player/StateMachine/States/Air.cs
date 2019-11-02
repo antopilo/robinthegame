@@ -24,6 +24,7 @@ class Air : IState
 
     public void Enter(ref Player host)
     {
+        host.RunDust.Emitting = false;
         m_velocity = host.Velocity;
 
         if (host.WasOnGround)
@@ -64,7 +65,7 @@ class Air : IState
         host.MoveAndSlide(m_velocity, new Vector2(0, -1));
 
         // If is on the ground, change state.
-        if(LandedOnArrow(ref host))
+        if(LandedOnArrow(ref host) && Input.IsActionPressed("Jump"))
             host.StateMachine.SetState("ArrowBoostGrace");
 
         else if (host.IsOnFloor())
@@ -85,7 +86,8 @@ class Air : IState
         var NormalRight = new Vector2(-1, 0);
         var NormalCeiling = new Vector2(0, 1);
 
-        if ((Collision.Normal == NormalLeft & InputDirection.x == -1 || Collision.Normal == NormalRight & InputDirection.x == 1))
+        if ((Collision.Normal == NormalLeft  & InputDirection.x == -1 || 
+             Collision.Normal == NormalRight & InputDirection.x == 1) && m_velocity.y < 0)
             host.StateMachine.SetState("Wall");
             
 
@@ -202,10 +204,7 @@ class Air : IState
             col = host.GetSlideCollision(CollisionCount);
 
              if (col.Collider is Arrow && col.Normal == new Vector2(0, -1))
-             {
-                ((Arrow)col.Collider).TiltDown();
                 return true;
-             }
                 
         }
        

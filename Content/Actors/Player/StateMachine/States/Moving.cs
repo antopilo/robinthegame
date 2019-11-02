@@ -47,6 +47,10 @@ class Moving : IState
         if (InputDirection.x == 0)
             m_velocity.x -= DECELERATION * Mathf.Sign(m_velocity.x);
 
+        if((LeftWallCheck(ref host)  & InputDirection.x == -1) ||
+           (RightWallCheck(ref host) & InputDirection.x ==  1))
+            m_velocity.x = 0;
+
         // Snap the value to 0 if hes is still moving a little bit.
         // Make sure that the player actually stops. 
         if (Mathf.Abs(m_velocity.x) < 10 && InputDirection.x == 0)
@@ -59,16 +63,31 @@ class Moving : IState
         // Sets velocity for state transition.
         host.Velocity = m_velocity;
 
-        // Move the player.
-        host.MoveAndSlide(m_velocity, new Vector2(0, -1));
+
+        DebugPrinter.AddDebugItem("Velocity", m_velocity.ToString());
 
         // If is on the ground, change state.
         if (!host.IsOnFloor())
         {
             host.StateMachine.SetState("Air");
         }
+        // Move the player.
+        host.MoveAndSlide(m_velocity, new Vector2(0, -1));
+
+        host.RunDust.Emitting = InputDirection.x != 0;
+
+        
     }
 
+    private bool LeftWallCheck(ref Player host)
+    {
+        return ((RayCast2D)host.GetNode("Raycasts/Left")).IsColliding();
+    }
+
+    private bool RightWallCheck(ref Player host)
+    {
+        return ((RayCast2D)host.GetNode("Raycasts/Right")).IsColliding();
+    }
 
     private void GetInputDirection(ref Player host)
     {
@@ -128,7 +147,26 @@ class Moving : IState
 
     public void Exit(ref Player host)
     {
+        host.RunDust.Emitting = false;
+    }
 
+    public bool CheckWalls(ref Player host)
+    {
+        var CollisionCount = host.GetSlideCount() - 1;
+        KinematicCollision2D col = null;
+        if (CollisionCount > -1)
+        {
+            for(int i = 0; i < CollisionCount; i++)
+            {
+                col = host.GetSlideCollision(i);
+
+                // hit a wall
+                if(col.Normal == new Vector2(1, 0) || col.Normal == new Vector2(-1, 0))
+                    return true;
+            }
+
+        }
+        return false;
     }
 }
 

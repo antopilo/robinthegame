@@ -8,7 +8,7 @@ public class Player : KinematicBody2D
 	public AnimatedSprite Sprite { get; private set; }
 	public Camera Camera { get; private set; }
 	public Arrow Arrow { get; set; }
-	private Particles2D RunDust;
+	public Particles2D RunDust;
 
 	public float InputStrength = 1.0f;
 
@@ -90,6 +90,8 @@ public class Player : KinematicBody2D
 		StateMachine.AddState(new Sit());
 		StateMachine.AddState(new ArrowBoostGrace());
 		StateMachine.AddState(new ArrowBoosted());
+		StateMachine.AddState(new PoleGrace());
+		// StateMachine.AddState(new PoleBoost());
 
 		StateMachine.SetState("Moving");
 	}
@@ -107,12 +109,16 @@ public class Player : KinematicBody2D
 	public override void _PhysicsProcess(float delta)
 	{
 		GetReference();
+
 		StateMachine.Update(delta);
+
 		Sounds(delta); // Handles player sounds
 		Particles(); // Handles player particles
 		GetArrow();
 		GetInteractable();
 
+		DebugPrinter.AddDebugItem("State", StateMachine.CurrentState.StateName);
+		DebugPrinter.AddDebugItem("Position", new Vector2((int)Position.x,(int)Position.y).ToString());
 		DeltaTime += delta;
 		FootStepTimer += delta;
 	}
@@ -127,7 +133,7 @@ public class Player : KinematicBody2D
 	private void Particles()
 	{
 		WallJumpDust.Emitting = IsWallJumping;
-		RunDust.Emitting = InputDirectionX != 0 && State == States.Ground;
+		
 	}
 
 	private void Sounds(float delta)
@@ -349,9 +355,31 @@ public class Player : KinematicBody2D
 			InteractableObject.Remove(pObject);
 	}
 
+	// Detection of interactable objects
+    private void _on_InteractionRange_area_entered(object area)
+    {
+        var parent = (area as Area2D).GetParent() as Node2D;
+        if(parent.HasMethod("Interact")){
+            if((parent.Get("CanInteract") as bool?) == false)
+                return;
+            InteractableObject.Insert(0, parent);
+        }
+    }
+
+    private void _on_InteractionRange_area_exited(object area)
+    {
+        var parent = (area as Area2D).GetParent() as Node2D;
+        if(parent.HasMethod("Interact"))
+            InteractableObject.Remove(parent);
+    } 
+
 	// Detection of interactable o
 	#endregion
 
-
+	private void _on_DisableInput_timeout()
+    {
+        CanControl = true;
+        IsWallJumping = false;
+    }
 	
 }

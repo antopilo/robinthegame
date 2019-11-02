@@ -48,7 +48,7 @@ public class Dart : Node2D
     public void Destroy()
     {
         (GetNode("Sprite") as Sprite).Visible = false;
-        (GetNode("Break") as AudioStreamPlayer).Play();
+        // (GetNode("Break") as AudioStreamPlayer).Play();
         SetPhysicsProcess(false);
         
         CallDeferred("SetDisabled, true", GetNode("Area2D/CollisionShape2D") as CollisionShape2D);

@@ -3,14 +3,11 @@
 [ext_resource path="res://Content/UI/Fonts/Pixeled.ttf" type="DynamicFontData" id=1]
 
 [resource]
-
 size = 20
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = false
-use_filter = false
-extra_spacing_top = 2
+use_filter = true
+extra_spacing_top = 7
+extra_spacing_bottom = -7
 extra_spacing_char = 3
 font_data = ExtResource( 1 )
-_sections_unfolded = [ "Extra Spacing", "Font", "Settings", "font_data" ]
-
