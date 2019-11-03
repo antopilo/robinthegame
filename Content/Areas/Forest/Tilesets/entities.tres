@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=10 format=2]
+[gd_resource type="TileSet" load_steps=11 format=2]
 
 [ext_resource path="res://Content/Art/Sprites/Entities/ent_global.png" type="Texture" id=1]
 [ext_resource path="res://Content/Art/Sprites/Entities/FallingBlocks/3x3Grass.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Content/Art/Sprites/Entities/JumpPad/jumpPad1.png" type="Texture" id=7]
 [ext_resource path="res://Content/Art/Sprites/Entities/Spike/Spike.png" type="Texture" id=8]
 [ext_resource path="res://Content/Art/Sprites/Entities/Pole/Pole.png" type="Texture" id=9]
+[ext_resource path="res://Content/Art/Sprites/Entities/Hook/Hook.png" type="Texture" id=10]
 
 [resource]
 0/name = "Door"
@@ -171,3 +172,13 @@
 15/navigation_offset = Vector2( 0, 0 )
 15/shapes = [  ]
 15/z_index = 0
+16/name = "Hook.png 16"
+16/texture = ExtResource( 10 )
+16/tex_offset = Vector2( 0, 0 )
+16/modulate = Color( 1, 1, 1, 1 )
+16/region = Rect2( 0, 0, 8, 8 )
+16/tile_mode = 0
+16/occluder_offset = Vector2( 0, 0 )
+16/navigation_offset = Vector2( 0, 0 )
+16/shapes = [  ]
+16/z_index = 0

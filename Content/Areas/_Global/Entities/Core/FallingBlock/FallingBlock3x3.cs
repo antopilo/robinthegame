@@ -23,7 +23,7 @@ public class FallingBlock3x3 : KinematicBody2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        //MakeCollision();
+        MakeCollision();
 
         Origin = Position; // Get start position for reset.
 
@@ -71,23 +71,25 @@ public class FallingBlock3x3 : KinematicBody2D
     // Make the collision in relation with the size of the falling block.
     private void MakeCollision()
     {
-        float margin = GetSafeMargin();
+        float margin = this.Collision__safeMargin;
 
         // Turning off tilemap collisions
         var tm = GetNode("TileMap") as TileMap;
         tm.SetCollisionLayerBit(0,false);
         tm.SetCollisionMaskBit(0,false);
+    
         tm.ShowBehindParent = true; 
 
         // Adding the collision.
         var collisionShape = new CollisionShape2D()
         {
             Name = "Collision",
-            Position = new Vector2((Dimension.x * 8) / 2f , (Dimension.y * 8 ) / 2) ,
+            Position = new Vector2((Dimension.x * 8) / 2f , (Dimension.y  * 8 ) / 2) ,
             Shape = new RectangleShape2D()
             {
-                Extents = new Vector2((Dimension.x * 8 - (margin * 2)) / 2 , ((Dimension.y * 8) - (GetSafeMargin() * 2)) / 2 )
-            }
+                Extents = new Vector2((Dimension.x * 8 - (margin * 2)) / 2 , ((Dimension.y * 8)) / 2 )
+            },
+            
         };
 
         // Adding killzone under the block.
@@ -156,7 +158,7 @@ public class FallingBlock3x3 : KinematicBody2D
         {
             Frozen = true;
             (Root.Player.Camera as Camera).Shake(2f, 0.05f);
-            this.GlobalPosition = new Vector2(Mathf.Stepify(GlobalPosition.x, 4), Mathf.Stepify(GlobalPosition.y, 4) + 1f);
+            this.GlobalPosition = new Vector2(Mathf.Stepify(GlobalPosition.x, 4), Mathf.Stepify(GlobalPosition.y, 4));
             if(HasNode("Impact"))
                 (GetNode("Impact") as AudioStreamPlayer).Play(0);
 

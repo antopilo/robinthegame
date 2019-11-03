@@ -18,6 +18,9 @@ margin_bottom = 1080.0
 mouse_filter = 2
 stretch = true
 stretch_shrink = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Viewport" type="Viewport" parent="Game"]
 size = Vector2( 320, 180 )

@@ -143,6 +143,9 @@
     <Compile Include="Content\UI\Debug\DebugViewer.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\PoleGrace.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\PoleBoost.cs" />
+    <Compile Include="Content\Actors\Player\Arrow\Scripts\HookArrow.cs" />
+    <Compile Include="Content\Areas\_Global\Entities\Hook\Hook.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Hooked.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

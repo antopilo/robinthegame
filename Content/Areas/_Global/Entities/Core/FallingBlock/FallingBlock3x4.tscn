@@ -19,7 +19,8 @@ cast_to = Vector2( 0, 320 )
 show_behind_parent = true
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 8, 8 )
-collision_use_parent = true
+collision_layer = 0
+collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 0, 1, 1, 1, 1, 65536, 2, 1, 131074, 65536, 1, 196608, 65537, 1, 262146, 65538, 1, 327683, 131072, 1, 196610, 131073, 1, 262145, 131074, 1, 327680, 196608, 1, 393216, 196609, 1, 458752, 196610, 1, 524290 )
 
@@ -27,7 +28,6 @@ tile_data = PoolIntArray( 0, 1, 1, 1, 1, 65536, 2, 1, 131074, 65536, 1, 196608, 
 show_behind_parent = true
 tile_set = ExtResource( 3 )
 cell_size = Vector2( 8, 8 )
-collision_use_kinematic = true
 format = 1
 tile_data = PoolIntArray( 131074, 8, 65537, 196609, 8, 65538, 196610, 8, 2 )
 

@@ -46,7 +46,7 @@ show_behind_parent = true
 tile_set = ExtResource( 5 )
 cell_size = Vector2( 8, 8 )
 format = 1
-tile_data = PoolIntArray( 1179687, 5, 0, 1245186, 5, 0, 1310735, 3, 0, 1310736, 3, 0, 1310737, 3, 0, 1507346, 12, 0, 2555922, 3, 0, 2555923, 3, 0, 2555924, 3, 0, 2555925, 3, 0, 2752530, 7, 0, 2752531, 7, 0, 2752532, 7, 0, 2752533, 7, 0, 2818050, 5, 0 )
+tile_data = PoolIntArray( 1179687, 5, 0, 1245186, 5, 0, 1310735, 3, 0, 1310736, 3, 0, 1310737, 3, 0, 1507346, 12, 0, 2752530, 7, 0, 2752531, 7, 0, 2752532, 7, 0, 2752533, 7, 0, 2818050, 5, 0 )
 
 [node name="fg_decals" type="TileMap" parent="Layers"]
 show_behind_parent = true
@@ -58,4 +58,3 @@ format = 1
 
 [node name="DebugDraw" parent="." instance=ExtResource( 7 )]
 expand_color = Color( 1, 0, 0, 1 )
-

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class Weapon : Node2D
 {
-    private PackedScene BlueArrowScene, PurpleArrowScene;
+    private PackedScene BlueArrowScene, PurpleArrowScene, HookArrowScene;
     private Player Player;
     private Timer Timer;
     private Position2D Origin;
@@ -20,13 +20,14 @@ public class Weapon : Node2D
     {
         BlueArrowScene = ResourceLoader.Load("res://Content/Actors/Player/Arrow/arrow.tscn") as PackedScene;
         PurpleArrowScene = ResourceLoader.Load("res://Content/Actors/Player/Arrow/ArrowPurple.tscn") as PackedScene;
-
+        HookArrowScene = ResourceLoader.Load("res://Content/Actors/Player/Arrow/ArrowHook.tscn") as PackedScene;
         Player = GetParent() as Player;
         Timer = GetNode("../Timers/Timer") as Timer;
         Origin = GetNode("Arrow_origin") as Position2D;
 
         availableArrows.Add(BlueArrowScene);
         availableArrows.Add(PurpleArrowScene);
+        availableArrows.Add(HookArrowScene);
     }
 
     public override void _Input(InputEvent @event)

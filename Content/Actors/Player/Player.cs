@@ -91,6 +91,8 @@ public class Player : KinematicBody2D
 		StateMachine.AddState(new ArrowBoostGrace());
 		StateMachine.AddState(new ArrowBoosted());
 		StateMachine.AddState(new PoleGrace());
+		StateMachine.AddState(new Hooked());
+		
 		// StateMachine.AddState(new PoleBoost());
 
 		StateMachine.SetState("Moving");

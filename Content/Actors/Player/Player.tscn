@@ -59,21 +59,6 @@ animations = [ {
 "name": "Idle",
 "speed": 3.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": false,
-"name": "Falling",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "lookup",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ) ],
-"loop": true,
-"name": "Face",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "Running",
@@ -84,24 +69,39 @@ animations = [ {
 "name": "Wall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 42 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 33 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 34 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 35 ) ],
-"loop": true,
-"name": "PoleSwing",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 32 ), ExtResource( 29 ), ExtResource( 26 ), ExtResource( 23 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 30 ), ExtResource( 31 ) ],
 "loop": true,
 "name": "Spinning",
 "speed": 25.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "Crouch",
+"name": "lookup",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": false,
+"name": "Falling",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "Ledge",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "Face",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 42 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 33 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 34 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 35 ) ],
+"loop": true,
+"name": "PoleSwing",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Crouch",
 "speed": 5.0
 } ]
 

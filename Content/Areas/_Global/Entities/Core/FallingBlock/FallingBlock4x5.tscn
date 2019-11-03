@@ -6,6 +6,7 @@
 [node name="FallingBlock4x5" type="KinematicBody2D"]
 collision_layer = 3
 script = ExtResource( 1 )
+Dimension = Vector2( 4, 5 )
 
 [node name="DownRaycast" type="RayCast2D" parent="."]
 position = Vector2( 16, 20 )
@@ -15,6 +16,7 @@ cast_to = Vector2( 0, 320 )
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 8, 8 )
-collision_use_parent = true
+collision_layer = 0
+collision_mask = 0
 format = 1
 tile_data = PoolIntArray( 0, 0, 3, 1, 0, 65538, 2, 0, 65536, 3, 0, 131074, 65536, 0, 196609, 65537, 0, 262146, 65538, 0, 262144, 65539, 0, 327682, 131072, 0, 196610, 131073, 0, 262144, 131074, 0, 262144, 131075, 0, 327683, 196608, 0, 196608, 196609, 0, 262144, 196610, 0, 262144, 196611, 0, 327681, 262144, 0, 393216, 262145, 0, 458754, 262146, 0, 458754, 262147, 0, 524289 )
