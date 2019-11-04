@@ -52,7 +52,7 @@ public class Lift : Node2D
             
             Root.Player.GlobalPosition -= LastPosition - Platform.GlobalPosition;
         }
-        else if(PlayerPresent && !Tween.IsActive() && Root.Player.StateMachine.CurrentState is Sit)
+        else if(PlayerPresent && !Tween.IsActive() && Root.Player.StateMachine.CurrentState.StateName == "Sit")
         {
             Root.Player.StateMachine.SetState("Idle");
             Root.Player.AddToInteraction(this);

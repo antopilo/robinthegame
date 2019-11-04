@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Content/Art/Sprites/Entities/ent_global.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.889952, 0.990431 )
+colors = PoolColorArray( 0, 0, 0, 0, 0.372549, 0.372549, 0.372549, 1, 0.552941, 0.552941, 0.552941, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_disable_z = true
+gravity = Vector3( 0, -5, 0 )
+angular_velocity = -360.0
+angular_velocity_random = 0.89
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 3.0
+scale_random = 0.86
+color_ramp = SubResource( 2 )
+
+[sub_resource type="Gradient" id=4]
+colors = PoolColorArray( 0.980392, 0.52549, 0.121569, 1, 0.878431, 0.360784, 0.105882, 1 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 1
+emission_sphere_radius = 2.0
+flag_disable_z = true
+gravity = Vector3( 0, -15, 0 )
+initial_velocity_random = 0.44
+angular_velocity = 270.0
+angular_velocity_random = 0.84
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_random = 0.5
+color_ramp = SubResource( 5 )
+
+[node name="spawn" type="Node2D"]
+pause_mode = 1
+position = Vector2( 4, 4 )
+scale = Vector2( 0.8, 0.8 )
+
+[node name="board" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 1.25, 1.25 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 88, 0, 16, 16 )
+
+[node name="bed" type="Sprite" parent="."]
+position = Vector2( 15, 0 )
+scale = Vector2( 1.25, 1.25 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 104, 0, 16, 8 )
+
+[node name="fire" type="Sprite" parent="."]
+scale = Vector2( 1.25, 1.25 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 120, 0, 8, 8 )
+
+[node name="smoke" type="Particles2D" parent="fire"]
+position = Vector2( 0, -3.99998 )
+amount = 25
+lifetime = 5.0
+preprocess = 40.0
+fixed_fps = 30
+process_material = SubResource( 3 )
+
+[node name="flame" type="Particles2D" parent="fire"]
+amount = 25
+process_material = SubResource( 6 )
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="LightUp" type="AudioStreamPlayer" parent="SFX"]
+pitch_scale = 1.5

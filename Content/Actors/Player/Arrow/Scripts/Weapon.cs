@@ -34,13 +34,11 @@ public class Weapon : Node2D
 	{
         if (CanShoot)
         {
-            if (@event.IsActionPressed("fire"))
-            {
-                CanShoot = false;
-
-                Timer.Start();
-                ShootArrow();
-            }
+            //if (@event.IsActionPressed("fire"))
+            //{
+                
+            //    ShootArrow();
+            //}
             if (@event.IsActionPressed("right_click"))
             {
                 CanShoot = false;
@@ -93,6 +91,9 @@ public class Weapon : Node2D
 
     public void ShootArrow()
     {
+        CanShoot = false;
+
+        Timer.Start();
         Vector2 FinalPosition = Origin.GlobalPosition;
 
         var arrow = availableArrows[SelectedArrow].Instance() as Arrow;

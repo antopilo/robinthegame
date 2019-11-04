@@ -73,7 +73,6 @@
     <Compile Include="Content\Actors\Player\StateMachine\States\Idle.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\JumpPad.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Moving.cs" />
-    <Compile Include="Content\Actors\Player\StateMachine\States\Sit.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Wall.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Walljump.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Collectables\Chest\Chest.cs" />
@@ -134,18 +133,18 @@
     <Compile Include="Content\_Core\Root.cs" />
     <Compile Include="Content\UI\Scripts\SceneTransition.cs" />
     <Compile Include="Content\Art\System\Settings\Settings.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
     <Compile Include="Content\Actors\Player\StateMachine\States\ArrowBoostGrace.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\ArrowBoosted.cs" />
     <Compile Include="Content\UI\Debug\DebugPrinter.cs" />
     <Compile Include="Content\UI\Debug\DebugViewer.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Sit.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\PoleGrace.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\PoleBoost.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Hooked.cs" />
     <Compile Include="Content\Actors\Player\Arrow\Scripts\HookArrow.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Hook\Hook.cs" />
-    <Compile Include="Content\Actors\Player\StateMachine\States\Hooked.cs" />
+    <Compile Include="Content\Areas\_Global\Entities\Props\Stool.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Flute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

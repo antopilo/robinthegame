@@ -78,4 +78,3 @@ corner_size = 3
 line_size = 5
 expand_color = Color( 0.611765, 0.584314, 0.317647, 1 )
 minimum_color = Color( 0.780392, 1, 0, 1 )
-

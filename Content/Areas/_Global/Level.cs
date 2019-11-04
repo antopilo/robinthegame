@@ -27,7 +27,7 @@ public class Level : Node2D
     private const int RenderDistance = 1000;
 
     #region Entities
-    private PackedScene FallingPlatform, Spike, JumpPad,Door, Key,Extender,Spawn,FallBlock,JumpThroughPlatform,Coin,DartShooter, 
+    private PackedScene FallingPlatform, FakeFallingPlatform,Spike, JumpPad,Door, Key,Extender,Spawn,FallBlock,JumpThroughPlatform,Coin,DartShooter, 
         FallingBlock3x3, FallingBlock3x4, FallingBlock4x4, FallingBlock4x5, FallingBlock5x4, Pole, Hook;
 
 
@@ -54,6 +54,7 @@ public class Level : Node2D
 
         // Preload entities Scenes
         FallingPlatform = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Platforming/FallingPlatform/FallingPlatform.tscn") as PackedScene;
+        FakeFallingPlatform = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Platforming/FakeFallingPlatform/FakeFallingPlatform.tscn") as PackedScene;
         Spike = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Hazards/Spike/Spike.tscn") as PackedScene;
         JumpPad = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Platforming/JumpPad/JumpPad.tscn") as PackedScene;
         Door = ResourceLoader.Load("res://Content/Areas/_Global/Entities/Puzzle/Door/Door.tscn") as PackedScene;
@@ -225,6 +226,9 @@ public class Level : Node2D
                     break;
                 case 16:
                     PlaceEntity(Tile, "Hook", Hook);
+                    break;
+                case 17:
+                    PlaceEntity(Tile, "FakeFallingPlatform", FakeFallingPlatform);
                     break;
             }
         }

@@ -51,4 +51,3 @@ playing = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone"]
 position = Vector2( 0, 8 )
 shape = SubResource( 2 )
-

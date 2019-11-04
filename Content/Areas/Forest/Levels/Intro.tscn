@@ -62,4 +62,3 @@ tile_data = PoolIntArray( 1114143, 0, 262144, 1114144, 0, 262144, 1114145, 0, 26
 
 [node name="DebugDraw" parent="." instance=ExtResource( 8 )]
 expand_color = Color( 1, 0, 0, 1 )
-

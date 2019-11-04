@@ -87,11 +87,12 @@ public class Player : KinematicBody2D
 		StateMachine.AddState(new JumpPadded());
 		StateMachine.AddState(new Air());
 		StateMachine.AddState(new Ghost());
-		StateMachine.AddState(new Sit());
 		StateMachine.AddState(new ArrowBoostGrace());
 		StateMachine.AddState(new ArrowBoosted());
 		StateMachine.AddState(new PoleGrace());
+		StateMachine.AddState(new Sit());
 		StateMachine.AddState(new Hooked());
+		StateMachine.AddState(new Flute());
 		
 		// StateMachine.AddState(new PoleBoost());
 

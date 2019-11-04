@@ -20,7 +20,7 @@ public class Arrow : KinematicBody2D
     // Settings n States    
     public bool ControllerMode = false;
     private bool IsControlled = true;
-    private bool Frozen = false;
+    public bool Frozen = false;
     public bool MovingBack = false;
     private bool CanDash = true;
     public float Speed = 0.75f;
@@ -230,6 +230,8 @@ public class Arrow : KinematicBody2D
         Root.Player.ArrowExist = true;
         MovingBack = true;
         SetCollisionLayerBit(0, false);
+
+        
     } 
     #endregion
 
@@ -275,6 +277,8 @@ public class Arrow : KinematicBody2D
     {
         if(key == "rotation_degrees")
             return;
+
+        Player.StateMachine.SetState("Idle");
 
         Weapon.CanShoot = true;
         CallDeferred("queue_free");

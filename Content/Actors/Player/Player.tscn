@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://Content/Actors/Player/Player.cs" type="Script" id=1]
 [ext_resource path="res://Content/Art/Sprites/Player/Statics/idle.png" type="Texture" id=2]
@@ -43,16 +43,62 @@
 [ext_resource path="res://Content/Art/Sprites/Player/PoleSwing/PoleSwinging2.png" type="Texture" id=41]
 [ext_resource path="res://Content/Art/Sprites/Player/PoleSwing/PoleSwinging1.png" type="Texture" id=42]
 [ext_resource path="res://Content/Art/Sprites/Player/PoleSwing/PoleSwinging5.png" type="Texture" id=43]
+[ext_resource path="res://Content/Art/Sprites/Player/Sitting/Sitting3.png" type="Texture" id=44]
+[ext_resource path="res://Content/Art/Sprites/Player/Sitting/Sitting2.png" type="Texture" id=45]
+[ext_resource path="res://Content/Art/Sprites/Player/Sitting/Sitting4.png" type="Texture" id=46]
+[ext_resource path="res://Content/Art/Sprites/Player/Sitting/Sitting1.png" type="Texture" id=47]
+[ext_resource path="res://Content/Art/Sprites/Player/Sitting/Sitting5.png" type="Texture" id=48]
+[ext_resource path="res://Content/Art/Sprites/Player/Flute/Flute3.png" type="Texture" id=49]
+[ext_resource path="res://Content/Art/Sprites/Player/Flute/Flute4.png" type="Texture" id=50]
+[ext_resource path="res://Content/Art/Sprites/Player/Flute/Flute2.png" type="Texture" id=51]
+[ext_resource path="res://Content/Art/Sprites/Player/Flute/Flute5.png" type="Texture" id=52]
+[ext_resource path="res://Content/Art/Sprites/Player/Flute/Flute6.png" type="Texture" id=53]
+[ext_resource path="res://Content/Art/Sprites/Player/Flute/Flute1.png" type="Texture" id=54]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 1
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 54 ), ExtResource( 51 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 52 ), ExtResource( 53 ) ],
+"loop": true,
+"name": "Flute",
+"speed": 3.0
+}, {
 "frames": [ ExtResource( 18 ) ],
 "loop": true,
 "name": "Jump",
 "speed": 0.0
+}, {
+"frames": [ ExtResource( 42 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 33 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 34 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 35 ) ],
+"loop": true,
+"name": "PoleSwing",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Ledge",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": false,
+"name": "Falling",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 48 ), ExtResource( 46 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 47 ) ],
+"loop": true,
+"name": "StandUp",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ), ExtResource( 45 ), ExtResource( 44 ), ExtResource( 46 ), ExtResource( 48 ) ],
+"loop": false,
+"name": "SitDown",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
@@ -69,39 +115,19 @@ animations = [ {
 "name": "Wall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 32 ), ExtResource( 29 ), ExtResource( 26 ), ExtResource( 23 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 30 ), ExtResource( 31 ) ],
-"loop": true,
-"name": "Spinning",
-"speed": 25.0
-}, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "lookup",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": false,
-"name": "Falling",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ ExtResource( 32 ), ExtResource( 29 ), ExtResource( 26 ), ExtResource( 23 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 30 ), ExtResource( 31 ) ],
 "loop": true,
-"name": "Ledge",
-"speed": 5.0
+"name": "Spinning",
+"speed": 25.0
 }, {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
 "name": "Face",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 42 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 33 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 34 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 35 ) ],
-"loop": true,
-"name": "PoleSwing",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "Crouch",
 "speed": 5.0
 } ]
 
@@ -142,8 +168,8 @@ FootStepRate = 2.0
 material = SubResource( 1 )
 position = Vector2( 0, -2 )
 frames = SubResource( 2 )
-animation = "PoleSwing"
-frame = 5
+animation = "Flute"
+frame = 4
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )
@@ -201,7 +227,6 @@ enabled = true
 cast_to = Vector2( 0, 1 )
 
 [node name="Light" type="Light2D" parent="."]
-visible = false
 position = Vector2( 0.0375233, -1.96248 )
 texture = ExtResource( 20 )
 texture_scale = 1.5

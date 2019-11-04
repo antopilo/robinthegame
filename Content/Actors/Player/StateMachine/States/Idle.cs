@@ -34,6 +34,9 @@ class Idle : IState
                 Jump(ref host);
         }
 
+        if(Input.IsActionJustPressed("fire"))
+            host.StateMachine.SetState("Flute");
+
         host.MoveAndSlide(m_velocity, new Vector2(0, -1));
 
         if (!host.IsOnFloor() && host.GetSlideCount() == 0)

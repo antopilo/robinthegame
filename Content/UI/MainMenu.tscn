@@ -20,27 +20,12 @@
 [ext_resource path="res://Content/UI/Transitions/Radial.png" type="Texture" id=18]
 [ext_resource path="res://Content/UI/Fonts/LinuxLibertine.tres" type="DynamicFont" id=19]
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0.919149, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
-
-[sub_resource type="ParticlesMaterial" id=3]
-emission_shape = 2
-emission_box_extents = Vector3( 1, 500, 1 )
-flag_disable_z = true
-spread = 180.0
-gravity = Vector3( 4, 0, 0 )
-angular_velocity = 1.11121e-038
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-angle = -10.5
-angle_random = 1.0
-scale = 5.0
-scale_random = 1.0
-color_ramp = SubResource( 2 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
 [sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 2
@@ -53,11 +38,26 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle = -10.5
 angle_random = 1.0
-scale = 2.0
+scale = 5.0
 scale_random = 1.0
-color_ramp = SubResource( 2 )
+color_ramp = SubResource( 3 )
 
 [sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 500, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 4, 0, 0 )
+angular_velocity = 1.11121e-038
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = -10.5
+angle_random = 1.0
+scale = 2.0
+scale_random = 1.0
+color_ramp = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=6]
 emission_shape = 2
 emission_box_extents = Vector3( 25, 200, 1 )
 flag_disable_z = true
@@ -74,7 +74,7 @@ scale_random = 0.45
 hue_variation = 1.0
 hue_variation_random = 1.0
 
-[sub_resource type="AnimatedTexture" id=6]
+[sub_resource type="AnimatedTexture" id=7]
 frames = 5
 fps = 10.0
 frame_0/texture = ExtResource( 7 )
@@ -87,7 +87,7 @@ frame_3/delay_sec = 0.0
 frame_4/texture = ExtResource( 11 )
 frame_4/delay_sec = 0.0
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 2
 emission_box_extents = Vector3( 25, 200, 1 )
 flag_disable_z = true
@@ -274,7 +274,7 @@ lifetime = 35.0
 preprocess = 146.97
 visibility_rect = Rect2( 0, 0, 2000, 2000 )
 local_coords = false
-process_material = SubResource( 3 )
+process_material = SubResource( 4 )
 texture = ExtResource( 3 )
 
 [node name="1" type="ParallaxLayer" parent="ViewportContainer/Viewport/BG/ParallaxBackground"]
@@ -287,7 +287,7 @@ lifetime = 35.0
 preprocess = 146.97
 visibility_rect = Rect2( 0, 0, 2000, 2000 )
 local_coords = false
-process_material = SubResource( 3 )
+process_material = SubResource( 4 )
 texture = ExtResource( 4 )
 
 [node name="2" type="ParallaxLayer" parent="ViewportContainer/Viewport/BG/ParallaxBackground"]
@@ -308,7 +308,7 @@ lifetime = 35.0
 preprocess = 146.97
 visibility_rect = Rect2( 0, 0, 2000, 2000 )
 local_coords = false
-process_material = SubResource( 4 )
+process_material = SubResource( 5 )
 texture = ExtResource( 6 )
 
 [node name="3" type="ParallaxLayer" parent="ViewportContainer/Viewport/BG/ParallaxBackground"]
@@ -319,8 +319,8 @@ position = Vector2( -193.785, 290.244 )
 amount = 14
 lifetime = 20.0
 preprocess = 146.97
-process_material = SubResource( 5 )
-texture = SubResource( 6 )
+process_material = SubResource( 6 )
+texture = SubResource( 7 )
 
 [node name="Birbs2" type="Particles2D" parent="ViewportContainer/Viewport/BG/ParallaxBackground/3"]
 position = Vector2( 2043.15, 177.144 )
@@ -329,8 +329,8 @@ scale = Vector2( 1, -1 )
 amount = 14
 lifetime = 20.0
 preprocess = 45.16
-process_material = SubResource( 5 )
-texture = SubResource( 6 )
+process_material = SubResource( 6 )
+texture = SubResource( 7 )
 
 [node name="Sprite2" type="Sprite" parent="ViewportContainer/Viewport/BG/ParallaxBackground/3"]
 position = Vector2( -53.173, 884.76 )
@@ -347,7 +347,7 @@ amount = 31
 lifetime = 20.0
 preprocess = 58.06
 randomness = 0.39
-process_material = SubResource( 7 )
+process_material = SubResource( 1 )
 texture = ExtResource( 13 )
 
 [node name="Sprite3" type="Sprite" parent="ViewportContainer/Viewport/BG/ParallaxBackground/4"]
