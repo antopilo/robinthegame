@@ -214,7 +214,6 @@ public class Arrow : KinematicBody2D
 
     /// <summary>
     /// Slowly Moves the arrow to the player using a Tween
-    /// TODO: Make scaling scale from the distance between the player and the arrow(currentPos).
     /// </summary>
     public void ReturnToPlayer()
     {

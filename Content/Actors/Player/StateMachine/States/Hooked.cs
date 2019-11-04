@@ -64,7 +64,6 @@ public class Hooked : IState
         var rotatedY = Mathf.Sin(angle2) * (point.x - center.x) + Mathf.Cos(angle2) * (point.y - center.y) + center.y;
 
 
-
         return new Vector2(rotatedX, rotatedY);
 
     }

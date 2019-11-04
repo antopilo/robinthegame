@@ -320,6 +320,10 @@ position = Vector2( 2272, -184 )
 position = Vector2( -568, 704 )
 scale = Vector2( 0.8, 0.8 )
 
+[node name="test" type="Position2D" parent="Waypoint"]
+position = Vector2( 1496, 55 )
+scale = Vector2( 0.8, 0.8 )
+
 [node name="village" type="Position2D" parent="Waypoint"]
 position = Vector2( 2536, 87.0781 )
 scale = Vector2( 0.8, 0.8 )

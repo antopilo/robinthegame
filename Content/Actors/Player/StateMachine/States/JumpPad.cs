@@ -44,12 +44,21 @@ class JumpPadded : IState
 
     public void Update(ref Player host, float delta)
     {
-        host.MoveAndSlide(m_velocity);
+        
 
         InputDisableTimer -= delta;
 
+        ApplyGravity();
+
         if (InputDisableTimer <= 0)
             host.StateMachine.SetState("Air");
+
+        host.MoveAndSlide(m_velocity);
+    }
+
+    private void ApplyGravity()
+    {
+        m_velocity.y += Air.GRAVITY;
     }
 
 }
