@@ -454,7 +454,8 @@ public class Console : Control
                 break;
             case "PLAY":
                 ConsoleBox.BbcodeText += "\n [color=blue]Recording Playing [/color]";
-
+                ConsoleBox.BbcodeText += "\n [color=blue]" + Root.InputRecorder.GetSequence().Sequence.Count + "[/color]";
+                Root.Player.CurrentSequence = Root.InputRecorder.GetSequence();
                 Root.Player.StateMachine.SetState("MoveTest");
 
                 break;

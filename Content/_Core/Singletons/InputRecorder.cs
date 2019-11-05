@@ -8,6 +8,7 @@ public enum Action
     Press, Release, Tap, Wait
 }
 
+
 public struct InputItem
 {
     public Keys Key;
@@ -15,15 +16,25 @@ public struct InputItem
     public float Duration;
 }
 
+
 public class InputSequence
 {
     public List<InputItem> Sequence;
+    private int Index = 0;
+
 
     public InputSequence(float startDelay)
     {
         Sequence = new List<InputItem>();
         
     }
+
+
+    public void PlaySequence()
+    {
+
+    }
+
 
     // Add a wait action.
     public void AddItem(float duration)
@@ -35,6 +46,7 @@ public class InputSequence
         };
         Sequence.Add(item);
     }
+
 
     // Add a key action.
     public void AddItem(Action action, Keys key)
@@ -50,6 +62,19 @@ public class InputSequence
     public InputItem GetLastItem()
     {
         return Sequence.Last();
+    }
+
+    public InputItem GetNextItem()
+    {
+        
+        var i = Sequence.ElementAt(Index);
+        Index++;
+        return i;
+    }
+
+    public bool SequenceEnded()
+    {
+        return Index + 1 >= Sequence.Count - 1;
     }
 }
 
@@ -69,12 +94,14 @@ public class InputRecorder : Node
     {
         CurrentSequence = new InputSequence(1f);
         Recording = true;
+        CurrentDelay = 0f;
     }
 
     public void StopRecord()
     {
         Recording = false;
     }
+
 
     public override void _Process(float delta)
     {

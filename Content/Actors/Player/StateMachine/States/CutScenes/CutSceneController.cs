@@ -18,7 +18,7 @@ public class CutSceneController : IState
     public const int ACCELERATION = 8;
     public const int DECELERATION = 4;
 
-    private Vector2 InputDirection = new Vector2();
+    public  Vector2 InputDirection = new Vector2();
     private bool Jumping = false;
 
     private Vector2 m_velocity = new Vector2();
@@ -80,10 +80,12 @@ public class CutSceneController : IState
 
     public virtual void Update(ref Player host, float delta)
     {
-        Runner.Update(delta);
+        
 
          // If pressing something, accelerate.
         m_velocity.x += InputDirection.x * ACCELERATION;
+
+        DebugPrinter.AddDebugItem("Input: ", InputDirection.ToString());
 
         // Implements a max speed.
         if (Mathf.Abs(m_velocity.x) > MAX_SPEED)
@@ -102,8 +104,8 @@ public class CutSceneController : IState
             m_velocity.x = 0;
 
         // If the player is idle...
-        if (m_velocity.x == 0 && InputDirection == new Vector2())
-            host.StateMachine.SetState("Idle");
+        //if (m_velocity.x == 0 && InputDirection == new Vector2())
+        //    host.StateMachine.SetState("Idle");
 
         // Sets velocity for state transition.
         host.Velocity = m_velocity;
@@ -112,10 +114,11 @@ public class CutSceneController : IState
         host.MoveAndSlide(m_velocity, new Vector2(0, -1));
         
         UpdateSprite(ref host);
+        
         if(!host.IsOnFloor())
             ApplyGravity(ref host);
         else
-            m_velocity.y = 8;
+            m_velocity.y = 3;
 
     }
 

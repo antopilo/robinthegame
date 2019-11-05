@@ -150,6 +150,7 @@
     <Compile Include="Content\Actors\Player\StateMachine\States\CutScenes\CutSceneController.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\CutScenes\MoveTest.cs" />
     <Compile Include="Content\_Core\Singletons\InputRecorder.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\Cutscene.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

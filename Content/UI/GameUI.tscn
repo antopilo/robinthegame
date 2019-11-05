@@ -496,7 +496,7 @@ caret_blink = true
 
 [node name="ConsoleBox" type="RichTextLabel" parent="Console"]
 margin_left = 21.0
-margin_top = -927.0
+margin_top = -663.0
 margin_right = 503.0
 margin_bottom = 51.0
 custom_styles/normal = SubResource( 5 )
