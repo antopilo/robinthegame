@@ -66,17 +66,17 @@ class Moving : IState
 
         DebugPrinter.AddDebugItem("Velocity", m_velocity.ToString());
 
-        // If is on the ground, change state.
-        if (!host.IsOnFloor())
-        {
-            host.StateMachine.SetState("Air");
-        }
+        
         // Move the player.
         host.MoveAndSlide(m_velocity, new Vector2(0, -1));
 
         host.RunDust.Emitting = InputDirection.x != 0;
 
-        
+        // If is on the ground, change state.
+        if (!host.IsOnFloor())
+        {
+            host.StateMachine.SetState("Air");
+        }
     }
 
     private bool LeftWallCheck(ref Player host)

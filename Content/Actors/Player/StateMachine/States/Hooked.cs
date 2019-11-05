@@ -41,10 +41,10 @@ public class Hooked : IState
         var playerAngle = Mathf.Rad2Deg((Hook.GlobalPosition - host.GlobalPosition).Angle());
         DebugPrinter.AddDebugItem("Angle", playerAngle.ToString());
         
-        if(( - Mathf.Deg2Rad(90)) > Mathf.Deg2Rad((MAX_ANGLE)))
-            direction = -direction;
-        if(((Hook.GlobalPosition - host.GlobalPosition).Angle()- Mathf.Deg2Rad(90)) < Mathf.Deg2Rad((MIN_ANGLE)))
-            direction = -direction;
+        //if(( - Mathf.Deg2Rad(90)) > Mathf.Deg2Rad((MAX_ANGLE)))
+        //    direction = -direction;
+        //if(((Hook.GlobalPosition - host.GlobalPosition).Angle()- Mathf.Deg2Rad(90)) < Mathf.Deg2Rad((MIN_ANGLE)))
+        //    direction = -direction;
 
         if(direction == 1)
             host.GlobalPosition = rotatePoint(host.GlobalPosition, Hook.GlobalPosition, 1f);

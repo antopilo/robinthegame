@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 SceneSwitcher="*res://Content/_Core/Singletons/SceneSwitcher.cs"
 InventoryManager="*res://Content/_Core/Singletons/InventoryManager.cs"
+InputRecorder="*res://Content/_Core/Singletons/InputRecorder.cs"
 
 [debug]
 

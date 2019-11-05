@@ -20,7 +20,9 @@ public class Console : Control
     private string LastCommand = "";
     private string[] Commands = { "QUIT", "SHOWGRID", "SPAWN | RESPAWN", "CONTROLLER", "WINDOW",
                                   "FULLSCREEN", "VSYNC", "BORDERLESS", "SAY", "TP",
-                                  "MOVE", "HELP", "SHAKE", "LOAD", "LW", "GHOST" , "RELOAD" , "HELP", "CLEAR", "INSPECT" };
+                                  "MOVE", "HELP", "SHAKE", "LOAD", "LW", "GHOST" , "RELOAD" , "HELP", 
+                                  "CLEAR", "INSPECT", "SETSTATE", "STARTRECORD", "ENDRECORD" };
+
     private List<string> cache = new List<string>();
 
     public override void _Ready()
@@ -48,7 +50,6 @@ public class Console : Control
                 ConsoleInput.Visible = true;
                 ConsoleInput.Clear();
                 
-                Root.Player.CanControl = false;
             }
             else // Hide
             {
@@ -347,10 +348,19 @@ public class Console : Control
 
                 root.ApplySettings();
                 break;
-
+            case "SETSTATE":
+                if(parameters.Length <= 0)
+                    ConsoleBox.BbcodeText += "\n [color=red]The move Command must follow this pattern: move X Y[/color]";
+                else
+                {
+                    Root.Player.StateMachine.SetState(parameters[0]);
+                    ConsoleBox.BbcodeText += "\n [color=green]Set state to: " + parameters[0] + "[/color]";
+                }
+                break;
             // Say command
             case "SAY":
                 DialogBox.ShowMessage(new_text.Right(4));
+                
                 break;
 
             // Teleport the player to a specified room.
@@ -418,6 +428,35 @@ public class Console : Control
 
                 foreach (string cmd in Commands)
                     ConsoleBox.BbcodeText += "\n " + "[color=red]" + cmd + "[/color]";
+                break;
+            case "STARTRECORD":
+                ConsoleBox.BbcodeText += "\n [color=blue]Recording started [/color]";
+                Root.InputRecorder.StartRecord();
+                break;
+            case "ENDRECORD":
+                ConsoleBox.BbcodeText += "\n [color=blue]Recording ended [/color]";
+                Root.InputRecorder.StopRecord();
+                foreach (var item in Root.InputRecorder.GetSequence().Sequence)
+                {
+                    string line = "";
+                    if(item.Action != Action.Wait)
+                    {
+                        line = item.Action.ToString() + ": " + item.Key.ToString();
+                    }
+                    else
+                    {
+                        line = "wait: " + item.Duration.ToString();
+                    }
+                    ConsoleBox.BbcodeText += "\n - " + line;
+                }
+                Root.Player.CurrentSequence = Root.InputRecorder.GetSequence();
+
+                break;
+            case "PLAY":
+                ConsoleBox.BbcodeText += "\n [color=blue]Recording Playing [/color]";
+
+                Root.Player.StateMachine.SetState("MoveTest");
+
                 break;
 
             default:

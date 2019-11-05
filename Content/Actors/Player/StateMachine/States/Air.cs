@@ -12,7 +12,7 @@ class Air : IState
 
     public const int GRAVITY = 4;
     private const int MAX_SPEED = 90;
-    private const int MAX_AIR_SPEED = 100;
+    public const int MAX_AIR_SPEED = 100;
     private const int ACCELERATION = 8;
     private const int DECELERATION = 4;
 
@@ -161,7 +161,7 @@ class Air : IState
 
 
 
-    private void ApplyGravity(ref Player host)
+    public void ApplyGravity(ref Player host)
     {
         var scale = 1 - ((Mathf.Abs(m_velocity.y) / MAX_AIR_SPEED) / 4);
        // host.Sprite.Scale = new Vector2(Mathf.Clamp(scale, 0.75f, 1), 1);

@@ -286,7 +286,6 @@ public class Arrow : KinematicBody2D
     public void Destroy()
     {
 
-        Weapon.CanShoot = true;
         CallDeferred("queue_free");
     }
 }

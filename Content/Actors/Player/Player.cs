@@ -59,6 +59,8 @@ public class Player : KinematicBody2D
 
 	private float DeltaTime = 0;
 
+	public InputSequence CurrentSequence;
+	
 	//SFX
 	[Export] float FootStepRate = 0f;
 	float FootStepTimer = 0;
@@ -94,6 +96,8 @@ public class Player : KinematicBody2D
 		StateMachine.AddState(new Hooked());
 		StateMachine.AddState(new Flute());
 		
+		// Cutscenes
+		StateMachine.AddState(new MoveTest());
 		// StateMachine.AddState(new PoleBoost());
 
 		StateMachine.SetState("Moving");

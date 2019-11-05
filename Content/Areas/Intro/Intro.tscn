@@ -905,7 +905,7 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id=272]
 shader = SubResource( 271 )
-shader_param/blue_tint = Color( 0.364706, 0.317647, 0.137255, 1 )
+shader_param/blue_tint = Color( 0, 0.678431, 0.854902, 1 )
 shader_param/sprite_scale = Vector2( 2, 4 )
 shader_param/scale_x = 0.67
 

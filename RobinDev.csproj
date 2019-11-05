@@ -138,6 +138,8 @@
     <Compile Include="Content\UI\Debug\DebugPrinter.cs" />
     <Compile Include="Content\UI\Debug\DebugViewer.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Sit.cs" />
+    <Compile Include="Content\Actors\Player\Cutscenes\testCutscene.cs" />
+    <Compile Include="Content\_Core\Coroutines.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\PoleGrace.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\PoleBoost.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Hooked.cs" />
@@ -145,6 +147,9 @@
     <Compile Include="Content\Areas\_Global\Entities\Hook\Hook.cs" />
     <Compile Include="Content\Areas\_Global\Entities\Props\Stool.cs" />
     <Compile Include="Content\Actors\Player\StateMachine\States\Flute.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\CutScenes\CutSceneController.cs" />
+    <Compile Include="Content\Actors\Player\StateMachine\States\CutScenes\MoveTest.cs" />
+    <Compile Include="Content\_Core\Singletons\InputRecorder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

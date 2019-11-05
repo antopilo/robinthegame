@@ -60,64 +60,19 @@ light_mode = 1
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 54 ), ExtResource( 51 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 52 ), ExtResource( 53 ) ],
-"loop": true,
-"name": "Flute",
-"speed": 3.0
-}, {
 "frames": [ ExtResource( 18 ) ],
 "loop": true,
 "name": "Jump",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 42 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 33 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 34 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 35 ) ],
+"frames": [ ExtResource( 54 ), ExtResource( 51 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 52 ), ExtResource( 53 ) ],
 "loop": true,
-"name": "PoleSwing",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "Ledge",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "Crouch",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": false,
-"name": "Falling",
-"speed": 5.0
+"name": "Flute",
+"speed": 3.0
 }, {
 "frames": [ ExtResource( 48 ), ExtResource( 46 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 47 ) ],
 "loop": true,
 "name": "StandUp",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 47 ), ExtResource( 45 ), ExtResource( 44 ), ExtResource( 46 ), ExtResource( 48 ) ],
-"loop": false,
-"name": "SitDown",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 3.0
-}, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "Running",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 16 ) ],
-"loop": true,
-"name": "Wall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "lookup",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 32 ), ExtResource( 29 ), ExtResource( 26 ), ExtResource( 23 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 30 ), ExtResource( 31 ) ],
@@ -128,6 +83,51 @@ animations = [ {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
 "name": "Face",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "Wall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 42 ), ExtResource( 41 ), ExtResource( 36 ), ExtResource( 33 ), ExtResource( 43 ), ExtResource( 37 ), ExtResource( 34 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 35 ) ],
+"loop": true,
+"name": "PoleSwing",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": false,
+"name": "Falling",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Ledge",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ), ExtResource( 45 ), ExtResource( 44 ), ExtResource( 46 ), ExtResource( 48 ) ],
+"loop": false,
+"name": "SitDown",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Running",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "lookup",
 "speed": 5.0
 } ]
 

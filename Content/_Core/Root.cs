@@ -19,6 +19,7 @@ public class Root : Control
     public static Viewport m_viewport;
     public static ViewportContainer GameContainer;
     public static Utilities Utilities;
+    public static InputRecorder InputRecorder;
 
     public static Viewport Viewport 
     {
@@ -33,7 +34,8 @@ public class Root : Control
         // Singletons
         SceneSwitcher = GetNode("/root/SceneSwitcher") as SceneSwitcher;
         InventoryManager = GetNode("/root/InventoryManager") as InventoryManager;
-
+        InputRecorder = GetNode("/root/InputRecorder") as InputRecorder;
+        
         // Get node
         SceneTransition = GetNode("UI") as SceneTransition;
         Utilities = (Utilities)GetNode("UI/Utilities");
