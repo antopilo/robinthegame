@@ -90,6 +90,8 @@ public class GameController : Node2D
             T.Start();
             CurrentRoom.Reload();
             Player.SetPhysicsProcess(true);
+            
+            Root.InputRecorder.SetProcess(true);
         }
 
         if (Root.Player.State != States.Ghost)
@@ -183,6 +185,8 @@ public class GameController : Node2D
         Root.Player.CanControl = true;
         Root.Player.Alive = true;
         Root.Player.SetPhysicsProcess(true);
+        if(Root.InputRecorder != null)
+            Root.InputRecorder.SetProcess(true);
     }
 
     /// <summary>
@@ -193,7 +197,8 @@ public class GameController : Node2D
     {
         // Pausing the player.
         Player.SetPhysicsProcess(false);
-
+        if(Root.InputRecorder != null)
+            Root.InputRecorder.SetProcess(false);
         Tween T;  // If there is no Tween node, then create one and use it.
         if (!HasNode("CameraAreaTween"))
         {
@@ -277,6 +282,7 @@ public class GameController : Node2D
                 Tween.TransitionType.Expo, Tween.EaseType.In, 0.4f);
             T.Start();
             Player.SetPhysicsProcess(false);
+            Root.InputRecorder.SetProcess(false);
         }
             
 
@@ -292,6 +298,8 @@ public class GameController : Node2D
     public void _on_Tween_tween_completed(Godot.Object @object, KeyList @key)
     {
         Root.Player.SetPhysicsProcess(true);
+        
+        Root.InputRecorder.SetProcess(true);
         Root.Player.CanControl = true;
         Root.Player.Alive = true;
     }

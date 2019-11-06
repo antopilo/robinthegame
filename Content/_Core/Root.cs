@@ -32,9 +32,10 @@ public class Root : Control
     public override void _Ready()
     {
         // Singletons
+        
+        InputRecorder = GetNode("/root/InputRecorder") as InputRecorder;
         SceneSwitcher = GetNode("/root/SceneSwitcher") as SceneSwitcher;
         InventoryManager = GetNode("/root/InventoryManager") as InventoryManager;
-        InputRecorder = GetNode("/root/InputRecorder") as InputRecorder;
         
         // Get node
         SceneTransition = GetNode("UI") as SceneTransition;
@@ -57,6 +58,7 @@ public class Root : Control
     public override void  _Process(float delta)
     {
         // Singletons
+        InputRecorder = GetNode("/root/InputRecorder") as InputRecorder;
         SceneSwitcher = GetNode("/root/SceneSwitcher") as SceneSwitcher;
         InventoryManager = GetNode("/root/InventoryManager") as InventoryManager;
 
